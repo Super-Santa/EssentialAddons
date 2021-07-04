@@ -1,0 +1,35 @@
+{
+  "schemaVersion": 1,
+  "id": "essentialaddons",
+  "version": "${version}",
+
+  "name": "Essential Addons",
+  "description": "The place where I add things from the Spigot plugin Essentials, or other features I think are needed for Minecraft.",
+  "authors": [
+    "SuperSanta",
+	"Sensei"
+  ],
+  "contact": {
+    "homepage": "",
+    "sources": "",
+    "issues": ""
+  },
+
+  "license": "CC0-1.0",
+
+  "environment": "*",
+  "entrypoints": {
+    "main": [
+      "essentialaddons.EssentialAddonsServer"
+    ]
+  },
+  "mixins": [
+    "essentialaddons.mixins.json"
+  ],
+
+  "depends": {
+    "minecraft": "1.16.x",
+    "fabricloader": ">=0.10.0",
+    "carpet": ">=1.4.26"
+  }
+}

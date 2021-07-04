@@ -1,0 +1,11 @@
+{
+  "required": true,
+  "package": "essentialaddons.mixins",
+  "compatibilityLevel": "JAVA_8",
+  "mixins": [
+    "SignBlockEntityMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}
