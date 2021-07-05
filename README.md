@@ -5,3 +5,5 @@
 - stackableShulkersInPlayerInventories 
 - disableSpawnChunks
 - combinePotionDuration
+- commandUnlimited
+- commandLagSpike
