@@ -113,7 +113,7 @@ public class EssentialAddonsSettings {
     @Rule(
             desc = "Allows your to edit a sign after its places by right clicking it while sneaking",
             options = {"true", "false"},
-            category = {ESSENTIAL, EXPERIMENTAL}
+            category = {ESSENTIAL, COMMAND, EXPERIMENTAL}
     )
     public static boolean editableSigns = false;
 
@@ -129,7 +129,7 @@ public class EssentialAddonsSettings {
             desc = "Ports cameraModeSurvivalRestrictions from carpet 1.12 into commandCameraMode",
             extra = "Does not allow you to use /cs if you are in danger",
             options = {"false", "true"},
-            category = {ESSENTIAL, EXPERIMENTAL, SURVIVAL}
+            category = {ESSENTIAL, COMMAND, EXPERIMENTAL, SURVIVAL}
     )
     public static boolean cameraModeSurvivalRestrictions = false;
 
@@ -143,28 +143,28 @@ public class EssentialAddonsSettings {
     @Rule(
             desc = "Allows anyone to use the /kick command",
             options = {"false", "true"},
-            category = {ESSENTIAL, SURVIVAL}
+            category = {ESSENTIAL, COMMAND, SURVIVAL}
     )
     public static boolean commandPublicKick = false;
 
     @Rule(
             desc = "Allows anyone to use the /op command",
             options = {"false", "true"},
-            category = {ESSENTIAL, CREATIVE}
+            category = {ESSENTIAL, COMMAND, CREATIVE}
     )
     public static boolean commandPublicOp = false;
 
     @Rule(
             desc = "Allows anyone to use the /scoreboard command",
             options = {"false", "true"},
-            category = {ESSENTIAL, SURVIVAL}
+            category = {ESSENTIAL, COMMAND, SURVIVAL}
     )
     public static boolean commandPublicScoreboard = false;
 
     @Rule(
             desc = "Allows you to always eat cake",
             options = {"false", "true"},
-            category = {ESSENTIAL, SURVIVAL}
+            category = {ESSENTIAL}
     )
     public static boolean cakeAlwaysEat = false;
 }

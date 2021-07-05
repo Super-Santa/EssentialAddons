@@ -3,6 +3,10 @@
   "package": "essentialaddons.mixins",
   "compatibilityLevel": "JAVA_8",
   "mixins": [
+    "CakeBlockMixin",
+    "KickCommandMixin",
+    "OpCommandMixin",
+    "ScoreboardCommandMixin",
     "SignBlockEntityMixin"
   ],
   "injectors": {
