@@ -14,21 +14,16 @@ public class CommandFly {
     public static void register(CommandDispatcher<ServerCommandSource> dispatcher) {
         dispatcher.register(literal("fly").requires((player) -> SettingsManager.canUseCommand(player, EssentialAddonsSettings.commandFly))
                 .executes(context -> {
-
                     ServerPlayerEntity playerEntity = context.getSource().getPlayer();
-
                     if (!playerEntity.abilities.allowFlying) {
                         playerEntity.abilities.allowFlying = true;
                         EssentialAddonsUtils.sendToActionBar(playerEntity, "§6Flying §aEnabled");
-
                     } else {
                         playerEntity.abilities.allowFlying = false;
                         playerEntity.abilities.flying = false;
                         EssentialAddonsUtils.sendToActionBar(playerEntity, "§6Flying §cDisabled");
                     }
-
                     playerEntity.sendAbilitiesUpdate();
-
                     return 1;
                 }));
     }

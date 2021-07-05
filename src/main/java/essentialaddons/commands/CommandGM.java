@@ -15,15 +15,11 @@ public class CommandGM {
 
     public static void register(CommandDispatcher<ServerCommandSource> dispatcher) {
         CommandNode<ServerCommandSource> gamemode = dispatcher.getRoot().getChild("gamemode");
-
             dispatcher.register(setLiteral(((LiteralCommandNode<ServerCommandSource>) gamemode.getChild("creative")).createBuilder(), "gmc").requires((player) -> SettingsManager.canUseCommand(player, EssentialAddonsSettings.commandGM)));
             dispatcher.register(setLiteral(((LiteralCommandNode<ServerCommandSource>) gamemode.getChild("survival")).createBuilder(), "gms").requires((player) -> SettingsManager.canUseCommand(player, EssentialAddonsSettings.commandGM)));
             dispatcher.register(setLiteral(((LiteralCommandNode<ServerCommandSource>) gamemode.getChild("adventure")).createBuilder(), "gma").requires((player) -> SettingsManager.canUseCommand(player, EssentialAddonsSettings.commandGM)));
             dispatcher.register(setLiteral(((LiteralCommandNode<ServerCommandSource>) gamemode.getChild("spectator")).createBuilder(), "gmsp").requires((player) -> SettingsManager.canUseCommand(player, EssentialAddonsSettings.commandGM)));
-
-
     }
-
     private static LiteralArgumentBuilder<ServerCommandSource> setLiteral(LiteralArgumentBuilder<ServerCommandSource> builder, String literal) {
         return literal(literal).requires(builder.getRequirement()).forward(builder.getRedirect(), builder.getRedirectModifier(), builder.isFork()).executes(builder.getCommand());
     }

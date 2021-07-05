@@ -88,12 +88,19 @@ public class EssentialAddonsSettings {
     public static String commandNightVision = "false";
 
     @Rule(
-            desc = "Allows the player to teleport to different dimensions",
-            extra = "If you are in the overworld/nether then it will teleport you to equivalent coords, else it will teleport you to 0,0",
+            desc = "Allows the player to teleport to different dimensions with a simple command",
+            extra = "It will always teleport you to 0,0 in said dimension",
             options = {"ops", "false", "true"},
             category = {ESSENTIAL, COMMAND, CREATIVE}
     )
     public static String commandDimensions = "false";
+
+    @Rule(
+            desc = "Allows the player to teleport between the nether and overworld at equivalent coords",
+            options = {"ops", "false", "true"},
+            category = {ESSENTIAL, COMMAND, CREATIVE}
+    )
+    public static String commandSwitchDimensions = "false";
 
     @Rule(
             desc = "Allows players to warp using /setwarp and /warp",
@@ -132,6 +139,34 @@ public class EssentialAddonsSettings {
             category = {ESSENTIAL, EXPERIMENTAL, SURVIVAL}
     )
     public static boolean cameraModeRestoreLocation = false;
+
+    @Rule(
+            desc = "Allows anyone to use the /kick command",
+            options = {"false", "true"},
+            category = {ESSENTIAL, SURVIVAL}
+    )
+    public static boolean commandPublicKick = false;
+
+    @Rule(
+            desc = "Allows anyone to use the /op command",
+            options = {"false", "true"},
+            category = {ESSENTIAL, CREATIVE}
+    )
+    public static boolean commandPublicOp = false;
+
+    @Rule(
+            desc = "Allows anyone to use the /scoreboard command",
+            options = {"false", "true"},
+            category = {ESSENTIAL, SURVIVAL}
+    )
+    public static boolean commandPublicScoreboard = false;
+
+    @Rule(
+            desc = "Allows you to always eat cake",
+            options = {"false", "true"},
+            category = {ESSENTIAL, SURVIVAL}
+    )
+    public static boolean cakeAlwaysEat = false;
 }
 
 

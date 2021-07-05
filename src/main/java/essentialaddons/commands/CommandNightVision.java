@@ -16,7 +16,6 @@ public class CommandNightVision {
         dispatcher.register(literal("nightvision").requires((player) -> SettingsManager.canUseCommand(player, EssentialAddonsSettings.commandNightVision))
                 .executes(context -> {
                     ServerPlayerEntity playerEntity = context.getSource().getPlayer();
-
                     if (!playerEntity.hasStatusEffect(StatusEffects.NIGHT_VISION)) {
                         playerEntity.addStatusEffect(new StatusEffectInstance(StatusEffects.NIGHT_VISION, 999999, 1));
                         EssentialAddonsUtils.sendToActionBar(playerEntity, "§6Night Vision has been §aenabled");

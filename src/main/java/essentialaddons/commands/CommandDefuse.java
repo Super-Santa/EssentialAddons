@@ -25,11 +25,10 @@ public class CommandDefuse {
                 .then(argument("range", IntegerArgumentType.integer(1))
                         .executes(context -> defuse(context, getTntEntities(context.getSource(), context.getArgument("range", Integer.class))))));
     }
-
+    @SuppressWarnings("unchecked")
     private static Collection<TntEntity> getTntEntities(ServerCommandSource commandSource, int range) throws CommandSyntaxException {
         return (Collection<TntEntity>) EntityArgumentType.entities().parse(new StringReader("@e[type=tnt" + (range == -1 ? "" : ",distance=.." + range) + "]")).getEntities(commandSource);
     }
-
     private static int defuse(CommandContext<ServerCommandSource> context, Collection<TntEntity> tntEntities) throws CommandSyntaxException {
         for (TntEntity tntEntity : tntEntities) {
             tntEntity.kill();

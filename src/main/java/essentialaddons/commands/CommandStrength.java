@@ -6,6 +6,7 @@ import essentialaddons.EssentialAddonsSettings;
 import essentialaddons.EssentialAddonsUtils;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
+import net.minecraft.network.packet.c2s.play.HandSwingC2SPacket;
 import net.minecraft.server.command.ServerCommandSource;
 import net.minecraft.server.network.ServerPlayerEntity;
 
