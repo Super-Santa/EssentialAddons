@@ -118,8 +118,8 @@ public class EssentialAddonsSettings {
     public static boolean editableSigns = false;
 
     @Rule(
-            desc = "Survival friendly spectator mode, similar to the cs script by Kdender",
-            extra = "Saves location after server reset and adds functionality for cameraModeSurvivalRestrictions",
+            desc = "Survival friendly spectator mode, puts the player in and out of spectator mode",
+            extra = "Allows for saving location after server reset using rule cameraModeRestoreLocation and adds functionality for cameraModeSurvivalRestrictions",
             options = {"false", "true"},
             category = {ESSENTIAL, EXPERIMENTAL, SURVIVAL}
     )
@@ -134,7 +134,8 @@ public class EssentialAddonsSettings {
     public static boolean cameraModeSurvivalRestrictions = false;
 
     @Rule(
-            desc = "Restricts the use of /cs when you are in danger",
+            desc = "Restores player location back to original location in survival, similar to the cs script by Kdender",
+            extra = "Saves location even after server restart"
             options = {"false", "true"},
             category = {ESSENTIAL, EXPERIMENTAL, SURVIVAL}
     )
