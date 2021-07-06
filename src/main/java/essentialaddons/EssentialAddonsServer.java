@@ -34,5 +34,6 @@ public class EssentialAddonsServer implements CarpetExtension, ModInitializer {
         CommandWarp.register(dispatcher);
         CommandCameraMode.register(dispatcher);
         CommandSwitchDimensions.register(dispatcher);
+        CommandEnderChest.register(dispatcher);
     }
 }

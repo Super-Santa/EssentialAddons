@@ -135,7 +135,7 @@ public class EssentialAddonsSettings {
 
     @Rule(
             desc = "Restores player location back to original location in survival, similar to the cs script by Kdender",
-            extra = "Saves location even after server restart"
+            extra = "Saves location even after server restart",
             options = {"false", "true"},
             category = {ESSENTIAL, EXPERIMENTAL, SURVIVAL}
     )
@@ -168,6 +168,13 @@ public class EssentialAddonsSettings {
             category = {ESSENTIAL}
     )
     public static boolean cakeAlwaysEat = false;
+
+    @Rule(
+            desc = "Allows you to open your enderchest with /enderchest",
+            options = {"false", "true"},
+            category = {ESSENTIAL, COMMAND, CREATIVE}
+    )
+    public static boolean commandEnderChest = false;
 }
 
 
