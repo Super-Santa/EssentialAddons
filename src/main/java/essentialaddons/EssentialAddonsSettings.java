@@ -113,7 +113,7 @@ public class EssentialAddonsSettings {
     @Rule(
             desc = "Allows your to edit a sign after its places by right clicking it while sneaking",
             options = {"true", "false"},
-            category = {ESSENTIAL, COMMAND, EXPERIMENTAL}
+            category = {ESSENTIAL, COMMAND, EXPERIMENTAL, FEATURE}
     )
     public static boolean editableSigns = false;
 
@@ -121,7 +121,7 @@ public class EssentialAddonsSettings {
             desc = "Survival friendly spectator mode, puts the player in and out of spectator mode",
             extra = "Allows for saving location after server reset using rule cameraModeRestoreLocation and adds functionality for cameraModeSurvivalRestrictions",
             options = {"false", "true"},
-            category = {ESSENTIAL, EXPERIMENTAL, SURVIVAL}
+            category = {ESSENTIAL, COMMAND, EXPERIMENTAL, SURVIVAL, FEATURE}
     )
     public static boolean commandCameraMode = false;
 
@@ -129,7 +129,7 @@ public class EssentialAddonsSettings {
             desc = "Ports cameraModeSurvivalRestrictions from carpet 1.12 into commandCameraMode",
             extra = "Does not allow you to use /cs if you are in danger",
             options = {"false", "true"},
-            category = {ESSENTIAL, COMMAND, EXPERIMENTAL, SURVIVAL}
+            category = {ESSENTIAL, EXPERIMENTAL, SURVIVAL, FEATURE}
     )
     public static boolean cameraModeSurvivalRestrictions = false;
 
@@ -137,7 +137,7 @@ public class EssentialAddonsSettings {
             desc = "Restores player location back to original location in survival, similar to the cs script by Kdender",
             extra = "Saves location even after server restart",
             options = {"false", "true"},
-            category = {ESSENTIAL, EXPERIMENTAL, SURVIVAL}
+            category = {ESSENTIAL, EXPERIMENTAL, SURVIVAL, FEATURE}
     )
     public static boolean cameraModeRestoreLocation = false;
 
@@ -165,16 +165,16 @@ public class EssentialAddonsSettings {
     @Rule(
             desc = "Allows you to always eat cake",
             options = {"false", "true"},
-            category = {ESSENTIAL}
+            category = {ESSENTIAL, EXPERIMENTAL, FEATURE}
     )
     public static boolean cakeAlwaysEat = false;
 
     @Rule(
             desc = "Allows you to open your enderchest with /enderchest",
-            options = {"false", "true"},
+            options = {"ops", "false", "true"},
             category = {ESSENTIAL, COMMAND, CREATIVE}
     )
-    public static boolean commandEnderChest = false;
+    public static String commandEnderChest = "false";
 
     @Rule(
             desc = "Allows all players to change view distance",
@@ -182,6 +182,14 @@ public class EssentialAddonsSettings {
             category = {ESSENTIAL, COMMAND, CREATIVE}
     )
     public static boolean commandPublicViewDistance = false;
+
+    @Rule(
+            desc = "Combines the duration of consumed potions",
+            options = {"false", "true"},
+            category = {ESSENTIAL, EXPERIMENTAL, FEATURE}
+    )
+    public static boolean combinePotionDuration = false;
+
 }
 
 

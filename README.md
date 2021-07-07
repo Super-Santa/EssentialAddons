@@ -2,8 +2,6 @@
 
 - reloadFakePlayers
 - watchDogFix
-- stackableShulkersInPlayerInventories 
-- disableSpawnChunks
-- combinePotionDuration
+- stackableShulkersInPlayerInventories
 - commandUnlimited
 - commandLagSpike
