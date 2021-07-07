@@ -1,12 +1,9 @@
 package essentialaddons.mixins;
 
 import essentialaddons.EssentialAddonsSettings;
-import essentialaddons.EssentialAddonsUtils;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.CakeBlock;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.network.packet.c2s.play.HandSwingC2SPacket;
-import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.stat.Stats;
 import net.minecraft.state.property.IntProperty;
 import net.minecraft.util.ActionResult;

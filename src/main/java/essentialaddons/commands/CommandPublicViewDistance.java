@@ -9,7 +9,6 @@ import essentialaddons.EssentialAddonsSettings;
 import essentialaddons.EssentialAddonsUtils;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.command.ServerCommandSource;
-import net.minecraft.server.dedicated.DedicatedServer;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.text.LiteralText;
 
@@ -31,9 +30,8 @@ public class CommandPublicViewDistance {
         }
         MinecraftServer server = context.getSource().getMinecraftServer();
         if (server.isDedicated()) {
-            int vd = (range >= 2)?range:((DedicatedServer) server).getProperties().viewDistance;
-            if (vd != server.getPlayerManager().getViewDistance())
-                server.getPlayerManager().setViewDistance(vd);
+            if (range != server.getPlayerManager().getViewDistance())
+                server.getPlayerManager().setViewDistance(range);
             context.getSource().sendFeedback(new LiteralText("View distance has changed to: " + range), true);
             EssentialAddonsUtils.sendToActionBar(playerEntity, "§6View distance has been changed to: §a" + range);
         }
