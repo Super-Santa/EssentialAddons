@@ -175,6 +175,13 @@ public class EssentialAddonsSettings {
             category = {ESSENTIAL, COMMAND, CREATIVE}
     )
     public static boolean commandEnderChest = false;
+
+    @Rule(
+            desc = "Allows all players to change view distance",
+            options = {"false", "true"},
+            category = {ESSENTIAL, COMMAND, CREATIVE}
+    )
+    public static boolean commandPublicViewDistance = false;
 }
 
 
