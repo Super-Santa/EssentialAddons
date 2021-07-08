@@ -4,11 +4,14 @@
   "compatibilityLevel": "JAVA_8",
   "mixins": [
     "CakeBlockMixin",
+    "ItemEntityMixin",
+    "ItemStackMixin",
     "KickCommandMixin",
     "OpCommandMixin",
     "PotionEntityMixin",
     "PotionItemMixin",
     "ScoreboardCommandMixin",
+    "ServerPlayNetHandlerMixin",
     "SignBlockEntityMixin"
   ],
   "injectors": {

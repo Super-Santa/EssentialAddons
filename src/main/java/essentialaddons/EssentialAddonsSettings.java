@@ -10,6 +10,8 @@ import static carpet.settings.RuleCategory.*;
 
 public class EssentialAddonsSettings {
 
+    public static boolean inventoryStacking = false;
+
     private final static String ESSENTIAL = "essential";
 
     @Rule(
@@ -31,6 +33,7 @@ public class EssentialAddonsSettings {
 
     @Rule(
             desc = "Allows /gmc, /gms, /gmsp, and /gma to be used",
+            validate = {Validator._COMMAND_LEVEL_VALIDATOR.class},
             options = {"ops", "false", "true"},
             category = {ESSENTIAL, COMMAND, CREATIVE}
     )
@@ -38,6 +41,7 @@ public class EssentialAddonsSettings {
 
     @Rule(
             desc = "Allows /heal to be used to heal and feed the player",
+            validate = {Validator._COMMAND_LEVEL_VALIDATOR.class},
             options = {"ops", "false", "true"},
             category = {ESSENTIAL, COMMAND}
     )
@@ -45,6 +49,7 @@ public class EssentialAddonsSettings {
 
     @Rule(
             desc = "Allows /extinguish to be used to extinguish the player",
+            validate = {Validator._COMMAND_LEVEL_VALIDATOR.class},
             options = {"ops", "false", "true"},
             category = {ESSENTIAL, COMMAND}
     )
@@ -53,6 +58,7 @@ public class EssentialAddonsSettings {
     @Rule(
             desc = "Toggles invulnerability",
             extra = "Can be buggy if used while in creative mode",
+            validate = {Validator._COMMAND_LEVEL_VALIDATOR.class},
             options = {"ops", "false", "true"},
             category = {ESSENTIAL, COMMAND}
     )
@@ -61,6 +67,7 @@ public class EssentialAddonsSettings {
     @Rule(
             desc = "Enables /defuse to be used to stop any tnt from exploding within a given range",
             extra = "Usage: /defuse (Range)",
+            validate = {Validator._COMMAND_LEVEL_VALIDATOR.class},
             options = {"ops", "false", "true"},
             category = {ESSENTIAL, COMMAND, CREATIVE}
     )
@@ -68,6 +75,7 @@ public class EssentialAddonsSettings {
 
     @Rule(
             desc = "Allows /more to be used to give a full stack of whatever item the player is holding",
+            validate = {Validator._COMMAND_LEVEL_VALIDATOR.class},
             options = {"ops", "false", "true"},
             category = {ESSENTIAL, COMMAND}
     )
@@ -75,6 +83,7 @@ public class EssentialAddonsSettings {
 
     @Rule(
             desc = "Toggles strength",
+            validate = {Validator._COMMAND_LEVEL_VALIDATOR.class},
             options = {"ops", "false", "true"},
             category = {ESSENTIAL, COMMAND, CREATIVE}
     )
@@ -82,6 +91,7 @@ public class EssentialAddonsSettings {
 
     @Rule(
             desc = "Toggles night vision",
+            validate = {Validator._COMMAND_LEVEL_VALIDATOR.class},
             options = {"ops", "false", "true"},
             category = {ESSENTIAL, COMMAND, CREATIVE}
     )
@@ -90,6 +100,7 @@ public class EssentialAddonsSettings {
     @Rule(
             desc = "Allows the player to teleport to different dimensions with a simple command",
             extra = "It will always teleport you to 0,0 in said dimension",
+            validate = {Validator._COMMAND_LEVEL_VALIDATOR.class},
             options = {"ops", "false", "true"},
             category = {ESSENTIAL, COMMAND, CREATIVE}
     )
@@ -97,6 +108,7 @@ public class EssentialAddonsSettings {
 
     @Rule(
             desc = "Allows the player to teleport between the nether and overworld at equivalent coords",
+            validate = {Validator._COMMAND_LEVEL_VALIDATOR.class},
             options = {"ops", "false", "true"},
             category = {ESSENTIAL, COMMAND, CREATIVE}
     )
@@ -105,6 +117,7 @@ public class EssentialAddonsSettings {
     @Rule(
             desc = "Allows players to warp using /setwarp and /warp",
             extra = "You are only able to set one warp which will be removed after server restart",
+            validate = {Validator._COMMAND_LEVEL_VALIDATOR.class},
             options = {"ops", "false", "true"},
             category = {ESSENTIAL, COMMAND, CREATIVE}
     )
@@ -171,6 +184,7 @@ public class EssentialAddonsSettings {
 
     @Rule(
             desc = "Allows you to open your enderchest with /enderchest",
+            validate = {Validator._COMMAND_LEVEL_VALIDATOR.class},
             options = {"ops", "false", "true"},
             category = {ESSENTIAL, COMMAND, CREATIVE}
     )
@@ -190,6 +204,13 @@ public class EssentialAddonsSettings {
     )
     public static boolean combinePotionDuration = false;
 
+    @Rule(
+            desc = "Shulker boxes stack in player inventories",
+            extra = "Enable tweakEmptyShulkerBoxesStack in tweakeroo on the client",
+            options = {"false", "true"},
+            category = {ESSENTIAL, EXPERIMENTAL, FEATURE}
+    )
+    public static boolean stackableShulkersInPlayerInventories = false;
 }
 
 
