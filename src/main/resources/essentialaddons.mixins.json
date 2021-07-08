@@ -12,6 +12,8 @@
     "PotionItemMixin",
     "ScoreboardCommandMixin",
     "ServerPlayNetHandlerMixin",
+    "ShulkerBoxSlotMixin",
+    "ShulkerBoxTileEntityMixin",
     "SignBlockEntityMixin"
   ],
   "injectors": {

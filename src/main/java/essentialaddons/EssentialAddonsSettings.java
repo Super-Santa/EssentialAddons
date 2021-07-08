@@ -219,6 +219,13 @@ public class EssentialAddonsSettings {
             category = {ESSENTIAL, EXPERIMENTAL, FEATURE}
     )
     public static boolean stackableShulkersWithItems = false;
+
+    @Rule(
+            desc = "Allows you to put shulker boxes inside of other shulkers",
+            options = {"false", "true"},
+            category = {ESSENTIAL, EXPERIMENTAL, FEATURE}
+    )
+    public static boolean shulkerSception = false;
 }
 
 
