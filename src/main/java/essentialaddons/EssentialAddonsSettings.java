@@ -211,6 +211,14 @@ public class EssentialAddonsSettings {
             category = {ESSENTIAL, EXPERIMENTAL, FEATURE}
     )
     public static boolean stackableShulkersInPlayerInventories = false;
+
+    @Rule(
+            desc = "Shulker boxes stack with items inside will stack with other shulkers with the same items",
+            extra = "This rule requires stackableShulkersInPlayerInventories to be enabled",
+            options = {"false", "true"},
+            category = {ESSENTIAL, EXPERIMENTAL, FEATURE}
+    )
+    public static boolean stackableShulkersWithItems = false;
 }
 
 
