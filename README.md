@@ -2,6 +2,5 @@
 
 - reloadFakePlayers
 - watchDogFix
-- stackableShulkersInPlayerInventories
 - commandUnlimited
 - commandLagSpike
