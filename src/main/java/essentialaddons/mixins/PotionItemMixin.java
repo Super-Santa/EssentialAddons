@@ -10,7 +10,6 @@ import org.spongepowered.asm.mixin.injection.Redirect;
 
 @Mixin(PotionItem.class)
 public class PotionItemMixin {
-    /*
     @Redirect(method = "finishUsing", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/LivingEntity;addStatusEffect(Lnet/minecraft/entity/effect/StatusEffectInstance;)Z"))
     private boolean onAddStatusEffect(LivingEntity livingEntity, StatusEffectInstance statusEffectInstance) {
         if (EssentialAddonsSettings.combinePotionDuration) {
@@ -24,6 +23,4 @@ public class PotionItemMixin {
         }
         return livingEntity.addStatusEffect(statusEffectInstance);
     }
-     */
-
 }
