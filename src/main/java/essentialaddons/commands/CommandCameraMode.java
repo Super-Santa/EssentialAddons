@@ -4,7 +4,6 @@ import essentialaddons.EssentialAddonsSettings;
 import essentialaddons.EssentialAddonsUtils;
 import carpet.settings.SettingsManager;
 import com.mojang.brigadier.CommandDispatcher;
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.mob.HostileEntity;
 import net.minecraft.server.command.ServerCommandSource;
@@ -70,7 +69,7 @@ public class CommandCameraMode {
     @SuppressWarnings("unchecked")
     private static void getLocationFromFile(ServerPlayerEntity playerEntity, UUID playerUUID, ServerWorld overworld, ServerWorld nether, ServerWorld end) {
         try {
-            FileInputStream fis = new FileInputStream("config/cs.ser");
+            FileInputStream fis = new FileInputStream("world/playerdata/cs/" + playerUUID + ".cs");
             ObjectInputStream ois = new ObjectInputStream(fis);
             dim = (HashMap<UUID, String>) ois.readObject();
             x = (HashMap<UUID, Double>) ois.readObject();
@@ -103,8 +102,11 @@ public class CommandCameraMode {
     }
     private static void setLocationToFile(ServerPlayerEntity playerEntity) {
         try {
+            File directory = new File("world/playerdata/cs");
+            if (!directory.exists())
+                directory.mkdirs();
             //serialises and saves HashMap into a file
-            FileOutputStream fos = new FileOutputStream("config/cs.ser");
+            FileOutputStream fos = new FileOutputStream("world/playerdata/cs/" + playerEntity.getUuid() + ".cs");
             ObjectOutputStream oos = new ObjectOutputStream(fos);
             oos.writeObject(dim);
             oos.writeObject(x);
