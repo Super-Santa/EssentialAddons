@@ -14,7 +14,8 @@
     "ServerPlayNetHandlerMixin",
     "ShulkerBoxSlotMixin",
     "ShulkerBoxTileEntityMixin",
-    "SignBlockEntityMixin"
+    "SignBlockEntityMixin",
+    "BlockMixin"
   ],
   "injectors": {
     "defaultRequire": 1
