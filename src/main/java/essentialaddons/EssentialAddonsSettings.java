@@ -228,8 +228,8 @@ public class EssentialAddonsSettings {
     public static boolean shulkerSception = false;
 
     @Rule(
-            desc = "Mining blocks while crouching will put mined blocks striaght into your inventory",
-            extra = "Same as wholmT's implementation in carpetAddons but works with stackable shulkers",
+            desc = "Mining blocks while crouching will put mined blocks striaght into your inventory, THIS DOES NOT WORK WITH CARPET-ADDONS INSTALLED",
+            extra = "Same as wholmT's implementation in carpetAddons but works with stackable shulkers, requires players to subscribe to carefulbreak",
             options = {"false", "true"},
             category = {ESSENTIAL, SURVIVAL, FEATURE}
     )
