@@ -2,6 +2,7 @@ package essentialaddons;
 
 import carpet.CarpetServer;
 import carpet.helpers.InventoryHelper;
+import essentialaddons.commands.CommandSubscribe;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.Entity;
@@ -16,6 +17,9 @@ import net.minecraft.stat.Stats;
 import net.minecraft.text.LiteralText;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+
+import java.io.File;
+import java.util.UUID;
 
 import static net.minecraft.block.Block.dropStack;
 import static net.minecraft.block.Block.getDroppedStacks;
@@ -46,5 +50,13 @@ public class EssentialAddonsUtils {
             });
             state.onStacksDropped((ServerWorld) world, pos, stack);
         }
+    }
+    public static void directoryExists (String path) {
+        File directory = new File(path);
+        if (!directory.exists())
+            if (directory.mkdirs())
+                System.out.println("Directory" + path + "has been created");
+            else
+                System.out.println("There was an error when creating directory " + path);
     }
 }

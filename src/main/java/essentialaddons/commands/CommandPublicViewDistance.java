@@ -1,5 +1,6 @@
 package essentialaddons.commands;
 
+import carpet.CarpetSettings;
 import carpet.settings.SettingsManager;
 import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.arguments.IntegerArgumentType;
@@ -19,7 +20,13 @@ public class CommandPublicViewDistance {
     public static void register(CommandDispatcher<ServerCommandSource> dispatcher) {
         dispatcher.register(literal("viewdistance").requires((player) -> SettingsManager.canUseCommand(player, EssentialAddonsSettings.commandPublicViewDistance))
                 .then(argument("distance", IntegerArgumentType.integer(1))
-                        .executes(context -> viewDistance(context, context.getArgument("distance", Integer.class)))));
+                        .executes(context -> viewDistance(context, context.getArgument("distance", Integer.class))))
+                .executes(context -> {
+                    ServerPlayerEntity playerEntity = context.getSource().getPlayer();
+                    MinecraftServer server = context.getSource().getMinecraftServer();
+                    EssentialAddonsUtils.sendToActionBar(playerEntity, "§6View distance is currently §a" + server.getPlayerManager().getViewDistance());
+                    return 0;
+                }));
     }
     //mostly code from Carpet
     private static int viewDistance(CommandContext<ServerCommandSource> context, int range) throws CommandSyntaxException {
@@ -30,8 +37,10 @@ public class CommandPublicViewDistance {
         }
         MinecraftServer server = context.getSource().getMinecraftServer();
         if (server.isDedicated()) {
-            if (range != server.getPlayerManager().getViewDistance())
+            if (range != server.getPlayerManager().getViewDistance()) {
                 server.getPlayerManager().setViewDistance(range);
+                CarpetSettings.viewDistance = range;
+            }
             context.getSource().sendFeedback(new LiteralText("View distance has changed to: " + range), true);
             EssentialAddonsUtils.sendToActionBar(playerEntity, "§6View distance has been changed to: §a" + range);
         }

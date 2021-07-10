@@ -69,6 +69,7 @@ public class CommandCameraMode {
     @SuppressWarnings("unchecked")
     private static void getLocationFromFile(ServerPlayerEntity playerEntity, UUID playerUUID, ServerWorld overworld, ServerWorld nether, ServerWorld end) {
         try {
+            EssentialAddonsUtils.directoryExists("world/playerdata/cs");
             FileInputStream fis = new FileInputStream("world/playerdata/cs/" + playerUUID + ".cs");
             ObjectInputStream ois = new ObjectInputStream(fis);
             dim = (HashMap<UUID, String>) ois.readObject();
@@ -102,9 +103,7 @@ public class CommandCameraMode {
     }
     private static void setLocationToFile(ServerPlayerEntity playerEntity) {
         try {
-            File directory = new File("world/playerdata/cs");
-            if (!directory.exists())
-                directory.mkdirs();
+            EssentialAddonsUtils.directoryExists("world/playerdata/cs");
             //serialises and saves HashMap into a file
             FileOutputStream fos = new FileOutputStream("world/playerdata/cs/" + playerEntity.getUuid() + ".cs");
             ObjectOutputStream oos = new ObjectOutputStream(fos);
