@@ -11,6 +11,7 @@ import static carpet.settings.RuleCategory.*;
 public class EssentialAddonsSettings {
 
     public static boolean inventoryStacking = false;
+    public static boolean hopperOpen = false;
 
     private final static String ESSENTIAL = "essential";
 
@@ -234,6 +235,14 @@ public class EssentialAddonsSettings {
             category = {ESSENTIAL, SURVIVAL, FEATURE}
     )
     public static boolean essentialCarefulBreak = false;
+
+    @Rule(
+            desc = "Fixes an issue with stacking shulker boxes in hoppers while using lithium",
+            extra = "This fix prevents players from stacking shulkers in hoppers",
+            options = {"false", "true"},
+            category = {ESSENTIAL, SURVIVAL, EXPERIMENTAL}
+    )
+    public static boolean stackableShulkerLithiumFix = false;
 }
 
 

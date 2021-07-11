@@ -15,7 +15,8 @@
     "ShulkerBoxSlotMixin",
     "ShulkerBoxTileEntityMixin",
     "SignBlockEntityMixin",
-    "BlockMixin"
+    "BlockMixin",
+    "HopperScreenHandlerMixin"
   ],
   "injectors": {
     "defaultRequire": 1
