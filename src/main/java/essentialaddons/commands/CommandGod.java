@@ -16,12 +16,12 @@ public class CommandGod {
         dispatcher.register(literal("god").requires((player) -> SettingsManager.canUseCommand(player, EssentialAddonsSettings.commandGod))
         .executes(context -> {
             ServerPlayerEntity playerEntity = context.getSource().getPlayer();
-            if (!playerEntity.abilities.invulnerable) {
-                playerEntity.abilities.invulnerable = true;
+            if (!playerEntity.getAbilities().invulnerable) {
+                playerEntity.getAbilities().invulnerable = true;
                 EssentialAddonsUtils.sendToActionBar(playerEntity, "§6Invulnerability §aEnabled");
 
             } else {
-                playerEntity.abilities.invulnerable = false;
+                playerEntity.getAbilities().invulnerable = false;
                 EssentialAddonsUtils.sendToActionBar(playerEntity, "§6Invulnerability §cDisabled");
             }
             playerEntity.sendAbilitiesUpdate();

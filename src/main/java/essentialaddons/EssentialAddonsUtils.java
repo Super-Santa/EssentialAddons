@@ -2,7 +2,6 @@ package essentialaddons;
 
 import carpet.CarpetServer;
 import carpet.helpers.InventoryHelper;
-import essentialaddons.commands.CommandSubscribe;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.Entity;
@@ -19,7 +18,6 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
 import java.io.File;
-import java.util.UUID;
 
 import static net.minecraft.block.Block.dropStack;
 import static net.minecraft.block.Block.getDroppedStacks;
@@ -36,11 +34,11 @@ public class EssentialAddonsUtils {
                 Item item = itemStack.getItem();
                 int itemAmount = itemStack.getCount();
                 if (!InventoryHelper.shulkerBoxHasItems(itemStack) && itemStack.getItem().toString().contains("shulker_box") && EssentialAddonsSettings.stackableShulkersInPlayerInventories) {
-                    itemStack.removeSubTag("BlockEntityTag");
+                    itemStack.removeSubNbt("BlockEntityTag");
                     item = itemStack.getItem();
                     EssentialAddonsSettings.inventoryStacking = true;
                 }
-                if (((PlayerEntity) entity).inventory.insertStack(itemStack)) {
+                if (((PlayerEntity) entity).getInventory().insertStack(itemStack)) {
                     world.playSound(null, entity.getX(), entity.getY(), entity.getZ(), SoundEvents.ENTITY_ITEM_PICKUP, SoundCategory.PLAYERS, 0.2f, (CarpetServer.rand.nextFloat() - CarpetServer.rand.nextFloat()) * 1.4F + 2.0F);
                     ((PlayerEntity) entity).increaseStat(Stats.PICKED_UP.getOrCreateStat(item), itemAmount);
                 }

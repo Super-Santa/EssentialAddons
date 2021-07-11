@@ -6,8 +6,16 @@ import carpet.settings.SettingsManager;
 import com.mojang.brigadier.CommandDispatcher;
 import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.mob.HostileEntity;
+import net.minecraft.nbt.NbtCompound;
+import net.minecraft.network.packet.c2s.play.UpdatePlayerAbilitiesC2SPacket;
+import net.minecraft.network.packet.s2c.play.GameStateChangeS2CPacket;
+import net.minecraft.network.packet.s2c.play.PlayerAbilitiesS2CPacket;
+import net.minecraft.network.packet.s2c.play.ScreenHandlerPropertyUpdateS2CPacket;
+import net.minecraft.screen.ScreenHandler;
+import net.minecraft.server.command.GameModeCommand;
 import net.minecraft.server.command.ServerCommandSource;
 import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.server.network.ServerPlayerInteractionManager;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.math.Box;
 import net.minecraft.world.GameMode;
@@ -28,13 +36,13 @@ public class CommandCameraMode {
             //variables
             ServerPlayerEntity playerEntity = context.getSource().getPlayer();
             UUID playerUUID = playerEntity.getUuid();
-            ServerWorld overworld = context.getSource().getMinecraftServer().getWorld(World.OVERWORLD);
-            ServerWorld nether = context.getSource().getMinecraftServer().getWorld(World.NETHER);
-            ServerWorld end = context.getSource().getMinecraftServer().getWorld(World.END);
+            ServerWorld overworld = context.getSource().getServer().getWorld(World.OVERWORLD);
+            ServerWorld nether = context.getSource().getServer().getWorld(World.NETHER);
+            ServerWorld end = context.getSource().getServer().getWorld(World.END);
             if (!playerEntity.isSpectator()){
                 //checks for cameraModeRestoreLocation
                 if (!SettingsManager.canUseCommand(null, EssentialAddonsSettings.cameraModeRestoreLocation)) {
-                    playerEntity.setGameMode(GameMode.SPECTATOR);
+                    playerEntity.changeGameMode(GameMode.SPECTATOR);
                     EssentialAddonsUtils.sendToActionBar(playerEntity, "§6You have been put into §aSPECTATOR");
                     return 0;
                 }
@@ -47,7 +55,7 @@ public class CommandCameraMode {
             }
             //checks for cameraModeSurvivalRestrictions
             else if (playerEntity.isSpectator() && !SettingsManager.canUseCommand(null, EssentialAddonsSettings.cameraModeRestoreLocation)) {
-                playerEntity.setGameMode(playerEntity.interactionManager.getPreviousGameMode());
+                playerEntity.changeGameMode(playerEntity.interactionManager.getPreviousGameMode());
                 EssentialAddonsUtils.sendToActionBar(playerEntity, "§6You have been put into §a" + playerEntity.interactionManager.getPreviousGameMode());
             }
                 //checks if hashmap has location data before accessing file for data
@@ -86,12 +94,13 @@ public class CommandCameraMode {
             System.out.println("getLocationFromFileCatch");
             e.printStackTrace();
             EssentialAddonsUtils.sendToActionBar(playerEntity, "§c[ERROR] Unable to get survival location");
-            playerEntity.setGameMode(GameMode.SURVIVAL);
+            playerEntity.changeGameMode(GameMode.SURVIVAL);
+
         }
         //this just double checks to see if HashMap is empty, error can occur when other HashMaps are saved and it tries to read an non-existent HashMap
         if (dim.get(playerUUID) == null || x.get(playerUUID) == null || y.get(playerUUID) == null || z.get(playerUUID) == null || yaw.get(playerUUID) == null || pitch.get(playerUUID) == null){
             EssentialAddonsUtils.sendToActionBar(playerEntity, "§c[ERROR] Unable to get survival location");
-            playerEntity.setGameMode(GameMode.SURVIVAL);
+            playerEntity.changeGameMode(GameMode.SURVIVAL);
         }
         //decoding the dimension data from earlier
         if (dim.get(playerUUID).equals("overworld"))
@@ -116,7 +125,7 @@ public class CommandCameraMode {
             oos.close();
             fos.close();
             //sets player gamemode to spectator
-            playerEntity.setGameMode(GameMode.SPECTATOR);
+            playerEntity.changeGameMode(GameMode.SPECTATOR);
             EssentialAddonsUtils.sendToActionBar(playerEntity, "§6You have been put into §aSPECTATOR");
         }
         catch (IOException ioe) {
@@ -143,7 +152,7 @@ public class CommandCameraMode {
     private static void returnToPreviousGamemode(ServerPlayerEntity playerEntity, UUID playerUUID) {
         GameMode previousGameMode = playerEntity.interactionManager.getPreviousGameMode();
         playerEntity.teleport(dimension.get(playerUUID),x.get(playerUUID),y.get(playerUUID),z.get(playerUUID),yaw.get(playerUUID),pitch.get(playerUUID));
-        playerEntity.setGameMode(previousGameMode);
+        playerEntity.changeGameMode(previousGameMode);
         EssentialAddonsUtils.sendToActionBar(playerEntity, "§6You have been put into §a" + previousGameMode);
     }
     private static boolean isInDanger(ServerPlayerEntity playerEntity) {

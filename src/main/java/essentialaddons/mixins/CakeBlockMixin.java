@@ -23,7 +23,7 @@ public class CakeBlockMixin {
     public static IntProperty BITES;
 
     @Inject(method = "tryEat", at = @At("HEAD"))
-    private ActionResult tryEat(WorldAccess world, BlockPos pos, BlockState state, PlayerEntity player, CallbackInfoReturnable<CallbackInfo> info) {
+    private static ActionResult tryEat(WorldAccess world, BlockPos pos, BlockState state, PlayerEntity player, CallbackInfoReturnable<CallbackInfo> info) {
         if (EssentialAddonsSettings.cakeAlwaysEat) {
             player.incrementStat(Stats.EAT_CAKE_SLICE);
             player.getHungerManager().add(2, 0.1F);

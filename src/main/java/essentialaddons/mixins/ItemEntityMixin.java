@@ -2,14 +2,11 @@ package essentialaddons.mixins;
 
 import carpet.helpers.InventoryHelper;
 import essentialaddons.EssentialAddonsSettings;
-import essentialaddons.EssentialAddonsUtils;
 import net.minecraft.block.ShulkerBoxBlock;
 import net.minecraft.entity.ItemEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.BlockItem;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
 import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;

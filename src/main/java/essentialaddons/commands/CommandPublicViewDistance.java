@@ -23,7 +23,7 @@ public class CommandPublicViewDistance {
                         .executes(context -> viewDistance(context, context.getArgument("distance", Integer.class))))
                 .executes(context -> {
                     ServerPlayerEntity playerEntity = context.getSource().getPlayer();
-                    MinecraftServer server = context.getSource().getMinecraftServer();
+                    MinecraftServer server = context.getSource().getServer();
                     EssentialAddonsUtils.sendToActionBar(playerEntity, "§6View distance is currently §a" + server.getPlayerManager().getViewDistance());
                     return 0;
                 }));
@@ -35,7 +35,7 @@ public class CommandPublicViewDistance {
             EssentialAddonsUtils.sendToActionBar(playerEntity, "§cView distance must be between 10 and 32");
             return 0;
         }
-        MinecraftServer server = context.getSource().getMinecraftServer();
+        MinecraftServer server = context.getSource().getServer();
         if (server.isDedicated()) {
             if (range != server.getPlayerManager().getViewDistance()) {
                 server.getPlayerManager().setViewDistance(range);

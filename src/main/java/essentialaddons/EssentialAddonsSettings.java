@@ -11,6 +11,7 @@ import static carpet.settings.RuleCategory.*;
 public class EssentialAddonsSettings {
 
     public static boolean inventoryStacking = false;
+    public static boolean hopperOpen = false;
 
     private final static String ESSENTIAL = "essential";
 
@@ -234,6 +235,14 @@ public class EssentialAddonsSettings {
             category = {ESSENTIAL, SURVIVAL, FEATURE}
     )
     public static boolean essentialCarefulBreak = false;
+
+    @Rule(
+            desc = "Mining blocks while crouching will put mined blocks striaght into your inventory, THIS DOES NOT WORK WITH CARPET-ADDONS INSTALLED",
+            extra = "Same as wholmT's implementation in carpetAddons but works with stackable shulkers, requires players to subscribe to carefulbreak",
+            options = {"false", "true"},
+            category = {ESSENTIAL, SURVIVAL, FEATURE}
+    )
+    public static boolean stackableShulkerLithiumFix = false;
 }
 
 

@@ -16,21 +16,21 @@ public class CommandDimensions {
         dispatcher.register(literal("overworld").requires((player) -> SettingsManager.canUseCommand(player, EssentialAddonsSettings.commandDimensions))
                 .executes(context -> {
                     ServerPlayerEntity playerEntity = context.getSource().getPlayer();
-                    ServerWorld world = context.getSource().getMinecraftServer().getWorld(World.OVERWORLD);
+                    ServerWorld world = context.getSource().getServer().getWorld(World.OVERWORLD);
                     toDimension(playerEntity, world, "OVERWORLD");
                     return 0;
                 }));
         dispatcher.register(literal("nether").requires((player) -> SettingsManager.canUseCommand(player, EssentialAddonsSettings.commandDimensions))
                 .executes(context -> {
                     ServerPlayerEntity playerEntity = context.getSource().getPlayer();
-                    ServerWorld world = context.getSource().getMinecraftServer().getWorld(World.NETHER);
+                    ServerWorld world = context.getSource().getServer().getWorld(World.NETHER);
                     toDimension(playerEntity, world, "NETHER");
                     return 0;
                 }));
         dispatcher.register(literal("end").requires((player) -> SettingsManager.canUseCommand(player, EssentialAddonsSettings.commandDimensions))
                 .executes(context -> {
                     ServerPlayerEntity playerEntity = context.getSource().getPlayer();
-                    ServerWorld world = context.getSource().getMinecraftServer().getWorld(World.END);
+                    ServerWorld world = context.getSource().getServer().getWorld(World.END);
                     toDimension(playerEntity, world, "END");
                     return 0;
                 }));
