@@ -237,10 +237,10 @@ public class EssentialAddonsSettings {
     public static boolean essentialCarefulBreak = false;
 
     @Rule(
-            desc = "Mining blocks while crouching will put mined blocks striaght into your inventory, THIS DOES NOT WORK WITH CARPET-ADDONS INSTALLED",
-            extra = "Same as wholmT's implementation in carpetAddons but works with stackable shulkers, requires players to subscribe to carefulbreak",
+            desc = "Fixes an issue with stacking shulker boxes in hoppers while using lithium",
+            extra = "This fix prevents players from stacking shulkers in hoppers",
             options = {"false", "true"},
-            category = {ESSENTIAL, SURVIVAL, FEATURE}
+            category = {ESSENTIAL, SURVIVAL, EXPERIMENTAL}
     )
     public static boolean stackableShulkerLithiumFix = false;
 }
