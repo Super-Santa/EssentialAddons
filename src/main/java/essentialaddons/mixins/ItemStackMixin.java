@@ -17,7 +17,7 @@ public abstract class ItemStackMixin {
 
     @Inject(method = "getMaxCount", at=@At("RETURN"), cancellable = true)
     public void getMaxCount(CallbackInfoReturnable<Integer> cir) {
-        if (EssentialAddonsSettings.stackableShulkersInPlayerInventories && !EssentialAddonsSettings.hopperOpen && EssentialAddonsSettings.inventoryStacking && this.getItem().toString().contains("shulker_box")) {
+        if ((EssentialAddonsSettings.stackableShulkersInPlayerInventories || EssentialAddonsSettings.betterStackableShulkers) && EssentialAddonsSettings.inventoryStacking && this.getItem().toString().contains("shulker_box")) {
             ItemStack stack = (ItemStack) (Object) this;
             if (!InventoryHelper.shulkerBoxHasItems(stack)) {
                     stack.removeSubTag("BlockEntityTag");

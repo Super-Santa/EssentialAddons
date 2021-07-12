@@ -13,11 +13,13 @@ class ServerPlayNetHandlerMixin {
 
     @Inject(method="onClickSlot", at=@At("HEAD"))
     public void onClickSlotStarts(ClickSlotC2SPacket packet, CallbackInfo ci){
-        EssentialAddonsSettings.inventoryStacking = true;
+        if (EssentialAddonsSettings.stackableShulkersInPlayerInventories)
+            EssentialAddonsSettings.inventoryStacking = true;
     }
 
     @Inject(method="onClickSlot", at=@At("RETURN"))
     public void onClickSlotEnds(ClickSlotC2SPacket packet, CallbackInfo ci){
-        EssentialAddonsSettings.inventoryStacking = false;
+        if (EssentialAddonsSettings.stackableShulkersInPlayerInventories)
+            EssentialAddonsSettings.inventoryStacking = false;
     }
 }
