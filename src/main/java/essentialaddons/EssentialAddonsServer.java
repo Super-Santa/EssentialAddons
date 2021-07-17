@@ -6,19 +6,13 @@ import com.mojang.brigadier.CommandDispatcher;
 import essentialaddons.commands.*;
 import essentialaddons.utils.CameraData;
 import net.fabricmc.api.ModInitializer;
-import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.command.ServerCommandSource;
-import net.minecraft.util.WorldSavePath;
 
-import java.io.IOException;
-import java.nio.file.Path;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 
 public class EssentialAddonsServer implements CarpetExtension, ModInitializer {
-
-    public static Map<UUID, CameraData> cameraData = new HashMap<>();
 
     @Override
     public String version() { return "essentialaddons"; }

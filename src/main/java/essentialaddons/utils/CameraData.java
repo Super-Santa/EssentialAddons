@@ -32,6 +32,9 @@ import java.util.Map;
 import java.util.UUID;
 
 public class CameraData {
+
+    public static Map<UUID, CameraData> cameraData = new HashMap<>();
+
     public static final MapCodec<CameraData> CODEC = RecordCodecBuilder.mapCodec(it -> it.group(
             Identifier.CODEC.fieldOf("dimension").forGetter(d -> d.dimension.getValue()),
             Codec.DOUBLE.fieldOf("x").forGetter(d -> d.position.x),
