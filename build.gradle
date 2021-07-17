@@ -26,6 +26,12 @@ dependencies {
 	modCompile "net.fabricmc:fabric-loader:${project.loader_version}"
 	modCompile "carpet:fabric-carpet:${project.minecraft_version}-${project.carpet_core_version}"
 
+	// javax.annotation.Nullable/Nonnull
+	compileOnly "com.google.code.findbugs:jsr305:3.0.1"
+
+	testImplementation 'org.junit.jupiter:junit-jupiter-api:5.3.1'
+	testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.3.1'
+
 	// PSA: Some older mods, compiled on Loom 0.2.1, might have outdated Maven POMs.
 	// You may need to force-disable transitiveness on them.
 }
