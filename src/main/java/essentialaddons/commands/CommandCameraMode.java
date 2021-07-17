@@ -65,8 +65,8 @@ public class CommandCameraMode {
             playerEntity.setGameMode(GameMode.SURVIVAL);
             return;
         }
-        playerEntity.setGameMode(playerEntity.interactionManager.getPreviousGameMode());
         EssentialAddonsUtils.sendToActionBar(playerEntity, "§6You have been put in §a" + playerEntity.interactionManager.getPreviousGameMode());
+        playerEntity.setGameMode(playerEntity.interactionManager.getPreviousGameMode());
     }
     private static void toggle(ServerPlayerEntity playerEntity) {
         if (playerEntity.isSpectator()) {
