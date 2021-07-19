@@ -38,8 +38,10 @@ public class CommandCameraMode {
             CameraData.cameraData.put(playerEntity.getUuid(), new CameraData(playerEntity));
             try {
                 CameraData.writeSaveFile(CameraData.cameraData);
-            } catch (IOException e) {
+            }
+            catch (IOException e) {
                 e.printStackTrace();
+                LOGGER.error("Failed to write to file");
             }
         }
         playerEntity.setGameMode(GameMode.SPECTATOR);
@@ -50,11 +52,13 @@ public class CommandCameraMode {
         CameraData data = CameraData.cameraData.remove(playerEntity.getUuid());
         if (data == null) {
             try {
+                LOGGER.info("Trying to read file");
                 CameraData.cameraData = CameraData.readSaveFile();
                 data = CameraData.cameraData.remove(playerEntity.getUuid());
             }
             catch (IOException e) {
                 e.printStackTrace();
+                LOGGER.error("Failed to read file");
             }
         }
         if (EssentialAddonsSettings.cameraModeRestoreLocation && data != null)
