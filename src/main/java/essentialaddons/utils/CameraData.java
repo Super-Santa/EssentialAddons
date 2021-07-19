@@ -72,7 +72,10 @@ public class CameraData {
     }
 
     private static Path getFile() {
-        return CarpetServer.minecraft_server.getSavePath(WorldSavePath.ROOT).getParent().getParent().resolve("config").resolve("cameradata.json");
+        if (CarpetServer.minecraft_server.isDedicated())
+            return CarpetServer.minecraft_server.getSavePath(WorldSavePath.ROOT).getParent().getParent().resolve("config").resolve("cameradata.json");
+        else
+            return CarpetServer.minecraft_server.getSavePath(WorldSavePath.ROOT).resolve("cameradata.json");
     }
     public static Map<UUID, CameraData> readSaveFile() throws IOException {
         Path file = getFile();
