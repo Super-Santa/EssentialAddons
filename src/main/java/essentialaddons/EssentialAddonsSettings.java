@@ -152,7 +152,7 @@ public class EssentialAddonsSettings {
             options = {"false", "true"},
             category = {ESSENTIAL, EXPERIMENTAL, SURVIVAL, FEATURE}
     )
-    public static boolean cameraModeRestoreLocation = false;
+    public static boolean cameraModeRestoreLocation = true;
 
     @Rule(
             desc = "Allows anyone to use the /kick command",
