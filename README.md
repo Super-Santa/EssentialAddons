@@ -2,5 +2,4 @@
 
 - reloadFakePlayers
 - watchDogFix
-- commandUnlimited
 - commandLagSpike
