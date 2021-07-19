@@ -242,6 +242,13 @@ public class EssentialAddonsSettings {
             category = {ESSENTIAL, SURVIVAL, EXPERIMENTAL}
     )
     public static boolean betterStackableShulkers = false;
+
+    @Rule(
+            desc = "This allows for survival players to have infinite blocks, food, and enderpearls",
+            options = {"false", "true"},
+            category = {ESSENTIAL, CREATIVE, EXPERIMENTAL}
+    )
+    public static boolean infiniteItems = false;
 }
 
 

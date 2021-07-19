@@ -3,10 +3,14 @@
   "package": "essentialaddons.mixins",
   "compatibilityLevel": "JAVA_8",
   "mixins": [
+    "BlockItemMixin",
+    "BlockMixin",
     "CakeBlockMixin",
+    "EnderPearltemMixin",
     "ItemEntityMixin",
     "ItemStackMixin",
     "KickCommandMixin",
+    "LivingEntityMixin",
     "OpCommandMixin",
     "PotionEntityMixin",
     "PotionItemMixin",
@@ -14,8 +18,7 @@
     "ServerPlayNetHandlerMixin",
     "ShulkerBoxSlotMixin",
     "ShulkerBoxTileEntityMixin",
-    "SignBlockEntityMixin",
-    "BlockMixin"
+    "SignBlockEntityMixin"
   ],
   "injectors": {
     "defaultRequire": 1
