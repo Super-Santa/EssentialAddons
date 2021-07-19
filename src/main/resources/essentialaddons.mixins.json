@@ -16,6 +16,7 @@
     "PotionItemMixin",
     "ScoreboardCommandMixin",
     "ServerPlayNetHandlerMixin",
+    "ServerWorldMixin",
     "ShulkerBoxSlotMixin",
     "ShulkerBoxTileEntityMixin",
     "SignBlockEntityMixin"

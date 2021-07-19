@@ -8,10 +8,6 @@ import essentialaddons.utils.CameraData;
 import net.fabricmc.api.ModInitializer;
 import net.minecraft.server.command.ServerCommandSource;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.UUID;
-
 public class EssentialAddonsServer implements CarpetExtension, ModInitializer {
 
     @Override

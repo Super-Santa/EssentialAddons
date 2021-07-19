@@ -249,6 +249,14 @@ public class EssentialAddonsSettings {
             category = {ESSENTIAL, CREATIVE, EXPERIMENTAL}
     )
     public static boolean infiniteItems = false;
+
+    @Rule(
+            desc = "Tries to kill experience orbs when server is over set mspt, set to 0 to disable",
+            options = {"0", "50", "75", "100"},
+            strict = false,
+            category = {ESSENTIAL, CREATIVE, FEATURE}
+    )
+    public static int removeXpEntitiesIfMsptOver = 0;
 }
 
 
