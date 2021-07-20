@@ -21,14 +21,20 @@ import static net.minecraft.server.command.CommandManager.literal;
 
 public class CommandCameraMode {
 
-    private static final Logger LOGGER = LogManager.getLogger("EssentialAddons|CameraData");
+    private static final Logger LOGGER = LogManager.getLogger("EssentialAddons");
 
     public static void register(CommandDispatcher<ServerCommandSource> dispatcher) {
         dispatcher.register(literal("cs").requires((player) -> SettingsManager.canUseCommand(player, EssentialAddonsSettings.commandCameraMode)
                 ).executes(context -> {
                     toggle(context.getSource().getPlayer());
                     return 0;
-                })
+                }
+                ).then(literal("clear").requires((player) -> player.hasPermissionLevel(4)
+                ).executes(context -> {
+                    CameraData.cameraData.remove(context.getSource().getPlayer().getUuid());
+                    LOGGER.info("Player " + context.getSource().getPlayer().getName() + " has cleared their cs HashMap");
+                    return 0;
+                }))
         );
     }
     private static void cameraMode(ServerPlayerEntity playerEntity) {
@@ -41,7 +47,7 @@ public class CommandCameraMode {
             }
             catch (IOException e) {
                 e.printStackTrace();
-                LOGGER.error("Failed to write to file");
+                LOGGER.error("Failed to write to file for player " + playerEntity.getName());
             }
         }
         playerEntity.setGameMode(GameMode.SPECTATOR);
@@ -52,19 +58,19 @@ public class CommandCameraMode {
         CameraData data = CameraData.cameraData.remove(playerEntity.getUuid());
         if (data == null) {
             try {
-                LOGGER.info("Trying to read file");
                 CameraData.cameraData = CameraData.readSaveFile();
                 data = CameraData.cameraData.remove(playerEntity.getUuid());
             }
             catch (IOException e) {
                 e.printStackTrace();
-                LOGGER.error("Failed to read file");
+                LOGGER.error("Failed to read file for " + playerEntity.getName());
             }
+            LOGGER.info("Successfully read file for + " + playerEntity.getName());
         }
         if (EssentialAddonsSettings.cameraModeRestoreLocation && data != null)
             data.restore(playerEntity);
         else if (EssentialAddonsSettings.cameraModeRestoreLocation) {
-            LOGGER.error("Could not load previous location");
+            LOGGER.error("Could not load previous location for " + playerEntity.getName());
             EssentialAddonsUtils.sendToActionBar(playerEntity, "§c[ERROR] Unable to get previous location");
             playerEntity.setGameMode(GameMode.SURVIVAL);
             return;
