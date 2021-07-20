@@ -32,7 +32,7 @@ public class CommandCameraMode {
                 ).then(literal("clear").requires((player) -> player.hasPermissionLevel(4)
                 ).executes(context -> {
                     CameraData.cameraData.remove(context.getSource().getPlayer().getUuid());
-                    LOGGER.info("Player " + context.getSource().getPlayer().getName() + " has cleared their cs HashMap");
+                    LOGGER.info("Player " + context.getSource().getPlayer().getEntityName() + " has cleared their cs HashMap");
                     return 0;
                 }))
         );
@@ -47,7 +47,7 @@ public class CommandCameraMode {
             }
             catch (IOException e) {
                 e.printStackTrace();
-                LOGGER.error("Failed to write to file for player " + playerEntity.getName());
+                LOGGER.error("Failed to write to file for player " + playerEntity.getEntityName());
             }
         }
         playerEntity.setGameMode(GameMode.SPECTATOR);
@@ -63,14 +63,14 @@ public class CommandCameraMode {
             }
             catch (IOException e) {
                 e.printStackTrace();
-                LOGGER.error("Failed to read data for " + playerEntity.getName());
+                LOGGER.error("Failed to read data for " + playerEntity.getEntityName());
             }
             LOGGER.info("Successfully read camera data file ");
         }
         if (EssentialAddonsSettings.cameraModeRestoreLocation && data != null)
             data.restore(playerEntity);
         else if (EssentialAddonsSettings.cameraModeRestoreLocation) {
-            LOGGER.error("Could not load previous location for " + playerEntity.getName());
+            LOGGER.error("Could not load previous location for " + playerEntity.getEntityName());
             EssentialAddonsUtils.sendToActionBar(playerEntity, "§c[ERROR] Unable to get previous location");
             playerEntity.setGameMode(GameMode.SURVIVAL);
             return;
