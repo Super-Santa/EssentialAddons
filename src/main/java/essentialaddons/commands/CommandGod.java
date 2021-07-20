@@ -4,7 +4,6 @@ import carpet.settings.SettingsManager;
 import com.mojang.brigadier.CommandDispatcher;
 import essentialaddons.EssentialAddonsSettings;
 import essentialaddons.EssentialAddonsUtils;
-import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.server.command.ServerCommandSource;
 import net.minecraft.server.network.ServerPlayerEntity;
 

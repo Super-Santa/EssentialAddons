@@ -2,7 +2,6 @@ package essentialaddons.mixins;
 
 import essentialaddons.EssentialAddonsSettings;
 import essentialaddons.EssentialAddonsUtils;
-import essentialaddons.commands.CommandSubscribe;
 import essentialaddons.utils.SubscribeData;
 import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntity;

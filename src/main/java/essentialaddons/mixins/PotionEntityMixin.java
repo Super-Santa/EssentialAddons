@@ -1,6 +1,5 @@
 package essentialaddons.mixins;
 
-import essentialaddons.EssentialAddonsServer;
 import essentialaddons.EssentialAddonsSettings;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.effect.StatusEffectInstance;
