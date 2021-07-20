@@ -46,7 +46,7 @@ public class CameraData {
 
     public static final Codec<Map<UUID, CameraData>> MAP_CODEC = Codec.unboundedMap(Codec.STRING.xmap(UUID::fromString, UUID::toString), CODEC.codec());
     private static final Gson GSON = new GsonBuilder().setPrettyPrinting().disableHtmlEscaping().create();
-    private static final Logger LOGGER = LogManager.getLogger("EssentialAddons|CameraData");
+    private static final Logger LOGGER = LogManager.getLogger("EssentialAddons");
 
     public final @Nonnull RegistryKey<World> dimension;
     public final @Nonnull Vec3d position;

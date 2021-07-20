@@ -63,9 +63,9 @@ public class CommandCameraMode {
             }
             catch (IOException e) {
                 e.printStackTrace();
-                LOGGER.error("Failed to read file for " + playerEntity.getName());
+                LOGGER.error("Failed to read data for " + playerEntity.getName());
             }
-            LOGGER.info("Successfully read file for + " + playerEntity.getName());
+            LOGGER.info("Successfully read camera data file ");
         }
         if (EssentialAddonsSettings.cameraModeRestoreLocation && data != null)
             data.restore(playerEntity);
