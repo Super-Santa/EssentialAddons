@@ -54,12 +54,4 @@ public class EssentialAddonsUtils {
             state.onStacksDropped((ServerWorld) world, pos, stack);
         }
     }
-    public static void directoryExists (String path) {
-        File directory = new File(path);
-        if (!directory.exists())
-            if (directory.mkdirs())
-                System.out.println("Directory" + path + "has been created");
-            else
-                System.out.println("There was an error when creating directory " + path);
-    }
 }
