@@ -5,17 +5,14 @@ import com.mojang.brigadier.CommandDispatcher;
 import essentialaddons.EssentialAddonsServer;
 import essentialaddons.EssentialAddonsSettings;
 import essentialaddons.EssentialAddonsUtils;
-import essentialaddons.utils.CameraData;
+import essentialaddons.helpers.CameraData;
 import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.mob.HostileEntity;
 import net.minecraft.server.command.ServerCommandSource;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.util.math.Box;
 import net.minecraft.world.GameMode;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 
-import java.io.IOException;
 import java.util.List;
 
 import static net.minecraft.server.command.CommandManager.literal;

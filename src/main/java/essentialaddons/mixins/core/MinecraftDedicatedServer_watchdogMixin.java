@@ -9,7 +9,7 @@ import org.spongepowered.asm.mixin.injection.Redirect;
 
 @Mixin(MinecraftDedicatedServer.class)
 public class MinecraftDedicatedServer_watchdogMixin {
-
+    /* Commented until Process fix :)
     @Redirect(method= "setupServer()Z",at=@At(value="INVOKE",target="Ljava/lang/Thread;start()V"))
     protected void OverrideWatchdogThread(Thread me) {
         EssentialAddonsServer.watchdogThread = me;
@@ -17,4 +17,6 @@ public class MinecraftDedicatedServer_watchdogMixin {
             me.start();
         }
     }
+
+     */
 }

@@ -2,7 +2,7 @@ package essentialaddons.mixins;
 
 import carpet.CarpetServer;
 import essentialaddons.EssentialAddonsServer;
-import essentialaddons.utils.CameraData;
+import essentialaddons.helpers.CameraData;
 import net.minecraft.server.MinecraftServer;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;

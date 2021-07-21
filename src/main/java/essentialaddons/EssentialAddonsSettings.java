@@ -275,7 +275,7 @@ public class EssentialAddonsSettings {
             category = {ESSENTIAL, CREATIVE, FEATURE}
     )
     public static int removeItemEntitiesAfterThreshold = 0;
-
+    /* Commented until Process fix :)
     @Rule(
             desc = "Prevents watchdog from closing the server due to a tick taking too long",
             validate = WatchdogFixValidator.class,
@@ -283,9 +283,7 @@ public class EssentialAddonsSettings {
     )
     public static boolean watchDogFix = false;
 
-    /*
-    VALIDATORS
-     */
+    //VALIDATORS
 
     private static class WatchdogFixValidator extends Validator<Boolean> {
         @Override public Boolean validate(ServerCommandSource source, ParsedRule<Boolean> currentRule, Boolean newValue, String string) {
@@ -299,6 +297,7 @@ public class EssentialAddonsSettings {
             return newValue;
         }
     }
+    */
 }
 
 

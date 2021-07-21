@@ -1,4 +1,4 @@
-package essentialaddons.utils;
+package essentialaddons.helpers;
 
 import carpet.CarpetServer;
 import com.google.gson.Gson;
