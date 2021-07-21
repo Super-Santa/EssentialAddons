@@ -16,11 +16,16 @@
     "PotionEntityMixin",
     "PotionItemMixin",
     "ScoreboardCommandMixin",
-    "ServerPlayNetHandlerMixin",
+    "ServerPlayNetworkHandlerMixin",
     "ServerWorldMixin",
     "ShulkerBoxSlotMixin",
     "ShulkerBoxTileEntityMixin",
-    "SignBlockEntityMixin"
+    "SignBlockEntityMixin",
+    "core.MinecraftDedicatedServer_watchdogMixin",
+    "lagSpike.MinecraftServer_autoSaveMixin",
+    "lagSpike.ServerChunkManager_chunkMixin",
+    "lagSpike.ServerWorld_randomMixin",
+    "lagSpike.World_tileMixin"
   ],
   "injectors": {
     "defaultRequire": 1

@@ -5,6 +5,8 @@ import carpet.settings.ParsedRule;
 import carpet.settings.Rule;
 import carpet.settings.Validator;
 import carpet.utils.Messenger;
+import net.minecraft.server.command.ServerCommandSource;
+import net.minecraft.server.dedicated.DedicatedServerWatchdog;
 
 import static carpet.settings.RuleCategory.*;
 
@@ -198,6 +200,14 @@ public class EssentialAddonsSettings {
     public static boolean commandPublicViewDistance = false;
 
     @Rule(
+            desc = "Allows you to simulate a lag spike using /lagspike",
+            validate = {Validator._COMMAND_LEVEL_VALIDATOR.class},
+            options = {"ops", "false", "true"},
+            category = {ESSENTIAL, COMMAND, CREATIVE}
+    )
+    public static String commandLagSpike = "false";
+
+    @Rule(
             desc = "Combines the duration of consumed potions",
             options = {"false", "true"},
             category = {ESSENTIAL, EXPERIMENTAL, FEATURE}
@@ -265,6 +275,30 @@ public class EssentialAddonsSettings {
             category = {ESSENTIAL, CREATIVE, FEATURE}
     )
     public static int removeItemEntitiesAfterThreshold = 0;
+
+    @Rule(
+            desc = "Prevents watchdog from closing the server due to a tick taking too long",
+            validate = WatchdogFixValidator.class,
+            category = {ESSENTIAL, SURVIVAL, FEATURE}
+    )
+    public static boolean watchDogFix = false;
+
+    /*
+    VALIDATORS
+     */
+
+    private static class WatchdogFixValidator extends Validator<Boolean> {
+        @Override public Boolean validate(ServerCommandSource source, ParsedRule<Boolean> currentRule, Boolean newValue, String string) {
+            if (EssentialAddonsServer.watchdogThread != null) {
+                if (newValue) {
+                    EssentialAddonsServer.watchdogThread.suspend();
+                } else {
+                    EssentialAddonsServer.watchdogThread.start();
+                }
+            }
+            return newValue;
+        }
+    }
 }
 
 

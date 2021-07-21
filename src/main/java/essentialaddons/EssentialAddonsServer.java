@@ -16,6 +16,8 @@ import java.io.IOException;
 
 public class EssentialAddonsServer implements CarpetExtension, ModInitializer {
 
+    public static Thread watchdogThread;
+
     public static final Logger LOGGER = LogManager.getLogger("EssentialAddons");
 
     @Override
@@ -83,5 +85,6 @@ public class EssentialAddonsServer implements CarpetExtension, ModInitializer {
         CommandEnderChest.register(dispatcher);
         CommandPublicViewDistance.register(dispatcher);
         CommandSubscribe.register(dispatcher);
+        CommandLagSpike.register(dispatcher);
     }
 }
