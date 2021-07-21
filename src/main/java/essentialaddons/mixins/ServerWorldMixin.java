@@ -29,11 +29,11 @@ public class ServerWorldMixin {
                 List<Entity> overworld = Objects.requireNonNull(CarpetServer.minecraft_server.getWorld(World.OVERWORLD)).getEntitiesByType(EntityType.EXPERIENCE_ORB, ExperienceOrbEntity -> true);
                 List<Entity> nether = Objects.requireNonNull(CarpetServer.minecraft_server.getWorld(World.NETHER)).getEntitiesByType(EntityType.EXPERIENCE_ORB, ExperienceOrbEntity -> true);
                 List<Entity> end = Objects.requireNonNull(CarpetServer.minecraft_server.getWorld(World.END)).getEntitiesByType(EntityType.EXPERIENCE_ORB, ExperienceOrbEntity -> true);
-                if (!overworld.isEmpty())
+                if (overworld.size() > 25)
                     overworld.forEach(Entity::remove);
-                if (!nether.isEmpty())
+                if (nether.size() > 25)
                     nether.forEach(Entity::remove);
-                if (!end.isEmpty())
+                if (end.size() > 25)
                     end.forEach(Entity::remove);
             }
         }
