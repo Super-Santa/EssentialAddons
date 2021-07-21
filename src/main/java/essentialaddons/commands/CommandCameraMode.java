@@ -2,6 +2,7 @@ package essentialaddons.commands;
 
 import carpet.settings.SettingsManager;
 import com.mojang.brigadier.CommandDispatcher;
+import essentialaddons.EssentialAddonsServer;
 import essentialaddons.EssentialAddonsSettings;
 import essentialaddons.EssentialAddonsUtils;
 import essentialaddons.utils.CameraData;
@@ -21,8 +22,6 @@ import static net.minecraft.server.command.CommandManager.literal;
 
 public class CommandCameraMode {
 
-    private static final Logger LOGGER = LogManager.getLogger("EssentialAddons");
-
     public static void register(CommandDispatcher<ServerCommandSource> dispatcher) {
         dispatcher.register(literal("cs").requires((player) -> SettingsManager.canUseCommand(player, EssentialAddonsSettings.commandCameraMode)
                 ).executes(context -> {
@@ -32,7 +31,7 @@ public class CommandCameraMode {
                 ).then(literal("clear").requires((player) -> player.hasPermissionLevel(4)
                 ).executes(context -> {
                     CameraData.cameraData.remove(context.getSource().getPlayer().getUuid());
-                    LOGGER.info("Player " + context.getSource().getPlayer().getEntityName() + " has cleared their cs HashMap");
+                    EssentialAddonsServer.LOGGER.info("Player " + context.getSource().getPlayer().getEntityName() + " has cleared their cs HashMap");
                     return 0;
                 }))
         );
@@ -42,13 +41,6 @@ public class CommandCameraMode {
             return;
         if (EssentialAddonsSettings.cameraModeRestoreLocation) {
             CameraData.cameraData.put(playerEntity.getUuid(), new CameraData(playerEntity));
-            try {
-                CameraData.writeSaveFile(CameraData.cameraData);
-            }
-            catch (IOException e) {
-                e.printStackTrace();
-                LOGGER.error("Failed to write to file for player " + playerEntity.getEntityName());
-            }
         }
         playerEntity.setGameMode(GameMode.SPECTATOR);
         EssentialAddonsUtils.sendToActionBar(playerEntity, "§6You have been put in §aSPECTATOR");
@@ -56,21 +48,10 @@ public class CommandCameraMode {
     }
     private static void returnMode(ServerPlayerEntity playerEntity) {
         CameraData data = CameraData.cameraData.remove(playerEntity.getUuid());
-        if (data == null) {
-            try {
-                CameraData.cameraData = CameraData.readSaveFile();
-                data = CameraData.cameraData.remove(playerEntity.getUuid());
-            }
-            catch (IOException e) {
-                e.printStackTrace();
-                LOGGER.error("Failed to read data for " + playerEntity.getEntityName());
-            }
-            LOGGER.info("Successfully read camera data file ");
-        }
         if (EssentialAddonsSettings.cameraModeRestoreLocation && data != null)
             data.restore(playerEntity);
         else if (EssentialAddonsSettings.cameraModeRestoreLocation) {
-            LOGGER.error("Could not load previous location for " + playerEntity.getEntityName());
+            EssentialAddonsServer.LOGGER.error("Could not load previous location for " + playerEntity.getEntityName());
             EssentialAddonsUtils.sendToActionBar(playerEntity, "§c[ERROR] Unable to get previous location");
             playerEntity.setGameMode(GameMode.SURVIVAL);
             return;

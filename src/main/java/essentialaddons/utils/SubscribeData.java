@@ -68,15 +68,6 @@ public class SubscribeData {
     }
     public static boolean isSubscibedCarfulBreak (UUID uuid) {
         SubscribeData data = SubscribeData.subscribeData.get(uuid);
-        if (data == null) {
-            try {
-                SubscribeData.subscribeData = readSaveFile();
-                data = SubscribeData.subscribeData.get(uuid);
-            } catch (IOException e) {
-                e.printStackTrace();
-                LOGGER.error("Could not read subscribe data");
-            }
-        }
         return data != null && data.isSubscribedCarefulBreak;
     }
 }

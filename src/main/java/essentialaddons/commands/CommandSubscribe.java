@@ -32,17 +32,6 @@ public class CommandSubscribe {
 
     private static void toggleSubscribe(ServerPlayerEntity playerEntity, UUID playerUUID) {
         SubscribeData data = SubscribeData.subscribeData.remove(playerUUID);
-        if (data == null) {
-            try {
-                SubscribeData.subscribeData = SubscribeData.readSaveFile();
-                data = SubscribeData.subscribeData.remove(playerUUID);
-            }
-            catch (IOException e) {
-                e.printStackTrace();
-                LOGGER.error("Could not read subscribe data");
-            }
-            LOGGER.info("Successfully read file for + " + playerEntity.getName());
-        }
         if (data == null || !data.isSubscribedCarefulBreak)
             SubscribeData.subscribeData.put(playerUUID, new SubscribeData(true));
         else

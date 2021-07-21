@@ -66,7 +66,8 @@ public class CameraData {
 
     public void restore(ServerPlayerEntity playerEntity) {
         MinecraftServer server = playerEntity.world.getServer();
-        if (server == null) return;
+        if (server == null)
+            return;
         ServerWorld world = server.getWorld(dimension);
         playerEntity.teleport(world, position.x, position.y, position.z, yaw, pitch);
     }

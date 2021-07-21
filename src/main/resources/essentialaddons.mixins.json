@@ -11,6 +11,7 @@
     "ItemStackMixin",
     "KickCommandMixin",
     "LivingEntityMixin",
+    "MinecraftServerMixin",
     "OpCommandMixin",
     "PotionEntityMixin",
     "PotionItemMixin",
