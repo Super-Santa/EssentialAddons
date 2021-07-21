@@ -251,12 +251,21 @@ public class EssentialAddonsSettings {
     public static boolean infiniteItems = false;
 
     @Rule(
-            desc = "Tries to kill experience orbs when server is over set mspt, set to 0 to disable",
-            options = {"0", "50", "75", "100"},
+            desc = "Removes all xp entities after set amount of xp entities is reached in a world, set to 0 to disable",
+            options = {"0", "100", "250", "500"},
             strict = false,
             category = {ESSENTIAL, CREATIVE, FEATURE}
     )
-    public static int removeXpEntitiesIfMsptOver = 0;
+    public static int removeXpEntitiesAfterThreshold = 0;
+
+    @Rule(
+            desc = "Removes all item entities after set amount of item entities is reached in a world, set to 0 to disable",
+            options = {"0", "200", "500", "1000"},
+            strict = false,
+            category = {ESSENTIAL, CREATIVE, FEATURE}
+    )
+    public static int removeItemEntitiesAfterThreshold = 0;
 }
+
 
 

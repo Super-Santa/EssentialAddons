@@ -5,37 +5,32 @@ import essentialaddons.EssentialAddonsSettings;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.server.world.ServerWorld;
-import net.minecraft.util.math.MathHelper;
-import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import java.util.List;
-import java.util.Objects;
 import java.util.function.BooleanSupplier;
 
 @Mixin(ServerWorld.class)
-public class ServerWorldMixin {
+public abstract class ServerWorldMixin {
 
     @Inject(method = "tick", at = @At("HEAD"), cancellable = true)
     public void tick(BooleanSupplier shouldKeepTicking, CallbackInfo ci) {
-        if (EssentialAddonsSettings.removeXpEntitiesIfMsptOver > 0) {
-            double mspt = MathHelper.average(CarpetServer.minecraft_server.lastTickLengths) * 1.0E-6D;
-            if (mspt > EssentialAddonsSettings.removeXpEntitiesIfMsptOver) {
-                //ServerCommandSource source = CarpetServer.minecraft_server.getCommandSource();
-                //CarpetServer.minecraft_server.getCommandManager().execute(source, "kill @e[type=experience_orb]");
-                List<Entity> overworld = Objects.requireNonNull(CarpetServer.minecraft_server.getWorld(World.OVERWORLD)).getEntitiesByType(EntityType.EXPERIENCE_ORB, ExperienceOrbEntity -> true);
-                List<Entity> nether = Objects.requireNonNull(CarpetServer.minecraft_server.getWorld(World.NETHER)).getEntitiesByType(EntityType.EXPERIENCE_ORB, ExperienceOrbEntity -> true);
-                List<Entity> end = Objects.requireNonNull(CarpetServer.minecraft_server.getWorld(World.END)).getEntitiesByType(EntityType.EXPERIENCE_ORB, ExperienceOrbEntity -> true);
-                if (overworld.size() > 25)
-                    overworld.forEach(Entity::remove);
-                if (nether.size() > 25)
-                    nether.forEach(Entity::remove);
-                if (end.size() > 25)
-                    end.forEach(Entity::remove);
-            }
+        if (EssentialAddonsSettings.removeXpEntitiesAfterThreshold > 0) {
+            CarpetServer.minecraft_server.getWorlds().forEach(serverWorld ->  {
+                List<Entity> all = serverWorld.getEntitiesByType(EntityType.EXPERIENCE_ORB, ExperienceOrbEntity -> true);
+                if (all.size() > EssentialAddonsSettings.removeXpEntitiesAfterThreshold)
+                    all.forEach(Entity::remove);
+            });
+        }
+        if (EssentialAddonsSettings.removeItemEntitiesAfterThreshold > 0) {
+            CarpetServer.minecraft_server.getWorlds().forEach(serverWorld ->  {
+                List<Entity> all = serverWorld.getEntitiesByType(EntityType.ITEM, ItemEntity -> true);
+                if (all.size() > EssentialAddonsSettings.removeItemEntitiesAfterThreshold)
+                    all.forEach(Entity::remove);
+            });
         }
     }
 }
