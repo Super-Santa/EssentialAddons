@@ -188,6 +188,22 @@ public class EssentialAddonsSettings {
     public static String commandEnderChest = "false";
 
     @Rule(
+            desc = "Allows you to open a crafting table with /workbench",
+            validate = {Validator._COMMAND_LEVEL_VALIDATOR.class},
+            options = {"ops", "false", "true"},
+            category = {ESSENTIAL, COMMAND, CREATIVE}
+    )
+    public static String commandWorkbench = "false";
+
+    @Rule(
+            desc = "Allows you to equip items to your head slot using /hat",
+            validate = {Validator._COMMAND_LEVEL_VALIDATOR.class},
+            options = {"ops", "false", "true"},
+            category = {ESSENTIAL, COMMAND, CREATIVE}
+    )
+    public static String commandHat = "false";
+
+    @Rule(
             desc = "Allows all players to change view distance",
             options = {"false", "true"},
             category = {ESSENTIAL, COMMAND, CREATIVE}
