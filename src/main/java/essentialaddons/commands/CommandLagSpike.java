@@ -7,7 +7,6 @@ import com.mojang.brigadier.arguments.StringArgumentType;
 import essentialaddons.EssentialAddonsSettings;
 import essentialaddons.helpers.EnumArgumentType;
 import essentialaddons.helpers.LagSpikeHelper;
-import net.minecraft.command.argument.DimensionArgumentType;
 import net.minecraft.server.command.ServerCommandSource;
 
 import static net.minecraft.server.command.CommandManager.literal;

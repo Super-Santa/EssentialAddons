@@ -21,7 +21,7 @@
     "ShulkerBoxSlotMixin",
     "ShulkerBoxTileEntityMixin",
     "SignBlockEntityMixin",
-    "core.MinecraftDedicatedServer_watchdogMixin",
+    "core.DedicatedServerWatchdog_bypassMixin",
     "lagSpike.MinecraftServer_autoSaveMixin",
     "lagSpike.ServerChunkManager_chunkMixin",
     "lagSpike.ServerWorld_randomMixin",

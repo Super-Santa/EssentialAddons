@@ -1,12 +1,7 @@
 package essentialaddons;
 
-import carpet.CarpetSettings;
-import carpet.settings.ParsedRule;
 import carpet.settings.Rule;
 import carpet.settings.Validator;
-import carpet.utils.Messenger;
-import net.minecraft.server.command.ServerCommandSource;
-import net.minecraft.server.dedicated.DedicatedServerWatchdog;
 
 import static carpet.settings.RuleCategory.*;
 
@@ -275,29 +270,13 @@ public class EssentialAddonsSettings {
             category = {ESSENTIAL, CREATIVE, FEATURE}
     )
     public static int removeItemEntitiesAfterThreshold = 0;
-    /* Commented until Process fix :)
+
     @Rule(
             desc = "Prevents watchdog from closing the server due to a tick taking too long",
-            validate = WatchdogFixValidator.class,
             category = {ESSENTIAL, SURVIVAL, FEATURE}
     )
     public static boolean watchDogFix = false;
 
-    //VALIDATORS
-
-    private static class WatchdogFixValidator extends Validator<Boolean> {
-        @Override public Boolean validate(ServerCommandSource source, ParsedRule<Boolean> currentRule, Boolean newValue, String string) {
-            if (EssentialAddonsServer.watchdogThread != null) {
-                if (newValue) {
-                    EssentialAddonsServer.watchdogThread.suspend();
-                } else {
-                    EssentialAddonsServer.watchdogThread.start();
-                }
-            }
-            return newValue;
-        }
-    }
-    */
 }
 
 
