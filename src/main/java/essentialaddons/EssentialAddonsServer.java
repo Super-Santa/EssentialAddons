@@ -66,11 +66,24 @@ public class EssentialAddonsServer implements CarpetExtension, ModInitializer {
 
     @Override
     public void registerCommands(CommandDispatcher<ServerCommandSource> dispatcher) {
+        CommandFly.register(dispatcher);
         CommandHat.register(dispatcher);
+        CommandRepair.register(dispatcher);
+        CommandGM.register(dispatcher);
+        CommandHeal.register(dispatcher);
+        CommandExtinguish.register(dispatcher);
+        CommandGod.register(dispatcher);
+        CommandDefuse.register(dispatcher);
+        CommandMore.register(dispatcher);
+        CommandStrength.register(dispatcher);
+        CommandNightVision.register(dispatcher);
+        CommandDimensions.register(dispatcher);
+        CommandWarp.register(dispatcher);
         CommandCameraMode.register(dispatcher);
+        CommandSwitchDimensions.register(dispatcher);
+        CommandEnderChest.register(dispatcher);
         CommandWorkbench.register(dispatcher);
         CommandPublicViewDistance.register(dispatcher);
         CommandSubscribe.register(dispatcher);
-        CommandLagSpike.register(dispatcher);
     }
 }
