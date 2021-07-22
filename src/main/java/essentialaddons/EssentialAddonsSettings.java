@@ -301,6 +301,12 @@ public class EssentialAddonsSettings {
     )
     public static boolean commandTop = false;
 
+    @Rule(
+            desc = "Lists other players near you",
+            options = {"false", "true"},
+            category = {ESSENTIAL, CREATIVE, FEATURE}
+    )
+    public static boolean commandNear = false;
 }
 
 
