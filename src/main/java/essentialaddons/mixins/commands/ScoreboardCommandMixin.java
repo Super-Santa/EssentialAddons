@@ -1,4 +1,4 @@
-package essentialaddons.mixins;
+package essentialaddons.mixins.commands;
 
 import carpet.settings.SettingsManager;
 import com.mojang.brigadier.CommandDispatcher;

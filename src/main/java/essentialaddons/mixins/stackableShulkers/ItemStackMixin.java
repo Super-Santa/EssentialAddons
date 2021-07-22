@@ -1,4 +1,4 @@
-package essentialaddons.mixins;
+package essentialaddons.mixins.stackableShulkers;
 
 import essentialaddons.EssentialAddonsSettings;
 import carpet.helpers.InventoryHelper;

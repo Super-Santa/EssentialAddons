@@ -1,4 +1,4 @@
-package essentialaddons.mixins;
+package essentialaddons.mixins.core;
 
 import essentialaddons.EssentialAddonsSettings;
 import net.minecraft.network.packet.c2s.play.ClickSlotC2SPacket;

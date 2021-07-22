@@ -1,4 +1,4 @@
-package essentialaddons.mixins;
+package essentialaddons.mixins.commands;
 
 import com.mojang.brigadier.CommandDispatcher;
 import essentialaddons.EssentialAddonsSettings;

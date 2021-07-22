@@ -1,4 +1,4 @@
-package essentialaddons.mixins;
+package essentialaddons.mixins.editableSigns;
 
 import essentialaddons.EssentialAddonsSettings;
 import net.minecraft.block.entity.SignBlockEntity;

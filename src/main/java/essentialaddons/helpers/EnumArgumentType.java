@@ -13,6 +13,7 @@ import net.minecraft.command.CommandSource;
 import net.minecraft.server.command.ServerCommandSource;
 import net.minecraft.text.LiteralText;
 
+@SuppressWarnings("all")
 public class EnumArgumentType<T extends Enum<T>> implements ArgumentType<T> {
     static {
         INVALID_ELEMENT_EXCEPTION = new DynamicCommandExceptionType(object -> new LiteralText("Enumeration element not found: " + object.toString()));

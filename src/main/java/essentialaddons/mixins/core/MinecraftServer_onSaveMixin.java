@@ -1,4 +1,4 @@
-package essentialaddons.mixins;
+package essentialaddons.mixins.core;
 
 import carpet.CarpetServer;
 import essentialaddons.EssentialAddonsServer;
@@ -12,7 +12,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import java.io.IOException;
 
 @Mixin(MinecraftServer.class)
-public class MinecraftServerMixin {
+public class MinecraftServer_onSaveMixin {
     @Inject(method = "save", at = @At("RETURN"))
     private void onWorldsSaved(boolean suppressLogs, boolean bl, boolean bl2, CallbackInfoReturnable<Boolean> cir) {
         if (CarpetServer.minecraft_server == null)

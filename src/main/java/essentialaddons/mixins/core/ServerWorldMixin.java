@@ -1,4 +1,4 @@
-package essentialaddons.mixins;
+package essentialaddons.mixins.core;
 
 import carpet.CarpetServer;
 import essentialaddons.EssentialAddonsSettings;

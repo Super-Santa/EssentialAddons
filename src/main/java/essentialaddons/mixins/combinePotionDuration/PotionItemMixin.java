@@ -1,4 +1,4 @@
-package essentialaddons.mixins;
+package essentialaddons.mixins.combinePotionDuration;
 
 import essentialaddons.EssentialAddonsSettings;
 import net.minecraft.entity.LivingEntity;

@@ -1,4 +1,4 @@
-package essentialaddons.mixins;
+package essentialaddons.mixins.essentialCarefulbreak;
 
 import essentialaddons.EssentialAddonsSettings;
 import essentialaddons.EssentialAddonsUtils;
