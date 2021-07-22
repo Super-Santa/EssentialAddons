@@ -8,7 +8,7 @@ import org.spongepowered.asm.mixin.injection.ModifyVariable;
 
 @Mixin(DedicatedServerWatchdog.class)
 public class DedicatedServerWatchdog_bypassMixin {
-
+    /*
     @ModifyVariable(method= "run()V",at=@At(value="FIELD",target="Lnet/minecraft/server/dedicated/DedicatedServerWatchdog;maxTickTime:J"))
     private long ModifyMaxTickTime(long maxTickTime) {
         if (EssentialAddonsSettings.watchDogFix) {
@@ -16,4 +16,6 @@ public class DedicatedServerWatchdog_bypassMixin {
         }
         return maxTickTime;
     }
+
+     */
 }

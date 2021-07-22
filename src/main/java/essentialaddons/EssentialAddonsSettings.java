@@ -286,12 +286,20 @@ public class EssentialAddonsSettings {
             category = {ESSENTIAL, CREATIVE, FEATURE}
     )
     public static int removeItemEntitiesAfterThreshold = 0;
-
+    /*
     @Rule(
             desc = "Prevents watchdog from closing the server due to a tick taking too long",
             category = {ESSENTIAL, SURVIVAL, FEATURE}
     )
     public static boolean watchDogFix = false;
+
+    */
+    @Rule(
+            desc = "Teleports the player up",
+            options = {"false", "true"},
+            category = {ESSENTIAL, CREATIVE, FEATURE}
+    )
+    public static boolean commandTop = false;
 
 }
 
