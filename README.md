@@ -1,5 +1,3 @@
 ## TODO
 
 - reloadFakePlayers
-- watchDogFix
-- commandLagSpike
