@@ -136,6 +136,13 @@ public class EssentialAddonsSettings {
     public static boolean commandCameraMode = false;
 
     @Rule(
+            desc = "Prevents players from teleporting to players in spectator",
+            options = {"false", "true"},
+            category = {ESSENTIAL, SURVIVAL, EXPERIMENTAL}
+    )
+    public static boolean cameraModeTeleportBlacklist = false;
+
+    @Rule(
             desc = "Ports cameraModeSurvivalRestrictions from carpet 1.12 into commandCameraMode",
             extra = "Does not allow you to use /cs if you are in danger",
             options = {"false", "true"},

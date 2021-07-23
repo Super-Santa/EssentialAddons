@@ -22,7 +22,7 @@ public abstract class BlockMixin {
     //Code from wholmT
     @Redirect(method = "afterBreak", at = @At(value = "INVOKE", target = "Lnet/minecraft/block/Block;dropStacks(Lnet/minecraft/block/BlockState;Lnet/minecraft/world/World;Lnet/minecraft/util/math/BlockPos;Lnet/minecraft/block/entity/BlockEntity;Lnet/minecraft/entity/Entity;Lnet/minecraft/item/ItemStack;)V"), require = 0)
     private void onDropStacks(BlockState state, World world, BlockPos pos, BlockEntity blockEntity, Entity entity, ItemStack stack){
-        if (EssentialAddonsSettings.essentialCarefulBreak && entity instanceof PlayerEntity && entity.isInSneakingPose() && SubscribeData.isSubscibedCarfulBreak(entity.getUuid()))
+        if (EssentialAddonsSettings.essentialCarefulBreak && entity instanceof PlayerEntity && entity.isInSneakingPose() && SubscribeData.subscribeData.get(entity.getUuid()).isSubscribedCarefulBreak)
             EssentialAddonsUtils.placeItemInInventory(state,world,pos,blockEntity,entity,stack);
         else
             Block.dropStacks(state,world,pos,blockEntity,entity,stack);
@@ -30,7 +30,7 @@ public abstract class BlockMixin {
     //carefulBreak PISTON_HEADS
     @Inject(method = "onBreak", at = @At("HEAD"))
     private void onBreak1(World world, BlockPos pos, BlockState state, PlayerEntity player, CallbackInfo ci) {
-        if (EssentialAddonsSettings.essentialCarefulBreak && player.isInSneakingPose() && SubscribeData.isSubscibedCarfulBreak(player.getUuid())) {
+        if (EssentialAddonsSettings.essentialCarefulBreak && player.isInSneakingPose() && SubscribeData.subscribeData.get(player.getUuid()).isSubscribedCarefulBreak) {
             if (state.getBlock() == Blocks.PISTON_HEAD) {
                 Direction direction = state.get(FacingBlock.FACING).getOpposite();
                 pos = pos.offset(direction);

@@ -17,32 +17,34 @@ import static net.minecraft.server.command.CommandManager.literal;
 
 public class CommandSubscribe {
 
-    private static final Logger LOGGER = LogManager.getLogger("EssentialAddons");
-
     public static void register(CommandDispatcher<ServerCommandSource> dispatcher) {
-        dispatcher.register(literal("subscribe").requires((player) -> SettingsManager.canUseCommand(player, EssentialAddonsSettings.essentialCarefulBreak))
-                .then(literal("carefulbreak")
-                    .executes(context -> {
-                        ServerPlayerEntity playerEntity = context.getSource().getPlayer();
-                        UUID playerUUID = playerEntity.getUuid();
-                        toggleSubscribe(playerEntity, playerUUID);
-                        return 0;
-                    })));
-    }
-
-    private static void toggleSubscribe(ServerPlayerEntity playerEntity, UUID playerUUID) {
-        SubscribeData data = SubscribeData.subscribeData.remove(playerUUID);
-        if (data == null || !data.isSubscribedCarefulBreak)
-            SubscribeData.subscribeData.put(playerUUID, new SubscribeData(true));
-        else
-            SubscribeData.subscribeData.put(playerUUID, new SubscribeData(false));
-        EssentialAddonsUtils.sendToActionBar(playerEntity, "§6Carefulbreak is now set to §a" + SubscribeData.isSubscibedCarfulBreak(playerUUID));
-        try {
-            SubscribeData.writeSaveFile(SubscribeData.subscribeData);
-        }
-        catch (IOException e) {
-            e.printStackTrace();
-            LOGGER.error("Could not save subscribe data");
-        }
+        dispatcher.register(literal("subscribe").requires(player -> SettingsManager.canUseCommand(player, EssentialAddonsSettings.essentialCarefulBreak || EssentialAddonsSettings.cameraModeTeleportBlacklist))
+                .then(literal("carefulbreak").requires(player -> SettingsManager.canUseCommand(player, EssentialAddonsSettings.essentialCarefulBreak))
+                        .executes(context -> {
+                            ServerPlayerEntity playerEntity = context.getSource().getPlayer();
+                            UUID playerUUID = playerEntity.getUuid();
+                            SubscribeData data = SubscribeData.subscribeData.remove(playerUUID);
+                            if (data == null) {
+                                SubscribeData.subscribeData.put(playerUUID, new SubscribeData(false, false));
+                                data = SubscribeData.subscribeData.remove(playerUUID);
+                            }
+                            data.toggleSubscribe(playerEntity, playerUUID, "carefulbreak");
+                            return 0;
+                        })
+                )
+                .then(literal("teleportblacklist").requires(player -> SettingsManager.canUseCommand(player, EssentialAddonsSettings.cameraModeTeleportBlacklist))
+                        .executes(context -> {
+                            ServerPlayerEntity playerEntity = context.getSource().getPlayer();
+                            UUID playerUUID = playerEntity.getUuid();
+                            SubscribeData data = SubscribeData.subscribeData.remove(playerUUID);
+                            if (data == null) {
+                                SubscribeData.subscribeData.put(playerUUID, new SubscribeData(false, false));
+                                data = SubscribeData.subscribeData.remove(playerUUID);
+                            }
+                            data.toggleSubscribe(playerEntity, playerUUID, "teleportblacklist");
+                            return 0;
+                        })
+                )
+        );
     }
 }
