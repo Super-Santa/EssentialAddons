@@ -66,6 +66,7 @@ public class EssentialAddonsServer implements CarpetExtension, ModInitializer {
 
     @Override
     public void registerCommands(CommandDispatcher<ServerCommandSource> dispatcher) {
+        CommandRegion.register(dispatcher);
         CommandFly.register(dispatcher);
         CommandHat.register(dispatcher);
         CommandRepair.register(dispatcher);

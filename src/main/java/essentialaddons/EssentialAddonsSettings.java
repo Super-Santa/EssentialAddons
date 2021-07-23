@@ -138,7 +138,7 @@ public class EssentialAddonsSettings {
     @Rule(
             desc = "Prevents players from teleporting to players in spectator",
             options = {"false", "true"},
-            category = {ESSENTIAL, SURVIVAL, EXPERIMENTAL}
+            category = {ESSENTIAL, COMMAND, SURVIVAL, EXPERIMENTAL}
     )
     public static boolean cameraModeTeleportBlacklist = false;
 
@@ -212,7 +212,7 @@ public class EssentialAddonsSettings {
 
     @Rule(
             desc = "Allows all players to change view distance",
-            options = {"false", "true"},
+            options = {"ops", "false", "true"},
             category = {ESSENTIAL, COMMAND, CREATIVE}
     )
     public static boolean commandPublicViewDistance = false;
@@ -259,7 +259,7 @@ public class EssentialAddonsSettings {
             desc = "Mining blocks while crouching will put mined blocks striaght into your inventory, THIS DOES NOT WORK WITH CARPET-ADDONS INSTALLED",
             extra = "Same as wholmT's implementation in carpetAddons but works with stackable shulkers, requires players to subscribe to carefulbreak",
             options = {"false", "true"},
-            category = {ESSENTIAL, SURVIVAL, FEATURE}
+            category = {ESSENTIAL, COMMAND, SURVIVAL, FEATURE}
     )
     public static boolean essentialCarefulBreak = false;
 
@@ -304,16 +304,23 @@ public class EssentialAddonsSettings {
     @Rule(
             desc = "Teleports the player up",
             options = {"false", "true"},
-            category = {ESSENTIAL, CREATIVE, FEATURE}
+            category = {ESSENTIAL, COMMAND, CREATIVE, FEATURE}
     )
     public static boolean commandTop = false;
 
     @Rule(
             desc = "Lists other players near you",
             options = {"false", "true"},
-            category = {ESSENTIAL, CREATIVE, FEATURE}
+            category = {ESSENTIAL, COMMAND, CREATIVE, FEATURE}
     )
     public static boolean commandNear = false;
+
+    @Rule(
+            desc = "Lists other players near you",
+            options = {"false", "true"},
+            category = {ESSENTIAL, COMMAND, CREATIVE, FEATURE}
+    )
+    public static boolean commandRegion = false;
 }
 
 

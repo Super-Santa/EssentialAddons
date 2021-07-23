@@ -3,14 +3,10 @@ package essentialaddons.commands;
 import carpet.settings.SettingsManager;
 import com.mojang.brigadier.CommandDispatcher;
 import essentialaddons.EssentialAddonsSettings;
-import essentialaddons.EssentialAddonsUtils;
 import essentialaddons.helpers.SubscribeData;
 import net.minecraft.server.command.ServerCommandSource;
 import net.minecraft.server.network.ServerPlayerEntity;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 
-import java.io.IOException;
 import java.util.UUID;
 
 import static net.minecraft.server.command.CommandManager.literal;
