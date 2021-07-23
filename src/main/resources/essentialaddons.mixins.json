@@ -8,7 +8,6 @@
     "combinePotionDuration.PotionItemMixin",
     "commands.KickCommandMixin",
     "commands.OpCommandMixin",
-    "commands.PlayerCommandMixin",
     "commands.ScoreboardCommandMixin",
     "core.DedicatedServerWatchdog_bypassMixin",
     "core.MinecraftServer_onSaveMixin",
