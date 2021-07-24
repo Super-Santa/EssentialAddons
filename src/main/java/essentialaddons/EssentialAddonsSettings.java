@@ -321,6 +321,13 @@ public class EssentialAddonsSettings {
             category = {ESSENTIAL, COMMAND, CREATIVE, FEATURE}
     )
     public static boolean commandRegion = false;
+
+    @Rule(
+            desc = "Removes the warning 'Fetching packet for removed entity...' in console and logs",
+            options = {"false", "true"},
+            category = {ESSENTIAL, SURVIVAL, FEATURE}
+    )
+    public static boolean removeWarnRemovedEntity = false;
 }
 
 
