@@ -22,6 +22,7 @@
     "lagSpike.ServerChunkManager_chunkMixin",
     "lagSpike.ServerWorld_randomMixin",
     "lagSpike.World_tileMixin",
+    "removeWarnRemovedEntity.EntityTrackerEntryMixin",
     "shulkerSeption.ShulkerBoxSlotMixin",
     "shulkerSeption.ShulkerBoxTileEntityMixin",
     "stackableShulkers.HopperScreenHandlerMixin",

@@ -19,6 +19,7 @@ import static net.minecraft.server.command.CommandManager.literal;
 
 public class CommandCameraMode {
 
+    //Much of this code is taken from quick carpet
     public static void register(CommandDispatcher<ServerCommandSource> dispatcher) {
         dispatcher.register(literal("cs").requires((player) -> SettingsManager.canUseCommand(player, EssentialAddonsSettings.commandCameraMode)
                 ).executes(context -> {

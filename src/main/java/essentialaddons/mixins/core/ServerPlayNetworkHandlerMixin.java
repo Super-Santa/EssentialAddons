@@ -35,7 +35,7 @@ class ServerPlayNetworkHandlerMixin {
             UUID entityUUID = Objects.requireNonNull(packet.getTarget(targetWorld)).getUuid();
             if (SubscribeData.subscribeData.get(entityUUID) == null)
                 SubscribeData.subscribeData.put(entityUUID, new SubscribeData(false, false));
-            else if (SubscribeData.subscribeData.get(Objects.requireNonNull(packet.getTarget(targetWorld)).getUuid()).isSubscribedTeleportBlacklist()) {
+            else if (SubscribeData.subscribeData.get(Objects.requireNonNull(packet.getTarget(targetWorld)).getUuid()).isSubscribedTeleportBlacklist() && !playerEntity.hasPermissionLevel(4)) {
                 EssentialAddonsUtils.sendToActionBar(playerEntity, "§6This player has teleporting §cDISABLED");
                 return;
             }

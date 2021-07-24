@@ -32,6 +32,7 @@ import java.util.UUID;
 
 public record CameraData(RegistryKey<World> dimension, Vec3d position, float yaw, float pitch) {
 
+    //Much of this code is taken from quick carpet
     public static Map<UUID, CameraData> cameraData = new HashMap<>();
 
     public static final MapCodec<CameraData> CODEC = RecordCodecBuilder.mapCodec(it -> it.group(
@@ -44,7 +45,7 @@ public record CameraData(RegistryKey<World> dimension, Vec3d position, float yaw
     ).apply(it, (dim, x, y, z, yaw, pitch) -> new CameraData(RegistryKey.of(Registry.WORLD_KEY, dim), new Vec3d(x, y, z), yaw, pitch)));
     public static final Codec<Map<UUID, CameraData>> MAP_CODEC = Codec.unboundedMap(Codec.STRING.xmap(UUID::fromString, UUID::toString), CODEC.codec());
     private static final Gson GSON = new GsonBuilder().setPrettyPrinting().disableHtmlEscaping().create();
-    private static final Logger LOGGER = LogManager.getLogger("QuickCarpet|CameraData");
+    private static final Logger LOGGER = LogManager.getLogger("EssentialAddons");
 
     public CameraData(Entity entity) {
         this(entity.world.getRegistryKey(), entity.getPos(), entity.getYaw(), entity.getPitch());
