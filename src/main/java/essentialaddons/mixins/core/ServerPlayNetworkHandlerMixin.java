@@ -15,6 +15,7 @@ import org.spongepowered.asm.mixin.injection.Redirect;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import java.util.Objects;
+import java.util.UUID;
 
 @Mixin(ServerPlayNetworkHandler.class)
 class ServerPlayNetworkHandlerMixin {
@@ -33,9 +34,15 @@ class ServerPlayNetworkHandlerMixin {
 
     @Redirect(method = "onSpectatorTeleport", at = @At(value = "INVOKE", target = "Lnet/minecraft/server/network/ServerPlayerEntity;teleport(Lnet/minecraft/server/world/ServerWorld;DDDFF)V"), require = 0)
     private void checkTeleportBlacklist(ServerPlayerEntity playerEntity, ServerWorld targetWorld, double x, double y, double z, float yaw, float pitch, SpectatorTeleportC2SPacket packet) {
-        if (SubscribeData.subscribeData.get(Objects.requireNonNull(packet.getTarget(targetWorld)).getUuid()).isSubscribedTeleportBlacklist)
-            EssentialAddonsUtils.sendToActionBar(playerEntity, "§6This player has teleporting §cDISABLED");
-        else
-            playerEntity.teleport(targetWorld, x, y, z, yaw, pitch);
+        if (EssentialAddonsSettings.cameraModeTeleportBlacklist) {
+            UUID entityUUID = Objects.requireNonNull(packet.getTarget(targetWorld)).getUuid();
+            if (SubscribeData.subscribeData.get(entityUUID) == null)
+                SubscribeData.subscribeData.put(entityUUID, new SubscribeData(false, false));
+            else if (SubscribeData.subscribeData.get(Objects.requireNonNull(packet.getTarget(targetWorld)).getUuid()).isSubscribedTeleportBlacklist) {
+                EssentialAddonsUtils.sendToActionBar(playerEntity, "§6This player has teleporting §cDISABLED");
+                return;
+            }
+        }
+        playerEntity.teleport(targetWorld, x, y, z, yaw, pitch);
     }
 }
