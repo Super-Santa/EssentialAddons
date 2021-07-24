@@ -1,6 +1,5 @@
-package essentialaddons.mixins;
+package essentialaddons.mixins.combinePotionDuration;
 
-import essentialaddons.EssentialAddonsServer;
 import essentialaddons.EssentialAddonsSettings;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.effect.StatusEffectInstance;

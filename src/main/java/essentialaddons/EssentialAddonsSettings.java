@@ -140,6 +140,13 @@ public class EssentialAddonsSettings {
     public static boolean commandCameraMode = false;
 
     @Rule(
+            desc = "Prevents players from teleporting to players in spectator",
+            options = {"false", "true"},
+            category = {ESSENTIAL, COMMAND, SURVIVAL, EXPERIMENTAL}
+    )
+    public static boolean cameraModeTeleportBlacklist = false;
+
+    @Rule(
             desc = "Ports cameraModeSurvivalRestrictions from carpet 1.12 into commandCameraMode",
             extra = "Does not allow you to use /cs if you are in danger",
             options = {"false", "true"},
@@ -192,11 +199,35 @@ public class EssentialAddonsSettings {
     public static String commandEnderChest = "false";
 
     @Rule(
+            desc = "Allows you to open a crafting table with /workbench",
+            validate = {Validator._COMMAND_LEVEL_VALIDATOR.class},
+            options = {"ops", "false", "true"},
+            category = {ESSENTIAL, COMMAND, CREATIVE}
+    )
+    public static String commandWorkbench = "false";
+
+    @Rule(
+            desc = "Allows you to equip items to your head slot using /hat",
+            validate = {Validator._COMMAND_LEVEL_VALIDATOR.class},
+            options = {"ops", "false", "true"},
+            category = {ESSENTIAL, COMMAND, CREATIVE}
+    )
+    public static String commandHat = "false";
+
+    @Rule(
             desc = "Allows all players to change view distance",
             options = {"false", "true"},
             category = {ESSENTIAL, COMMAND, CREATIVE}
     )
     public static boolean commandPublicViewDistance = false;
+
+    @Rule(
+            desc = "Allows you to simulate a lag spike using /lagspike",
+            validate = {Validator._COMMAND_LEVEL_VALIDATOR.class},
+            options = {"ops", "false", "true"},
+            category = {ESSENTIAL, COMMAND, CREATIVE}
+    )
+    public static String commandLagSpike = "false";
 
     @Rule(
             desc = "Combines the duration of consumed potions",
@@ -232,7 +263,7 @@ public class EssentialAddonsSettings {
             desc = "Mining blocks while crouching will put mined blocks striaght into your inventory, THIS DOES NOT WORK WITH CARPET-ADDONS INSTALLED",
             extra = "Same as wholmT's implementation in carpetAddons but works with stackable shulkers, requires players to subscribe to carefulbreak",
             options = {"false", "true"},
-            category = {ESSENTIAL, SURVIVAL, FEATURE}
+            category = {ESSENTIAL, COMMAND, SURVIVAL, FEATURE}
     )
     public static boolean essentialCarefulBreak = false;
 
@@ -243,6 +274,57 @@ public class EssentialAddonsSettings {
             category = {ESSENTIAL, SURVIVAL, EXPERIMENTAL}
     )
     public static boolean stackableShulkerLithiumFix = false;
+
+    @Rule(
+            desc = "This allows for survival players to have infinite blocks, food, and enderpearls",
+            options = {"false", "true"},
+            category = {ESSENTIAL, CREATIVE, EXPERIMENTAL}
+    )
+    public static boolean infiniteItems = false;
+
+    @Rule(
+            desc = "Removes all xp entities after set amount of xp entities is reached in a world, set to 0 to disable",
+            options = {"0", "100", "250", "500"},
+            strict = false,
+            category = {ESSENTIAL, CREATIVE, FEATURE}
+    )
+    public static int removeXpEntitiesAfterThreshold = 0;
+
+    @Rule(
+            desc = "Removes all item entities after set amount of item entities is reached in a world, set to 0 to disable",
+            options = {"0", "200", "500", "1000"},
+            strict = false,
+            category = {ESSENTIAL, CREATIVE, FEATURE}
+    )
+    public static int removeItemEntitiesAfterThreshold = 0;
+    /*
+    @Rule(
+            desc = "Prevents watchdog from closing the server due to a tick taking too long",
+            category = {ESSENTIAL, SURVIVAL, FEATURE}
+    )
+    public static boolean watchDogFix = false;
+
+    */
+    @Rule(
+            desc = "Teleports the player up",
+            options = {"false", "true"},
+            category = {ESSENTIAL, COMMAND, CREATIVE, FEATURE}
+    )
+    public static boolean commandTop = false;
+
+    @Rule(
+            desc = "Lists other players near you",
+            options = {"false", "true"},
+            category = {ESSENTIAL, COMMAND, CREATIVE, FEATURE}
+    )
+    public static boolean commandNear = false;
+
+    @Rule(
+            desc = "Lists other players near you",
+            options = {"false", "true"},
+            category = {ESSENTIAL, COMMAND, CREATIVE, FEATURE}
+    )
+    public static boolean commandRegion = false;
 }
 
 

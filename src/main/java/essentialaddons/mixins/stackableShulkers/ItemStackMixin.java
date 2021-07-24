@@ -1,8 +1,7 @@
-package essentialaddons.mixins;
+package essentialaddons.mixins.stackableShulkers;
 
 import essentialaddons.EssentialAddonsSettings;
 import carpet.helpers.InventoryHelper;
-import net.minecraft.block.Block;
 import net.minecraft.block.ShulkerBoxBlock;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
