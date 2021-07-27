@@ -70,6 +70,7 @@ public class CameraData {
             return;
         ServerWorld world = server.getWorld(dimension);
         playerEntity.teleport(world, position.x, position.y, position.z, yaw, pitch);
+        playerEntity.getServerWorld().getChunkManager().updateCameraPosition(playerEntity);
     }
 
     private static Path getFile() {

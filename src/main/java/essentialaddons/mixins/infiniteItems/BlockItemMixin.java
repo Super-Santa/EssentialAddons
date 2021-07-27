@@ -14,7 +14,7 @@ import org.spongepowered.asm.mixin.injection.Redirect;
 public class BlockItemMixin {
     @Redirect(method = "place(Lnet/minecraft/item/ItemPlacementContext;)Lnet/minecraft/util/ActionResult;", at = @At(value = "INVOKE", target = "Lnet/minecraft/item/ItemStack;decrement(I)V"), require = 0)
     private void onDecrement(ItemStack itemStack, int amount, ItemPlacementContext context) {
-        if (EssentialAddonsSettings.infiniteItems) {
+        if (EssentialAddonsSettings.infiniteItems && context.getPlayer() != null) {
             if (!context.getWorld().isClient) {
                 ServerPlayerEntity playerEntity = (ServerPlayerEntity) context.getPlayer();
                 assert playerEntity != null;

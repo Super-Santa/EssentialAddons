@@ -328,7 +328,19 @@ public class EssentialAddonsSettings {
             category = {ESSENTIAL, SURVIVAL, FEATURE}
     )
     public static boolean removeWarnRemovedEntity = false;
+
+    @Rule(
+            desc = "Automatically respawns fake players on server restart",
+            options = {"false", "true"},
+            category = {ESSENTIAL, SURVIVAL, FEATURE}
+    )
+    public static boolean reloadFakePlayers = false;
+
+    @Rule(
+            desc = "Automatically reloads the fake players actions after server restart",
+            options = {"false", "true"},
+            category = {ESSENTIAL, SURVIVAL, FEATURE, EXPERIMENTAL}
+    )
+    public static boolean reloadFakePlayerActions = false;
 }
-
-
 
