@@ -11,12 +11,12 @@
     "PR0CESS"
   ],
   "contact": {
-    "homepage": "",
-    "sources": "",
-    "issues": ""
+    "homepage": "https://github.com/Super-Santa/EssentialAddons",
+    "sources": "https://github.com/Super-Santa/EssentialAddons",
+    "issues": "https://github.com/Super-Santa/EssentialAddons/issues"
   },
 
-  "license": "CC0-1.0",
+  "license": "MIT",
 
   "environment": "*",
   "entrypoints": {
