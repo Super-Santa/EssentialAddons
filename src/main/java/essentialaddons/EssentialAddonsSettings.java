@@ -121,72 +121,6 @@ public class EssentialAddonsSettings {
     public static String commandWarp = "false";
 
     @Rule(
-            desc = "Allows your to edit a sign after its places by right clicking it while sneaking",
-            options = {"true", "false"},
-            category = {ESSENTIAL, COMMAND, EXPERIMENTAL, FEATURE}
-    )
-    public static boolean editableSigns = false;
-
-    @Rule(
-            desc = "Survival friendly spectator mode, puts the player in and out of spectator mode",
-            extra = "Allows for saving location after server reset using rule cameraModeRestoreLocation and adds functionality for cameraModeSurvivalRestrictions",
-            options = {"false", "true"},
-            category = {ESSENTIAL, COMMAND, EXPERIMENTAL, SURVIVAL, FEATURE}
-    )
-    public static boolean commandCameraMode = false;
-
-    @Rule(
-            desc = "Prevents players from teleporting to players in spectator",
-            options = {"false", "true"},
-            category = {ESSENTIAL, COMMAND, SURVIVAL, EXPERIMENTAL}
-    )
-    public static boolean cameraModeTeleportBlacklist = false;
-
-    @Rule(
-            desc = "Ports cameraModeSurvivalRestrictions from carpet 1.12 into commandCameraMode",
-            extra = "Does not allow you to use /cs if you are in danger",
-            options = {"false", "true"},
-            category = {ESSENTIAL, EXPERIMENTAL, SURVIVAL, FEATURE}
-    )
-    public static boolean cameraModeSurvivalRestrictions = false;
-
-    @Rule(
-            desc = "Restores player location back to original location in survival, similar to the cs script by Kdender",
-            extra = "Saves location even after server restart",
-            options = {"false", "true"},
-            category = {ESSENTIAL, EXPERIMENTAL, SURVIVAL, FEATURE}
-    )
-    public static boolean cameraModeRestoreLocation = true;
-
-    @Rule(
-            desc = "Allows anyone to use the /kick command",
-            options = {"false", "true"},
-            category = {ESSENTIAL, COMMAND, SURVIVAL}
-    )
-    public static boolean commandPublicKick = false;
-
-    @Rule(
-            desc = "Allows anyone to use the /op command",
-            options = {"false", "true"},
-            category = {ESSENTIAL, COMMAND, CREATIVE}
-    )
-    public static boolean commandPublicOp = false;
-
-    @Rule(
-            desc = "Allows anyone to use the /scoreboard command",
-            options = {"false", "true"},
-            category = {ESSENTIAL, COMMAND, SURVIVAL}
-    )
-    public static boolean commandPublicScoreboard = false;
-
-    @Rule(
-            desc = "Allows you to always eat cake",
-            options = {"false", "true"},
-            category = {ESSENTIAL, EXPERIMENTAL, FEATURE}
-    )
-    public static boolean cakeAlwaysEat = false;
-
-    @Rule(
             desc = "Allows you to open your enderchest with /enderchest",
             validate = {Validator._COMMAND_LEVEL_VALIDATOR.class},
             options = {"ops", "false", "true"},
@@ -212,8 +146,8 @@ public class EssentialAddonsSettings {
 
     @Rule(
             desc = "Allows all players to change view distance",
-            options = {"ops", "false", "true"},
-            category = {ESSENTIAL, COMMAND, CREATIVE}
+            options = {"false", "true"},
+            category = {ESSENTIAL, COMMAND, SURVIVAL}
     )
     public static boolean commandPublicViewDistance = false;
 
@@ -226,7 +160,94 @@ public class EssentialAddonsSettings {
     public static String commandLagSpike = "false";
 
     @Rule(
-            desc = "Combines the duration of consumed potions",
+            desc = "Allows anyone to use the /kick command",
+            options = {"false", "true"},
+            category = {ESSENTIAL, COMMAND, SURVIVAL}
+    )
+    public static boolean commandPublicKick = false;
+
+    @Rule(
+            desc = "Allows anyone to use the /op command",
+            options = {"false", "true"},
+            category = {ESSENTIAL, COMMAND, CREATIVE}
+    )
+    public static boolean commandPublicOp = false;
+
+    @Rule(
+            desc = "Allows anyone to use the /scoreboard command",
+            options = {"false", "true"},
+            category = {ESSENTIAL, COMMAND, SURVIVAL}
+    )
+    public static boolean commandPublicScoreboard = false;
+
+    @Rule(
+            desc = "Teleports the player up",
+            options = {"false", "true"},
+            category = {ESSENTIAL, COMMAND, CREATIVE}
+    )
+    public static boolean commandTop = false;
+
+    @Rule(
+            desc = "Lists other players near you",
+            options = {"false", "true"},
+            category = {ESSENTIAL, COMMAND, CREATIVE}
+    )
+    public static boolean commandNear = false;
+
+    @Rule(
+            desc = "Allows you see what region you are in and teleport to a region",
+            options = {"false", "true"},
+            category = {ESSENTIAL, COMMAND, CREATIVE}
+    )
+    public static boolean commandRegion = false;
+
+    @Rule(
+            desc = "Survival friendly spectator mode, puts the player in and out of spectator mode",
+            extra = "Allows for saving location after server reset using rule cameraModeRestoreLocation and adds functionality for cameraModeSurvivalRestrictions",
+            options = {"false", "true"},
+            category = {ESSENTIAL, COMMAND, EXPERIMENTAL, SURVIVAL, FEATURE}
+    )
+    public static boolean commandCameraMode = false;
+
+    @Rule(
+            desc = "Prevents players from teleporting to players in spectator",
+            options = {"false", "true"},
+            category = {ESSENTIAL, SURVIVAL, EXPERIMENTAL}
+    )
+    public static boolean cameraModeTeleportBlacklist = false;
+
+    @Rule(
+            desc = "Ports cameraModeSurvivalRestrictions from carpet 1.12 into commandCameraMode",
+            extra = "Does not allow you to use /cs if you are in danger",
+            options = {"false", "true"},
+            category = {ESSENTIAL, EXPERIMENTAL, SURVIVAL, FEATURE}
+    )
+    public static boolean cameraModeSurvivalRestrictions = false;
+
+    @Rule(
+            desc = "Restores player location back to original location in survival, similar to the cs script by Kdender",
+            extra = "Saves location even after server restart",
+            options = {"false", "true"},
+            category = {ESSENTIAL, EXPERIMENTAL, SURVIVAL, FEATURE}
+    )
+    public static boolean cameraModeRestoreLocation = true;
+
+    @Rule(
+            desc = "Allows you to always eat cake",
+            options = {"false", "true"},
+            category = {ESSENTIAL, EXPERIMENTAL, FEATURE}
+    )
+    public static boolean cakeAlwaysEat = false;
+
+    @Rule(
+            desc = "Allows your to edit a sign after its places by right clicking it while sneaking",
+            options = {"true", "false"},
+            category = {ESSENTIAL, EXPERIMENTAL, FEATURE}
+    )
+    public static boolean editableSigns = false;
+
+    @Rule(
+            desc = "Combines the duration of potions",
             options = {"false", "true"},
             category = {ESSENTIAL, EXPERIMENTAL, FEATURE}
     )
@@ -301,26 +322,6 @@ public class EssentialAddonsSettings {
     public static boolean watchDogFix = false;
 
     */
-    @Rule(
-            desc = "Teleports the player up",
-            options = {"false", "true"},
-            category = {ESSENTIAL, COMMAND, CREATIVE, FEATURE}
-    )
-    public static boolean commandTop = false;
-
-    @Rule(
-            desc = "Lists other players near you",
-            options = {"false", "true"},
-            category = {ESSENTIAL, COMMAND, CREATIVE, FEATURE}
-    )
-    public static boolean commandNear = false;
-
-    @Rule(
-            desc = "Lists other players near you",
-            options = {"false", "true"},
-            category = {ESSENTIAL, COMMAND, CREATIVE, FEATURE}
-    )
-    public static boolean commandRegion = false;
 
     @Rule(
             desc = "Removes the warning 'Fetching packet for removed entity...' in console and logs",
