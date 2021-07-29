@@ -5,7 +5,6 @@ Feel free to contribute by adding as many features as you want!
 
 ## Index
 
-* [betterStackableShulkers](#betterstackableshulkers)
 * [cakeAlwaysEat](#cakealwayseat)
 * [cameraModeRestoreLocation](#cameramoderestorelocation)
 * [cameraModeSurvivalRestrictions](#cameramodesurvivalrestrictions)
@@ -50,15 +49,6 @@ Feel free to contribute by adding as many features as you want!
 
 
 # Features
-
-## betterStackableShulkers
-Shulkers stack when picking them up from the ground
-* Type: `Boolean`
-* Default value: `false`
-* Required options: `false`,`true`
-* Categories: `ESSENTIAL`, `SURVIVAL`, `EXPERIMENTAL`
-* Additional notes:
-  * This rule should be used instead of stackableShulkerBoxesInPlayerInventories if your server is running hopper optimisations
 
 ## cakeAlwaysEat
 Allows you to always eat cake
@@ -352,6 +342,8 @@ Shulkers can be placed inside other shulkers
 
 ## stackableShulkerBoxesInPlayerInventories
 Shulker boxes stack in player inventories
+
+If  you are using hopperOptimizations you need [my fork of hopperOptimisations](https://github.com/senseiwells/hopperOptimizations/releases/tag/v1.0.0) for it to function as intended
 * Type: `Boolean`
 * Default value: `false`
 * Required options: `false`,`true`

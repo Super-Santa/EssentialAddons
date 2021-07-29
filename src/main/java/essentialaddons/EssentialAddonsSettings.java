@@ -7,17 +7,7 @@ import static carpet.settings.RuleCategory.*;
 
 public class EssentialAddonsSettings {
 
-    public static boolean inventoryStacking = false;
-
     private final static String ESSENTIAL = "essential";
-
-    @Rule(
-            desc = "This allows for better shulker box stacking on the floor",
-            extra = "This rule is for using stackable shulkers with hopper optimisations, any other cases you should use stackableShulkersInPlayerInventories",
-            options = {"false", "true"},
-            category = {ESSENTIAL, SURVIVAL, EXPERIMENTAL}
-    )
-    public static boolean betterStackableShulkers = false;
 
     @Rule(
             desc = "Allows you to always eat cake",

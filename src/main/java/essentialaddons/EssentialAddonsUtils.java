@@ -3,9 +3,11 @@ package essentialaddons;
 import carpet.CarpetServer;
 import carpet.helpers.InventoryHelper;
 import net.minecraft.block.BlockState;
+import net.minecraft.block.ShulkerBoxBlock;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.server.network.ServerPlayerEntity;
@@ -31,10 +33,9 @@ public class EssentialAddonsUtils {
             getDroppedStacks(state, (ServerWorld) world, pos, blockEntity, entity, stack).forEach((itemStack) -> {
                 Item item = itemStack.getItem();
                 int itemAmount = itemStack.getCount();
-                if (!InventoryHelper.shulkerBoxHasItems(itemStack) && itemStack.getItem().toString().contains("shulker_box") && EssentialAddonsSettings.stackableShulkersInPlayerInventories) {
+                if (!InventoryHelper.shulkerBoxHasItems(itemStack) && itemStack.getItem() instanceof BlockItem && ((BlockItem) itemStack.getItem()).getBlock() instanceof ShulkerBoxBlock && EssentialAddonsSettings.stackableShulkersInPlayerInventories) {
                     itemStack.removeSubTag("BlockEntityTag");
                     item = itemStack.getItem();
-                    EssentialAddonsSettings.inventoryStacking = true;
                 }
                 if (((PlayerEntity) entity).inventory.insertStack(itemStack)) {
                     world.playSound(null, entity.getX(), entity.getY(), entity.getZ(), SoundEvents.ENTITY_ITEM_PICKUP, SoundCategory.PLAYERS, 0.2f, (CarpetServer.rand.nextFloat() - CarpetServer.rand.nextFloat()) * 1.4F + 2.0F);
@@ -42,7 +43,6 @@ public class EssentialAddonsUtils {
                 }
                 else
                     dropStack(world, pos, itemStack);
-                EssentialAddonsSettings.inventoryStacking = false;
             });
             state.onStacksDropped((ServerWorld) world, pos, stack);
         }

@@ -1,13 +1,20 @@
 package essentialaddons.mixins.core;
 
 import carpet.CarpetServer;
+import carpet.patches.EntityPlayerMPFake;
 import essentialaddons.EssentialAddonsSettings;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
+import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
+import net.minecraft.util.math.MathHelper;
+import net.minecraft.world.GameMode;
+import net.minecraft.world.TickScheduler;
+import org.apache.logging.log4j.Logger;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.Redirect;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import java.util.List;
@@ -33,4 +40,15 @@ public abstract class ServerWorldMixin {
             });
         }
     }
+    @Redirect(method = "checkEntityChunkPos", at = @At(value = "INVOKE", target = "Lorg/apache/logging/log4j/Logger;warn(Ljava/lang/String;Ljava/lang/Object;)V"))
+    private void onWarn(Logger logger, String message, Object p0, Entity entity) {
+        if (entity instanceof EntityPlayerMPFake) {
+            ServerPlayerEntity playerEntity = ((ServerPlayerEntity) entity);
+            playerEntity.getServerWorld().getChunk(MathHelper.floor(playerEntity.getX()/16), MathHelper.floor(playerEntity.getZ()/16)).addEntity(entity);
+            logger.warn("Entity {} may not be loaded properly", p0);
+        }
+        else
+            logger.warn("Entity {} left loaded chunk area", p0);
+    }
+
 }

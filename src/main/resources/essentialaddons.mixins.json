@@ -28,6 +28,7 @@
     "removeWarnRemovedEntity.EntityTrackerEntryMixin",
     "shulkerSeption.ShulkerBoxSlotMixin",
     "shulkerSeption.ShulkerBoxTileEntityMixin",
+    "stackableShulkers.HopperBlockEntityMixin",
     "stackableShulkers.ItemEntityMixin",
     "stackableShulkers.ItemStackMixin"
   ],

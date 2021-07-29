@@ -2,6 +2,8 @@ package essentialaddons.mixins.stackableShulkers;
 
 import essentialaddons.EssentialAddonsSettings;
 import carpet.helpers.InventoryHelper;
+import net.minecraft.block.ShulkerBoxBlock;
+import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import org.spongepowered.asm.mixin.Mixin;
@@ -17,7 +19,7 @@ public abstract class ItemStackMixin {
 
     @Inject(method = "getMaxCount", at=@At("RETURN"), cancellable = true)
     public void getMaxCount(CallbackInfoReturnable<Integer> cir) {
-        if ((EssentialAddonsSettings.stackableShulkersInPlayerInventories || EssentialAddonsSettings.betterStackableShulkers) && EssentialAddonsSettings.inventoryStacking && this.getItem().toString().contains("shulker_box")) {
+        if (EssentialAddonsSettings.stackableShulkersInPlayerInventories && this.getItem() instanceof BlockItem && ((BlockItem) this.getItem()).getBlock() instanceof ShulkerBoxBlock) {
             ItemStack stack = (ItemStack) (Object) this;
             if (!InventoryHelper.shulkerBoxHasItems(stack)) {
                     stack.removeSubTag("BlockEntityTag");
