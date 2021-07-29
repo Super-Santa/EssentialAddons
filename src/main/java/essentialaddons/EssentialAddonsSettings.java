@@ -12,54 +12,57 @@ public class EssentialAddonsSettings {
     private final static String ESSENTIAL = "essential";
 
     @Rule(
-            desc = "Toggles the ability to fly while in survival mode",
-            extra = "Using this also disables fall damage",
-            validate = {Validator._COMMAND_LEVEL_VALIDATOR.class},
-            options = {"ops", "false", "true"},
-            category = {ESSENTIAL, COMMAND}
+            desc = "This allows for better shulker box stacking on the floor",
+            extra = "This rule is for using stackable shulkers with hopper optimisations, any other cases you should use stackableShulkersInPlayerInventories",
+            options = {"false", "true"},
+            category = {ESSENTIAL, SURVIVAL, EXPERIMENTAL}
     )
-    public static String commandFly = "false";
+    public static boolean betterStackableShulkers = false;
 
     @Rule(
-            desc = "Allows /repair to be used to repair any item the player is holding",
-            validate = {Validator._COMMAND_LEVEL_VALIDATOR.class},
-            options = {"ops", "false", "true"},
-            category = {ESSENTIAL, COMMAND}
+            desc = "Allows you to always eat cake",
+            options = {"false", "true"},
+            category = {ESSENTIAL, EXPERIMENTAL, FEATURE}
     )
-    public static String commandRepair = "false";
+    public static boolean cakeAlwaysEat = false;
 
     @Rule(
-            desc = "Allows /gmc, /gms, /gmsp, and /gma to be used",
-            validate = {Validator._COMMAND_LEVEL_VALIDATOR.class},
-            options = {"ops", "false", "true"},
-            category = {ESSENTIAL, COMMAND, CREATIVE}
+            desc = "Restores player location back to original location in survival, similar to the cs script by Kdender",
+            extra = "Saves location even after server restart",
+            options = {"false", "true"},
+            category = {ESSENTIAL, EXPERIMENTAL, SURVIVAL, FEATURE}
     )
-    public static String commandGM = "false";
+    public static boolean cameraModeRestoreLocation = true;
 
     @Rule(
-            desc = "Allows /heal to be used to heal and feed the player",
-            validate = {Validator._COMMAND_LEVEL_VALIDATOR.class},
-            options = {"ops", "false", "true"},
-            category = {ESSENTIAL, COMMAND}
+            desc = "Ports cameraModeSurvivalRestrictions from carpet 1.12 into commandCameraMode",
+            extra = "Does not allow you to use /cs if you are in danger",
+            options = {"false", "true"},
+            category = {ESSENTIAL, EXPERIMENTAL, SURVIVAL, FEATURE}
     )
-    public static String commandHeal = "false";
+    public static boolean cameraModeSurvivalRestrictions = false;
 
     @Rule(
-            desc = "Allows /extinguish to be used to extinguish the player",
-            validate = {Validator._COMMAND_LEVEL_VALIDATOR.class},
-            options = {"ops", "false", "true"},
-            category = {ESSENTIAL, COMMAND}
+            desc = "Prevents players from teleporting to players in spectator",
+            options = {"false", "true"},
+            category = {ESSENTIAL, SURVIVAL, EXPERIMENTAL}
     )
-    public static String commandExtinguish = "false";
+    public static boolean cameraModeTeleportBlacklist = false;
 
     @Rule(
-            desc = "Toggles invulnerability",
-            extra = "Can be buggy if used while in creative mode",
-            validate = {Validator._COMMAND_LEVEL_VALIDATOR.class},
-            options = {"ops", "false", "true"},
-            category = {ESSENTIAL, COMMAND}
+            desc = "Combines the duration of potions",
+            options = {"false", "true"},
+            category = {ESSENTIAL, EXPERIMENTAL, FEATURE}
     )
-    public static String commandGod = "false";
+    public static boolean combinePotionDuration = false;
+
+    @Rule(
+            desc = "Survival friendly spectator mode, puts the player in and out of spectator mode",
+            extra = "Allows for saving location after server reset using rule cameraModeRestoreLocation and adds functionality for cameraModeSurvivalRestrictions",
+            options = {"false", "true"},
+            category = {ESSENTIAL, COMMAND, EXPERIMENTAL, SURVIVAL, FEATURE}
+    )
+    public static boolean commandCameraMode = false;
 
     @Rule(
             desc = "Enables /defuse to be used to stop any tnt from exploding within a given range",
@@ -71,30 +74,6 @@ public class EssentialAddonsSettings {
     public static String commandDefuse = "false";
 
     @Rule(
-            desc = "Allows /more to be used to give a full stack of whatever item the player is holding",
-            validate = {Validator._COMMAND_LEVEL_VALIDATOR.class},
-            options = {"ops", "false", "true"},
-            category = {ESSENTIAL, COMMAND}
-    )
-    public static String commandMore = "false";
-
-    @Rule(
-            desc = "Toggles strength",
-            validate = {Validator._COMMAND_LEVEL_VALIDATOR.class},
-            options = {"ops", "false", "true"},
-            category = {ESSENTIAL, COMMAND, CREATIVE}
-    )
-    public static String commandStrength = "false";
-
-    @Rule(
-            desc = "Toggles night vision",
-            validate = {Validator._COMMAND_LEVEL_VALIDATOR.class},
-            options = {"ops", "false", "true"},
-            category = {ESSENTIAL, COMMAND, CREATIVE}
-    )
-    public static String commandNightVision = "false";
-
-    @Rule(
             desc = "Allows the player to teleport to different dimensions with a simple command",
             extra = "It will always teleport you to 0,0 in said dimension",
             validate = {Validator._COMMAND_LEVEL_VALIDATOR.class},
@@ -102,23 +81,6 @@ public class EssentialAddonsSettings {
             category = {ESSENTIAL, COMMAND, CREATIVE}
     )
     public static String commandDimensions = "false";
-
-    @Rule(
-            desc = "Allows the player to teleport between the nether and overworld at equivalent coords",
-            validate = {Validator._COMMAND_LEVEL_VALIDATOR.class},
-            options = {"ops", "false", "true"},
-            category = {ESSENTIAL, COMMAND, CREATIVE}
-    )
-    public static String commandSwitchDimensions = "false";
-
-    @Rule(
-            desc = "Allows players to warp using /setwarp and /warp",
-            extra = "You are only able to set one warp which will be removed after server restart",
-            validate = {Validator._COMMAND_LEVEL_VALIDATOR.class},
-            options = {"ops", "false", "true"},
-            category = {ESSENTIAL, COMMAND, CREATIVE}
-    )
-    public static String commandWarp = "false";
 
     @Rule(
             desc = "Allows you to open your enderchest with /enderchest",
@@ -129,12 +91,38 @@ public class EssentialAddonsSettings {
     public static String commandEnderChest = "false";
 
     @Rule(
-            desc = "Allows you to open a crafting table with /workbench",
+            desc = "Allows /extinguish to be used to extinguish the player",
+            validate = {Validator._COMMAND_LEVEL_VALIDATOR.class},
+            options = {"ops", "false", "true"},
+            category = {ESSENTIAL, COMMAND}
+    )
+    public static String commandExtinguish = "false";
+
+    @Rule(
+            desc = "Toggles the ability to fly while in survival mode",
+            extra = "Using this also disables fall damage",
+            validate = {Validator._COMMAND_LEVEL_VALIDATOR.class},
+            options = {"ops", "false", "true"},
+            category = {ESSENTIAL, COMMAND}
+    )
+    public static String commandFly = "false";
+
+    @Rule(
+            desc = "Allows /gmc, /gms, /gmsp, and /gma to be used",
             validate = {Validator._COMMAND_LEVEL_VALIDATOR.class},
             options = {"ops", "false", "true"},
             category = {ESSENTIAL, COMMAND, CREATIVE}
     )
-    public static String commandWorkbench = "false";
+    public static String commandGM = "false";
+
+    @Rule(
+            desc = "Toggles invulnerability",
+            extra = "Can be buggy if used while in creative mode",
+            validate = {Validator._COMMAND_LEVEL_VALIDATOR.class},
+            options = {"ops", "false", "true"},
+            category = {ESSENTIAL, COMMAND}
+    )
+    public static String commandGod = "false";
 
     @Rule(
             desc = "Allows you to equip items to your head slot using /hat",
@@ -145,11 +133,12 @@ public class EssentialAddonsSettings {
     public static String commandHat = "false";
 
     @Rule(
-            desc = "Allows all players to change view distance",
-            options = {"false", "true"},
-            category = {ESSENTIAL, COMMAND, SURVIVAL}
+            desc = "Allows /heal to be used to heal and feed the player",
+            validate = {Validator._COMMAND_LEVEL_VALIDATOR.class},
+            options = {"ops", "false", "true"},
+            category = {ESSENTIAL, COMMAND}
     )
-    public static boolean commandPublicViewDistance = false;
+    public static String commandHeal = "false";
 
     @Rule(
             desc = "Allows you to simulate a lag spike using /lagspike",
@@ -158,6 +147,29 @@ public class EssentialAddonsSettings {
             category = {ESSENTIAL, COMMAND, CREATIVE}
     )
     public static String commandLagSpike = "false";
+
+    @Rule(
+            desc = "Allows /more to be used to give a full stack of whatever item the player is holding",
+            validate = {Validator._COMMAND_LEVEL_VALIDATOR.class},
+            options = {"ops", "false", "true"},
+            category = {ESSENTIAL, COMMAND}
+    )
+    public static String commandMore = "false";
+
+    @Rule(
+            desc = "Lists other players near you",
+            options = {"false", "true"},
+            category = {ESSENTIAL, COMMAND, CREATIVE}
+    )
+    public static boolean commandNear = false;
+
+    @Rule(
+            desc = "Toggles night vision",
+            validate = {Validator._COMMAND_LEVEL_VALIDATOR.class},
+            options = {"ops", "false", "true"},
+            category = {ESSENTIAL, COMMAND, CREATIVE}
+    )
+    public static String commandNightVision = "false";
 
     @Rule(
             desc = "Allows anyone to use the /kick command",
@@ -174,6 +186,13 @@ public class EssentialAddonsSettings {
     public static boolean commandPublicOp = false;
 
     @Rule(
+            desc = "Allows all players to use the command /save-all",
+            options = {"false", "true"},
+            category = {ESSENTIAL, COMMAND, SURVIVAL}
+    )
+    public static boolean commandPublicSaveAll = false;
+
+    @Rule(
             desc = "Allows anyone to use the /scoreboard command",
             options = {"false", "true"},
             category = {ESSENTIAL, COMMAND, SURVIVAL}
@@ -181,18 +200,11 @@ public class EssentialAddonsSettings {
     public static boolean commandPublicScoreboard = false;
 
     @Rule(
-            desc = "Teleports the player up",
+            desc = "Allows all players to change view distance",
             options = {"false", "true"},
-            category = {ESSENTIAL, COMMAND, CREATIVE}
+            category = {ESSENTIAL, COMMAND, SURVIVAL}
     )
-    public static boolean commandTop = false;
-
-    @Rule(
-            desc = "Lists other players near you",
-            options = {"false", "true"},
-            category = {ESSENTIAL, COMMAND, CREATIVE}
-    )
-    public static boolean commandNear = false;
+    public static boolean commandPublicViewDistance = false;
 
     @Rule(
             desc = "Allows you see what region you are in and teleport to a region",
@@ -202,42 +214,52 @@ public class EssentialAddonsSettings {
     public static boolean commandRegion = false;
 
     @Rule(
-            desc = "Survival friendly spectator mode, puts the player in and out of spectator mode",
-            extra = "Allows for saving location after server reset using rule cameraModeRestoreLocation and adds functionality for cameraModeSurvivalRestrictions",
-            options = {"false", "true"},
-            category = {ESSENTIAL, COMMAND, EXPERIMENTAL, SURVIVAL, FEATURE}
+            desc = "Allows /repair to be used to repair any item the player is holding",
+            validate = {Validator._COMMAND_LEVEL_VALIDATOR.class},
+            options = {"ops", "false", "true"},
+            category = {ESSENTIAL, COMMAND}
     )
-    public static boolean commandCameraMode = false;
+    public static String commandRepair = "false";
 
     @Rule(
-            desc = "Prevents players from teleporting to players in spectator",
-            options = {"false", "true"},
-            category = {ESSENTIAL, SURVIVAL, EXPERIMENTAL}
+            desc = "Toggles strength",
+            validate = {Validator._COMMAND_LEVEL_VALIDATOR.class},
+            options = {"ops", "false", "true"},
+            category = {ESSENTIAL, COMMAND, CREATIVE}
     )
-    public static boolean cameraModeTeleportBlacklist = false;
+    public static String commandStrength = "false";
 
     @Rule(
-            desc = "Ports cameraModeSurvivalRestrictions from carpet 1.12 into commandCameraMode",
-            extra = "Does not allow you to use /cs if you are in danger",
-            options = {"false", "true"},
-            category = {ESSENTIAL, EXPERIMENTAL, SURVIVAL, FEATURE}
+            desc = "Allows the player to teleport between the nether and overworld at equivalent coords",
+            validate = {Validator._COMMAND_LEVEL_VALIDATOR.class},
+            options = {"ops", "false", "true"},
+            category = {ESSENTIAL, COMMAND, CREATIVE}
     )
-    public static boolean cameraModeSurvivalRestrictions = false;
+    public static String commandSwitchDimensions = "false";
 
     @Rule(
-            desc = "Restores player location back to original location in survival, similar to the cs script by Kdender",
-            extra = "Saves location even after server restart",
+            desc = "Teleports the player up",
             options = {"false", "true"},
-            category = {ESSENTIAL, EXPERIMENTAL, SURVIVAL, FEATURE}
+            category = {ESSENTIAL, COMMAND, CREATIVE}
     )
-    public static boolean cameraModeRestoreLocation = true;
+    public static boolean commandTop = false;
 
     @Rule(
-            desc = "Allows you to always eat cake",
-            options = {"false", "true"},
-            category = {ESSENTIAL, EXPERIMENTAL, FEATURE}
+            desc = "Allows players to warp using /setwarp and /warp",
+            extra = "You are only able to set one warp which will be removed after server restart",
+            validate = {Validator._COMMAND_LEVEL_VALIDATOR.class},
+            options = {"ops", "false", "true"},
+            category = {ESSENTIAL, COMMAND, CREATIVE}
     )
-    public static boolean cakeAlwaysEat = false;
+    public static String commandWarp = "false";
+
+    @Rule(
+            desc = "Allows you to open a crafting table with /workbench",
+            validate = {Validator._COMMAND_LEVEL_VALIDATOR.class},
+            options = {"ops", "false", "true"},
+            category = {ESSENTIAL, COMMAND, CREATIVE}
+    )
+    public static String commandWorkbench = "false";
 
     @Rule(
             desc = "Allows your to edit a sign after its places by right clicking it while sneaking",
@@ -247,11 +269,63 @@ public class EssentialAddonsSettings {
     public static boolean editableSigns = false;
 
     @Rule(
-            desc = "Combines the duration of potions",
+            desc = "Mining blocks while crouching will put mined blocks striaght into your inventory, THIS DOES NOT WORK WITH CARPET-ADDONS INSTALLED",
+            extra = "Same as wholmT's implementation in carpetAddons but works with stackable shulkers, requires players to subscribe to carefulbreak",
+            options = {"false", "true"},
+            category = {ESSENTIAL, COMMAND, SURVIVAL, FEATURE}
+    )
+    public static boolean essentialCarefulBreak = false;
+
+    @Rule(
+            desc = "This allows for survival players to have infinite blocks, food, and enderpearls",
+            options = {"false", "true"},
+            category = {ESSENTIAL, CREATIVE, EXPERIMENTAL}
+    )
+    public static boolean infiniteItems = false;
+
+    @Rule(
+            desc = "Automatically reloads the fake players actions after server restart",
+            options = {"false", "true"},
+            category = {ESSENTIAL, SURVIVAL, FEATURE, EXPERIMENTAL}
+    )
+    public static boolean reloadFakePlayerActions = false;
+
+    @Rule(
+            desc = "Automatically respawns fake players on server restart",
+            options = {"false", "true"},
+            category = {ESSENTIAL, SURVIVAL, FEATURE}
+    )
+    public static boolean reloadFakePlayers = false;
+
+    @Rule(
+            desc = "Removes all item entities after set amount of item entities is reached in a world, set to 0 to disable",
+            options = {"0", "200", "500", "1000"},
+            strict = false,
+            category = {ESSENTIAL, CREATIVE, FEATURE}
+    )
+    public static int removeItemEntitiesAfterThreshold = 0;
+
+    @Rule(
+            desc = "Removes the warning 'Fetching packet for removed entity...' in console and logs",
+            options = {"false", "true"},
+            category = {ESSENTIAL, SURVIVAL, FEATURE}
+    )
+    public static boolean removeWarnRemovedEntity = false;
+
+    @Rule(
+            desc = "Removes all xp entities after set amount of xp entities is reached in a world, set to 0 to disable",
+            options = {"0", "100", "250", "500"},
+            strict = false,
+            category = {ESSENTIAL, CREATIVE, FEATURE}
+    )
+    public static int removeXpEntitiesAfterThreshold = 0;
+
+    @Rule(
+            desc = "Allows you to put shulker boxes inside of other shulkers",
             options = {"false", "true"},
             category = {ESSENTIAL, EXPERIMENTAL, FEATURE}
     )
-    public static boolean combinePotionDuration = false;
+    public static boolean shulkerSception = false;
 
     @Rule(
             desc = "Shulker boxes stack in player inventories",
@@ -268,52 +342,6 @@ public class EssentialAddonsSettings {
             category = {ESSENTIAL, EXPERIMENTAL, FEATURE}
     )
     public static boolean stackableShulkersWithItems = false;
-
-    @Rule(
-            desc = "Allows you to put shulker boxes inside of other shulkers",
-            options = {"false", "true"},
-            category = {ESSENTIAL, EXPERIMENTAL, FEATURE}
-    )
-    public static boolean shulkerSception = false;
-
-    @Rule(
-            desc = "Mining blocks while crouching will put mined blocks striaght into your inventory, THIS DOES NOT WORK WITH CARPET-ADDONS INSTALLED",
-            extra = "Same as wholmT's implementation in carpetAddons but works with stackable shulkers, requires players to subscribe to carefulbreak",
-            options = {"false", "true"},
-            category = {ESSENTIAL, COMMAND, SURVIVAL, FEATURE}
-    )
-    public static boolean essentialCarefulBreak = false;
-
-    @Rule(
-            desc = "This allows for better shulker box stacking on the floor",
-            extra = "This rule is for using stackable shulkers with hopper optimisations, any other cases you should use stackableShulkersInPlayerInventories",
-            options = {"false", "true"},
-            category = {ESSENTIAL, SURVIVAL, EXPERIMENTAL}
-    )
-    public static boolean betterStackableShulkers = false;
-
-    @Rule(
-            desc = "This allows for survival players to have infinite blocks, food, and enderpearls",
-            options = {"false", "true"},
-            category = {ESSENTIAL, CREATIVE, EXPERIMENTAL}
-    )
-    public static boolean infiniteItems = false;
-
-    @Rule(
-            desc = "Removes all xp entities after set amount of xp entities is reached in a world, set to 0 to disable",
-            options = {"0", "100", "250", "500"},
-            strict = false,
-            category = {ESSENTIAL, CREATIVE, FEATURE}
-    )
-    public static int removeXpEntitiesAfterThreshold = 0;
-
-    @Rule(
-            desc = "Removes all item entities after set amount of item entities is reached in a world, set to 0 to disable",
-            options = {"0", "200", "500", "1000"},
-            strict = false,
-            category = {ESSENTIAL, CREATIVE, FEATURE}
-    )
-    public static int removeItemEntitiesAfterThreshold = 0;
     /*
     @Rule(
             desc = "Prevents watchdog from closing the server due to a tick taking too long",
@@ -322,26 +350,5 @@ public class EssentialAddonsSettings {
     public static boolean watchDogFix = false;
 
     */
-
-    @Rule(
-            desc = "Removes the warning 'Fetching packet for removed entity...' in console and logs",
-            options = {"false", "true"},
-            category = {ESSENTIAL, SURVIVAL, FEATURE}
-    )
-    public static boolean removeWarnRemovedEntity = false;
-
-    @Rule(
-            desc = "Automatically respawns fake players on server restart",
-            options = {"false", "true"},
-            category = {ESSENTIAL, SURVIVAL, FEATURE}
-    )
-    public static boolean reloadFakePlayers = false;
-
-    @Rule(
-            desc = "Automatically reloads the fake players actions after server restart",
-            options = {"false", "true"},
-            category = {ESSENTIAL, SURVIVAL, FEATURE, EXPERIMENTAL}
-    )
-    public static boolean reloadFakePlayerActions = false;
 }
 
