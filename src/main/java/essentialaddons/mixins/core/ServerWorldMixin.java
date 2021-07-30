@@ -8,8 +8,6 @@ import net.minecraft.entity.EntityType;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.math.MathHelper;
-import net.minecraft.world.GameMode;
-import net.minecraft.world.TickScheduler;
 import org.apache.logging.log4j.Logger;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -50,5 +48,4 @@ public abstract class ServerWorldMixin {
         else
             logger.warn("Entity {} left loaded chunk area", p0);
     }
-
 }

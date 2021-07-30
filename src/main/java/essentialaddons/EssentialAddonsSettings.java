@@ -319,7 +319,7 @@ public class EssentialAddonsSettings {
 
     @Rule(
             desc = "Shulker boxes stack in player inventories",
-            extra = "Enable tweakEmptyShulkerBoxesStack in tweakeroo on the client",
+            extra = "Enable tweakEmptyShulkerBoxesStack in tweakeroo on the client, if you are using hopperOptimizations use Sensei's fork for this to function properly",
             options = {"false", "true"},
             category = {ESSENTIAL, EXPERIMENTAL, FEATURE}
     )
