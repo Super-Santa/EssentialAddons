@@ -3,9 +3,11 @@ package essentialaddons;
 import carpet.CarpetServer;
 import carpet.helpers.InventoryHelper;
 import net.minecraft.block.BlockState;
+import net.minecraft.block.ShulkerBoxBlock;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.server.network.ServerPlayerEntity;
@@ -16,8 +18,6 @@ import net.minecraft.stat.Stats;
 import net.minecraft.text.LiteralText;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-
-import java.io.File;
 
 import static net.minecraft.block.Block.dropStack;
 import static net.minecraft.block.Block.getDroppedStacks;
@@ -33,10 +33,9 @@ public class EssentialAddonsUtils {
             getDroppedStacks(state, (ServerWorld) world, pos, blockEntity, entity, stack).forEach((itemStack) -> {
                 Item item = itemStack.getItem();
                 int itemAmount = itemStack.getCount();
-                if (!InventoryHelper.shulkerBoxHasItems(itemStack) && itemStack.getItem().toString().contains("shulker_box") && EssentialAddonsSettings.stackableShulkersInPlayerInventories) {
+                if (EssentialAddonsSettings.stackableShulkersInPlayerInventories && !InventoryHelper.shulkerBoxHasItems(itemStack) && itemStack.getItem() instanceof BlockItem && ((BlockItem) itemStack.getItem()).getBlock() instanceof ShulkerBoxBlock) {
                     itemStack.removeSubNbt("BlockEntityTag");
                     item = itemStack.getItem();
-                    EssentialAddonsSettings.inventoryStacking = true;
                 }
                 if (((PlayerEntity) entity).getInventory().insertStack(itemStack)) {
                     world.playSound(null, entity.getX(), entity.getY(), entity.getZ(), SoundEvents.ENTITY_ITEM_PICKUP, SoundCategory.PLAYERS, 0.2f, (CarpetServer.rand.nextFloat() - CarpetServer.rand.nextFloat()) * 1.4F + 2.0F);
@@ -44,17 +43,8 @@ public class EssentialAddonsUtils {
                 }
                 else
                     dropStack(world, pos, itemStack);
-                EssentialAddonsSettings.inventoryStacking = false;
             });
             state.onStacksDropped((ServerWorld) world, pos, stack);
         }
-    }
-    public static void directoryExists (String path) {
-        File directory = new File(path);
-        if (!directory.exists())
-            if (directory.mkdirs())
-                System.out.println("Directory" + path + "has been created");
-            else
-                System.out.println("There was an error when creating directory " + path);
     }
 }

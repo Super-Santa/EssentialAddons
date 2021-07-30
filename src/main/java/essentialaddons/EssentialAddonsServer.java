@@ -5,6 +5,7 @@ import carpet.CarpetServer;
 import com.mojang.brigadier.CommandDispatcher;
 import essentialaddons.commands.*;
 import essentialaddons.helpers.CameraData;
+import essentialaddons.helpers.ReloadFakePlayers;
 import essentialaddons.helpers.SubscribeData;
 import net.fabricmc.api.ModInitializer;
 import net.minecraft.server.MinecraftServer;
@@ -52,6 +53,13 @@ public class EssentialAddonsServer implements CarpetExtension, ModInitializer {
     }
 
     @Override
+    public void onServerLoadedWorlds(MinecraftServer server) {
+        CarpetExtension.super.onServerLoadedWorlds(server);
+        if (EssentialAddonsSettings.reloadFakePlayers)
+            ReloadFakePlayers.loadFakePlayers(server);
+    }
+
+    @Override
     public void onServerClosed(MinecraftServer server) {
         CarpetExtension.super.onServerClosed(server);
         try {
@@ -61,7 +69,10 @@ public class EssentialAddonsServer implements CarpetExtension, ModInitializer {
             e.printStackTrace();
             LOGGER.error("Failed to write camera data file ");
         }
-        LOGGER.info("Successfully wrote to camera data file ");
+        if (EssentialAddonsSettings.commandCameraMode && EssentialAddonsSettings.cameraModeRestoreLocation)
+            LOGGER.info("Successfully wrote to camera data file ");
+        if (EssentialAddonsSettings.reloadFakePlayers)
+            ReloadFakePlayers.saveFakePlayers(CarpetServer.minecraft_server);
     }
 
     @Override
