@@ -24,6 +24,7 @@
     "lagSpike.ServerWorld_randomMixin",
     "lagSpike.World_tileMixin",
     "lithium.HopperHelperMixin",
+    "lithium.LithiumStackListMixin",
     "reloadFakePlayers.EntityPlayerActionPackMixin",
     "reloadFakePlayers.PlayerCommandMixin",
     "removeWarnRemovedEntity.EntityTrackerEntryMixin",
