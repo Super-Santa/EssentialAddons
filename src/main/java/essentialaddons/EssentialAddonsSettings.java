@@ -204,6 +204,13 @@ public class EssentialAddonsSettings {
     public static boolean commandRegion = false;
 
     @Rule(
+            desc = "Allows you to rename items with a command",
+            options = {"false", "true"},
+            category = {ESSENTIAL, COMMAND, CREATIVE}
+    )
+    public static boolean commandRename = false;
+
+    @Rule(
             desc = "Allows /repair to be used to repair any item the player is holding",
             validate = {Validator._COMMAND_LEVEL_VALIDATOR.class},
             options = {"ops", "false", "true"},
