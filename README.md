@@ -43,6 +43,7 @@ Feel free to contribute by adding as many features as you want!
 * [removeWarnRemovedEntity](#removewarnremovedentity)
 * [removeXpEntitiesAfterThreshold](#removexpentitiesafterthreshold)
 * [shulkerSception](#shulkersception)
+* [stackableShulkerComparatorOverloadFix](#stackableshulkercomparatoroverloadfix)
 * [stackableShulkerBoxesInPlayerInventories](#stackableshulkerboxesinplayerinventories)
 * [stackableShulkersWithItems](#stackableshulkerswithitems)
 
@@ -339,6 +340,13 @@ Shulkers can be placed inside other shulkers
 * Default value: `false`
 * Required options: `false`,`true`
 * Categories: `ESSENTIAL`, `EXPERIMENTAL`, `FEATURE`
+
+## stackableShulkerComparatorOverloadFix
+Fixes stacked shulkers overloading comparators
+* Type: `Boolean`
+* Default value: `false`
+* Required options: `false`,`true`
+* Categories: `ESSENTIAL`, `SURVIVAL`, `FEATURE`
 
 ## stackableShulkerBoxesInPlayerInventories
 Shulker boxes stack in player inventories
