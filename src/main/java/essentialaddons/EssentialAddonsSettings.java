@@ -35,7 +35,7 @@ public class EssentialAddonsSettings {
     @Rule(
             desc = "Prevents players from teleporting to players in spectator",
             options = {"false", "true"},
-            category = {ESSENTIAL, SURVIVAL, EXPERIMENTAL}
+            category = {ESSENTIAL, SURVIVAL, COMMAND}
     )
     public static boolean cameraModeTeleportBlacklist = false;
 
