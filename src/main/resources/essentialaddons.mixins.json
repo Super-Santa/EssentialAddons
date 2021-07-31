@@ -30,7 +30,8 @@
     "shulkerSeption.ShulkerBoxTileEntityMixin",
     "stackableShulkers.HopperBlockEntityMixin",
     "stackableShulkers.ItemEntityMixin",
-    "stackableShulkers.ItemStackMixin"
+    "stackableShulkers.ItemStackMixin",
+    "stackableShulkers.ScreenHandlerMixin"
   ],
   "injectors": {
     "defaultRequire": 1
