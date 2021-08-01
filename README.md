@@ -29,6 +29,8 @@ Feel free to contribute by adding as many features as you want!
 * [commandPublicScoreboard](#commandpublicscoreboard)
 * [commandPublicViewDistance](#commandpublicviewdistance)
 * [commandRegion](#commandregion)
+* [commandRename](#commandrename)
+* [commandRepair](#commandrepair)  
 * [commandStrength](#commandstrength)
 * [commandSwitchDimension](#commandswitchdimension)
 * [commandTop](#commandtop)
@@ -229,6 +231,13 @@ Allows all players to change the view distance
 
 ## commandRegion
 Tells you what region you are in and allows you to teleport to a region
+* Type: `Boolean`
+* Default value: `false`
+* Required options: `false`,`true`
+* Categories: `ESSENTIAL`, `COMMAND`, `CREATIVE`
+
+## commandRename
+Allows you to rename the item you are holding
 * Type: `Boolean`
 * Default value: `false`
 * Required options: `false`,`true`
