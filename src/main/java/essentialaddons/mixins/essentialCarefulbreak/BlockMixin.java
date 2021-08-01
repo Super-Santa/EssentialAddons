@@ -38,7 +38,7 @@ public abstract class BlockMixin {
         Block.dropStacks(state, world, pos, blockEntity, entity, stack);
     }
     //carefulBreak PISTON_HEADS
-    @Inject(method = "onBreak(Lnet/minecraft/world/World;Lnet/minecraft/util/math/BlockPos;Lnet/minecraft/block/BlockState;Lnet/minecraft/entity/player/PlayerEntity;)V", at = @At("HEAD"))
+    @Inject(method = "onBreak", at = @At("HEAD"))
     private void onBreak(World world, BlockPos pos, BlockState state, PlayerEntity player, CallbackInfo ci) throws IOException {
         if (EssentialAddonsSettings.essentialCarefulBreak && player.isInSneakingPose()) {
             SubscribeData data = SubscribeData.subscribeData.get(player.getUuid());

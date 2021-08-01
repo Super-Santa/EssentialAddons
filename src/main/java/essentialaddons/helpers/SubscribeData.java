@@ -47,6 +47,7 @@ public record SubscribeData(boolean isSubscribedCarefulBreak, boolean isSubscrib
         Path file = getFile();
         if (!Files.isRegularFile(file)) return new HashMap<>();
         try (BufferedReader reader = Files.newBufferedReader(file)) {
+            if (reader.readLine() == null) return new HashMap<>();
             return new HashMap<>(MAP_CODEC.decode(JsonOps.INSTANCE, JsonHelper.deserialize(reader))
                     .getOrThrow(false, e -> LOGGER.error("Could not read subscribe data: {}", e))
                     .getFirst());
