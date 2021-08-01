@@ -39,7 +39,7 @@ public abstract class BlockMixin {
     }
     //carefulBreak PISTON_HEADS
     @Inject(method = "onBreak", at = @At("HEAD"))
-    private void onBreak1(World world, BlockPos pos, BlockState state, PlayerEntity player, CallbackInfo ci) throws IOException {
+    private void onBreak(World world, BlockPos pos, BlockState state, PlayerEntity player, CallbackInfo ci) throws IOException {
         if (EssentialAddonsSettings.essentialCarefulBreak && player.isInSneakingPose()) {
             SubscribeData data = SubscribeData.subscribeData.get(player.getUuid());
             if (data == null) {
