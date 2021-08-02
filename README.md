@@ -21,6 +21,7 @@ Feel free to contribute by adding as many features as you want!
 * [commandHat](#commandhat)
 * [commandHeal](#commandheal)
 * [commandLagSpike](#commandlagspike)
+* [commandMods](#commandmods)
 * [commandMore](#commandmore)
 * [commandNightVision](#commandnightvision)
 * [commandPublicKick](#commandpublickick)
@@ -172,6 +173,13 @@ Allows you to simulate a lag spike
 * Default value: `false`
 * Required options: `ops`,`false`,`true`
 * Categories: `ESSENTIAL`, `COMMAND`, `CREATIVE`
+
+## commandMods
+Allows you to do /mods, it lists all the mods running on the server
+* Type: `STRING`
+* Default value: `false`
+* Required options: `ops`,`false`,`true`
+* Categories: `ESSENTIAL`, `COMMAND`
 
 ## commandMore
 Gives you a full stack of whatever you are holding
