@@ -65,7 +65,7 @@ public class EssentialAddonsSettings {
 
     @Rule(
             desc = "Allows the player to teleport to different dimensions with a simple command",
-            extra = "It will always teleport you to 0,0 in said dimension",
+            extra = "It will teleport you to specified location, unless unspecified in which case it will teleport you to 0,0",
             validate = {Validator._COMMAND_LEVEL_VALIDATOR.class},
             options = {"ops", "false", "true"},
             category = {ESSENTIAL, COMMAND, CREATIVE}

@@ -111,7 +111,7 @@ Switch dimensions with `/end`, `/overworld`, and `/nether`
 * Required options: `ops`,`false`,`true`
 * Categories: `ESSENTIAL`, `COMMAND`, `CREATIVE`
 * Additional notes:
-  * It will always teleport you to 0,0 in said dimension
+  * It will teleport you to specified location, unless unspecified in which case it will teleport you to 0,0
 
 ## commandEnderChest
 Opens your enderchest
