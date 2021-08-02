@@ -62,14 +62,16 @@ public class EssentialAddonsServer implements CarpetExtension, ModInitializer {
     @Override
     public void onServerClosed(MinecraftServer server) {
         CarpetExtension.super.onServerClosed(server);
+        boolean didSave;
         try {
-            CameraData.writeSaveFile(CameraData.cameraData);
+            didSave = CameraData.writeSaveFile(CameraData.cameraData);
         }
         catch (IOException e) {
+            didSave = false;
             e.printStackTrace();
             LOGGER.error("Failed to write camera data file ");
         }
-        if (EssentialAddonsSettings.commandCameraMode && EssentialAddonsSettings.cameraModeRestoreLocation)
+        if (EssentialAddonsSettings.commandCameraMode && EssentialAddonsSettings.cameraModeRestoreLocation && didSave)
             LOGGER.info("Successfully wrote to camera data file ");
         if (EssentialAddonsSettings.reloadFakePlayers)
             ReloadFakePlayers.saveFakePlayers(CarpetServer.minecraft_server);
