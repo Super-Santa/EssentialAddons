@@ -3,6 +3,7 @@ package essentialaddons.helpers;
 import carpet.CarpetServer;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.JsonSyntaxException;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.JsonOps;
 import com.mojang.serialization.MapCodec;
@@ -47,10 +48,15 @@ public record SubscribeData(boolean isSubscribedCarefulBreak, boolean isSubscrib
         Path file = getFile();
         if (!Files.isRegularFile(file)) return new HashMap<>();
         try (BufferedReader reader = Files.newBufferedReader(file)) {
-            if (reader.readLine() == null) return new HashMap<>();
             return new HashMap<>(MAP_CODEC.decode(JsonOps.INSTANCE, JsonHelper.deserialize(reader))
                     .getOrThrow(false, e -> LOGGER.error("Could not read subscribe data: {}", e))
                     .getFirst());
+        }
+        catch (JsonSyntaxException jsonSyntaxExceptione) {
+            jsonSyntaxExceptione.printStackTrace();
+            LOGGER.error("Could not read subscribe data");
+            Files.deleteIfExists(file);
+            return new HashMap<>();
         }
     }
 

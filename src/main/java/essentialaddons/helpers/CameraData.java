@@ -76,16 +76,17 @@ public record CameraData(RegistryKey<World> dimension, Vec3d position, float yaw
         }
     }
 
-    public static void writeSaveFile(Map<UUID, CameraData> data) throws IOException {
+    public static boolean writeSaveFile(Map<UUID, CameraData> data) throws IOException {
         Path file = getFile();
         if (data.isEmpty()) {
             Files.deleteIfExists(file);
-            return;
+            return false;
         }
         try(BufferedWriter writer = Files.newBufferedWriter(file)) {
             MAP_CODEC.encodeStart(JsonOps.INSTANCE, data)
                     .resultOrPartial(e -> LOGGER.error("Could not write camera data: {}", e))
                     .ifPresent(obj -> GSON.toJson(obj, writer));
+            return true;
         }
     }
 }
