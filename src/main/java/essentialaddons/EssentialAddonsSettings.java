@@ -139,6 +139,14 @@ public class EssentialAddonsSettings {
     public static String commandLagSpike = "false";
 
     @Rule(
+            desc = "Allows you to do /mods, it lists all the mods running on the server",
+            validate = {Validator._COMMAND_LEVEL_VALIDATOR.class},
+            options = {"ops", "false", "true"},
+            category = {ESSENTIAL, COMMAND}
+    )
+    public static String commandMods = "ops";
+
+    @Rule(
             desc = "Allows /more to be used to give a full stack of whatever item the player is holding",
             validate = {Validator._COMMAND_LEVEL_VALIDATOR.class},
             options = {"ops", "false", "true"},
