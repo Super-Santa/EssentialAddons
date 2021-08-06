@@ -3,6 +3,7 @@
   "package": "essentialaddons.mixins",
   "compatibilityLevel": "JAVA_8",
   "mixins": [
+    "broadcastToAll.ServerCommandSourceMixin",
     "cakeAlwaysEat.CakeBlockMixin",
     "combinePotionDuration.PotionEntityMixin",
     "combinePotionDuration.PotionItemMixin",
@@ -16,6 +17,7 @@
     "core.ServerWorldMixin",
     "editableSigns.SignBlockEntityMixin",
     "essentialCarefulbreak.BlockMixin",
+    "hostileMobsSpawnInCompleteDarkness.HostileEntityMixin",
     "infiniteItems.BlockItemMixin",
     "infiniteItems.EnderPearltemMixin",
     "infiniteItems.LivingEntityMixin",

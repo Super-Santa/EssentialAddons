@@ -5,6 +5,7 @@ Feel free to contribute by adding as many features as you want!
 
 ## Index
 
+* [broadcastToAll](#broadcasttoall)
 * [cakeAlwaysEat](#cakealwayseat)
 * [cameraModeRestoreLocation](#cameramoderestorelocation)
 * [cameraModeSurvivalRestrictions](#cameramodesurvivalrestrictions)
@@ -39,6 +40,7 @@ Feel free to contribute by adding as many features as you want!
 * [commandWorkbench](#commandworkbench)
 * [editableSigns](#editablesigns)
 * [essentialCarefulBreak](#essentialcarefulbreak)
+* [hostileMobsSpawnInCompleteDarkness](#hostilemobsspawnincompletedarkness)  
 * [infiniteItems](#infiniteitems)
 * [reloadFakePlayerActions](#reloadfakeplayeractions)
 * [reloadFakePlayers](#reloadfakeplayers)
@@ -53,6 +55,13 @@ Feel free to contribute by adding as many features as you want!
 
 
 # Features
+
+## broadcastToAll
+Broadcasts all OP messages to everyone
+* Type: `Boolean`
+* Default value: `false`
+* Required options: `false`,`true`
+* Categories: `ESSENTIAL`, `SURVIVAL`
 
 ## cakeAlwaysEat
 Allows you to always eat cake
@@ -310,6 +319,13 @@ Mining blocks while crouching will put them straight into your inventory
 * Categories: `ESSENTIAL`, `COMMAND`, `SURVIVAL`, `FEATURE`
 * Additional notes:
   * Players must subscribe to carefulbreak in order for it to work by using `/subscribe carefulbreak`
+  
+## hostileMobsSpawnInCompleteDarkness
+Only allows hostile mobs to spawn in complete darkness (1.18)
+* Type: `Boolean`
+* Default value: `false`
+* Required options: `false`,`true`
+* Categories: `ESSENTIAL`, `EXPERIMENTAL`, `FEATURE`
 
 ## infiniteItems
 Allows for survival players to have infinite blocks, food, and enderpearls
