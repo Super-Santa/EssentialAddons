@@ -5,6 +5,7 @@ Feel free to contribute by adding as many features as you want!
 
 ## Index
 
+* [broadcastToAll](#broadcasttoall)
 * [cakeAlwaysEat](#cakealwayseat)
 * [cameraModeRestoreLocation](#cameramoderestorelocation)
 * [cameraModeSurvivalRestrictions](#cameramodesurvivalrestrictions)
@@ -31,7 +32,7 @@ Feel free to contribute by adding as many features as you want!
 * [commandPublicViewDistance](#commandpublicviewdistance)
 * [commandRegion](#commandregion)
 * [commandRename](#commandrename)
-* [commandRepair](#commandrepair)  
+* [commandRepair](#commandrepair)
 * [commandStrength](#commandstrength)
 * [commandSwitchDimension](#commandswitchdimension)
 * [commandTop](#commandtop)
@@ -39,6 +40,7 @@ Feel free to contribute by adding as many features as you want!
 * [commandWorkbench](#commandworkbench)
 * [editableSigns](#editablesigns)
 * [essentialCarefulBreak](#essentialcarefulbreak)
+* [hostileMobsSpawnInCompleteDarkness](#hostilemobsspawnincompletedarkness)
 * [infiniteItems](#infiniteitems)
 * [reloadFakePlayerActions](#reloadfakeplayeractions)
 * [reloadFakePlayers](#reloadfakeplayers)
@@ -54,6 +56,13 @@ Feel free to contribute by adding as many features as you want!
 
 # Features
 
+## broadcastToAll
+Broadcasts all OP messages to everyone
+* Type: `Boolean`
+* Default value: `false`
+* Required options: `false`,`true`
+* Categories: `ESSENTIAL`, `SURVIVAL`
+
 ## cakeAlwaysEat
 Allows you to always eat cake
 * Type: `Boolean`
@@ -68,7 +77,7 @@ Restores location when leaving spectator mode
 * Required options: `false`,`true`
 * Categories: `ESSENTIAL`, `EXPERIMENTAL`, `SURVIVAL`, `FEATURE`
 * Additional notes:
-    * Saves location even after server restart
+  * Saves location even after server restart
 
 ## cameraModeSurvivalRestrictions
 Does not allow you to go into spectator if you are in danger
@@ -112,7 +121,7 @@ Switch dimensions with `/end`, `/overworld`, and `/nether`
 * Required options: `ops`,`false`,`true`
 * Categories: `ESSENTIAL`, `COMMAND`, `CREATIVE`
 * Additional notes:
-    * It will teleport you to specified location, unless unspecified in which case it will teleport you to 0,0
+  * It will teleport you to specified location, unless unspecified in which case it will teleport you to 0,0
 
 ## commandEnderChest
 Opens your enderchest
@@ -135,7 +144,7 @@ Toggles the ability to fly while in survival mode
 * Required options: `ops`,`false`,`true`
 * Categories: `ESSENTIAL`, `COMMAND`
 * Additional notes:
-    * Using this also disables fall damage
+  * Using this also disables fall damage
 
 ## commandGM
 Enable shortcuts for switching gamemodes (`/gmc`, `/gms`, `/gma`, `/gmsp`)
@@ -151,7 +160,7 @@ Toggles invulnerability
 * Required options: `ops`,`false`,`true`
 * Categories: `ESSENTIAL`, `COMMAND`
 * Additional notes:
-    * Can be buggy if used while in creative mode
+  * Can be buggy if used while in creative mode
 
 ## commandHat
 Sets the item you are holding as your head slot
@@ -286,7 +295,7 @@ Enables `/setwarp` and `/warp`
 * Required options: `ops`,`false`,`true`
 * Categories: `ESSENTIAL`, `COMMAND`, `CREATIVE`
 * Additional notes:
-    * Each player can only set one warp witch will be removed after server restart
+  * Each player can only set one warp witch will be removed after server restart
 
 ## commandWorkbench
 Opens the crafting table gui
@@ -309,7 +318,14 @@ Mining blocks while crouching will put them straight into your inventory
 * Required options: `false`,`true`
 * Categories: `ESSENTIAL`, `COMMAND`, `SURVIVAL`, `FEATURE`
 * Additional notes:
-    * Players must subscribe to carefulbreak in order for it to work by using `/subscribe carefulbreak`
+  * Players must subscribe to carefulbreak in order for it to work by using `/subscribe carefulbreak`
+
+## hostileMobsSpawnInCompleteDarkness
+Only allows hostile mobs to spawn in complete darkness (1.18)
+* Type: `Boolean`
+* Default value: `false`
+* Required options: `false`,`true`
+* Categories: `ESSENTIAL`, `EXPERIMENTAL`, `FEATURE`
 
 ## infiniteItems
 Allows for survival players to have infinite blocks, food, and enderpearls
@@ -366,12 +382,13 @@ Fixes stacked shulkers overloading comparators
 * Categories: `ESSENTIAL`, `SURVIVAL`, `FEATURE`
 
 ## stackableShulkerBoxesInPlayerInventories
-Shulker boxes stack in player inventories
-
+Shulker boxes stack in player inventories, this is not the same as `stackableShulkerBoxes` in Carpet. This will **always** allow you to stack shulkers in your inventory.
 * Type: `Boolean`
 * Default value: `false`
 * Required options: `false`,`true`
 * Categories: `ESSENTIAL`, `EXPERIMENTAL`, `FEATURE`
+* Additional notes:
+  * Disable all other `stackableShulker` rules (unless you are using `stackableShulkersWithItems`)
 
 ## stackableShulkersWithItems
 Shulker boxes with the same items will stack
@@ -380,4 +397,4 @@ Shulker boxes with the same items will stack
 * Required options: `false`,`true`
 * Categories: `ESSENTIAL`, `EXPERIMENTAL`, `FEATURE`
 * Additional notes:
-    * Requires stackableShulkerBoxesInPlayerInventories
+  * Requires stackableShulkerBoxesInPlayerInventories

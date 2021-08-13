@@ -10,6 +10,13 @@ public class EssentialAddonsSettings {
     private final static String ESSENTIAL = "essential";
 
     @Rule(
+            desc = "Broadcasts all OP messages to everyone",
+            options = {"false", "true"},
+            category = {ESSENTIAL, SURVIVAL}
+    )
+    public static boolean broadcastToAll = false;
+
+    @Rule(
             desc = "Allows you to always eat cake",
             options = {"false", "true"},
             category = {ESSENTIAL, EXPERIMENTAL, FEATURE}
@@ -282,6 +289,13 @@ public class EssentialAddonsSettings {
     public static boolean essentialCarefulBreak = false;
 
     @Rule(
+            desc = "Only allows hostile mobs to spawn in complete darkness (1.18)",
+            options = {"false", "true"},
+            category = {ESSENTIAL, EXPERIMENTAL, FEATURE}
+    )
+    public static boolean hostileMobsSpawnInCompleteDarkness = false;
+
+    @Rule(
             desc = "This allows for survival players to have infinite blocks, food, and enderpearls",
             options = {"false", "true"},
             category = {ESSENTIAL, CREATIVE, EXPERIMENTAL}
@@ -340,8 +354,8 @@ public class EssentialAddonsSettings {
     public static boolean stackableShulkerComparatorOverloadFix = false;
 
     @Rule(
-            desc = "Shulker boxes stack in player inventories",
-            extra = "Enable tweakEmptyShulkerBoxesStack in tweakeroo on the client",
+            desc = "Shulker boxes stack in player inventories, this is not the same as `stackableShulkerBoxes` in Carpet. This will always allow you to stack shulkers in your inventory.",
+            extra = "Disable all other `stackableShulker` rules (unless you are using stackableShulkersWithItems)",
             options = {"false", "true"},
             category = {ESSENTIAL, EXPERIMENTAL, FEATURE}
     )
