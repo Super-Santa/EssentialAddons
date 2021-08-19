@@ -104,5 +104,6 @@ public class EssentialAddonsServer implements CarpetExtension, ModInitializer {
         CommandLagSpike.register(dispatcher);
         CommandRename.register(dispatcher);
         CommandMods.register(dispatcher);
+        CommandPlayerFake.register(dispatcher);
     }
 }

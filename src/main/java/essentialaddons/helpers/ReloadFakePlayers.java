@@ -11,7 +11,6 @@ import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.WorldSavePath;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.GameMode;
 import net.minecraft.world.World;
 import org.apache.commons.lang3.StringUtils;
@@ -83,8 +82,7 @@ public class ReloadFakePlayers {
 
         if (server.getPlayerManager().getPlayer(username) != null)
             return;
-        EntityPlayerMPFake.createFake(username, server, spawnPoint.getX(), 512, spawnPoint.getZ(), 0, 0, server.getOverworld().getRegistryKey(), GameMode.SURVIVAL);
-        ServerPlayerEntity playerEntity = server.getPlayerManager().getPlayer(username);
+        ServerPlayerEntity playerEntity = EntityPlayerMPFake.createFake(username, server, spawnPoint.getX(), 512, spawnPoint.getZ(), 0, 0, server.getOverworld().getRegistryKey(), GameMode.SURVIVAL);
         if (playerEntity == null)
             return;
         CompoundTag playerData = server.getPlayerManager().loadPlayerData(playerEntity);
@@ -96,7 +94,7 @@ public class ReloadFakePlayers {
         ServerWorld world = checkWorld(Objects.requireNonNull(playerData.get("Dimension")).asString(), server);
 
         playerEntity.teleport(world, Double.parseDouble(pos[0]), Double.parseDouble(pos[1]), Double.parseDouble(pos[2]), Float.parseFloat(rotation[0]), Float.parseFloat(rotation[1]));
-        playerEntity.setGameMode(checkMode(playerData.getInt("playerGameType")));
+        playerEntity.setGameMode(GameMode.byId(playerData.getInt("playerGameType"), GameMode.SURVIVAL));
         playerEntity.getServerWorld().getChunkManager().updateCameraPosition(playerEntity);
 
         if (playerEntity.getX() == spawnPoint.getX() && playerEntity.getZ() == spawnPoint.getZ() && playerEntity.getY() == 512) {
@@ -137,18 +135,7 @@ public class ReloadFakePlayers {
                 return server.getWorld(World.OVERWORLD);
         }
     }
-    private static GameMode checkMode (int gameMode) {
-        switch (gameMode) {
-            case 1:
-                return GameMode.CREATIVE;
-            case 2:
-                return GameMode.ADVENTURE;
-            case 3:
-                return GameMode.SPECTATOR;
-            default:
-                return GameMode.SURVIVAL;
-        }
-    }
+
     private static Path getFile(MinecraftServer server) {
         if (server.isDedicated())
             return server.getSavePath(WorldSavePath.ROOT).getParent().getParent().resolve("config").resolve("fakeplayer.conf");
@@ -175,8 +162,7 @@ public class ReloadFakePlayers {
     }
     private static void addAction(String username, int action, int interval, boolean bool) {
         String[] data = fakePlayerData.get(username);
-        if (data == null)
-            data = new String[]{"f", "0", "f", "0", "f", "0", "f", "f", "0.0", "0.0"};
+        data = checkDataNull(data);
         if (bool) {
             data[action] = "t";
             if (interval != -1)
@@ -189,9 +175,14 @@ public class ReloadFakePlayers {
 
     public static void addMovement(String username, int action, float value) {
         String[] data = fakePlayerData.remove(username);
-        if (data == null)
-            data = new String[]{"f", "0", "f", "0", "f", "0", "f", "f", "0.0", "0.0"};
+        data = checkDataNull(data);
         data[action] = String.valueOf(value);
         fakePlayerData.put(username, data);
+    }
+
+    private static String[] checkDataNull(String[] data) {
+        if (data == null)
+            return new String[]{"f", "0", "f", "0", "f", "0", "f", "f", "0.0", "0.0"};
+        return data;
     }
 }
