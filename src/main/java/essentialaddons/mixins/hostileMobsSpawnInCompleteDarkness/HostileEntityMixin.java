@@ -14,6 +14,6 @@ public class HostileEntityMixin {
     private static int onNextInt(Random random, int bound) {
         if (EssentialAddonsSettings.hostileMobsSpawnInCompleteDarkness)
             return 0;
-        return random.nextInt(8);
+        return random.nextInt(bound);
     }
 }

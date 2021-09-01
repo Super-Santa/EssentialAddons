@@ -25,6 +25,7 @@ Feel free to contribute by adding as many features as you want!
 * [commandMods](#commandmods)
 * [commandMore](#commandmore)
 * [commandNightVision](#commandnightvision)
+* [commandPlayerFake](#commandplayerfake)
 * [commandPublicKick](#commandpublickick)
 * [commandPublicOp](#commandpublicop)
 * [commandPublicSaveAll](#commandpublicsaveall)
@@ -46,6 +47,7 @@ Feel free to contribute by adding as many features as you want!
 * [reloadFakePlayers](#reloadfakeplayers)
 * [removeItemEntitiesAfterThreshold](#removeitementitiesafterthreshold)
 * [removeWarnRemovedEntity](#removewarnremovedentity)
+* [removeWarnMismatchBlockPos](#removewarnmismatchblockpos)
 * [removeXpEntitiesAfterThreshold](#removexpentitiesafterthreshold)
 * [shulkerSception](#shulkersception)
 * [stackableShulkerComparatorOverloadFix](#stackableshulkercomparatoroverloadfix)
@@ -211,6 +213,13 @@ Toggles Night Vision
 * Required options: `ops`,`false`,`true`
 * Categories: `ESSENTIAL`, `COMMAND`, `CREATIVE`
 
+## commandPlayerFake
+This allows you to spawn a fake player that doesn't load chunks (They appear on tab list and you are able to teleport to them)
+* Type: `String`
+* Default value: `false`
+* Required options: `ops`,`false`,`true`
+* Categories: `ESSENTIAL`, `COMMAND`, `EXPERIMENTAL`
+
 ## commandPublicKick
 Allows anyone to use the `/kick` command
 * Type: `Boolean`
@@ -353,6 +362,13 @@ Removes all item entities after set amount is reached
 * Type: `Int`
 * Default value: `0`
 * Categories: `ESSENTIAL`, `CREATIVE`, `FEATURE`
+
+## removeWarnMismatchBlockPos
+Removes the waring `Mismatch in destroy block pos...`
+* Type: `Boolean`
+* Default value: `false`
+* Required options: `false`,`true`
+* Categories: `ESSENTIAL`, `SURVIVAL`, `FEATURE`
 
 ## removeWarnRemovedEntity
 Removes the waring `Fetching packet for removed entity...`

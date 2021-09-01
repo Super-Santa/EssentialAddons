@@ -83,8 +83,7 @@ public class ReloadFakePlayers {
 
         if (server.getPlayerManager().getPlayer(username) != null)
             return;
-        EntityPlayerMPFake.createFake(username, server, spawnPoint.getX(), 512, spawnPoint.getZ(), 0, 0, server.getOverworld().getRegistryKey(), GameMode.SURVIVAL, false);
-        ServerPlayerEntity playerEntity = server.getPlayerManager().getPlayer(username);
+        ServerPlayerEntity playerEntity = EntityPlayerMPFake.createFake(username, server, spawnPoint.getX(), 512, spawnPoint.getZ(), 0, 0, server.getOverworld().getRegistryKey(), GameMode.SURVIVAL, false);
         if (playerEntity == null)
             return;
         NbtCompound playerData = server.getPlayerManager().loadPlayerData(playerEntity);
@@ -96,7 +95,7 @@ public class ReloadFakePlayers {
         ServerWorld world = checkWorld(Objects.requireNonNull(playerData.get("Dimension")).asString(), server);
 
         playerEntity.teleport(world, Double.parseDouble(pos[0]), Double.parseDouble(pos[1]), Double.parseDouble(pos[2]), Float.parseFloat(rotation[0]), Float.parseFloat(rotation[1]));
-        playerEntity.changeGameMode(checkMode(playerData.getInt("playerGameType")));
+        playerEntity.changeGameMode(GameMode.byId(playerData.getInt("playerGameType")));
         playerEntity.getServerWorld().getChunkManager().updatePosition(playerEntity);
 
         if (playerEntity.getX() == spawnPoint.getX() && playerEntity.getZ() == spawnPoint.getZ() && playerEntity.getY() == 512) {
@@ -134,14 +133,7 @@ public class ReloadFakePlayers {
             default -> server.getWorld(World.OVERWORLD);
         };
     }
-    private static GameMode checkMode (int gameMode) {
-        return switch (gameMode) {
-            case 1 -> GameMode.CREATIVE;
-            case 2 -> GameMode.ADVENTURE;
-            case 3 -> GameMode.SPECTATOR;
-            default -> GameMode.SURVIVAL;
-        };
-    }
+
     private static Path getFile(MinecraftServer server) {
         if (server.isDedicated())
             return server.getSavePath(WorldSavePath.ROOT).getParent().getParent().resolve("config").resolve("fakeplayer.conf");
@@ -162,8 +154,7 @@ public class ReloadFakePlayers {
     }
     private static void addAction(String username, int action, int interval, boolean bool) {
         String[] data = fakePlayerData.get(username);
-        if (data == null)
-            data = new String[]{"f", "0", "f", "0", "f", "0", "f", "f", "0.0", "0.0"};
+        data = checkDataNull(data);
         if (bool) {
             data[action] = "t";
             if (interval != -1)
@@ -176,9 +167,14 @@ public class ReloadFakePlayers {
 
     public static void addMovement(String username, int action, float value) {
         String[] data = fakePlayerData.remove(username);
-        if (data == null)
-            data = new String[]{"f", "0", "f", "0", "f", "0", "f", "f", "0.0", "0.0"};
+        data = checkDataNull(data);
         data[action] = String.valueOf(value);
         fakePlayerData.put(username, data);
+    }
+
+    private static String[] checkDataNull(String[] data) {
+        if (data == null)
+            return new String[]{"f", "0", "f", "0", "f", "0", "f", "f", "0.0", "0.0"};
+        return data;
     }
 }

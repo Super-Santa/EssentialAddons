@@ -16,7 +16,6 @@
     "core.ServerPlayNetworkHandlerMixin",
     "core.ServerWorldMixin",
     "editableSigns.SignBlockEntityMixin",
-    "essentialCarefulbreak.BlockMixin",
     "hostileMobsSpawnInCompleteDarkness.HostileEntityMixin",
     "infiniteItems.BlockItemMixin",
     "infiniteItems.EnderPearltemMixin",
@@ -29,6 +28,7 @@
     "lithium.LithiumStackListMixin",
     "reloadFakePlayers.EntityPlayerActionPackMixin",
     "reloadFakePlayers.PlayerCommandMixin",
+    "removeWarnMismatchBlockPos.ServerPlayerInteractionManagerMixin",
     "removeWarnRemovedEntity.EntityTrackerEntryMixin",
     "shulkerSeption.ShulkerBoxSlotMixin",
     "shulkerSeption.ShulkerBoxTileEntityMixin",
@@ -36,6 +36,9 @@
     "stackableShulkers.ItemEntityMixin",
     "stackableShulkers.ItemStackMixin",
     "stackableShulkers.ScreenHandlerMixin"
+  ],
+  "server": [
+    "essentialCarefulbreak.BlockMixin"
   ],
   "injectors": {
     "defaultRequire": 1

@@ -2,9 +2,9 @@ package essentialaddons.commands;
 
 import carpet.settings.SettingsManager;
 import com.mojang.brigadier.CommandDispatcher;
-import com.mojang.brigadier.arguments.DoubleArgumentType;
 import com.mojang.brigadier.arguments.IntegerArgumentType;
 import essentialaddons.EssentialAddonsSettings;
+import net.minecraft.command.argument.Vec2ArgumentType;
 import net.minecraft.server.command.ServerCommandSource;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.text.LiteralText;
@@ -16,14 +16,13 @@ public class CommandRegion {
     public static void register(CommandDispatcher<ServerCommandSource> dispatcher) {
         dispatcher.register(literal("region").requires((player) -> SettingsManager.canUseCommand(player, EssentialAddonsSettings.commandRegion))
                 .then(literal("get")
-                        .then(argument("x", DoubleArgumentType.doubleArg())
-                                .then(argument("z", DoubleArgumentType.doubleArg())
-                                        .executes(context -> {
-                                            ServerPlayerEntity playerEntity = context.getSource().getPlayer();
-                                            playerEntity.sendMessage(new LiteralText("§6Those coordinates are in region: §a" + (int) Math.floor(context.getArgument("x", Double.class)/512) + "." + (int) Math.floor(context.getArgument("z", Double.class)/512)), false);
-                                            return 0;
-                                        })
-                                )
+                        .then(argument("pos", Vec2ArgumentType.vec2())
+                                .executes(context -> {
+                                    ServerPlayerEntity playerEntity = context.getSource().getPlayer();
+                                    playerEntity.sendMessage(new LiteralText("§6Those coordinates are in region: §a" + (int) Math.floor(Vec2ArgumentType.getVec2(context, "pos").x/512) + "." + (int) Math.floor(Vec2ArgumentType.getVec2(context, "pos").y/512)), false);
+                                    return 0;
+                                })
+
                         )
                         .executes(context -> {
                             ServerPlayerEntity playerEntity = context.getSource().getPlayer();
