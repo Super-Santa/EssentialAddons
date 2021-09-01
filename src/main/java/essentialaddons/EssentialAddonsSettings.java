@@ -96,14 +96,6 @@ public class EssentialAddonsSettings {
     public static String commandExtinguish = "false";
 
     @Rule(
-            desc = "This allows you to spawn a fake player that doesn't load chunks (They appear on tab list and you are able to teleport to them)",
-            validate = {Validator._COMMAND_LEVEL_VALIDATOR.class},
-            options = {"ops", "false", "true"},
-            category = {ESSENTIAL, COMMAND, EXPERIMENTAL}
-    )
-    public static String commandPlayerFake = "false";
-
-    @Rule(
             desc = "Toggles the ability to fly while in survival mode",
             extra = "Using this also disables fall damage",
             validate = {Validator._COMMAND_LEVEL_VALIDATOR.class},
@@ -183,6 +175,14 @@ public class EssentialAddonsSettings {
             category = {ESSENTIAL, COMMAND, CREATIVE}
     )
     public static String commandNightVision = "false";
+
+    @Rule(
+            desc = "This allows you to spawn a fake player that doesn't load chunks (They appear on tab list and you are able to teleport to them)",
+            validate = {Validator._COMMAND_LEVEL_VALIDATOR.class},
+            options = {"ops", "false", "true"},
+            category = {ESSENTIAL, COMMAND, EXPERIMENTAL}
+    )
+    public static String commandPlayerFake = "false";
 
     @Rule(
             desc = "Allows anyone to use the /kick command",

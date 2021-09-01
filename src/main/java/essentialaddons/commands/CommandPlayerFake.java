@@ -1,5 +1,6 @@
 package essentialaddons.commands;
 
+import carpet.patches.EntityPlayerMPFake;
 import carpet.settings.SettingsManager;
 import carpet.utils.Messenger;
 import com.google.common.collect.Sets;
@@ -51,9 +52,9 @@ public class CommandPlayerFake {
                         )
                         .then(literal("kill")
                                 .executes(context -> {
-                                    String username = context.getArgument("player", String.class);
+                                    String username = StringArgumentType.getString(context, "player");
                                     ServerPlayerEntity playerEntity = context.getSource().getMinecraftServer().getPlayerManager().getPlayer(username);
-                                    if (!(playerEntity instanceof PlayerFakeHelper)) {
+                                    if (!(playerEntity instanceof EntityPlayerMPFake || playerEntity instanceof PlayerFakeHelper)) {
                                         Messenger.m(context.getSource(), "r Cannot kill this player");
                                         return 0;
                                     }
@@ -62,6 +63,31 @@ public class CommandPlayerFake {
                                     return 0;
                                 })
                         )
+                        /*
+                        .then(literal("add").requires(serverCommandSource -> serverCommandSource.hasPermissionLevel(2))
+                                .executes(context -> {
+                                    String username = StringArgumentType.getString(context, "player");
+                                    ServerPlayerEntity playerEntity = context.getSource().getMinecraftServer().getPlayerManager().getPlayer(username);
+                                    if (!(playerEntity instanceof EntityPlayerMPFake || playerEntity instanceof PlayerFakeHelper))
+                                        Messenger.m(context.getSource(), "r Cannot change this player");
+                                    else
+                                        playerEntity.getServerWorld().getChunkManager().unloadEntity(playerEntity);
+                                    return 0;
+                                })
+                        )
+                        /* Removed because this is kinda bonked and not needed
+                        .then(literal("remove").requires(serverCommandSource -> serverCommandSource.hasPermissionLevel(2))
+                                .executes(context -> {
+                                    String username = StringArgumentType.getString(context, "player");
+                                    ServerPlayerEntity playerEntity = context.getSource().getMinecraftServer().getPlayerManager().getPlayer(username);
+                                    if (!(playerEntity instanceof EntityPlayerMPFake || playerEntity instanceof PlayerFakeHelper))
+                                        Messenger.m(context.getSource(), "r Cannot change this player");
+                                    else
+                                        playerEntity.getServerWorld().getChunkManager().loadEntity(playerEntity);
+                                    return 0;
+                                })
+                        )
+                         */
                 )
         );
     }
@@ -74,6 +100,7 @@ public class CommandPlayerFake {
         if (playerEntity == null) {
             source.sendFeedback(new LiteralText("Failed to spawn player"), false);
         }
+
         return 0;
     }
 
