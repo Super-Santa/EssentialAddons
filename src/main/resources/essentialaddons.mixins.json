@@ -30,6 +30,7 @@
     "removeWarnRemovedEntity.EntityTrackerEntryMixin",
     "shulkerSeption.ShulkerBoxSlotMixin",
     "shulkerSeption.ShulkerBoxTileEntityMixin",
+    "spectatorPotionNoCountdown.LivingEntityMixin",
     "stackableShulkers.HopperBlockEntityMixin",
     "stackableShulkers.ItemEntityMixin",
     "stackableShulkers.ItemStackMixin",

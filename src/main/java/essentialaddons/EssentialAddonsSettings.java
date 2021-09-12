@@ -362,6 +362,14 @@ public class EssentialAddonsSettings {
     public static boolean shulkerSception = false;
 
     @Rule(
+            desc = "Stops potion effects from ticking when in spectator",
+            options = {"false", "true"},
+            category = {ESSENTIAL, SURVIVAL, FEATURE}
+    )
+    public static boolean spectatorPotionNoCountdown = false;
+
+
+    @Rule(
             desc = "Fixes stacked shulkers overloading comparators",
             options = {"false", "true"},
             category = {ESSENTIAL, SURVIVAL, FEATURE}
