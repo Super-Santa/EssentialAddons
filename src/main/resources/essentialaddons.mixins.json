@@ -18,6 +18,7 @@
     "editableSigns.SignBlockEntityMixin",
     "essentialCarefulbreak.BlockMixin",
     "hostileMobsSpawnInCompleteDarkness.HostileEntityMixin",
+    "HUDController.HUDControllerMixin",
     "infiniteItems.BlockItemMixin",
     "infiniteItems.EnderPearltemMixin",
     "infiniteItems.LivingEntityMixin",
@@ -35,7 +36,8 @@
     "stackableShulkers.HopperBlockEntityMixin",
     "stackableShulkers.ItemEntityMixin",
     "stackableShulkers.ItemStackMixin",
-    "stackableShulkers.ScreenHandlerMixin"
+    "stackableShulkers.ScreenHandlerMixin",
+    "translatableTextAccessor.TranslatableTextAccessorMixin"
   ],
   "injectors": {
     "defaultRequire": 1

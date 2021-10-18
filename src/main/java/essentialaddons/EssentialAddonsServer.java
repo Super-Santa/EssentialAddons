@@ -7,6 +7,7 @@ import essentialaddons.commands.*;
 import essentialaddons.helpers.CameraData;
 import essentialaddons.helpers.ReloadFakePlayers;
 import essentialaddons.helpers.SubscribeData;
+import essentialaddons.logging.EssentialAddonsLoggerRegistry;
 import net.fabricmc.api.ModInitializer;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.command.ServerCommandSource;
@@ -50,6 +51,11 @@ public class EssentialAddonsServer implements CarpetExtension, ModInitializer {
         }
         if (EssentialAddonsSettings.essentialCarefulBreak)
             LOGGER.info(dataResult);
+    }
+
+    @Override
+    public void registerLoggers() {
+        EssentialAddonsLoggerRegistry.registerLoggers();
     }
 
     @Override
