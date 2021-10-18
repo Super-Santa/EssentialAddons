@@ -54,7 +54,9 @@ Feel free to contribute by adding as many features as you want!
 * [stackableShulkerBoxesInPlayerInventories](#stackableshulkerboxesinplayerinventories)
 * [stackableShulkersWithItems](#stackableshulkerswithitems)
 
+## Loggers
 
+* [autosave](#autosave)
 
 # Features
 
@@ -416,3 +418,10 @@ Shulker boxes with the same items will stack
 * Categories: `ESSENTIAL`, `EXPERIMENTAL`, `FEATURE`
 * Additional notes:
     * Requires stackableShulkerBoxesInPlayerInventories
+  
+# Logger List
+
+## autosave
+`/log autosave`
+
+Displays time till the next autosave happens
