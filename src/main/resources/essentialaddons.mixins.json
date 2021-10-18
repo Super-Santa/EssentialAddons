@@ -16,6 +16,7 @@
     "core.ServerPlayNetworkHandlerMixin",
     "core.ServerWorldMixin",
     "editableSigns.SignBlockEntityMixin",
+    "essentialCarefulbreak.BlockMixin",
     "hostileMobsSpawnInCompleteDarkness.HostileEntityMixin",
     "infiniteItems.BlockItemMixin",
     "infiniteItems.EnderPearltemMixin",
@@ -35,9 +36,6 @@
     "stackableShulkers.ItemEntityMixin",
     "stackableShulkers.ItemStackMixin",
     "stackableShulkers.ScreenHandlerMixin"
-  ],
-  "server": [
-    "essentialCarefulbreak.BlockMixin"
   ],
   "injectors": {
     "defaultRequire": 1
