@@ -43,6 +43,7 @@ Feel free to contribute by adding as many features as you want!
 * [essentialCarefulBreak](#essentialcarefulbreak)
 * [hostileMobsSpawnInCompleteDarkness](#hostilemobsspawnincompletedarkness)
 * [infiniteItems](#infiniteitems)
+* [minecartboosting](#minecartboosting)
 * [reloadFakePlayerActions](#reloadfakeplayeractions)
 * [reloadFakePlayers](#reloadfakeplayers)
 * [removeItemEntitiesAfterThreshold](#removeitementitiesafterthreshold)
@@ -54,7 +55,9 @@ Feel free to contribute by adding as many features as you want!
 * [stackableShulkerBoxesInPlayerInventories](#stackableshulkerboxesinplayerinventories)
 * [stackableShulkersWithItems](#stackableshulkerswithitems)
 
+## Loggers
 
+* [autosave](#autosave)
 
 # Features
 
@@ -343,6 +346,13 @@ Allows for survival players to have infinite blocks, food, and enderpearls
 * Required options: `false`,`true`
 * Categories: `ESSENTIAL`, `CREATIVE`, `EXPERIMENTAL`
 
+## minecartBoosting
+Reimplements minecart boosting
+* Type: `Boolean`
+* Default value: `false`
+* Required options: `false`,`true`
+* Categories: `ESSENTIAL`, `FEATURE`, `EXPERIMENTAL`
+
 ## reloadFakePlayerActions
 Automatically reloads the fake players actions after server restart
 * Type: `Boolean`
@@ -414,3 +424,10 @@ Shulker boxes with the same items will stack
 * Categories: `ESSENTIAL`, `EXPERIMENTAL`, `FEATURE`
 * Additional notes:
   * Requires stackableShulkerBoxesInPlayerInventories
+
+# Logger List
+
+## autosave
+`/log autosave`
+
+Displays time till the next autosave happens
