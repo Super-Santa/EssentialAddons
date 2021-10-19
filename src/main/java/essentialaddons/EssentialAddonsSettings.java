@@ -311,6 +311,13 @@ public class EssentialAddonsSettings {
     public static boolean infiniteItems = false;
 
     @Rule(
+            desc = "Reimplements minecart boosting",
+            options = {"false", "true"},
+            category = {ESSENTIAL, FEATURE, EXPERIMENTAL}
+    )
+    public static boolean minecartBoosting = false;
+
+    @Rule(
             desc = "Automatically reloads the fake players actions after server restart",
             options = {"false", "true"},
             category = {ESSENTIAL, SURVIVAL, FEATURE, EXPERIMENTAL}

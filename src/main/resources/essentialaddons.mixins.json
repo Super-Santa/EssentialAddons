@@ -26,6 +26,7 @@
     "lagSpike.ServerChunkManager_chunkMixin",
     "lagSpike.ServerWorld_randomMixin",
     "lagSpike.World_tileMixin",
+    "minecartBoosting.AbstractMinecartEntityMixin",
     "reloadFakePlayers.EntityPlayerActionPackMixin",
     "reloadFakePlayers.PlayerCommandMixin",
     "removeWarnMismatchBlockPos.ServerPlayerInteractionManagerMixin",
