@@ -43,6 +43,7 @@ Feel free to contribute by adding as many features as you want!
 * [essentialCarefulBreak](#essentialcarefulbreak)
 * [hostileMobsSpawnInCompleteDarkness](#hostilemobsspawnincompletedarkness)  
 * [infiniteItems](#infiniteitems)
+* [minecartboosting](#minecartboosting)
 * [reloadFakePlayerActions](#reloadfakeplayeractions)
 * [reloadFakePlayers](#reloadfakeplayers)
 * [removeItemEntitiesAfterThreshold](#removeitementitiesafterthreshold)
@@ -344,6 +345,13 @@ Allows for survival players to have infinite blocks, food, and enderpearls
 * Default value: `false`
 * Required options: `false`,`true`
 * Categories: `ESSENTIAL`, `CREATIVE`, `EXPERIMENTAL`
+
+## minecartBoosting
+Reimplements minecart boosting
+* Type: `Boolean`
+* Default value: `false`
+* Required options: `false`,`true`
+* Categories: `ESSENTIAL`, `FEATURE`, `EXPERIMENTAL`
 
 ## reloadFakePlayerActions
 Automatically reloads the fake players actions after server restart
