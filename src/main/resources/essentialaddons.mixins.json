@@ -39,9 +39,9 @@
     "stackableShulkers.HopperBlockEntityMixin",
     "stackableShulkers.ItemEntityMixin",
     "stackableShulkers.ItemStackMixin",
-    "stackableShulkers.ScreenHandlerMixin",
-    "translatableTextAccessor.TranslatableTextAccessorMixin"
+    "stackableShulkers.ScreenHandlerMixin"
   ],
+
   "injectors": {
     "defaultRequire": 1
   }

@@ -8,9 +8,8 @@ import org.spongepowered.asm.mixin.gen.Invoker;
 
 import java.util.List;
 
-@Mixin(TranslatableText.class)
-public interface TranslatableTextAccessorMixin
-{
+@Mixin(value = TranslatableText.class)
+public interface TranslatableTextAccessorMixin {
     @Accessor
     List<Text> getTranslations();
 
