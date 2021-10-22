@@ -10,9 +10,9 @@ import java.util.List;
 
 @Mixin(value = TranslatableText.class)
 public interface TranslatableTextAccessorMixin {
-    @Accessor
-    List<Text> getTranslations();
+    @Accessor("translations")
+    List<Text> getTextTranslations();
 
-    @Invoker
-    void invokeSetTranslation(String translation);
+    @Invoker("setTranslation")
+    void setTextTranslation(String translation);
 }
