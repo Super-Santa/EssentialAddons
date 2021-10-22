@@ -21,7 +21,7 @@ import java.util.function.BooleanSupplier;
 @Mixin(ServerWorld.class)
 public abstract class ServerWorldMixin {
 
-    @Inject(method = "tick", at = @At("HEAD"), cancellable = true)
+    @Inject(method = "tick", at = @At("HEAD"))
     public void tick(BooleanSupplier shouldKeepTicking, CallbackInfo ci) {
         if (EssentialAddonsSettings.removeXpEntitiesAfterThreshold > 0) {
             CarpetServer.minecraft_server.getWorlds().forEach(serverWorld ->  {
