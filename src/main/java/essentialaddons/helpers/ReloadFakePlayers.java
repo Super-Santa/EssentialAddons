@@ -82,7 +82,7 @@ public class ReloadFakePlayers {
 
         if (server.getPlayerManager().getPlayer(username) != null)
             return;
-        ServerPlayerEntity playerEntity = EntityPlayerMPFake.createFake(username, server, spawnPoint.getX(), 512, spawnPoint.getZ(), 0, 0, server.getOverworld().getRegistryKey(), GameMode.SURVIVAL);
+        ServerPlayerEntity playerEntity = EntityPlayerMPFake.createFake(username, server, spawnPoint.getX(), 512, spawnPoint.getZ(), 0, 0, server.getOverworld().getRegistryKey(), GameMode.SURVIVAL, false);
         if (playerEntity == null)
             return;
         CompoundTag playerData = server.getPlayerManager().loadPlayerData(playerEntity);

@@ -113,9 +113,9 @@ public class Translator implements Translatable {
         TranslatableTextAccessorMixin fixedTranslatableText = (TranslatableTextAccessorMixin)(new TranslatableText(msgKeyString, args));
         try
         {
-            fixedTranslatableText.getTranslations().clear();
-            fixedTranslatableText.invokeSetTranslation(msgKeyString);
-            return Messenger.c(fixedTranslatableText.getTranslations().toArray(new Object[0]));
+            fixedTranslatableText.getTextTranslations().clear();
+            fixedTranslatableText.setTextTranslation(msgKeyString);
+            return Messenger.c(fixedTranslatableText.getTextTranslations().toArray(new Object[0]));
         }
         catch (TranslationException e)
         {
