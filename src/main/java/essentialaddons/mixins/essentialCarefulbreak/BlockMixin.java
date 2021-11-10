@@ -6,7 +6,6 @@ import essentialaddons.EssentialAddonsUtils;
 import essentialaddons.helpers.SubscribeData;
 import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.BlockPos;
@@ -15,7 +14,6 @@ import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.Redirect;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import java.io.IOException;
@@ -23,20 +21,26 @@ import java.io.IOException;
 @Mixin(Block.class)
 public abstract class BlockMixin {
     //Code from wholmT
-    @Redirect(method = "afterBreak", at = @At(value = "INVOKE", target = "Lnet/minecraft/block/Block;dropStacks(Lnet/minecraft/block/BlockState;Lnet/minecraft/world/World;Lnet/minecraft/util/math/BlockPos;Lnet/minecraft/block/entity/BlockEntity;Lnet/minecraft/entity/Entity;Lnet/minecraft/item/ItemStack;)V"), require = 0)
-    private void onDropStacks(BlockState state, World world, BlockPos pos, BlockEntity blockEntity, Entity entity, ItemStack stack) throws IOException {
-        if (CarpetServer.minecraft_server != null && EssentialAddonsSettings.essentialCarefulBreak && entity instanceof PlayerEntity && entity.isInSneakingPose()) {
-            SubscribeData data = SubscribeData.subscribeData.get(entity.getUuid());
+    @Inject(
+            method = "afterBreak",
+            at = @At(
+                    value = "INVOKE",
+                    shift = At.Shift.BEFORE,
+                    target = "Lnet/minecraft/block/Block;dropStacks(Lnet/minecraft/block/BlockState;Lnet/minecraft/world/World;Lnet/minecraft/util/math/BlockPos;Lnet/minecraft/block/entity/BlockEntity;Lnet/minecraft/entity/Entity;Lnet/minecraft/item/ItemStack;)V"),
+            cancellable = true
+    )
+    private void onDropStacks(World world, PlayerEntity player, BlockPos pos, BlockState state, BlockEntity blockEntity, ItemStack stack, CallbackInfo ci) throws IOException {
+        if (CarpetServer.minecraft_server != null && EssentialAddonsSettings.essentialCarefulBreak && player.isInSneakingPose()) {
+            SubscribeData data = SubscribeData.subscribeData.get(player.getUuid());
             if (data == null) {
-                SubscribeData.subscribeData.put(entity.getUuid(), new SubscribeData(false, false));
+                SubscribeData.subscribeData.put(player.getUuid(), new SubscribeData(false, false));
                 SubscribeData.writeSaveFile(SubscribeData.subscribeData);
             }
             else if (data.isSubscribedCarefulBreak()) {
-                EssentialAddonsUtils.placeItemInInventory(state, world, pos, blockEntity, entity, stack);
-                return;
+                EssentialAddonsUtils.placeItemInInventory(state, world, pos, blockEntity, player, stack);
+                ci.cancel();
             }
         }
-        Block.dropStacks(state, world, pos, blockEntity, entity, stack);
     }
     //carefulBreak PISTON_HEADS
     @Inject(method = "onBreak", at = @At("HEAD"))
