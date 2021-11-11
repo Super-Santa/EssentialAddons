@@ -11,14 +11,14 @@ import net.minecraft.util.math.Direction;
 import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Overwrite;
-import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Redirect;
 
 @Mixin(value = HopperHelper.class, remap = false)
 public class HopperHelperMixin {
     /**
      * @author Willow and Sensei
      * This method is to fix an issue with lithium stacking shulkers with hoppers when using `stackableShulkersInPlayerInventories`
+     *
+     * @reason Lithium's hopper helper is broken when stacking shulkers with hoppers
      *
      * Using an @Overwrite because was having issues with mapping using @Redirect
      * Was previously Redirecting `isOf` method however the server couldn't find said method for whatever reason
