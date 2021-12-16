@@ -18,7 +18,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import java.io.IOException;
 
-@Mixin(Block.class)
+@Mixin(value = Block.class)
 public abstract class BlockMixin {
     //Code from wholmT
     @Inject(
