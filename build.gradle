@@ -30,8 +30,8 @@ dependencies {
 	mappings "net.fabricmc:yarn:${project.yarn_mappings}:v2"
 	modImplementation "net.fabricmc:fabric-loader:${project.loader_version}"
 	modImplementation "carpet:fabric-carpet:1.18-${project.carpet_core_version}"
-	//modImplementation "com.github.CaffeineMC:lithium-fabric:${project.lithium_version}"
-	//modImplementation "curse.maven:lithium-360438:${project.lithium_version}"
+	modImplementation "com.github.CaffeineMC:lithium-fabric:${project.lithium_version}"
+//	modImplementation "curse.maven:lithium-360438:${project.lithium_version}"
 
 	// javax.annotation.Nullable/Nonnull
 	compileOnly "com.google.code.findbugs:jsr305:3.0.1"
