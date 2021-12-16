@@ -297,13 +297,6 @@ public class EssentialAddonsSettings {
     public static boolean essentialCarefulBreak = false;
 
     @Rule(
-            desc = "Only allows hostile mobs to spawn in complete darkness (1.18)",
-            options = {"false", "true"},
-            category = {ESSENTIAL, EXPERIMENTAL, FEATURE}
-    )
-    public static boolean hostileMobsSpawnInCompleteDarkness = false;
-
-    @Rule(
             desc = "This allows for survival players to have infinite blocks, food, and enderpearls",
             options = {"false", "true"},
             category = {ESSENTIAL, CREATIVE, EXPERIMENTAL}

@@ -1,5 +1,11 @@
 # EssentialAddons
+
+[![Discord](https://badgen.net/discord/online-members/gn99m4QRY4?icon=discord&label=Discord&list=what)](https://discord.gg/gn99m4QRY4)
+[![GitHub downloads](https://img.shields.io/github/downloads/super-santa/essentialaddons/total?label=Github%20downloads&logo=github)](https://github.com/Super-Santa/EssentialAddons/releases)
+
 [Fabric Carpet](https://github.com/gnembon/fabric-carpet) extension that adds  things from the Spigot plugin Essentials, or other features I think are needed for Minecraft.
+
+This mod is currently only supporting **1.17.1** and **1.18.1**
 
 Feel free to contribute by adding as many features as you want!
 
@@ -41,7 +47,6 @@ Feel free to contribute by adding as many features as you want!
 * [commandWorkbench](#commandworkbench)
 * [editableSigns](#editablesigns)
 * [essentialCarefulBreak](#essentialcarefulbreak)
-* [hostileMobsSpawnInCompleteDarkness](#hostilemobsspawnincompletedarkness)
 * [infiniteItems](#infiniteitems)
 * [minecartboosting](#minecartboosting)
 * [reloadFakePlayerActions](#reloadfakeplayeractions)
@@ -331,14 +336,7 @@ Mining blocks while crouching will put them straight into your inventory
 * Categories: `ESSENTIAL`, `COMMAND`, `SURVIVAL`, `FEATURE`
 * Additional notes:
   * Players must subscribe to carefulbreak in order for it to work by using `/subscribe carefulbreak`
-
-## hostileMobsSpawnInCompleteDarkness
-Only allows hostile mobs to spawn in complete darkness (1.18)
-* Type: `Boolean`
-* Default value: `false`
-* Required options: `false`,`true`
-* Categories: `ESSENTIAL`, `EXPERIMENTAL`, `FEATURE`
-
+  
 ## infiniteItems
 Allows for survival players to have infinite blocks, food, and enderpearls
 * Type: `Boolean`
