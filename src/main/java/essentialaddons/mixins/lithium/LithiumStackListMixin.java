@@ -10,9 +10,8 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Redirect;
 
 @Pseudo
-@Mixin(targets = "me.jellysquid.mods.lithium.common.hopper.LithiumStackList", remap = false)
+@Mixin(me.jellysquid.mods.lithium.common.hopper.LithiumStackList.class)
 public class LithiumStackListMixin{
-    @SuppressWarnings("UnresolvedMixinReference")
     @Redirect(method = "calculateSignalStrength", at = @At(value = "INVOKE", target = "Lnet/minecraft/item/ItemStack;getMaxCount()I"))
     private int onGetMaxCount(ItemStack itemStack) {
         if (!EssentialAddonsSettings.stackableShulkerComparatorOverloadFix && itemStack.getItem() instanceof BlockItem && ((BlockItem) itemStack.getItem()).getBlock() instanceof ShulkerBoxBlock)

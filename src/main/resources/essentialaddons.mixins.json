@@ -17,7 +17,6 @@
     "core.ServerWorldMixin",
     "editableSigns.SignBlockEntityMixin",
     "essentialCarefulbreak.BlockMixin",
-    "hostileMobsSpawnInCompleteDarkness.HostileEntityMixin",
     "HUDController.HUDControllerMixin",
     "infiniteItems.BlockItemMixin",
     "infiniteItems.EnderPearltemMixin",
