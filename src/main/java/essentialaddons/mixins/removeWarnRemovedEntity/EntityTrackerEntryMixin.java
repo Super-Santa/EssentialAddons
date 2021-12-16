@@ -7,7 +7,7 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Redirect;
 
-@Mixin(EntityTrackerEntry.class)
+@Mixin(value = EntityTrackerEntry.class, remap = false)
 public class EntityTrackerEntryMixin {
     @Redirect(method = "sendPackets(Ljava/util/function/Consumer;)V", at = @At(value = "INVOKE", target = "Lorg/apache/logging/log4j/Logger;warn(Ljava/lang/String;Ljava/lang/Object;)V"))
     private void onWarn(Logger logger, String message, Object p0) {

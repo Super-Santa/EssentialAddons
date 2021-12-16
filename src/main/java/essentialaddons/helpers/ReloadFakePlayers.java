@@ -96,7 +96,7 @@ public class ReloadFakePlayers {
 
         playerEntity.teleport(world, Double.parseDouble(pos[0]), Double.parseDouble(pos[1]), Double.parseDouble(pos[2]), Float.parseFloat(rotation[0]), Float.parseFloat(rotation[1]));
         playerEntity.changeGameMode(GameMode.byId(playerData.getInt("playerGameType")));
-        playerEntity.getServerWorld().getChunkManager().updatePosition(playerEntity);
+        playerEntity.getWorld().getChunkManager().updatePosition(playerEntity);
 
         if (playerEntity.getX() == spawnPoint.getX() && playerEntity.getZ() == spawnPoint.getZ() && playerEntity.getY() == 512) {
             EssentialAddonsServer.LOGGER.warn("Failed to load location for " + username);

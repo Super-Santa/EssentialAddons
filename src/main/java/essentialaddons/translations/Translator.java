@@ -2,11 +2,12 @@ package essentialaddons.translations;
 
 import carpet.utils.Messenger;
 import carpet.utils.Translations;
+import com.google.common.collect.ImmutableList;
+import com.google.common.collect.Lists;
 import essentialaddons.mixins.translatableTextAccessor.TranslatableTextAccessorMixin;
-import net.minecraft.text.BaseText;
-import net.minecraft.text.Text;
-import net.minecraft.text.TranslatableText;
-import net.minecraft.text.TranslationException;
+import net.minecraft.text.*;
+
+import java.util.List;
 
 public class Translator implements Translatable {
     private final String type;
@@ -113,8 +114,9 @@ public class Translator implements Translatable {
         TranslatableTextAccessorMixin fixedTranslatableText = (TranslatableTextAccessorMixin)(new TranslatableText(msgKeyString, args));
         try
         {
-            fixedTranslatableText.getTextTranslations().clear();
-            fixedTranslatableText.setTextTranslation(msgKeyString);
+            ImmutableList.Builder<StringVisitable> builder = ImmutableList.builder();
+            fixedTranslatableText.setForEachPart(msgKeyString, builder::add);
+            fixedTranslatableText.setTextTranslations(builder.build());
             return Messenger.c(fixedTranslatableText.getTextTranslations().toArray(new Object[0]));
         }
         catch (TranslationException e)

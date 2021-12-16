@@ -12,12 +12,12 @@ import java.util.function.BooleanSupplier;
 @Mixin(MinecraftServer.class)
 public class MinecraftServer_autoSaveMixin {
 
-    @Inject(method= "tick(Ljava/util/function/BooleanSupplier;)V",at=@At(value="INVOKE",target="Lnet/minecraft/server/PlayerManager;saveAllPlayerData()V",shift=At.Shift.BEFORE))
+    @Inject(method= "tick(Ljava/util/function/BooleanSupplier;)V",at=@At(value="INVOKE",target="Lnet/minecraft/server/MinecraftServer;saveAll(ZZZ)Z",shift=At.Shift.BEFORE))
     protected void BeforeAutoSave(BooleanSupplier shouldKeepTicking, CallbackInfo ci) {
         LagSpikeHelper.processLagSpikes(LagSpikeHelper.TickPhase.AUTOSAVE, LagSpikeHelper.PrePostSubPhase.PRE);
     }
 
-    @Inject(method= "tick(Ljava/util/function/BooleanSupplier;)V",at=@At(value="INVOKE",target="Lnet/minecraft/server/PlayerManager;saveAllPlayerData()V",shift=At.Shift.AFTER))
+    @Inject(method= "tick(Ljava/util/function/BooleanSupplier;)V",at=@At(value="INVOKE",target="Lnet/minecraft/server/MinecraftServer;saveAll(ZZZ)Z",shift=At.Shift.AFTER))
     protected void AfterAutoSave(BooleanSupplier shouldKeepTicking, CallbackInfo ci) {
         LagSpikeHelper.processLagSpikes(LagSpikeHelper.TickPhase.AUTOSAVE, LagSpikeHelper.PrePostSubPhase.POST);
     }

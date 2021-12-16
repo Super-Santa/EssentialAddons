@@ -59,9 +59,9 @@ public class PlayerFakeHelper extends ServerPlayerEntity {
         instance.interactionManager.changeGameMode(GameMode.SPECTATOR);
         server.getPlayerManager().sendToDimension(new EntitySetHeadYawS2CPacket(instance, (byte) (instance.headYaw * 256 / 360)), dimensionId);
         server.getPlayerManager().sendToDimension(new EntityPositionS2CPacket(instance), dimensionId);
-        instance.getServerWorld().getChunkManager().updatePosition(instance);
+        instance.getWorld().getChunkManager().updatePosition(instance);
         instance.dataTracker.set(PLAYER_MODEL_PARTS, (byte) 0x7f);
-        instance.getServerWorld().getChunkManager().unloadEntity(instance);
+        instance.getWorld().getChunkManager().unloadEntity(instance);
         return instance;
     }
 

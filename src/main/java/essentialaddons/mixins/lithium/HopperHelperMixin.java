@@ -1,7 +1,6 @@
 package essentialaddons.mixins.lithium;
 
 import essentialaddons.EssentialAddonsSettings;
-import me.jellysquid.mods.lithium.common.hopper.HopperHelper;
 import net.minecraft.block.ShulkerBoxBlock;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.inventory.SidedInventory;
@@ -11,8 +10,10 @@ import net.minecraft.util.math.Direction;
 import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Overwrite;
+import org.spongepowered.asm.mixin.Pseudo;
 
-@Mixin(value = HopperHelper.class, remap = false)
+@Pseudo
+@Mixin(targets = "me.jellysquid.mods.lithium.common.hopper.HopperHelper", remap = false)
 public class HopperHelperMixin {
     /**
      * @author Willow and Sensei
@@ -24,7 +25,8 @@ public class HopperHelperMixin {
      * Was previously Redirecting `isOf` method however the server couldn't find said method for whatever reason
      * Feel free to make a PR and change if you get it working without @Overwrite
      * Added lines 38-39s
-     */
+     **/
+
     @Overwrite
     public static boolean tryMoveSingleItem(Inventory to, @Nullable SidedInventory toSided, ItemStack transferStack, int targetSlot, @Nullable Direction fromDirection) {
         ItemStack toStack = to.getStack(targetSlot);
