@@ -3,7 +3,6 @@ package essentialaddons.commands;
 import carpet.settings.SettingsManager;
 import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
-import com.mojang.brigadier.tree.LiteralCommandNode;
 import essentialaddons.EssentialAddonsSettings;
 import net.minecraft.inventory.EnderChestInventory;
 import net.minecraft.screen.GenericContainerScreenHandler;

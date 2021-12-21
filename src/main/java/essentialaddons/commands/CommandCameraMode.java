@@ -77,6 +77,8 @@ public class CommandCameraMode {
             reason = "you are falling";
         else if (playerEntity.isFallFlying())
             reason = "you are flying";
+        else if (playerEntity.isSubmergedInWater())
+            reason = "you are under water";
         else if (!list.isEmpty())
             reason = "there are mobs nearby";
         else
