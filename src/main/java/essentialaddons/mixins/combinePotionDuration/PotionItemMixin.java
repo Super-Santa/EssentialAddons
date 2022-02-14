@@ -1,6 +1,6 @@
 package essentialaddons.mixins.combinePotionDuration;
 
-import essentialaddons.EssentialAddonsSettings;
+import essentialaddons.EssentialSettings;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.item.PotionItem;
@@ -12,7 +12,7 @@ import org.spongepowered.asm.mixin.injection.Redirect;
 public class PotionItemMixin {
     @Redirect(method = "finishUsing", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/LivingEntity;addStatusEffect(Lnet/minecraft/entity/effect/StatusEffectInstance;)Z"), require = 0)
     private boolean onAddStatusEffect(LivingEntity livingEntity, StatusEffectInstance statusEffectInstance) {
-        if (EssentialAddonsSettings.combinePotionDuration) {
+        if (EssentialSettings.combinePotionDuration) {
             StatusEffectInstance oldEffect = livingEntity.getStatusEffect(statusEffectInstance.getEffectType());
             int oldDur = 0;
             if (oldEffect != null && oldEffect.getAmplifier() == statusEffectInstance.getAmplifier()) {

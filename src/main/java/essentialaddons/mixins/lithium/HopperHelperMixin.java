@@ -1,6 +1,6 @@
 package essentialaddons.mixins.lithium;
 
-import essentialaddons.EssentialAddonsSettings;
+import essentialaddons.EssentialSettings;
 import net.minecraft.block.ShulkerBoxBlock;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.inventory.SidedInventory;
@@ -30,7 +30,7 @@ public class HopperHelperMixin {
     @Overwrite
     public static boolean tryMoveSingleItem(Inventory to, @Nullable SidedInventory toSided, ItemStack transferStack, int targetSlot, @Nullable Direction fromDirection) {
         ItemStack toStack = to.getStack(targetSlot);
-        //Assumption: no mods depend on the the stack size of transferStack in isValid or canInsert, like vanilla doesn't
+        // Assumption: no mods depend on the stack size of transferStack in isValid or canInsert, like vanilla doesn't
         if (to.isValid(targetSlot, transferStack) && (toSided == null || toSided.canInsert(targetSlot, transferStack, fromDirection))) {
             int toCount;
             if (toStack.isEmpty()) {
@@ -38,13 +38,15 @@ public class HopperHelperMixin {
                 copy.setCount(1);
                 transferStack.decrement(1);
                 to.setStack(targetSlot, copy);
-                return true; //caller needs to call to.markDirty()
-            } else if (EssentialAddonsSettings.stackableShulkersInPlayerInventories && toStack.getItem() instanceof BlockItem && ((BlockItem) toStack.getItem()).getBlock() instanceof ShulkerBoxBlock) {
+                return true; // Caller needs to call to.markDirty()
+            }
+            if (EssentialSettings.stackableShulkersInPlayerInventories && toStack.getItem() instanceof BlockItem && ((BlockItem) toStack.getItem()).getBlock() instanceof ShulkerBoxBlock) {
                 return false;
-            } else if (toStack.isOf(transferStack.getItem()) && toStack.getMaxCount() > (toCount = toStack.getCount()) && to.getMaxCountPerStack() > toCount && ItemStack.areNbtEqual(toStack, transferStack)) {
+            }
+            if (toStack.isOf(transferStack.getItem()) && toStack.getMaxCount() > (toCount = toStack.getCount()) && to.getMaxCountPerStack() > toCount && ItemStack.areNbtEqual(toStack, transferStack)) {
                 transferStack.decrement(1);
                 toStack.increment(1);
-                return true; //caller needs to call to.markDirty()
+                return true; // Caller needs to call to.markDirty()
             }
         }
         return false;

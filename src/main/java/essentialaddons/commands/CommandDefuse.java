@@ -6,7 +6,7 @@ import com.mojang.brigadier.StringReader;
 import com.mojang.brigadier.arguments.IntegerArgumentType;
 import com.mojang.brigadier.context.CommandContext;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
-import essentialaddons.EssentialAddonsSettings;
+import essentialaddons.EssentialSettings;
 import net.minecraft.command.argument.EntityArgumentType;
 import net.minecraft.entity.TntEntity;
 import net.minecraft.server.command.ServerCommandSource;
@@ -21,7 +21,7 @@ import static net.minecraft.server.command.CommandManager.literal;
 public class CommandDefuse {
 
     public static void register(CommandDispatcher<ServerCommandSource> dispatcher) {
-        dispatcher.register(literal("defuse").requires((player) -> SettingsManager.canUseCommand(player, EssentialAddonsSettings.commandDefuse))
+        dispatcher.register(literal("defuse").requires((player) -> SettingsManager.canUseCommand(player, EssentialSettings.commandDefuse))
                 .then(argument("range", IntegerArgumentType.integer(1))
                         .executes(context -> defuse(context, getTntEntities(context.getSource(), context.getArgument("range", Integer.class))))));
     }

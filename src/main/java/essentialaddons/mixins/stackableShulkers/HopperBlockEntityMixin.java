@@ -1,6 +1,6 @@
 package essentialaddons.mixins.stackableShulkers;
 
-import essentialaddons.EssentialAddonsSettings;
+import essentialaddons.EssentialSettings;
 import net.minecraft.block.ShulkerBoxBlock;
 import net.minecraft.block.entity.HopperBlockEntity;
 import net.minecraft.item.BlockItem;
@@ -12,9 +12,10 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(HopperBlockEntity.class)
 public class HopperBlockEntityMixin {
-    @Inject(method = "canMergeItems", at = @At("HEAD"), cancellable = true)
+    @Inject(method = "canMergeItems", at = @At("HEAD"), cancellable = true, require = 0)
     private static void canMergeItems(ItemStack first, ItemStack second, CallbackInfoReturnable<Boolean> cir) {
-        if (EssentialAddonsSettings.stackableShulkersInPlayerInventories && first.getItem() instanceof BlockItem && ((BlockItem) first.getItem()).getBlock() instanceof ShulkerBoxBlock)
+        if (EssentialSettings.stackableShulkersInPlayerInventories && first.getItem() instanceof BlockItem blockItem && blockItem.getBlock() instanceof ShulkerBoxBlock) {
             cir.setReturnValue(false);
+        }
     }
 }
