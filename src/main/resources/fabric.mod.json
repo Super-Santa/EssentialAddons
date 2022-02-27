@@ -22,7 +22,7 @@
   "environment": "*",
   "entrypoints": {
     "main": [
-      "essentialaddons.EssentialAddonsServer"
+      "essentialaddons.EssentialAddons"
     ]
   },
   "mixins": [

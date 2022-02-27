@@ -1,6 +1,6 @@
 package essentialaddons.mixins.shulkerSeption;
 
-import essentialaddons.EssentialAddonsSettings;
+import essentialaddons.EssentialSettings;
 import net.minecraft.block.entity.ShulkerBoxBlockEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.Direction;
@@ -11,10 +11,9 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(ShulkerBoxBlockEntity.class)
 public class ShulkerBoxTileEntityMixin {
-
     @Inject(method = "canInsert", at = @At("HEAD"), cancellable = true)
     private void canInsert(int slot, ItemStack stack, Direction dir, CallbackInfoReturnable<Boolean> cir) {
-        if (EssentialAddonsSettings.shulkerSception) {
+        if (EssentialSettings.shulkerSception) {
             cir.setReturnValue(true);
         }
     }

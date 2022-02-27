@@ -10,8 +10,8 @@ import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.arguments.StringArgumentType;
 import com.mojang.brigadier.context.CommandContext;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
-import essentialaddons.EssentialAddonsSettings;
-import essentialaddons.helpers.PlayerFakeHelper;
+import essentialaddons.EssentialSettings;
+import essentialaddons.feature.PlayerFakeEntity;
 import net.minecraft.command.CommandSource;
 import net.minecraft.command.argument.DimensionArgumentType;
 import net.minecraft.command.argument.Vec3ArgumentType;
@@ -33,63 +33,37 @@ import static net.minecraft.server.command.CommandManager.argument;
 import static net.minecraft.server.command.CommandManager.literal;
 
 public class CommandPlayerFake {
-
     public static void register(CommandDispatcher<ServerCommandSource> dispatcher) {
-        dispatcher.register(literal("playerfake").requires((player) -> SettingsManager.canUseCommand(player, EssentialAddonsSettings.commandPlayerFake))
-                .then(argument("player", StringArgumentType.word())
-                        .suggests((context, builder) -> CommandSource.suggestMatching(getPlayers(context.getSource()), builder))
-                        .then(literal("spawn")
-                                .executes(context -> fakePlayerSpawn(context, StringArgumentType.getString(context, "player"), context.getSource().getPlayer().getPos(), null))
-                                .then(literal("at")
-                                        .then(argument("pos", Vec3ArgumentType.vec3())
-                                                .executes(context -> fakePlayerSpawn(context, StringArgumentType.getString(context, "player"), Vec3ArgumentType.getVec3(context, "pos"), null))
-                                                .then(literal("in")
-                                                        .then(argument("dimension", DimensionArgumentType.dimension())
-                                                                .executes(context -> fakePlayerSpawn(context, StringArgumentType.getString(context, "player"), Vec3ArgumentType.getVec3(context, "pos"), DimensionArgumentType.getDimensionArgument(context, "dimension").getRegistryKey()))
-                                                        )
-                                                )
-                                        )
+        dispatcher.register(literal("playerfake").requires((player) -> SettingsManager.canUseCommand(player, EssentialSettings.commandPlayerFake))
+            .then(argument("player", StringArgumentType.word())
+                .suggests((context, builder) -> CommandSource.suggestMatching(getPlayers(context.getSource()), builder))
+                .then(literal("spawn")
+                    .executes(context -> fakePlayerSpawn(context, StringArgumentType.getString(context, "player"), context.getSource().getPlayer().getPos(), null))
+                    .then(literal("at")
+                        .then(argument("pos", Vec3ArgumentType.vec3())
+                            .executes(context -> fakePlayerSpawn(context, StringArgumentType.getString(context, "player"), Vec3ArgumentType.getVec3(context, "pos"), null))
+                            .then(literal("in")
+                                .then(argument("dimension", DimensionArgumentType.dimension())
+                                    .executes(context -> fakePlayerSpawn(context, StringArgumentType.getString(context, "player"), Vec3ArgumentType.getVec3(context, "pos"), DimensionArgumentType.getDimensionArgument(context, "dimension").getRegistryKey()))
                                 )
+                            )
                         )
-                        .then(literal("kill")
-                                .executes(context -> {
-                                    String username = StringArgumentType.getString(context, "player");
-                                    ServerPlayerEntity playerEntity = context.getSource().getServer().getPlayerManager().getPlayer(username);
-                                    if (!(playerEntity instanceof EntityPlayerMPFake || playerEntity instanceof PlayerFakeHelper)) {
-                                        Messenger.m(context.getSource(), "r Cannot kill this player");
-                                        return 0;
-                                    }
-                                    playerEntity.getWorld().getChunkManager().loadEntity(playerEntity);
-                                    playerEntity.kill();
-                                    return 0;
-                                })
-                        )
-                        /*
-                        .then(literal("add").requires(serverCommandSource -> serverCommandSource.hasPermissionLevel(2))
-                                .executes(context -> {
-                                    String username = StringArgumentType.getString(context, "player");
-                                    ServerPlayerEntity playerEntity = context.getSource().getMinecraftServer().getPlayerManager().getPlayer(username);
-                                    if (!(playerEntity instanceof EntityPlayerMPFake || playerEntity instanceof PlayerFakeHelper))
-                                        Messenger.m(context.getSource(), "r Cannot change this player");
-                                    else
-                                        playerEntity.getServerWorld().getChunkManager().unloadEntity(playerEntity);
-                                    return 0;
-                                })
-                        )
-                        /* Removed because this is kinda bonked and not needed
-                        .then(literal("remove").requires(serverCommandSource -> serverCommandSource.hasPermissionLevel(2))
-                                .executes(context -> {
-                                    String username = StringArgumentType.getString(context, "player");
-                                    ServerPlayerEntity playerEntity = context.getSource().getMinecraftServer().getPlayerManager().getPlayer(username);
-                                    if (!(playerEntity instanceof EntityPlayerMPFake || playerEntity instanceof PlayerFakeHelper))
-                                        Messenger.m(context.getSource(), "r Cannot change this player");
-                                    else
-                                        playerEntity.getServerWorld().getChunkManager().loadEntity(playerEntity);
-                                    return 0;
-                                })
-                        )
-                         */
+                    )
                 )
+                .then(literal("kill")
+                    .executes(context -> {
+                        String username = StringArgumentType.getString(context, "player");
+                        ServerPlayerEntity playerEntity = context.getSource().getServer().getPlayerManager().getPlayer(username);
+                        if (!(playerEntity instanceof EntityPlayerMPFake || playerEntity instanceof PlayerFakeEntity)) {
+                            Messenger.m(context.getSource(), "r Cannot kill this player");
+                            return 0;
+                        }
+                        playerEntity.getWorld().getChunkManager().loadEntity(playerEntity);
+                        playerEntity.kill();
+                        return 0;
+                    })
+                )
+            )
         );
     }
     private static int fakePlayerSpawn(CommandContext<ServerCommandSource> context, String username, Vec3d pos, RegistryKey<World> dim) throws CommandSyntaxException {
@@ -97,7 +71,7 @@ public class CommandPlayerFake {
             return 0;
         ServerCommandSource source = context.getSource();
         dim = dim == null ? source.getWorld().getRegistryKey() : dim;
-        ServerPlayerEntity playerEntity = PlayerFakeHelper.createFake(username, source.getServer(), pos.x, pos.y, pos.z, source.getPlayer().getYaw(), source.getPlayer().getPitch(), dim);
+        ServerPlayerEntity playerEntity = PlayerFakeEntity.createFake(username, source.getServer(), pos.x, pos.y, pos.z, source.getPlayer().getYaw(), source.getPlayer().getPitch(), dim);
         if (playerEntity == null) {
             source.sendFeedback(new LiteralText("Failed to spawn player"), false);
         }
@@ -118,12 +92,10 @@ public class CommandPlayerFake {
         if (profile == null) {
             if (!CarpetSettings.allowSpawningOfflinePlayers) {
                 Messenger.m(context.getSource(), "r Player "+playerName+" is either banned by Mojang, or auth servers are down. " +
-                        "Banned players can only be summoned in Singleplayer and in servers in off-line mode.");
+                    "Banned players can only be summoned in Singleplayer and in servers in off-line mode.");
                 return true;
             }
-            else {
-                profile = new GameProfile(PlayerEntity.getOfflinePlayerUuid(playerName), playerName);
-            }
+            profile = new GameProfile(PlayerEntity.getOfflinePlayerUuid(playerName), playerName);
         }
         if (manager.getUserBanList().contains(profile)) {
             Messenger.m(context.getSource(), "r Player ", "rb " + playerName, "r  is banned on this server");
