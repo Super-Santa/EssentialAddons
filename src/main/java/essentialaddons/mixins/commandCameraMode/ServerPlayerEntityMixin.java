@@ -33,7 +33,7 @@ public abstract class ServerPlayerEntityMixin extends PlayerEntity {
 		super(world, pos, yaw, profile);
 	}
 
-	@Inject(method = "getServerGameMode", at = @At("HEAD"))
+	@Inject(method = "getServerGameMode", at = @At("HEAD"), cancellable = true)
 	private void onGetGameMode(GameMode backupGameMode, CallbackInfoReturnable<GameMode> cir) {
 		if (EssentialSettings.commandCameraMode && ConfigCameraData.INSTANCE.hasPlayerLocation((ServerPlayerEntity) (Object) this)) {
 			cir.setReturnValue(GameMode.SPECTATOR);
