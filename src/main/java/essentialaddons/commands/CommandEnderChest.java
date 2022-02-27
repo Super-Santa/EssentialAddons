@@ -3,7 +3,7 @@ package essentialaddons.commands;
 import carpet.settings.SettingsManager;
 import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
-import essentialaddons.EssentialAddonsSettings;
+import essentialaddons.EssentialSettings;
 import net.minecraft.inventory.EnderChestInventory;
 import net.minecraft.screen.GenericContainerScreenHandler;
 import net.minecraft.screen.SimpleNamedScreenHandlerFactory;
@@ -15,11 +15,8 @@ import static net.minecraft.server.command.CommandManager.literal;
 
 public class CommandEnderChest {
     public static void register(CommandDispatcher<ServerCommandSource> dispatcher) {
-
-        // Can't use redirect here because of this: https://github.com/Mojang/brigadier/issues/46
-
-        dispatcher.register(literal("enderchest").requires((player) -> SettingsManager.canUseCommand(player, EssentialAddonsSettings.commandEnderChest)).executes(context -> CommandEnderChest.execute(context.getSource())));
-        dispatcher.register(literal("ec").requires((player) -> SettingsManager.canUseCommand(player, EssentialAddonsSettings.commandEnderChest)).executes(context -> CommandEnderChest.execute(context.getSource())));
+        dispatcher.register(literal("enderchest").requires((player) -> SettingsManager.canUseCommand(player, EssentialSettings.commandEnderChest)).executes(context -> CommandEnderChest.execute(context.getSource())));
+        dispatcher.register(literal("ec").requires((player) -> SettingsManager.canUseCommand(player, EssentialSettings.commandEnderChest)).executes(context -> CommandEnderChest.execute(context.getSource())));
     }
 
     private static int execute(ServerCommandSource source) throws CommandSyntaxException {

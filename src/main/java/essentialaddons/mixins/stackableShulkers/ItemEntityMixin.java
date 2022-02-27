@@ -1,7 +1,7 @@
 package essentialaddons.mixins.stackableShulkers;
 
 import carpet.helpers.InventoryHelper;
-import essentialaddons.EssentialAddonsSettings;
+import essentialaddons.EssentialSettings;
 import net.minecraft.block.ShulkerBoxBlock;
 import net.minecraft.entity.ItemEntity;
 import net.minecraft.item.BlockItem;
@@ -14,14 +14,9 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(ItemEntity.class)
 public class ItemEntityMixin {
-    //copied from carpet
     @Inject(method="<init>(Lnet/minecraft/world/World;DDDLnet/minecraft/item/ItemStack;)V", at = @At("RETURN"))
-    private void removeEmptyShulkerBoxTags(World worldIn, double x, double y, double z, ItemStack stack, CallbackInfo ci)
-    {
-        if (EssentialAddonsSettings.stackableShulkersInPlayerInventories
-                && stack.getItem() instanceof BlockItem
-                && ((BlockItem)stack.getItem()).getBlock() instanceof ShulkerBoxBlock)
-        {
+    private void removeEmptyShulkerBoxTags(World worldIn, double x, double y, double z, ItemStack stack, CallbackInfo ci) {
+        if (EssentialSettings.stackableShulkersInPlayerInventories && stack.getItem() instanceof BlockItem blockItem && blockItem.getBlock() instanceof ShulkerBoxBlock) {
             if (InventoryHelper.cleanUpShulkerBoxTag(stack)) {
                 ((ItemEntity) (Object) this).setStack(stack);
             }

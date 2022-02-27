@@ -1,50 +1,31 @@
 package essentialaddons.commands;
 
-import carpet.settings.SettingsManager;
 import com.mojang.brigadier.CommandDispatcher;
-import essentialaddons.EssentialAddonsSettings;
-import essentialaddons.EssentialAddonsUtils;
-import essentialaddons.helpers.SubscribeData;
+import com.mojang.brigadier.builder.LiteralArgumentBuilder;
+import essentialaddons.EssentialUtils;
+import essentialaddons.utils.Subscription;
 import net.minecraft.server.command.ServerCommandSource;
 import net.minecraft.server.network.ServerPlayerEntity;
-
-import java.io.File;
-import java.io.IOException;
-import java.util.HashMap;
-import java.util.UUID;
 
 import static net.minecraft.server.command.CommandManager.literal;
 
 public class CommandSubscribe {
-
     public static void register(CommandDispatcher<ServerCommandSource> dispatcher) {
-        dispatcher.register(literal("subscribe").requires(player -> SettingsManager.canUseCommand(player, EssentialAddonsSettings.essentialCarefulBreak || EssentialAddonsSettings.cameraModeTeleportBlacklist))
-                .then(literal("carefulbreak").requires(player -> SettingsManager.canUseCommand(player, EssentialAddonsSettings.essentialCarefulBreak))
-                        .executes(context -> {
-                            ServerPlayerEntity playerEntity = context.getSource().getPlayer();
-                            UUID playerUUID = playerEntity.getUuid();
-                            SubscribeData data = SubscribeData.subscribeData.remove(playerUUID);
-                            if (data == null) {
-                                SubscribeData.subscribeData.put(playerUUID, new SubscribeData(false, false));
-                                data = SubscribeData.subscribeData.remove(playerUUID);
-                            }
-                            data.toggleSubscribe(playerEntity, playerUUID, "carefulbreak");
-                            return 0;
-                        })
-                )
-                .then(literal("teleportblacklist").requires(player -> SettingsManager.canUseCommand(player, EssentialAddonsSettings.cameraModeTeleportBlacklist))
-                        .executes(context -> {
-                            ServerPlayerEntity playerEntity = context.getSource().getPlayer();
-                            UUID playerUUID = playerEntity.getUuid();
-                            SubscribeData data = SubscribeData.subscribeData.remove(playerUUID);
-                            if (data == null) {
-                                SubscribeData.subscribeData.put(playerUUID, new SubscribeData(false, false));
-                                data = SubscribeData.subscribeData.remove(playerUUID);
-                            }
-                            data.toggleSubscribe(playerEntity, playerUUID, "teleportblacklist");
-                            return 0;
-                        })
-                )
-        );
+        LiteralArgumentBuilder<ServerCommandSource> subscribeCommand = literal("subscribe");
+        subscribeCommand.requires(source -> Subscription.canUseSubscribeCommand());
+        for (Subscription subscription : Subscription.values()) {
+            String subscriptionName = subscription.getName();
+            subscribeCommand.then(literal(subscriptionName).requires(source -> subscription.getRequirement().get()).executes(ctx -> {
+                ServerPlayerEntity playerEntity = ctx.getSource().getPlayer();
+                String message = subMessage(subscription.togglePlayer(playerEntity));
+                EssentialUtils.sendToActionBar(playerEntity, message + " " + subscriptionName);
+                return 1;
+            }));
+        }
+        dispatcher.register(subscribeCommand);
+    }
+
+    private static String subMessage(boolean bool) {
+        return bool ? "§aSUBSCRIBED §6to" : "§cUNSUBSCRIBED §6from";
     }
 }

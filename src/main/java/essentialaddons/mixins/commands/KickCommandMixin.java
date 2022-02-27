@@ -1,7 +1,7 @@
 package essentialaddons.mixins.commands;
 
 import com.mojang.brigadier.CommandDispatcher;
-import essentialaddons.EssentialAddonsSettings;
+import essentialaddons.EssentialSettings;
 import net.minecraft.server.command.CommandManager;
 import net.minecraft.server.command.KickCommand;
 import net.minecraft.server.command.ServerCommandSource;
@@ -16,6 +16,6 @@ import carpet.settings.SettingsManager;
 public class KickCommandMixin {
     @Inject(method = "register", at = @At("HEAD"))
     private static void register(CommandDispatcher<ServerCommandSource> dispatcher, CallbackInfo info) {
-        dispatcher.register(CommandManager.literal("kick").requires((serverCommandSource) -> SettingsManager.canUseCommand(serverCommandSource, EssentialAddonsSettings.commandPublicKick) || serverCommandSource.hasPermissionLevel(3)));
+        dispatcher.register(CommandManager.literal("kick").requires((serverCommandSource) -> SettingsManager.canUseCommand(serverCommandSource, EssentialSettings.commandPublicKick) || serverCommandSource.hasPermissionLevel(3)));
     }
 }

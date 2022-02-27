@@ -1,11 +1,13 @@
 package essentialaddons.commands;
 
-import essentialaddons.EssentialAddonsServer;
-import essentialaddons.EssentialAddonsSettings;
-import essentialaddons.EssentialAddonsUtils;
 import carpet.settings.SettingsManager;
 import com.mojang.brigadier.CommandDispatcher;
-import essentialaddons.helpers.CameraData;
+import com.mojang.brigadier.builder.LiteralArgumentBuilder;
+import essentialaddons.EssentialAddons;
+import essentialaddons.EssentialSettings;
+import essentialaddons.EssentialUtils;
+import essentialaddons.utils.ConfigCameraData;
+import net.minecraft.entity.effect.StatusEffect;
 import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.mob.HostileEntity;
 import net.minecraft.server.command.ServerCommandSource;
@@ -14,74 +16,88 @@ import net.minecraft.util.math.Box;
 import net.minecraft.world.GameMode;
 
 import java.util.List;
+import java.util.Set;
 
 import static net.minecraft.server.command.CommandManager.literal;
 
 public class CommandCameraMode {
-
-    //Much of this code is taken from quick carpet
     public static void register(CommandDispatcher<ServerCommandSource> dispatcher) {
-        dispatcher.register(literal("cs").requires((player) -> SettingsManager.canUseCommand(player, EssentialAddonsSettings.commandCameraMode)
-                ).executes(context -> {
-                    toggle(context.getSource().getPlayer());
-                    return 0;
-                }
-                ).then(literal("clear").requires((player) -> player.hasPermissionLevel(4)
-                ).executes(context -> {
-                    CameraData.cameraData.remove(context.getSource().getPlayer().getUuid());
-                    EssentialAddonsServer.LOGGER.info("Player " + context.getSource().getPlayer().getEntityName() + " has cleared their cs HashMap");
-                    return 0;
-                }))
-        );
+        LiteralArgumentBuilder<ServerCommandSource> csCommand = literal("cs");
+        csCommand.requires((p) -> SettingsManager.canUseCommand(p, EssentialSettings.commandCameraMode)).executes(ctx -> {
+            return toggle(ctx.getSource().getPlayer());
+        });
+        dispatcher.register(csCommand);
     }
-    private static void cameraMode(ServerPlayerEntity playerEntity) {
-        if (EssentialAddonsSettings.cameraModeSurvivalRestrictions && isInDanger(playerEntity))
-            return;
-        if (EssentialAddonsSettings.cameraModeRestoreLocation) {
-            CameraData.cameraData.put(playerEntity.getUuid(), new CameraData(playerEntity));
+
+    private static int toggle(ServerPlayerEntity playerEntity) {
+        return playerEntity.isSpectator() ? returnMode(playerEntity) : cameraMode(playerEntity);
+    }
+
+    private static int cameraMode(ServerPlayerEntity playerEntity) {
+        if (EssentialSettings.cameraModeSurvivalRestrictions && isInDanger(playerEntity)) {
+            return 0;
+        }
+        if (EssentialSettings.cameraModeRestoreLocation) {
+            ConfigCameraData.INSTANCE.addPlayer(playerEntity);
         }
         playerEntity.changeGameMode(GameMode.SPECTATOR);
-        EssentialAddonsUtils.sendToActionBar(playerEntity, "§6You have been put in §aSPECTATOR");
+        EssentialUtils.sendToActionBar(playerEntity, "§6You have been put in §aSPECTATOR");
+        return 1;
+    }
 
-    }
-    private static void returnMode(ServerPlayerEntity playerEntity) {
-        CameraData data = CameraData.cameraData.remove(playerEntity.getUuid());
-        if (EssentialAddonsSettings.cameraModeRestoreLocation && data != null)
-            data.restore(playerEntity);
-        else if (EssentialAddonsSettings.cameraModeRestoreLocation) {
-            EssentialAddonsServer.LOGGER.error("Could not load previous location for " + playerEntity.getEntityName());
-            EssentialAddonsUtils.sendToActionBar(playerEntity, "§c[ERROR] Unable to get previous location");
+    private static int returnMode(ServerPlayerEntity playerEntity) {
+        if (EssentialSettings.cameraModeRestoreLocation && !ConfigCameraData.INSTANCE.restorePlayer(playerEntity)) {
+            EssentialAddons.LOGGER.error("Could not load previous location for " + playerEntity.getEntityName());
+            EssentialUtils.sendToActionBar(playerEntity, "§c[ERROR] Unable to get previous location");
             playerEntity.changeGameMode(playerEntity.interactionManager.getPreviousGameMode());
-            return;
+            return 0;
         }
-        EssentialAddonsUtils.sendToActionBar(playerEntity, "§6You have been put in §a" + playerEntity.interactionManager.getPreviousGameMode());
+        EssentialUtils.sendToActionBar(playerEntity, "§6You have been put in §a" + playerEntity.interactionManager.getPreviousGameMode());
         playerEntity.changeGameMode(playerEntity.interactionManager.getPreviousGameMode());
+        return 1;
     }
-    private static void toggle(ServerPlayerEntity playerEntity) {
-        if (playerEntity.isSpectator()) {
-            returnMode(playerEntity);
-        }
-        else {
-            cameraMode(playerEntity);
-        }
-    }
+
     private static boolean isInDanger(ServerPlayerEntity playerEntity) {
-        Box nearPlayer = new Box(playerEntity.getX()-4,playerEntity.getY()-4,playerEntity.getZ()-4,playerEntity.getX()+4,playerEntity.getY()+4,playerEntity.getZ()+4);
+        if (playerEntity.isCreative()) {
+            return false;
+        }
+        Set<StatusEffect> negativeStatusEffects = Set.of(
+            StatusEffects.LEVITATION,
+            StatusEffects.WITHER,
+            StatusEffects.POISON
+        );
+        for (StatusEffect statusEffect : negativeStatusEffects) {
+            if (playerEntity.hasStatusEffect(statusEffect)) {
+                EssentialUtils.sendToActionBar(playerEntity, "§cYou cannot enter spectator because you have a negative status effect");
+                return true;
+            }
+        }
+        double x = playerEntity.getX(), y = playerEntity.getY(), z = playerEntity.getZ();
+        Box nearPlayer = new Box(x - 4,y - 4,z - 4,x + 4,y + 4, z + 4);
         List<HostileEntity> list = playerEntity.world.getEntitiesByClass(HostileEntity.class, nearPlayer, hostileEntity -> true);
         String reason;
-        if (playerEntity.isOnFire())
-            reason = "you are on fire";
-        else if (playerEntity.hasStatusEffect(StatusEffects.POISON) || playerEntity.hasStatusEffect(StatusEffects.WITHER) || playerEntity.hasStatusEffect(StatusEffects.LEVITATION))
-            reason = "you have a negative status effect";
-        else if (playerEntity.fallDistance > 0)
-            reason = "you are falling";
-        else if (playerEntity.isFallFlying())
-            reason = "you are flying";
-        else if (!list.isEmpty())
+        if (!list.isEmpty()) {
             reason = "there are mobs nearby";
-        else
+        }
+        else if (playerEntity.isOnFire()) {
+            reason = "you are on fire";
+        }
+        else if (playerEntity.fallDistance > 0) {
+            reason = "you are falling";
+        }
+        else if (playerEntity.isFallFlying()) {
+            reason = "you are flying";
+        }
+        else if (playerEntity.isSubmergedInWater()) {
+            reason = "you are under water";
+        }
+        else if (!list.isEmpty()) {
+            reason = "there are mobs nearby";
+        }
+        else {
             return false;
-        EssentialAddonsUtils.sendToActionBar(playerEntity, "§cYou cannot enter spectator because " + reason);
+        }
+        EssentialUtils.sendToActionBar(playerEntity, "§cYou cannot enter spectator because " + reason);
         return true;
     }
 }
