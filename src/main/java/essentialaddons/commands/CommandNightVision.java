@@ -17,7 +17,7 @@ public class CommandNightVision {
             .executes(context -> {
                 ServerPlayerEntity playerEntity = context.getSource().getPlayer();
                 if (!playerEntity.hasStatusEffect(StatusEffects.NIGHT_VISION)) {
-                    playerEntity.addStatusEffect(new StatusEffectInstance(StatusEffects.NIGHT_VISION, 999999, 1));
+                    playerEntity.addStatusEffect(new StatusEffectInstance(StatusEffects.NIGHT_VISION, 999999, 1, true, false));
                     EssentialUtils.sendToActionBar(playerEntity, "§6Night Vision has been §aenabled");
                 }
                 else {

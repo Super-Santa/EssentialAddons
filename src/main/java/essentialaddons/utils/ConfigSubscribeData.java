@@ -1,11 +1,8 @@
 package essentialaddons.utils;
 
-import carpet.CarpetServer;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
-import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.util.WorldSavePath;
 
 import java.nio.file.Path;
 import java.util.*;
@@ -62,8 +59,7 @@ public class ConfigSubscribeData implements Config {
 	}
 
 	@Override
-	public void readConfig() {
-		JsonArray playerSubscriptions = this.getConfigData();
+	public void readConfig(JsonArray playerSubscriptions) {
 		playerSubscriptions.forEach(jsonElement -> {
 			JsonObject playerData = jsonElement.getAsJsonObject();
 			UUID playerUUID = UUID.fromString(playerData.get("uuid").getAsString());

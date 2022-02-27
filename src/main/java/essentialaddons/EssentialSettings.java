@@ -54,6 +54,13 @@ public class EssentialSettings {
     public static boolean combinePotionDuration = false;
 
     @Rule(
+        desc = "",
+        options = {"false", "true", "ops"},
+        category = {ESSENTIAL, COMMAND, SURVIVAL, FEATURE}
+    )
+    public static String commandBackup = "false";
+
+    @Rule(
         desc = "Survival friendly spectator mode, puts the player in and out of spectator mode",
         extra = "Allows for saving location after server reset using rule cameraModeRestoreLocation and adds functionality for cameraModeSurvivalRestrictions",
         options = {"false", "true"},

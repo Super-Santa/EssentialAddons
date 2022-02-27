@@ -2,6 +2,8 @@ package essentialaddons;
 
 import carpet.CarpetServer;
 import carpet.helpers.InventoryHelper;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.ShulkerBoxBlock;
 import net.minecraft.block.entity.BlockEntity;
@@ -14,9 +16,13 @@ import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.stat.Stats;
 import net.minecraft.text.LiteralText;
+import net.minecraft.util.WorldSavePath;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
+import java.nio.file.Path;
+
+import static essentialaddons.EssentialAddons.server;
 import static net.minecraft.block.Block.dropStack;
 import static net.minecraft.block.Block.getDroppedStacks;
 
@@ -49,6 +55,15 @@ public class EssentialUtils {
             return true;
         }
         return false;
+    }
+
+    public static Path getSavePath() {
+        return server.getSavePath(WorldSavePath.ROOT);
+    }
+
+    public static Path getConfigPath() {
+        FabricLoader fabricLoader = FabricLoader.getInstance();
+        return fabricLoader.getEnvironmentType() == EnvType.SERVER ? fabricLoader.getConfigDir() : getSavePath();
     }
 
     public static void throwAsRuntime(ThrowableRunnable runnable) {

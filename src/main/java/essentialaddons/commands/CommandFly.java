@@ -10,7 +10,6 @@ import net.minecraft.server.network.ServerPlayerEntity;
 import static net.minecraft.server.command.CommandManager.literal;
 
 public class CommandFly {
-
     public static void register(CommandDispatcher<ServerCommandSource> dispatcher) {
         dispatcher.register(literal("fly").requires((player) -> SettingsManager.canUseCommand(player, EssentialSettings.commandFly))
             .executes(context -> {

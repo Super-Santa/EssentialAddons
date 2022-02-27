@@ -73,7 +73,7 @@ public class ConfigFakePlayerData implements Config {
 	}
 
 	@Override
-	public void readConfig() { }
+	public void readConfig(JsonArray configData) { }
 
 	public void readConfig(MinecraftServer server) {
 		JsonArray totalPlayerData = this.getConfigData();

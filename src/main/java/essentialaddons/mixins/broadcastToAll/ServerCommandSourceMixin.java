@@ -12,9 +12,6 @@ import org.spongepowered.asm.mixin.injection.Redirect;
 public class ServerCommandSourceMixin {
     @Redirect(method = "sendToOps", at = @At(value = "INVOKE", target = "Lnet/minecraft/server/PlayerManager;isOperator(Lcom/mojang/authlib/GameProfile;)Z"))
     private boolean shouldBroadcast(PlayerManager playerManager, GameProfile profile) {
-        if (EssentialSettings.broadcastToAll) {
-            return true;
-        }
-        return playerManager.isOperator(profile);
+        return EssentialSettings.broadcastToAll || playerManager.isOperator(profile);
     }
 }

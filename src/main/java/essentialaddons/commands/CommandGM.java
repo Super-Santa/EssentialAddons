@@ -12,9 +12,7 @@ import java.util.function.Predicate;
 
 import static net.minecraft.server.command.CommandManager.literal;
 
-
 public class CommandGM {
-
     public static void register(CommandDispatcher<ServerCommandSource> dispatcher) {
         CommandNode<ServerCommandSource> gamemode = dispatcher.getRoot().getChild("gamemode");
         Predicate<ServerCommandSource> canUse = (p) -> SettingsManager.canUseCommand(p, EssentialSettings.commandGM);

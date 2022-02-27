@@ -19,7 +19,6 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(CakeBlock.class)
 public class CakeBlockMixin {
-
     @Final
     @Shadow
     public static IntProperty BITES;

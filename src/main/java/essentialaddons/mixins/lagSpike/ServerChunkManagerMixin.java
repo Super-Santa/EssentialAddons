@@ -11,7 +11,6 @@ import java.util.function.BooleanSupplier;
 
 @Mixin(ServerChunkManager.class)
 public class ServerChunkManagerMixin {
-
     @Inject(method= "tick(Ljava/util/function/BooleanSupplier;)V",at=@At(value="INVOKE",target="Lnet/minecraft/server/world/ThreadedAnvilChunkStorage;tick(Ljava/util/function/BooleanSupplier;)V",shift=At.Shift.BEFORE))
     protected void BeforeChunkUnload(BooleanSupplier shouldKeepTicking, CallbackInfo ci) {
         LagSpike.processLagSpikes(LagSpike.TickPhase.CHUNK_UNLOADING, LagSpike.PrePostSubPhase.PRE);

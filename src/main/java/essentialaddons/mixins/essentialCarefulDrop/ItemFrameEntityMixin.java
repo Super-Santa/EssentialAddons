@@ -25,9 +25,6 @@ public abstract class ItemFrameEntityMixin extends AbstractDecorationEntity {
 	}
 
 	@Shadow
-	public abstract ItemStack getHeldItemStack();
-
-	@Shadow
 	protected abstract ItemStack getAsItemStack();
 
 	@Redirect(method = "dropHeldStack", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/decoration/ItemFrameEntity;dropStack(Lnet/minecraft/item/ItemStack;)Lnet/minecraft/entity/ItemEntity;"))

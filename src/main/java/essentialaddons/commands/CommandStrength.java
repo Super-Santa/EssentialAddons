@@ -17,7 +17,7 @@ public class CommandStrength {
             .executes(context -> {
                 ServerPlayerEntity playerEntity = context.getSource().getPlayer();
                 if (!playerEntity.hasStatusEffect(StatusEffects.STRENGTH)) {
-                    playerEntity.addStatusEffect(new StatusEffectInstance(StatusEffects.STRENGTH, 999999, 255));
+                    playerEntity.addStatusEffect(new StatusEffectInstance(StatusEffects.STRENGTH, 999999, 255, true, false));
                     EssentialUtils.sendToActionBar(playerEntity, "§6Strength has been §aenabled");
                 }
                 else {

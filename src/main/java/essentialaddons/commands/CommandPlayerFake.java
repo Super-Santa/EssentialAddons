@@ -33,7 +33,6 @@ import static net.minecraft.server.command.CommandManager.argument;
 import static net.minecraft.server.command.CommandManager.literal;
 
 public class CommandPlayerFake {
-
     public static void register(CommandDispatcher<ServerCommandSource> dispatcher) {
         dispatcher.register(literal("playerfake").requires((player) -> SettingsManager.canUseCommand(player, EssentialSettings.commandPlayerFake))
             .then(argument("player", StringArgumentType.word())

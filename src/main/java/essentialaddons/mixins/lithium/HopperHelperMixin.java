@@ -26,7 +26,6 @@ public class HopperHelperMixin {
      * Feel free to make a PR and change if you get it working without @Overwrite
      * Added lines 38-39s
      **/
-
     @Overwrite
     public static boolean tryMoveSingleItem(Inventory to, @Nullable SidedInventory toSided, ItemStack transferStack, int targetSlot, @Nullable Direction fromDirection) {
         ItemStack toStack = to.getStack(targetSlot);

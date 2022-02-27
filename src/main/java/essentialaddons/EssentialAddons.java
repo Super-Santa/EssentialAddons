@@ -88,6 +88,7 @@ public class EssentialAddons implements CarpetExtension, ModInitializer {
         CommandDimensions.register(dispatcher);
         CommandWarp.register(dispatcher);
         CommandCameraMode.register(dispatcher);
+        CommandBackup.register(dispatcher);
         CommandSwitchDimensions.register(dispatcher);
         CommandEnderChest.register(dispatcher);
         CommandWorkbench.register(dispatcher);

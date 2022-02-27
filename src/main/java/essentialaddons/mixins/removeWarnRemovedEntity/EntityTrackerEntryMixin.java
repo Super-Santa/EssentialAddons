@@ -11,9 +11,8 @@ import org.spongepowered.asm.mixin.injection.Redirect;
 public class EntityTrackerEntryMixin {
     @Redirect(method = "sendPackets(Ljava/util/function/Consumer;)V", at = @At(value = "INVOKE", target = "Lorg/apache/logging/log4j/Logger;warn(Ljava/lang/String;Ljava/lang/Object;)V"), require = 0)
     private void onWarn(Logger logger, String message, Object p0) {
-        if (EssentialSettings.removeWarnRemovedEntity) {
-            return;
+        if (!EssentialSettings.removeWarnRemovedEntity) {
+            logger.warn(message);
         }
-        logger.warn(message);
     }
 }

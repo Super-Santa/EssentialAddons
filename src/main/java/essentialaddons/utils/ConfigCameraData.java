@@ -70,8 +70,7 @@ public class ConfigCameraData implements Config {
 	}
 
 	@Override
-	public void readConfig() {
-		JsonArray playerLocations = this.getConfigData();
+	public void readConfig(JsonArray playerLocations) {
 		playerLocations.forEach(jsonElement -> {
 			JsonObject playerData = jsonElement.getAsJsonObject();
 			UUID playerUUID = UUID.fromString(playerData.get("uuid").getAsString());

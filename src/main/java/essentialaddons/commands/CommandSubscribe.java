@@ -10,7 +10,6 @@ import net.minecraft.server.network.ServerPlayerEntity;
 import static net.minecraft.server.command.CommandManager.literal;
 
 public class CommandSubscribe {
-
     public static void register(CommandDispatcher<ServerCommandSource> dispatcher) {
         LiteralArgumentBuilder<ServerCommandSource> subscribeCommand = literal("subscribe");
         subscribeCommand.requires(source -> Subscription.canUseSubscribeCommand());

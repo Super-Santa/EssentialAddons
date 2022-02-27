@@ -10,7 +10,6 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(LivingEntity.class)
 public class LivingEntityMixin {
-
     @SuppressWarnings("ConstantConditions")
     @Inject(method = "tickStatusEffects", at = @At(value = "HEAD"), cancellable = true)
     private void checkPlayerSpectator(CallbackInfo ci) {

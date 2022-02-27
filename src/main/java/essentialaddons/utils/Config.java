@@ -21,24 +21,70 @@ import static essentialaddons.EssentialAddons.*;
 public interface Config {
 	Gson GSON = new GsonBuilder().setPrettyPrinting().disableHtmlEscaping().create();
 
+	/**
+	 * This is used when displaying
+	 * errors about the config
+	 *
+	 * @return the name of the config
+	 */
 	String getConfigName();
 
+	/**
+	 * This is the path of the config, it's
+	 * used to read and write the file
+	 *
+	 * @return the path of the config
+	 */
 	Path getConfigPath();
 
+	/**
+	 * This gets the data that will
+	 * be saved to the config
+	 *
+	 * @return the data that should be saved
+	 */
 	JsonArray getSaveData();
 
-	void readConfig();
+	/**
+	 * This passes in the config
+	 * data to be processed
+	 *
+	 * @param configData the config data
+	 */
+	void readConfig(JsonArray configData);
 
+	/**
+	 * This should be called when
+	 * you want to read a config file
+	 */
+	default void readConfig() {
+		JsonArray element = this.getConfigData();
+		if (element != null) {
+			this.readConfig(element);
+		}
+	}
+
+	/**
+	 * This gets the root config folder
+	 * in this case in the EssentialClient
+	 * folder located in .minecraft/config
+	 *
+	 * @return the root path of the config
+	 */
 	default Path getConfigRootPath() {
-		FabricLoader fabricLoader = FabricLoader.getInstance();
-		Path root = (fabricLoader.getEnvironmentType() == EnvType.SERVER ?
-			fabricLoader.getConfigDir() : server.getSavePath(WorldSavePath.ROOT)).resolve("EssentialAddons");
+		Path root = EssentialUtils.getConfigPath().resolve("EssentialAddons");
 		if (!Files.exists(root)) {
 			EssentialUtils.throwAsRuntime(() -> Files.createDirectory(root));
 		}
 		return root;
 	}
 
+	/**
+	 * This gets the config data
+	 * from the specified file
+	 *
+	 * @return the config data
+	 */
 	default JsonArray getConfigData() {
 		Path configPath = this.getConfigPath();
 		if (Files.isRegularFile(configPath)) {
@@ -52,6 +98,10 @@ public interface Config {
 		return new JsonArray(0);
 	}
 
+	/**
+	 * This should be called when you
+	 * want to save the config file
+	 */
 	default void saveConfig() {
 		Path configPath = this.getConfigPath();
 		try (BufferedWriter writer = Files.newBufferedWriter(configPath)) {

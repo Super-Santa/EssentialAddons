@@ -72,9 +72,7 @@ public class CommandCameraMode {
                 return true;
             }
         }
-        double x = playerEntity.getX();
-        double y = playerEntity.getY();
-        double z = playerEntity.getZ();
+        double x = playerEntity.getX(), y = playerEntity.getY(), z = playerEntity.getZ();
         Box nearPlayer = new Box(x - 4,y - 4,z - 4,x + 4,y + 4, z + 4);
         List<HostileEntity> list = playerEntity.world.getEntitiesByClass(HostileEntity.class, nearPlayer, hostileEntity -> true);
         String reason;

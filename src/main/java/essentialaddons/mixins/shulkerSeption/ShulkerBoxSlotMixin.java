@@ -10,7 +10,6 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(ShulkerBoxSlot.class)
 public class ShulkerBoxSlotMixin {
-
     @Inject(method = "canInsert", at = @At("HEAD"), cancellable = true)
     private void canInsert(ItemStack stack, CallbackInfoReturnable<Boolean> ci) {
         if (EssentialSettings.shulkerSception) {
