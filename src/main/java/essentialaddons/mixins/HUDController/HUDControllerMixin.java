@@ -15,7 +15,6 @@ import java.util.List;
 public abstract class HUDControllerMixin {
     @Inject(method = "update_hud", at = @At(value = "INVOKE",target = "Ljava/util/Map;keySet()Ljava/util/Set;"), remap = false)
     private static void updateEssentialAddonsHUDLoggers(MinecraftServer server, List<ServerPlayerEntity> force, CallbackInfo ci) {
-        EssentialAddonsHUDController.updateHUD(server);
+        EssentialAddonsHUDController.updateHUD();
     }
-
 }

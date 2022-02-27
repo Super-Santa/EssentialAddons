@@ -6,14 +6,19 @@ import com.mojang.brigadier.StringReader;
 import com.mojang.brigadier.arguments.IntegerArgumentType;
 import com.mojang.brigadier.context.CommandContext;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
-import essentialaddons.EssentialAddonsSettings;
+import essentialaddons.EssentialSettings;
 import net.minecraft.command.argument.EntityArgumentType;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.TntEntity;
+import net.minecraft.entity.mob.HostileEntity;
 import net.minecraft.server.command.ServerCommandSource;
+import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.text.LiteralText;
 import net.minecraft.util.Util;
+import net.minecraft.util.math.Box;
 
 import java.util.Collection;
+import java.util.List;
 
 import static net.minecraft.server.command.CommandManager.argument;
 import static net.minecraft.server.command.CommandManager.literal;
@@ -21,22 +26,23 @@ import static net.minecraft.server.command.CommandManager.literal;
 public class CommandDefuse {
 
     public static void register(CommandDispatcher<ServerCommandSource> dispatcher) {
-        dispatcher.register(literal("defuse").requires((player) -> SettingsManager.canUseCommand(player, EssentialAddonsSettings.commandDefuse))
-                .then(argument("range", IntegerArgumentType.integer(1))
-                        .executes(context -> defuse(context, getTntEntities(context.getSource(), context.getArgument("range", Integer.class))))));
+        dispatcher.register(literal("defuse").requires((player) -> SettingsManager.canUseCommand(player, EssentialSettings.commandDefuse))
+            .then(argument("range", IntegerArgumentType.integer(1))
+                .executes(CommandDefuse::defuse)
+            ));
     }
-    @SuppressWarnings("unchecked")
+
     private static Collection<TntEntity> getTntEntities(ServerCommandSource commandSource, int range) throws CommandSyntaxException {
-        return (Collection<TntEntity>) EntityArgumentType.entities().parse(new StringReader("@e[type=tnt" + (range == -1 ? "" : ",distance=.." + range) + "]")).getEntities(commandSource);
+        ServerPlayerEntity playerEntity = commandSource.getPlayer();
+        double x = playerEntity.getX(), y = playerEntity.getY(), z = playerEntity.getZ();
+        Box nearPlayer = new Box(x - range,y - range,z - range,x + range,y + range, z + range);
+        return playerEntity.world.getEntitiesByClass(TntEntity.class, nearPlayer, tnt -> true);
     }
-    private static int defuse(CommandContext<ServerCommandSource> context, Collection<TntEntity> tntEntities) throws CommandSyntaxException {
-        for (TntEntity tntEntity : tntEntities) {
-            tntEntity.kill();
-            // This is commented out because Process told me to
-            //tntEntity.getEntityWorld().spawnEntity(new ItemEntity(tntEntity.getEntityWorld(), tntEntity.getX(), tntEntity.getY(), tntEntity.getZ(), new ItemStack(Registry.ITEM.get(new Identifier("minecraft:tnt")), 1)));
-        }
-        String numTNT = String.valueOf(tntEntities.size());
-        context.getSource().getPlayer().sendSystemMessage(new LiteralText("§a"+ numTNT + " §6tnt entities have been defused"), Util.NIL_UUID);
-        return tntEntities.size();
+
+    private static int defuse(CommandContext<ServerCommandSource> context) throws CommandSyntaxException {
+        Collection<TntEntity> tntEntities = getTntEntities(context.getSource(), context.getArgument("range", Integer.class));
+        tntEntities.forEach(Entity::kill);
+        context.getSource().sendFeedback(new LiteralText("§a"+ tntEntities.size() + " §6TNT entities have been defused"), true);
+        return 1;
     }
 }
