@@ -66,8 +66,9 @@ public interface Config {
 
 	/**
 	 * This gets the root config folder
-	 * in this case in the EssentialClient
-	 * folder located in .minecraft/config
+	 * in this case in the EssentialAddons
+	 * folder located in ./world/EssentialAddons (singleplayer)
+	 * or ./config/EssentialAddons (server)
 	 *
 	 * @return the root path of the config
 	 */
