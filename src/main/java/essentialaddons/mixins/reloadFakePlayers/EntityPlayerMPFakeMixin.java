@@ -23,13 +23,13 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-@Mixin(value = EntityPlayerMPFake.class, remap = false)
+@Mixin(value = EntityPlayerMPFake.class)
 public abstract class EntityPlayerMPFakeMixin extends ServerPlayerEntity implements IFakePlayer {
 	public EntityPlayerMPFakeMixin(MinecraftServer server, ServerWorld world, GameProfile profile) {
 		super(server, world, profile);
 	}
 
-	@Inject(method = "<init>", at = @At("TAIL"))
+	@Inject(method = "<init>", at = @At("TAIL"), remap = false)
 	private void onCreateFakePlayer(MinecraftServer server, ServerWorld worldIn, GameProfile profile, boolean shadow, CallbackInfo ci) {
 		ConfigFakePlayerData.INSTANCE.addFakePlayer((EntityPlayerMPFake) (Object) this);
 	}
@@ -52,7 +52,6 @@ public abstract class EntityPlayerMPFakeMixin extends ServerPlayerEntity impleme
 		this.setWorld(serverWorld);
 		server.getPlayerManager().onPlayerConnect(new NetworkManagerFake(NetworkSide.SERVERBOUND), this);
 		this.stepHeight = 0.6F;
-		this.getServerWorld().getChunkManager().updatePosition(this);
 		this.unsetRemoved();
 	}
 }
