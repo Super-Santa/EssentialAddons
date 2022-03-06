@@ -1,7 +1,7 @@
 package essentialaddons.mixins.reloadFakePlayers;
 
 import carpet.patches.EntityPlayerMPFake;
-import carpet.patches.NetworkManagerFake;
+import carpet.patches.FakeClientConnection;
 import com.mojang.authlib.GameProfile;
 import com.mojang.serialization.DataResult;
 import com.mojang.serialization.Dynamic;
@@ -50,7 +50,7 @@ public abstract class EntityPlayerMPFakeMixin extends ServerPlayerEntity impleme
 		}
 		ServerWorld serverWorld = server.getWorld(registryKey);
 		this.setWorld(serverWorld);
-		server.getPlayerManager().onPlayerConnect(new NetworkManagerFake(NetworkSide.SERVERBOUND), this);
+		server.getPlayerManager().onPlayerConnect(new FakeClientConnection(NetworkSide.SERVERBOUND), this);
 		this.stepHeight = 0.6F;
 		this.getWorld().getChunkManager().updatePosition(this);
 		this.unsetRemoved();

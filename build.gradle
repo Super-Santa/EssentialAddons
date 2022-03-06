@@ -29,7 +29,7 @@ dependencies {
 	minecraft "com.mojang:minecraft:${project.minecraft_version}"
 	mappings "net.fabricmc:yarn:${project.yarn_mappings}:v2"
 	modImplementation "net.fabricmc:fabric-loader:${project.loader_version}"
-	modImplementation "carpet:fabric-carpet:1.18-${project.carpet_core_version}"
+	modImplementation "carpet:fabric-carpet:${project.minecraft_version}-${project.carpet_core_version}"
 	modImplementation "com.github.CaffeineMC:lithium-fabric:${project.lithium_version}"
 //	modImplementation "curse.maven:lithium-360438:${project.lithium_version}"
 

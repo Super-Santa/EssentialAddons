@@ -1,6 +1,6 @@
 package essentialaddons.feature;
 
-import carpet.patches.NetworkManagerFake;
+import carpet.patches.FakeClientConnection;
 import carpet.utils.Messenger;
 import com.mojang.authlib.GameProfile;
 import net.minecraft.block.entity.SkullBlockEntity;
@@ -49,7 +49,7 @@ public class PlayerFakeEntity extends ServerPlayerEntity {
         }
         PlayerFakeEntity instance = new PlayerFakeEntity(server, worldIn, gameprofile);
         instance.fixStartingPosition = () -> instance.refreshPositionAndAngles(d0, d1, d2, (float) yaw, (float) pitch);
-        server.getPlayerManager().onPlayerConnect(new NetworkManagerFake(NetworkSide.SERVERBOUND), instance);
+        server.getPlayerManager().onPlayerConnect(new FakeClientConnection(NetworkSide.SERVERBOUND), instance);
         instance.teleport(worldIn, d0, d1, d2, (float) yaw, (float) pitch);
         instance.setHealth(20.0F);
         instance.unsetRemoved();
