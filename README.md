@@ -5,7 +5,7 @@
 
 [Fabric Carpet](https://github.com/gnembon/fabric-carpet) extension that adds  things from the Spigot plugin Essentials, or other features I think are needed for Minecraft.
 
-This mod is currently only supporting **1.17.1** and **1.18.1**
+This mod is currently only supporting **1.17.1** and **1.18.2**
 
 Feel free to contribute by adding as many features as you want!
 
@@ -47,6 +47,7 @@ Feel free to contribute by adding as many features as you want!
 * [commandWorkbench](#commandworkbench)
 * [editableSigns](#editablesigns)
 * [essentialCarefulBreak](#essentialcarefulbreak)
+* [essentialCarefulDrop](#essentialCarefulDrop)
 * [infiniteItems](#infiniteitems)
 * [minecartboosting](#minecartboosting)
 * [reloadFakePlayerActions](#reloadfakeplayeractions)
@@ -56,6 +57,7 @@ Feel free to contribute by adding as many features as you want!
 * [removeWarnMismatchBlockPos](#removewarnmismatchblockpos)
 * [removeXpEntitiesAfterThreshold](#removexpentitiesafterthreshold)
 * [shulkerSception](#shulkersception)
+* [spectatorPotionNoCountdown](#spectatorPotionNoCountdown)
 * [stackableShulkerComparatorOverloadFix](#stackableshulkercomparatoroverloadfix)
 * [stackableShulkerBoxesInPlayerInventories](#stackableshulkerboxesinplayerinventories)
 * [stackableShulkersWithItems](#stackableshulkerswithitems)
@@ -337,6 +339,15 @@ Mining blocks while crouching will put them straight into your inventory
 * Additional notes:
   * Players must subscribe to carefulbreak in order for it to work by using `/subscribe carefulbreak`
   
+## essentialCarefulDrop
+Killing mobs while crouching will put dropped items straight into your inventory
+* Type: `Boolean`
+* Default value: `false`
+* Required options: `false`,`true`
+* Categories: `ESSENTIAL`, `COMMAND`, `SURVIVAL`, `FEATURE`
+* Additional notes:
+  * Players must subscribe to carefulbreak in order for it to work by using `/subscribe carefuldrop`
+
 ## infiniteItems
 Allows for survival players to have infinite blocks, food, and enderpearls
 * Type: `Boolean`
@@ -397,6 +408,13 @@ Shulkers can be placed inside other shulkers
 * Default value: `false`
 * Required options: `false`,`true`
 * Categories: `ESSENTIAL`, `EXPERIMENTAL`, `FEATURE`
+
+## spectatorPotionNoCountdown
+Stops potion effects from ticking when in spectator
+* Type: `Boolean`
+* Default value: `false`
+* Required options: `false`,`true`
+* Categories: `ESSENTIAL`, `SURVIVAL`, `FEATURE`
 
 ## stackableShulkerComparatorOverloadFix
 Fixes stacked shulkers overloading comparators
