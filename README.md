@@ -47,6 +47,7 @@ Feel free to contribute by adding as many features as you want!
 * [commandWorkbench](#commandworkbench)
 * [editableSigns](#editablesigns)
 * [essentialCarefulBreak](#essentialcarefulbreak)
+* [fakePlayerDropInventoryOnKill](#fakePlayerDropInventoryOnKill)
 * [infiniteItems](#infiniteitems)
 * [minecartboosting](#minecartboosting)
 * [reloadFakePlayerActions](#reloadfakeplayeractions)
