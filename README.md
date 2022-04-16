@@ -336,6 +336,13 @@ Mining blocks while crouching will put them straight into your inventory
 * Categories: `ESSENTIAL`, `COMMAND`, `SURVIVAL`, `FEATURE`
 * Additional notes:
   * Players must subscribe to carefulbreak in order for it to work by using `/subscribe carefulbreak`
+
+## fakePlayerDropInventoryOnKill
+Automatically drop the fake player inventory on kill
+* Type: `Boolean`
+* Default value: `false`
+* Required options: `false`,`true`
+* Categories: `ESSENTIAL`, `SURVIVAL`, `FEATURE`
   
 ## infiniteItems
 Allows for survival players to have infinite blocks, food, and enderpearls

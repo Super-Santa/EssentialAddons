@@ -312,6 +312,13 @@ public class EssentialSettings {
     public static boolean essentialCarefulDrop = false;
 
     @Rule(
+            desc = "Automatically drop the fake player inventory on kill",
+            options = {"false", "true"},
+            category = {ESSENTIAL, SURVIVAL, FEATURE}
+    )
+    public static boolean fakePlayerDropInventoryOnKill = false;
+
+    @Rule(
         desc = "This allows for survival players to have infinite blocks, food, and enderpearls",
         options = {"false", "true"},
         category = {ESSENTIAL, CREATIVE, EXPERIMENTAL}
