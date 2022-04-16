@@ -3,6 +3,7 @@ package essentialaddons.feature;
 import carpet.patches.FakeClientConnection;
 import carpet.utils.Messenger;
 import com.mojang.authlib.GameProfile;
+import essentialaddons.EssentialSettings;
 import net.minecraft.block.entity.SkullBlockEntity;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -69,6 +70,7 @@ public class PlayerFakeEntity extends ServerPlayerEntity {
     }
 
     public void kill(Text reason) {
+        if(EssentialSettings.fakePlayerDropInventoryOnKill) this.dropInventory();
         this.shakeOff();
         this.server.send(new ServerTask(this.server.getTicks(), () -> {
             this.networkHandler.onDisconnected(reason);

@@ -48,6 +48,7 @@ Feel free to contribute by adding as many features as you want!
 * [editableSigns](#editablesigns)
 * [essentialCarefulBreak](#essentialcarefulbreak)
 * [essentialCarefulDrop](#essentialCarefulDrop)
+* [fakePlayerDropInventoryOnKill](#fakePlayerDropInventoryOnKill)
 * [infiniteItems](#infiniteitems)
 * [minecartboosting](#minecartboosting)
 * [reloadFakePlayerActions](#reloadfakeplayeractions)
@@ -338,6 +339,13 @@ Mining blocks while crouching will put them straight into your inventory
 * Categories: `ESSENTIAL`, `COMMAND`, `SURVIVAL`, `FEATURE`
 * Additional notes:
   * Players must subscribe to carefulbreak in order for it to work by using `/subscribe carefulbreak`
+
+## fakePlayerDropInventoryOnKill
+Automatically drop the fake player inventory on kill
+* Type: `Boolean`
+* Default value: `false`
+* Required options: `false`,`true`
+* Categories: `ESSENTIAL`, `SURVIVAL`, `FEATURE`
   
 ## essentialCarefulDrop
 Killing mobs while crouching will put dropped items straight into your inventory

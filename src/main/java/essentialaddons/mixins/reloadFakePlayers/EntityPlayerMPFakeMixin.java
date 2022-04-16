@@ -6,6 +6,7 @@ import com.mojang.authlib.GameProfile;
 import com.mojang.serialization.DataResult;
 import com.mojang.serialization.Dynamic;
 import essentialaddons.EssentialAddons;
+import essentialaddons.EssentialSettings;
 import essentialaddons.utils.ConfigFakePlayerData;
 import essentialaddons.utils.ducks.IFakePlayer;
 import net.minecraft.nbt.NbtCompound;
@@ -37,6 +38,7 @@ public abstract class EntityPlayerMPFakeMixin extends ServerPlayerEntity impleme
 	@Inject(method = "kill(Lnet/minecraft/text/Text;)V", at = @At("HEAD"))
 	private void onPlayerKill(Text reason, CallbackInfo ci) {
 		ConfigFakePlayerData.INSTANCE.removeFakePlayer((EntityPlayerMPFake) (Object) this);
+		if(EssentialSettings.fakePlayerDropInventoryOnKill) this.dropInventory();
 	}
 
 	@Override
