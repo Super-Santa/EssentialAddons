@@ -1,5 +1,6 @@
 package essentialaddons.mixins.essentialCarefulDrop;
 
+import essentialaddons.EssentialSettings;
 import essentialaddons.EssentialUtils;
 import essentialaddons.utils.Subscription;
 import net.minecraft.entity.Entity;
@@ -35,16 +36,20 @@ public abstract class ItemFrameEntityMixin extends AbstractDecorationEntity {
 	@Inject(method = "dropHeldStack", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/decoration/ItemFrameEntity;dropStack(Lnet/minecraft/item/ItemStack;)Lnet/minecraft/entity/ItemEntity;", ordinal = 0))
 	private void onDropStack0(Entity entity, boolean alwaysDrop, CallbackInfo ci) {
 		ItemStack itemStack = this.getAsItemStack();
-		if (entity instanceof ServerPlayerEntity player && player.isInSneakingPose() && Subscription.ESSENTIAL_CAREFUL_DROP.hasPlayer(player) && EssentialUtils.placeItemInInventory(player, itemStack)) {
-			return;
+		if (EssentialSettings.essentialCarefulDrop && entity instanceof ServerPlayerEntity player && (player.isInSneakingPose() || Subscription.ALWAYS_CAREFUL.hasPlayer(player))) {
+			if (Subscription.ESSENTIAL_CAREFUL_DROP.hasPlayer(player) && EssentialUtils.placeItemInInventory(player, itemStack)) {
+				return;
+			}
 		}
 		this.dropStack(itemStack);
 	}
 
 	@Inject(method = "dropHeldStack", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/decoration/ItemFrameEntity;dropStack(Lnet/minecraft/item/ItemStack;)Lnet/minecraft/entity/ItemEntity;", ordinal = 1), locals = LocalCapture.CAPTURE_FAILHARD)
 	private void onDropStack1(Entity entity, boolean alwaysDrop, CallbackInfo ci, ItemStack itemStack) {
-		if (entity instanceof ServerPlayerEntity player && player.isInSneakingPose() && Subscription.ESSENTIAL_CAREFUL_DROP.hasPlayer(player) && EssentialUtils.placeItemInInventory(player, itemStack)) {
-			return;
+		if (EssentialSettings.essentialCarefulDrop && entity instanceof ServerPlayerEntity player && (player.isInSneakingPose() || Subscription.ALWAYS_CAREFUL.hasPlayer(player))) {
+			if (Subscription.ESSENTIAL_CAREFUL_DROP.hasPlayer(player) && EssentialUtils.placeItemInInventory(player, itemStack)) {
+				return;
+			}
 		}
 		this.dropStack(itemStack);
 	}
