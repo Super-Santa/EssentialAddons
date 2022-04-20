@@ -8,7 +8,9 @@ import java.util.function.Supplier;
 public enum Subscription {
 	TELEPORT_BLACKLIST("teleport_blacklist", () -> EssentialSettings.cameraModeTeleportBlacklist),
 	ESSENTIAL_CAREFUL_BREAK("essential_careful_break", () -> EssentialSettings.essentialCarefulBreak),
-	ESSENTIAL_CAREFUL_DROP("essential_careful_drop", () -> EssentialSettings.essentialCarefulDrop);
+	ESSENTIAL_CAREFUL_DROP("essential_careful_drop", () -> EssentialSettings.essentialCarefulDrop),
+	ALWAYS_CAREFUL("always_careful", () -> EssentialSettings.essentialCarefulBreak || EssentialSettings.essentialCarefulDrop),
+	;
 
 	private final String prettyName;
 	private final Supplier<Boolean> requirement;

@@ -16,6 +16,7 @@ import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.text.Text;
+import net.minecraft.text.TranslatableText;
 import net.minecraft.util.registry.RegistryKey;
 import net.minecraft.world.World;
 import net.minecraft.world.dimension.DimensionType;
@@ -35,10 +36,12 @@ public abstract class EntityPlayerMPFakeMixin extends ServerPlayerEntity impleme
 		ConfigFakePlayerData.INSTANCE.addFakePlayer((EntityPlayerMPFake) (Object) this);
 	}
 
-	@Inject(method = "kill(Lnet/minecraft/text/Text;)V", at = @At("HEAD"))
+	@Inject(method = "kill(Lnet/minecraft/text/Text;)V", at = @At("HEAD"), remap = false)
 	private void onPlayerKill(Text reason, CallbackInfo ci) {
 		ConfigFakePlayerData.INSTANCE.removeFakePlayer((EntityPlayerMPFake) (Object) this);
-		if(EssentialSettings.fakePlayerDropInventoryOnKill) this.dropInventory();
+		if (EssentialSettings.fakePlayerDropInventoryOnKill && !(reason instanceof TranslatableText text && text.getKey().equals("multiplayer.disconnect.duplicate_login"))) {
+			this.dropInventory();
+		}
 	}
 
 	@Override
