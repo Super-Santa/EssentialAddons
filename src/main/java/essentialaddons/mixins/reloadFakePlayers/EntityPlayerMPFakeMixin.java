@@ -36,13 +36,12 @@ public abstract class EntityPlayerMPFakeMixin extends ServerPlayerEntity impleme
 		ConfigFakePlayerData.INSTANCE.addFakePlayer((EntityPlayerMPFake) (Object) this);
 	}
 
-	@Inject(method = "kill(Lnet/minecraft/text/Text;)V", at = @At("HEAD"))
+	@Inject(method = "kill(Lnet/minecraft/text/Text;)V", at = @At("HEAD"), remap = false)
 	private void onPlayerKill(Text reason, CallbackInfo ci) {
 		ConfigFakePlayerData.INSTANCE.removeFakePlayer((EntityPlayerMPFake) (Object) this);
-		if(EssentialSettings.fakePlayerDropInventoryOnKill
-			&& !(reason instanceof TranslatableText TTreason
-				&& TTreason.getKey().equals("multiplayer.disconnect.duplicate_login")))
+		if (EssentialSettings.fakePlayerDropInventoryOnKill && !(reason instanceof TranslatableText text && text.getKey().equals("multiplayer.disconnect.duplicate_login"))) {
 			this.dropInventory();
+		}
 	}
 
 	@Override

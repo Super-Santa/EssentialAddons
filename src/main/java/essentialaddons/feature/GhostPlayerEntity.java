@@ -22,15 +22,15 @@ import net.minecraft.world.World;
 
 import java.util.concurrent.atomic.AtomicReference;
 
-public class PlayerFakeEntity extends ServerPlayerEntity {
+public class GhostPlayerEntity extends ServerPlayerEntity {
 
     public Runnable fixStartingPosition = () -> { };
 
-    public PlayerFakeEntity(MinecraftServer server, ServerWorld world, GameProfile profile) {
+    public GhostPlayerEntity(MinecraftServer server, ServerWorld world, GameProfile profile) {
         super(server, world, profile);
     }
 
-    public static PlayerFakeEntity createFake(String username, MinecraftServer server, double d0, double d1, double d2, double yaw, double pitch, RegistryKey<World> dimensionId) {
+    public static GhostPlayerEntity createFake(String username, MinecraftServer server, double d0, double d1, double d2, double yaw, double pitch, RegistryKey<World> dimensionId) {
         ServerWorld worldIn = server.getWorld(dimensionId);
         UserCache.setUseRemote(false);
         GameProfile gameprofile;
@@ -48,7 +48,7 @@ public class PlayerFakeEntity extends ServerPlayerEntity {
             SkullBlockEntity.loadProperties(gameprofile, result::set);
             gameprofile = result.get();
         }
-        PlayerFakeEntity instance = new PlayerFakeEntity(server, worldIn, gameprofile);
+        GhostPlayerEntity instance = new GhostPlayerEntity(server, worldIn, gameprofile);
         instance.fixStartingPosition = () -> instance.refreshPositionAndAngles(d0, d1, d2, (float) yaw, (float) pitch);
         server.getPlayerManager().onPlayerConnect(new FakeClientConnection(NetworkSide.SERVERBOUND), instance);
         instance.teleport(worldIn, d0, d1, d2, (float) yaw, (float) pitch);
@@ -70,7 +70,6 @@ public class PlayerFakeEntity extends ServerPlayerEntity {
     }
 
     public void kill(Text reason) {
-        if(EssentialSettings.fakePlayerDropInventoryOnKill) this.dropInventory();
         this.shakeOff();
         this.server.send(new ServerTask(this.server.getTicks(), () -> {
             this.networkHandler.onDisconnected(reason);

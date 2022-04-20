@@ -7,7 +7,9 @@ import org.spongepowered.asm.mixin.gen.Accessor;
 import java.util.Map;
 
 @Mixin(value = EntityPlayerActionPack.class, remap = false)
-public interface EntityPlayerActionPackAccessor {
+public interface
+
+EntityPlayerActionPackAccessor {
 	@Accessor("actions")
 	Map<EntityPlayerActionPack.ActionType, EntityPlayerActionPack.Action> getActions();
 
