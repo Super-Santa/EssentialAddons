@@ -39,6 +39,7 @@ public class EnumArgumentType<T extends Enum<T>> implements ArgumentType<T> {
         return commandContext.getArgument(string, clazz);
     }
 
+    @Override
     public T parse(StringReader reader) throws CommandSyntaxException {
         String name = reader.readString();
         Enum<?> enum_ = this.values.get(name);

@@ -6,6 +6,7 @@ import com.mojang.authlib.GameProfile;
 import com.mojang.serialization.DataResult;
 import com.mojang.serialization.Dynamic;
 import essentialaddons.EssentialAddons;
+import essentialaddons.EssentialSettings;
 import essentialaddons.utils.ConfigFakePlayerData;
 import essentialaddons.utils.ducks.IFakePlayer;
 import net.minecraft.nbt.NbtCompound;
@@ -15,6 +16,7 @@ import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.text.Text;
+import net.minecraft.text.TranslatableText;
 import net.minecraft.util.registry.RegistryKey;
 import net.minecraft.world.World;
 import net.minecraft.world.dimension.DimensionType;
@@ -37,6 +39,9 @@ public abstract class EntityPlayerMPFakeMixin extends ServerPlayerEntity impleme
 	@Inject(method = "kill(Lnet/minecraft/text/Text;)V", at = @At("HEAD"))
 	private void onPlayerKill(Text reason, CallbackInfo ci) {
 		ConfigFakePlayerData.INSTANCE.removeFakePlayer((EntityPlayerMPFake) (Object) this);
+		if (EssentialSettings.fakePlayerDropInventoryOnKill && !(reason instanceof TranslatableText text && text.getKey().equals("multiplayer.disconnect.duplicate_login"))) {
+			this.dropInventory();
+		}
 	}
 
 	@Override

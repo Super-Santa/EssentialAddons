@@ -11,7 +11,7 @@ import com.mojang.brigadier.arguments.StringArgumentType;
 import com.mojang.brigadier.context.CommandContext;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import essentialaddons.EssentialSettings;
-import essentialaddons.feature.PlayerFakeEntity;
+import essentialaddons.feature.GhostPlayerEntity;
 import net.minecraft.command.CommandSource;
 import net.minecraft.command.argument.DimensionArgumentType;
 import net.minecraft.command.argument.Vec3ArgumentType;
@@ -54,7 +54,7 @@ public class CommandPlayerFake {
                     .executes(context -> {
                         String username = StringArgumentType.getString(context, "player");
                         ServerPlayerEntity playerEntity = context.getSource().getServer().getPlayerManager().getPlayer(username);
-                        if (!(playerEntity instanceof EntityPlayerMPFake || playerEntity instanceof PlayerFakeEntity)) {
+                        if (!(playerEntity instanceof EntityPlayerMPFake || playerEntity instanceof GhostPlayerEntity)) {
                             Messenger.m(context.getSource(), "r Cannot kill this player");
                             return 0;
                         }
@@ -71,7 +71,7 @@ public class CommandPlayerFake {
             return 0;
         ServerCommandSource source = context.getSource();
         dim = dim == null ? source.getWorld().getRegistryKey() : dim;
-        ServerPlayerEntity playerEntity = PlayerFakeEntity.createFake(username, source.getServer(), pos.x, pos.y, pos.z, source.getPlayer().getYaw(), source.getPlayer().getPitch(), dim);
+        ServerPlayerEntity playerEntity = GhostPlayerEntity.createFake(username, source.getServer(), pos.x, pos.y, pos.z, source.getPlayer().getYaw(), source.getPlayer().getPitch(), dim);
         if (playerEntity == null) {
             source.sendFeedback(new LiteralText("Failed to spawn player"), false);
         }

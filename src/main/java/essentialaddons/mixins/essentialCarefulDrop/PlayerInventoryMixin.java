@@ -1,5 +1,6 @@
 package essentialaddons.mixins.essentialCarefulDrop;
 
+import essentialaddons.EssentialSettings;
 import essentialaddons.EssentialUtils;
 import essentialaddons.utils.Subscription;
 import net.minecraft.entity.ItemEntity;
@@ -15,8 +16,10 @@ import org.spongepowered.asm.mixin.injection.Redirect;
 public class PlayerInventoryMixin {
 	@Redirect(method = "dropAll", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/player/PlayerEntity;dropItem(Lnet/minecraft/item/ItemStack;ZZ)Lnet/minecraft/entity/ItemEntity;"))
 	private ItemEntity onDropItem(PlayerEntity instance, ItemStack stack, boolean throwRandomly, boolean retainOwnership) {
-		if (instance.getAttacker() instanceof ServerPlayerEntity player && player.isInSneakingPose() && Subscription.ESSENTIAL_CAREFUL_DROP.hasPlayer(player) && EssentialUtils.placeItemInInventory(player, stack)) {
-			return null;
+		if (EssentialSettings.essentialCarefulDrop && instance.getAttacker() instanceof ServerPlayerEntity player && (player.isInSneakingPose() || Subscription.ALWAYS_CAREFUL.hasPlayer(player))) {
+			if (Subscription.ESSENTIAL_CAREFUL_DROP.hasPlayer(player) && EssentialUtils.placeItemInInventory(player, stack)) {
+				return null;
+			}
 		}
 		return instance.dropItem(stack, throwRandomly, retainOwnership);
 	}
