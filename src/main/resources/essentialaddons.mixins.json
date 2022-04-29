@@ -38,6 +38,7 @@
     "reloadFakePlayers.EntityPlayerActionPackAccessor",
     "reloadFakePlayers.EntityPlayerMPFakeInvoker",
     "reloadFakePlayers.EntityPlayerMPFakeMixin",
+    "reloadFakePlayers.IntegratedPlayerManagerMixin",
     "removeWarnMismatchBlockPos.ServerPlayerInteractionManagerMixin",
     "removeWarnRemovedEntity.EntityTrackerEntryMixin",
     "shulkerSeption.ShulkerBoxSlotMixin",
