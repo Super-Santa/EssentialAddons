@@ -4,12 +4,14 @@ import carpet.CarpetExtension;
 import carpet.CarpetServer;
 import com.mojang.brigadier.CommandDispatcher;
 import essentialaddons.commands.*;
+import essentialaddons.feature.GameRuleNetworkHandler;
 import essentialaddons.feature.ReloadFakePlayers;
 import essentialaddons.utils.*;
 import essentialaddons.logging.EssentialAddonsLoggerRegistry;
 import net.fabricmc.api.ModInitializer;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.command.ServerCommandSource;
+import net.minecraft.server.network.ServerPlayerEntity;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -100,5 +102,10 @@ public class EssentialAddons implements CarpetExtension, ModInitializer {
         CommandRename.register(dispatcher);
         CommandMods.register(dispatcher);
         CommandPlayerFake.register(dispatcher);
+    }
+
+    @Override
+    public void onPlayerLoggedIn(ServerPlayerEntity player) {
+        GameRuleNetworkHandler.sayHello(player);
     }
 }

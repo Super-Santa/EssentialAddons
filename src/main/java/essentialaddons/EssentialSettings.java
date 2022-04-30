@@ -2,6 +2,7 @@ package essentialaddons;
 
 import carpet.settings.Rule;
 import carpet.settings.Validator;
+import essentialaddons.utils.Validators;
 
 import static carpet.settings.RuleCategory.*;
 
@@ -317,6 +318,24 @@ public class EssentialSettings {
         category = {ESSENTIAL, SURVIVAL, FEATURE}
     )
     public static boolean fakePlayerDropInventoryOnKill = false;
+
+    @Rule(
+        desc = "Allows non-op players to change Game Rules from the client",
+        options = {"false", "true"},
+        category = {ESSENTIAL, EXPERIMENTAL, FEATURE},
+        validate = Validators.GameRuleNoOpValidator.class
+
+    )
+    public static boolean gameRuleNonOp = false;
+
+    @Rule(
+        desc = "Syncs the Game Rules with the client",
+        extra = "Essential Client is required to change the rules on the client",
+        options = {"false", "true"},
+        category = {ESSENTIAL, EXPERIMENTAL, FEATURE},
+        validate = Validators.GameRuleSyncValidator.class
+    )
+    public static boolean gameRuleSync = false;
 
     @Rule(
         desc = "This allows for survival players to have infinite blocks, food, and enderpearls",
