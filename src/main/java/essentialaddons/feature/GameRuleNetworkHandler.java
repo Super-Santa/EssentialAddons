@@ -58,7 +58,7 @@ public class GameRuleNetworkHandler {
 
 	public static void updatePlayerStatus(ServerPlayerEntity player) {
 		PacketByteBuf byteBuf = new PacketByteBuf(Unpooled.buffer()).writeVarInt(15);
-		byteBuf.writeBoolean(EssentialSettings.gameRuleNonOp || player.hasPermissionLevel(2));
+		byteBuf.writeBoolean(EssentialSettings.gameRuleSync && (EssentialSettings.gameRuleNonOp || player.hasPermissionLevel(2)));
 		player.networkHandler.sendPacket(new CustomPayloadS2CPacket(
 			GAME_RULE_CHANNEL, byteBuf
 		));
@@ -72,16 +72,18 @@ public class GameRuleNetworkHandler {
 	}
 
 	public static void processData(PacketByteBuf packetByteBuf, ServerPlayerEntity player) {
-		String ruleName = packetByteBuf.readString();
-		String ruleValue = packetByteBuf.readString();
-		GameRules.Key<?> gameRuleKey = KEY_MAP.get(ruleName);
-		if (gameRuleKey == null) {
-			EssentialAddons.LOGGER.warn("Received bad Game Rule packet from %s".formatted(player.getEntityName()));
-			return;
+		if (EssentialSettings.gameRuleSync) {
+			String ruleName = packetByteBuf.readString();
+			String ruleValue = packetByteBuf.readString();
+			GameRules.Key<?> gameRuleKey = KEY_MAP.get(ruleName);
+			if (gameRuleKey == null) {
+				EssentialAddons.LOGGER.warn("Received bad Game Rule packet from %s".formatted(player.getEntityName()));
+				return;
+			}
+			GameRules.Rule<?> rule = player.server.getGameRules().get(gameRuleKey);
+			((RuleInvoker) rule).deserialize(ruleValue);
+			((IRule) rule).ruleChanged(player);
 		}
-		GameRules.Rule<?> rule = player.server.getGameRules().get(gameRuleKey);
-		((RuleInvoker) rule).deserialize(ruleValue);
-		((IRule) rule).ruleChanged(player);
 	}
 
 	public static void onRuleChange(String ruleName, String ruleValue) {

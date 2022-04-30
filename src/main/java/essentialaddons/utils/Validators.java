@@ -20,9 +20,11 @@ public class Validators {
 	public static class GameRuleSyncValidator extends Validator<Boolean> {
 		@Override
 		public Boolean validate(ServerCommandSource source, ParsedRule<Boolean> currentRule, Boolean newValue, String string) {
+			EssentialSettings.gameRuleSync = newValue;
 			if (newValue) {
 				GameRuleNetworkHandler.getValidPlayers().forEach(GameRuleNetworkHandler::sendAllRules);
 			}
+			GameRuleNetworkHandler.getValidPlayers().forEach(GameRuleNetworkHandler::updatePlayerStatus);
 			return newValue;
 		}
 	}
