@@ -2,18 +2,28 @@ package essentialaddons.mixins.core;
 
 import essentialaddons.EssentialSettings;
 import essentialaddons.EssentialUtils;
+import essentialaddons.feature.GameRuleNetworkHandler;
 import essentialaddons.utils.Subscription;
 import net.minecraft.entity.Entity;
+import net.minecraft.network.NetworkThreadUtils;
+import net.minecraft.network.listener.ServerPlayPacketListener;
+import net.minecraft.network.packet.c2s.play.CustomPayloadC2SPacket;
 import net.minecraft.network.packet.c2s.play.SpectatorTeleportC2SPacket;
 import net.minecraft.server.network.ServerPlayNetworkHandler;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.Redirect;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(ServerPlayNetworkHandler.class)
-class ServerPlayNetworkHandlerMixin {
+abstract class ServerPlayNetworkHandlerMixin implements ServerPlayPacketListener {
+    @Shadow
+    public ServerPlayerEntity player;
+
     @Redirect(method = "onSpectatorTeleport", at = @At(value = "INVOKE", target = "Lnet/minecraft/server/network/ServerPlayerEntity;teleport(Lnet/minecraft/server/world/ServerWorld;DDDFF)V"), require = 0)
     private void checkTeleportBlacklist(ServerPlayerEntity playerEntity, ServerWorld targetWorld, double x, double y, double z, float yaw, float pitch, SpectatorTeleportC2SPacket packet) {
         if (EssentialSettings.cameraModeTeleportBlacklist) {
@@ -27,5 +37,14 @@ class ServerPlayNetworkHandlerMixin {
             }
         }
         playerEntity.teleport(targetWorld, x, y, z, yaw, pitch);
+    }
+
+    @Inject(method = "onCustomPayload", at = @At("HEAD"), cancellable = true)
+    private void onCustomPayload(CustomPayloadC2SPacket packet, CallbackInfo ci) {
+        if (packet.getChannel().equals(GameRuleNetworkHandler.GAME_RULE_CHANNEL)) {
+            NetworkThreadUtils.forceMainThread(packet, this, this.player.getWorld());
+            GameRuleNetworkHandler.handlePacket(packet.getData(), this.player);
+            ci.cancel();
+        }
     }
 }

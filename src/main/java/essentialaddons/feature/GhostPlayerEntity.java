@@ -3,7 +3,6 @@ package essentialaddons.feature;
 import carpet.patches.FakeClientConnection;
 import carpet.utils.Messenger;
 import com.mojang.authlib.GameProfile;
-import essentialaddons.EssentialSettings;
 import net.minecraft.block.entity.SkullBlockEntity;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;

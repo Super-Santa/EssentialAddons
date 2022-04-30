@@ -25,7 +25,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-@Mixin(EntityPlayerMPFake.class)
+@Mixin(value = EntityPlayerMPFake.class)
 public abstract class EntityPlayerMPFakeMixin extends ServerPlayerEntity implements IFakePlayer {
 	public EntityPlayerMPFakeMixin(MinecraftServer server, ServerWorld world, GameProfile profile) {
 		super(server, world, profile);
@@ -36,7 +36,7 @@ public abstract class EntityPlayerMPFakeMixin extends ServerPlayerEntity impleme
 		ConfigFakePlayerData.INSTANCE.addFakePlayer((EntityPlayerMPFake) (Object) this);
 	}
 
-	@Inject(method = "kill(Lnet/minecraft/text/Text;)V", at = @At("HEAD"), remap = false)
+	@Inject(method = "kill(Lnet/minecraft/text/Text;)V", at = @At("HEAD"))
 	private void onPlayerKill(Text reason, CallbackInfo ci) {
 		ConfigFakePlayerData.INSTANCE.removeFakePlayer((EntityPlayerMPFake) (Object) this);
 		if (EssentialSettings.fakePlayerDropInventoryOnKill && !(reason instanceof TranslatableText text && text.getKey().equals("multiplayer.disconnect.duplicate_login"))) {
@@ -57,7 +57,6 @@ public abstract class EntityPlayerMPFakeMixin extends ServerPlayerEntity impleme
 		this.setWorld(serverWorld);
 		server.getPlayerManager().onPlayerConnect(new FakeClientConnection(NetworkSide.SERVERBOUND), this);
 		this.stepHeight = 0.6F;
-		this.getWorld().getChunkManager().updatePosition(this);
 		this.unsetRemoved();
 	}
 }

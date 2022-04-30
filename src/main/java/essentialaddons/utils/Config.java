@@ -96,7 +96,7 @@ public interface Config {
 				LOGGER.error("Failed to read '{}': {}", this.getConfigName(), e);
 			}
 		}
-		return new JsonArray(0);
+		return new JsonArray();
 	}
 
 	/**

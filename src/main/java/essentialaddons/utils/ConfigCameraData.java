@@ -37,7 +37,7 @@ public class ConfigCameraData implements Config {
 		if (playerLocation == null) {
 			return false;
 		}
-		ServerWorld world = player.getWorld().getServer().getWorld(playerLocation.worldRegistry());
+		ServerWorld world = player.server.getWorld(playerLocation.worldRegistry());
 		player.teleport(world, playerLocation.position().x, playerLocation.position().y, playerLocation.position().z, playerLocation.yaw(), playerLocation.pitch());
 		return true;
 	}
@@ -54,7 +54,7 @@ public class ConfigCameraData implements Config {
 
 	@Override
 	public JsonArray getSaveData() {
-		JsonArray playerLocations = new JsonArray(this.playerLocationMap.size());
+		JsonArray playerLocations = new JsonArray();
 		this.playerLocationMap.forEach((uuid, location) -> {
 			JsonObject playerData = new JsonObject();
 			playerData.addProperty("uuid", uuid.toString());
