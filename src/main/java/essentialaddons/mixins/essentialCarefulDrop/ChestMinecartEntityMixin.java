@@ -24,6 +24,10 @@ public abstract class ChestMinecartEntityMixin extends Entity {
 	@Inject(method = "dropItems", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/vehicle/ChestMinecartEntity;dropItem(Lnet/minecraft/item/ItemConvertible;)Lnet/minecraft/entity/ItemEntity;", shift = At.Shift.BEFORE), cancellable = true)
 	private void onDropStack(DamageSource damageSource, CallbackInfo ci) {
 		ci.cancel();
+		if (EssentialSettings.dropCartItem) {
+			return;
+		}
+
 		if (EssentialSettings.essentialCarefulDrop && damageSource.getSource() instanceof ServerPlayerEntity player && (player.isInSneakingPose() || Subscription.ALWAYS_CAREFUL.hasPlayer(player))) {
 			if (Subscription.ESSENTIAL_CAREFUL_DROP.hasPlayer(player) && EssentialUtils.placeItemInInventory(player, Items.CHEST.getDefaultStack())) {
 				return;

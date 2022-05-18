@@ -12,6 +12,7 @@ import net.minecraft.item.Items;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
@@ -22,13 +23,20 @@ public abstract class AbstractMinecartEntityMixin extends Entity {
 		super(type, world);
 	}
 
+	@Shadow public abstract ItemStack getPickBlockStack();
+
 	@Inject(method = "dropItems", at = @At(value = "INVOKE", target = "Lnet/minecraft/item/ItemStack;<init>(Lnet/minecraft/item/ItemConvertible;)V", shift = At.Shift.BEFORE), cancellable = true)
 	private void onDropItems(DamageSource damageSource, CallbackInfo ci) {
-		ItemStack itemStack = new ItemStack(Items.MINECART);
+		ci.cancel();
+
+		ItemStack itemStack = EssentialSettings.dropCartItem ? this.getPickBlockStack() : new ItemStack(Items.MINECART);
+		if (itemStack == null) {
+			return;
+		}
+
 		if (this.hasCustomName()) {
 			itemStack.setCustomName(this.getCustomName());
 		}
-		ci.cancel();
 		if (EssentialSettings.essentialCarefulDrop && damageSource.getSource() instanceof ServerPlayerEntity player && (player.isInSneakingPose() || Subscription.ALWAYS_CAREFUL.hasPlayer(player))) {
 			if (Subscription.ESSENTIAL_CAREFUL_DROP.hasPlayer(player) && EssentialUtils.placeItemInInventory(player, itemStack)) {
 				return;
