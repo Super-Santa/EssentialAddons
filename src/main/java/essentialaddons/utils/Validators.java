@@ -12,7 +12,7 @@ public class Validators {
 		public Boolean validate(ServerCommandSource source, ParsedRule<Boolean> currentRule, Boolean newValue, String string) {
 			// We set it prematurely, so we can do the following check
 			EssentialSettings.gameRuleNonOp = newValue;
-			GameRuleNetworkHandler.getValidPlayers().forEach(GameRuleNetworkHandler::updatePlayerStatus);
+			GameRuleNetworkHandler.INSTANCE.getValidPlayers().forEach(GameRuleNetworkHandler.INSTANCE::updatePlayerStatus);
 			return newValue;
 		}
 	}
@@ -22,9 +22,9 @@ public class Validators {
 		public Boolean validate(ServerCommandSource source, ParsedRule<Boolean> currentRule, Boolean newValue, String string) {
 			EssentialSettings.gameRuleSync = newValue;
 			if (newValue) {
-				GameRuleNetworkHandler.getValidPlayers().forEach(GameRuleNetworkHandler::sendAllRules);
+				GameRuleNetworkHandler.INSTANCE.getValidPlayers().forEach(GameRuleNetworkHandler.INSTANCE::sendAllRules);
 			}
-			GameRuleNetworkHandler.getValidPlayers().forEach(GameRuleNetworkHandler::updatePlayerStatus);
+			GameRuleNetworkHandler.INSTANCE.getValidPlayers().forEach(GameRuleNetworkHandler.INSTANCE::updatePlayerStatus);
 			return newValue;
 		}
 	}

@@ -2,10 +2,12 @@ package essentialaddons;
 
 import carpet.CarpetExtension;
 import carpet.CarpetServer;
+import carpet.script.CarpetExpression;
 import com.mojang.brigadier.CommandDispatcher;
 import essentialaddons.commands.*;
 import essentialaddons.feature.GameRuleNetworkHandler;
 import essentialaddons.feature.ReloadFakePlayers;
+import essentialaddons.feature.script.ScriptPacketHandler;
 import essentialaddons.utils.*;
 import essentialaddons.logging.EssentialAddonsLoggerRegistry;
 import net.fabricmc.api.ModInitializer;
@@ -20,6 +22,7 @@ import java.util.Set;
 public class EssentialAddons implements CarpetExtension, ModInitializer {
     public static final Logger LOGGER;
     public static final Set<Config> CONFIG_SET;
+    public static final Set<NetworkHandler> NETWORK_HANDLERS;
     public static MinecraftServer server;
 
     static {
@@ -28,6 +31,10 @@ public class EssentialAddons implements CarpetExtension, ModInitializer {
             ConfigCameraData.INSTANCE,
             ConfigSubscribeData.INSTANCE,
             ConfigFakePlayerData.INSTANCE
+        );
+        NETWORK_HANDLERS = Set.of(
+            GameRuleNetworkHandler.INSTANCE,
+            ScriptPacketHandler.INSTANCE
         );
     }
 
@@ -49,6 +56,11 @@ public class EssentialAddons implements CarpetExtension, ModInitializer {
     @Override
     public void registerLoggers() {
         EssentialAddonsLoggerRegistry.registerLoggers();
+    }
+
+    @Override
+    public void scarpetApi(CarpetExpression expression) {
+        ScriptPacketHandler.INSTANCE.addScarpetExpression(expression.getExpr());
     }
 
     @Override
@@ -106,6 +118,6 @@ public class EssentialAddons implements CarpetExtension, ModInitializer {
 
     @Override
     public void onPlayerLoggedIn(ServerPlayerEntity player) {
-        GameRuleNetworkHandler.sayHello(player);
+        NETWORK_HANDLERS.forEach(networkHandler -> networkHandler.sayHello(player));
     }
 }

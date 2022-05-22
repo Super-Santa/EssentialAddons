@@ -23,7 +23,7 @@ public abstract class PlayerManagerMixin {
 	private void onOp(GameProfile profile, CallbackInfo ci) {
 		ServerPlayerEntity playerEntity = this.getPlayer(profile.getId());
 		if (playerEntity != null) {
-			GameRuleNetworkHandler.updatePlayerStatus(playerEntity);
+			GameRuleNetworkHandler.INSTANCE.updatePlayerStatus(playerEntity);
 		}
 	}
 
@@ -31,7 +31,7 @@ public abstract class PlayerManagerMixin {
 	private void onDeOp(GameProfile profile, CallbackInfo ci) {
 		ServerPlayerEntity playerEntity = this.getPlayer(profile.getId());
 		if (playerEntity != null) {
-			GameRuleNetworkHandler.updatePlayerStatus(playerEntity);
+			GameRuleNetworkHandler.INSTANCE.updatePlayerStatus(playerEntity);
 		}
 	}
 }
