@@ -1,8 +1,9 @@
 package essentialaddons.mixins.core;
 
+import essentialaddons.EssentialAddons;
 import essentialaddons.EssentialSettings;
 import essentialaddons.EssentialUtils;
-import essentialaddons.feature.GameRuleNetworkHandler;
+import essentialaddons.utils.NetworkHandler;
 import essentialaddons.utils.Subscription;
 import net.minecraft.entity.Entity;
 import net.minecraft.network.NetworkThreadUtils;
@@ -12,6 +13,7 @@ import net.minecraft.network.packet.c2s.play.SpectatorTeleportC2SPacket;
 import net.minecraft.server.network.ServerPlayNetworkHandler;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
+import net.minecraft.util.Identifier;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
@@ -41,10 +43,13 @@ abstract class ServerPlayNetworkHandlerMixin implements ServerPlayPacketListener
 
     @Inject(method = "onCustomPayload", at = @At("HEAD"), cancellable = true)
     private void onCustomPayload(CustomPayloadC2SPacket packet, CallbackInfo ci) {
-        if (packet.getChannel().equals(GameRuleNetworkHandler.GAME_RULE_CHANNEL)) {
-            NetworkThreadUtils.forceMainThread(packet, this, this.player.getWorld());
-            GameRuleNetworkHandler.handlePacket(packet.getData(), this.player);
-            ci.cancel();
+        Identifier identifier = packet.getChannel();
+        for (NetworkHandler networkHandler : EssentialAddons.NETWORK_HANDLERS) {
+            if (networkHandler.getNetworkChannel().equals(identifier)) {
+                NetworkThreadUtils.forceMainThread(packet, this, this.player.getWorld());
+                networkHandler.handlePacket(packet.getData(), this.player);
+                ci.cancel();
+            }
         }
     }
 }

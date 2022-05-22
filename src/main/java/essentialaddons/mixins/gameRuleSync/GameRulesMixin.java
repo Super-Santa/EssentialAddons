@@ -16,7 +16,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 public class GameRulesMixin {
 	@ModifyVariable(method = "register", at = @At("STORE"), ordinal = 0)
 	private static Key<?> onMakeKey(Key<?> key) {
-		GameRuleNetworkHandler.addGameRuleKey(key);
+		GameRuleNetworkHandler.INSTANCE.addGameRuleKey(key);
 		return key;
 	}
 
