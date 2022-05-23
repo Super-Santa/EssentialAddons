@@ -59,6 +59,20 @@ public class ScriptPacketHandler extends NetworkHandler {
 			player.networkHandler.sendPacket(new CustomPayloadS2CPacket(SCRIPT_HANDLER, parser.parse()));
 			return Value.NULL;
 		});
+
+		expression.addContextFunction("get_scripters", -1, (c, t, v) -> {
+			return new ListValue(this.getValidPlayers().stream().map(EntityValue::of).toList());
+		});
+
+		expression.addContextFunction("is_scripter", 1, (c, t, v) -> {
+			Value playerValue = v.get(0);
+			MinecraftServer server = ((CarpetContext) c).s.getServer();
+			ServerPlayerEntity player = EntityValue.getPlayerByValue(server, playerValue);
+			if (player == null) {
+				throw new InternalExpressionException("Cannot target player '%s'".formatted(playerValue.getString()));
+			}
+			return BooleanValue.of(this.getValidPlayers().contains(player));
+		});
 	}
 
 	@Override
