@@ -290,13 +290,6 @@ public class EssentialSettings {
     public static String commandWorkbench = "false";
 
     @Rule(
-        desc = "Drops the whole minecraft item, back-ported from 1.19",
-        options = {"true", "false"},
-        category = {ESSENTIAL, SURVIVAL, FEATURE}
-    )
-    public static boolean dropCartItem = false;
-
-    @Rule(
         desc = "Allows your to edit a sign after its places by right clicking it while sneaking",
         options = {"true", "false"},
         category = {ESSENTIAL, EXPERIMENTAL, FEATURE}
