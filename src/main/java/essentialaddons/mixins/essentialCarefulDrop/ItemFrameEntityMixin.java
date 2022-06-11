@@ -1,6 +1,5 @@
 package essentialaddons.mixins.essentialCarefulDrop;
 
-import essentialaddons.EssentialSettings;
 import essentialaddons.EssentialUtils;
 import essentialaddons.utils.Subscription;
 import net.minecraft.entity.Entity;
@@ -9,7 +8,6 @@ import net.minecraft.entity.ItemEntity;
 import net.minecraft.entity.decoration.AbstractDecorationEntity;
 import net.minecraft.entity.decoration.ItemFrameEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -36,21 +34,15 @@ public abstract class ItemFrameEntityMixin extends AbstractDecorationEntity {
 	@Inject(method = "dropHeldStack", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/decoration/ItemFrameEntity;dropStack(Lnet/minecraft/item/ItemStack;)Lnet/minecraft/entity/ItemEntity;", ordinal = 0))
 	private void onDropStack0(Entity entity, boolean alwaysDrop, CallbackInfo ci) {
 		ItemStack itemStack = this.getAsItemStack();
-		if (EssentialSettings.essentialCarefulDrop && entity instanceof ServerPlayerEntity player && (player.isInSneakingPose() || Subscription.ALWAYS_CAREFUL.hasPlayer(player))) {
-			if (Subscription.ESSENTIAL_CAREFUL_DROP.hasPlayer(player) && EssentialUtils.placeItemInInventory(player, itemStack)) {
-				return;
-			}
+		if (!EssentialUtils.tryCareful(entity, Subscription.ESSENTIAL_CAREFUL_DROP, itemStack)) {
+			this.dropStack(itemStack);
 		}
-		this.dropStack(itemStack);
 	}
 
 	@Inject(method = "dropHeldStack", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/decoration/ItemFrameEntity;dropStack(Lnet/minecraft/item/ItemStack;)Lnet/minecraft/entity/ItemEntity;", ordinal = 1), locals = LocalCapture.CAPTURE_FAILHARD)
 	private void onDropStack1(Entity entity, boolean alwaysDrop, CallbackInfo ci, ItemStack itemStack) {
-		if (EssentialSettings.essentialCarefulDrop && entity instanceof ServerPlayerEntity player && (player.isInSneakingPose() || Subscription.ALWAYS_CAREFUL.hasPlayer(player))) {
-			if (Subscription.ESSENTIAL_CAREFUL_DROP.hasPlayer(player) && EssentialUtils.placeItemInInventory(player, itemStack)) {
-				return;
-			}
+		if (!EssentialUtils.tryCareful(entity, Subscription.ESSENTIAL_CAREFUL_DROP, itemStack)) {
+			this.dropStack(itemStack);
 		}
-		this.dropStack(itemStack);
 	}
 }

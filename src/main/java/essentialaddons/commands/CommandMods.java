@@ -3,11 +3,11 @@ package essentialaddons.commands;
 import carpet.settings.SettingsManager;
 import com.mojang.brigadier.CommandDispatcher;
 import essentialaddons.EssentialSettings;
+import essentialaddons.EssentialUtils;
 import net.fabricmc.loader.api.FabricLoader;
 import net.fabricmc.loader.api.ModContainer;
 import net.minecraft.server.command.ServerCommandSource;
 import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.text.LiteralText;
 import net.minecraft.text.Text;
 
 import java.util.Collection;
@@ -34,7 +34,7 @@ public class CommandMods {
                     modNames[i] = modName;
                     i++;
                 }
-                Text message = new LiteralText(modNames.length == 0 ? "There are no mods installed" : "§6Installed Mods: §a" + String.join(", ", modNames));
+                Text message = EssentialUtils.literal(modNames.length == 0 ? "There are no mods installed" : "§6Installed Mods: §a" + String.join(", ", modNames));
                 playerEntity.sendMessage(message, false);
                 return 0;
             })

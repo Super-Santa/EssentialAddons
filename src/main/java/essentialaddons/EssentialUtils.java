@@ -2,11 +2,13 @@ package essentialaddons;
 
 import carpet.CarpetServer;
 import carpet.helpers.InventoryHelper;
+import essentialaddons.utils.Subscription;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.ShulkerBoxBlock;
 import net.minecraft.block.entity.BlockEntity;
+import net.minecraft.entity.Entity;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -16,6 +18,7 @@ import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.stat.Stats;
 import net.minecraft.text.LiteralText;
+import net.minecraft.text.MutableText;
 import net.minecraft.util.WorldSavePath;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
@@ -28,7 +31,16 @@ import static net.minecraft.block.Block.getDroppedStacks;
 
 public class EssentialUtils {
     public static void sendToActionBar(ServerPlayerEntity playerEntity, String message) {
-        playerEntity.sendMessage(new LiteralText(message), true);
+        playerEntity.sendMessage(EssentialUtils.literal(message), true);
+    }
+
+    // For easier porting to 1.19
+    public static MutableText literal(String text) {
+        return new LiteralText(text);
+    }
+
+    public static boolean isItemShulkerBox(Item item) {
+        return item instanceof BlockItem blockItem && blockItem.getBlock() instanceof ShulkerBoxBlock;
     }
 
     public static void placeItemInInventory(BlockState state, World world, BlockPos pos, BlockEntity blockEntity, ServerPlayerEntity player, ItemStack stack){
@@ -45,7 +57,7 @@ public class EssentialUtils {
     public static boolean placeItemInInventory(ServerPlayerEntity player, ItemStack itemStack) {
         Item item = itemStack.getItem();
         int itemAmount = itemStack.getCount();
-        if (EssentialSettings.stackableShulkersInPlayerInventories && !InventoryHelper.shulkerBoxHasItems(itemStack) && itemStack.getItem() instanceof BlockItem blockItem && blockItem.getBlock() instanceof ShulkerBoxBlock) {
+        if (EssentialSettings.stackableShulkersInPlayerInventories && !InventoryHelper.shulkerBoxHasItems(itemStack) && isItemShulkerBox(itemStack.getItem())) {
             itemStack.removeSubNbt("BlockEntityTag");
             item = itemStack.getItem();
         }
@@ -53,6 +65,22 @@ public class EssentialUtils {
             player.getServerWorld().playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.ENTITY_ITEM_PICKUP, SoundCategory.PLAYERS, 0.2f, (CarpetServer.rand.nextFloat() - CarpetServer.rand.nextFloat()) * 1.4F + 2.0F);
             player.increaseStat(Stats.PICKED_UP.getOrCreateStat(item), itemAmount);
             return true;
+        }
+        return false;
+    }
+
+    public static boolean hasCareful(Entity entity, Subscription subscription) {
+        return entity instanceof ServerPlayerEntity player && hasCareful(player, subscription);
+    }
+
+    public static boolean hasCareful(ServerPlayerEntity player, Subscription subscription) {
+        return subscription.getRequirement().get() && (player.isSneaking() || Subscription.ALWAYS_CAREFUL.hasPlayer(player)) && subscription.hasPlayer(player);
+    }
+
+    public static boolean tryCareful(Entity entity, Subscription subscription, ItemStack stack) {
+        if (hasCareful(entity, subscription)) {
+            ServerPlayerEntity player = (ServerPlayerEntity) entity;
+            return placeItemInInventory(player, stack);
         }
         return false;
     }

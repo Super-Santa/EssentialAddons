@@ -4,11 +4,11 @@ import carpet.settings.SettingsManager;
 import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.arguments.IntegerArgumentType;
 import essentialaddons.EssentialSettings;
+import essentialaddons.EssentialUtils;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.server.command.ServerCommandSource;
 import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.text.LiteralText;
 import net.minecraft.util.math.Box;
 
 import java.util.List;
@@ -26,7 +26,7 @@ public class CommandNear {
                     Box nearPlayer = new Box(serverPlayerEntity.getX() - distance,serverPlayerEntity.getY() - distance,serverPlayerEntity.getZ() - distance,serverPlayerEntity.getX() + distance,serverPlayerEntity.getY() + distance,serverPlayerEntity.getZ() + distance);
                     List<PlayerEntity> playerEntities = serverPlayerEntity.world.getEntitiesByType(EntityType.PLAYER, nearPlayer, ServerPlayerEntity -> true);
                     if (playerEntities.size() < 2) {
-                        serverPlayerEntity.sendMessage(new LiteralText("§cThere are no players near you"), false);
+                        serverPlayerEntity.sendMessage(EssentialUtils.literal("§cThere are no players near you"), false);
                         return 0;
                     }
                     final String[] names = new String[playerEntities.size() - 1];
@@ -39,7 +39,7 @@ public class CommandNear {
                         i++;
                     }
                     String formattedNames = String.join(", ", names);
-                    serverPlayerEntity.sendMessage(new LiteralText("§6Players near you: §a" + formattedNames), false);
+                    serverPlayerEntity.sendMessage(EssentialUtils.literal("§6Players near you: §a" + formattedNames), false);
                     return 0;
                 })
             )

@@ -1,6 +1,5 @@
 package essentialaddons.mixins.essentialCarefulDrop;
 
-import essentialaddons.EssentialSettings;
 import essentialaddons.EssentialUtils;
 import essentialaddons.utils.Subscription;
 import net.minecraft.entity.Entity;
@@ -33,7 +32,8 @@ public abstract class LivingEntityMixin extends Entity {
 
 	@Inject(method = "dropLoot", at = @At("HEAD"), cancellable = true)
 	private void onDropLoot(DamageSource source, boolean causedByPlayer, CallbackInfo ci) {
-		if (EssentialSettings.essentialCarefulDrop && source.getAttacker() instanceof ServerPlayerEntity player && (player.isInSneakingPose() || Subscription.ALWAYS_CAREFUL.hasPlayer(player)) && Subscription.ESSENTIAL_CAREFUL_DROP.hasPlayer(player)) {
+		if (EssentialUtils.hasCareful(source.getAttacker(), Subscription.ESSENTIAL_CAREFUL_DROP)) {
+			ServerPlayerEntity player = (ServerPlayerEntity) source.getAttacker();
 			Identifier identifier = this.getLootTable();
 			LootTable lootTable = player.getServerWorld().getServer().getLootManager().getTable(identifier);
 			LootContext.Builder builder = this.getLootContextBuilder(causedByPlayer, source);

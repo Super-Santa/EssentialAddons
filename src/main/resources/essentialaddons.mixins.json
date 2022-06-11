@@ -2,6 +2,7 @@
   "required": true,
   "package": "essentialaddons.mixins",
   "compatibilityLevel": "JAVA_16",
+  "plugin": "essentialaddons.utils.EssentialMixinConfig",
   "mixins": [
     "broadcastToAll.ServerCommandSourceMixin",
     "cakeAlwaysEat.CakeBlockMixin",
@@ -27,6 +28,7 @@
     "essentialCarefulDrop.HopperMinecartEntityMixin",
     "essentialCarefulDrop.ItemFrameEntityMixin",
     "essentialCarefulDrop.LivingEntityMixin",
+    "essentialCarefulDrop.PaintingEntityMixin",
     "essentialCarefulDrop.PlayerInventoryMixin",
     "essentialCarefulDrop.StorageMinecartEntityMixin",
     "essentialCarefulDrop.TntMinecartMixin",

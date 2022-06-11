@@ -44,7 +44,7 @@ public abstract class RuleMixin<T extends GameRules.Rule<T>> implements IRule {
 	 */
 	@Override
 	public void ruleChanged(ServerPlayerEntity player) {
-		Text text = new LiteralText("Set Game Rule %s to %s".formatted(((IRuleType) this.type).getName(), this.serialize()));
+		Text text = EssentialUtils.literal("Set Game Rule %s to %s".formatted(((IRuleType) this.type).getName(), this.serialize()));
 		player.server.getPlayerManager().broadcastChatMessage(text, MessageType.SYSTEM, player.getUuid());
 		this.changed(player.server);
 	}

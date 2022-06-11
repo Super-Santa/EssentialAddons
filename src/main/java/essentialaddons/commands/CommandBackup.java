@@ -106,7 +106,7 @@ public class CommandBackup {
 		Path fromPath = ((MinecraftServerAccessor) server).getSession().getWorldDirectory(world.getRegistryKey()).toPath().resolve("region");
 
 		if (!Files.exists(fromPath)) {
-			source.sendFeedback(new LiteralText("World has no such regions"), false);
+			source.sendFeedback(EssentialUtils.literal("World has no such regions"), false);
 			return;
 		}
 
@@ -138,11 +138,11 @@ public class CommandBackup {
 		}
 
 		if (successful) {
-			source.sendFeedback(new LiteralText("Successfully saved regions to: ").formatted(Formatting.GOLD)
-				.append(new LiteralText(savePath.toString()).formatted(Formatting.GREEN)), true);
+			source.sendFeedback(EssentialUtils.literal("Successfully saved regions to: ").formatted(Formatting.GOLD)
+				.append(EssentialUtils.literal(savePath.toString()).formatted(Formatting.GREEN)), true);
 		}
 		else {
-			source.sendFeedback(new LiteralText("Failed to save regions").formatted(Formatting.RED), true);
+			source.sendFeedback(EssentialUtils.literal("Failed to save regions").formatted(Formatting.RED), true);
 		}
 	}
 }
