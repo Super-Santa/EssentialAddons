@@ -18,7 +18,7 @@ public class CommandWorkbench {
             .executes(context -> {
                 ServerPlayerEntity playerEntity = context.getSource().getPlayer();
                 playerEntity.openHandledScreen(new SimpleNamedScreenHandlerFactory((syncId, playerInv, player) ->
-                    new CraftingScreenHandler(syncId, playerInv, ScreenHandlerContext.create(player.getWorld(), player.getBlockPos())),
+                    new CraftingScreenHandler(syncId, playerInv, ScreenHandlerContext.create(player.getEntityWorld(), player.getBlockPos())),
                     new TranslatableText("container.crafting"))
                 );
                 return 0;

@@ -356,6 +356,15 @@ Killing mobs while crouching will put dropped items straight into your inventory
 * Additional notes:
   * Players must subscribe to carefulbreak in order for it to work by using `/subscribe carefuldrop`
 
+## essentialCarefulDrop
+Killing mobs while crouching will put dropped items straight into your inventory
+* Type: `Boolean`
+* Default value: `false`
+* Required options: `false`,`true`
+* Categories: `ESSENTIAL`, `COMMAND`, `SURVIVAL`, `FEATURE`
+* Additional notes:
+  * Players must subscribe to carefuldrop in order for it to work by using `/subscribe carefuldrop`
+
 ## infiniteItems
 Allows for survival players to have infinite blocks, food, and enderpearls
 * Type: `Boolean`

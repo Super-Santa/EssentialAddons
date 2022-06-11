@@ -2,19 +2,16 @@ package essentialaddons.commands;
 
 import carpet.settings.SettingsManager;
 import com.mojang.brigadier.CommandDispatcher;
-import com.mojang.brigadier.StringReader;
 import com.mojang.brigadier.arguments.IntegerArgumentType;
 import com.mojang.brigadier.context.CommandContext;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import essentialaddons.EssentialSettings;
-import net.minecraft.command.argument.EntityArgumentType;
+import essentialaddons.EssentialUtils;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.TntEntity;
 import net.minecraft.entity.mob.HostileEntity;
 import net.minecraft.server.command.ServerCommandSource;
 import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.text.LiteralText;
-import net.minecraft.util.Util;
 import net.minecraft.util.math.Box;
 
 import java.util.Collection;
@@ -42,7 +39,7 @@ public class CommandDefuse {
     private static int defuse(CommandContext<ServerCommandSource> context) throws CommandSyntaxException {
         Collection<TntEntity> tntEntities = getTntEntities(context.getSource(), context.getArgument("range", Integer.class));
         tntEntities.forEach(Entity::kill);
-        context.getSource().sendFeedback(new LiteralText("§a"+ tntEntities.size() + " §6TNT entities have been defused"), true);
+        context.getSource().sendFeedback(EssentialUtils.literal("§a"+ tntEntities.size() + " §6TNT entities have been defused"), true);
         return 1;
     }
 }

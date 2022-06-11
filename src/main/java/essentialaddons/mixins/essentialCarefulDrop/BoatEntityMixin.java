@@ -1,6 +1,5 @@
 package essentialaddons.mixins.essentialCarefulDrop;
 
-import essentialaddons.EssentialSettings;
 import essentialaddons.EssentialUtils;
 import essentialaddons.utils.Subscription;
 import net.minecraft.entity.Entity;
@@ -10,7 +9,6 @@ import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.vehicle.BoatEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemConvertible;
-import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -35,12 +33,9 @@ public abstract class BoatEntityMixin extends Entity {
 
 	@Inject(method = "damage", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/vehicle/BoatEntity;dropItem(Lnet/minecraft/item/ItemConvertible;)Lnet/minecraft/entity/ItemEntity;", shift = At.Shift.BEFORE))
 	private void onDropItem(DamageSource source, float amount, CallbackInfoReturnable<Boolean> cir) {
-		if (EssentialSettings.essentialCarefulDrop && source.getSource() instanceof ServerPlayerEntity player && (player.isInSneakingPose() || Subscription.ALWAYS_CAREFUL.hasPlayer(player))) {
-			if (Subscription.ESSENTIAL_CAREFUL_DROP.hasPlayer(player) && EssentialUtils.placeItemInInventory(player, this.asItem().getDefaultStack())) {
-				return;
-			}
+		if (!EssentialUtils.tryCareful(source.getAttacker(), Subscription.ESSENTIAL_CAREFUL_DROP, this.asItem().getDefaultStack())) {
+			this.dropItem(this.asItem());
 		}
-		this.dropItem(this.asItem());
 	}
 
 }

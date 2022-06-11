@@ -96,17 +96,17 @@ public class CommandBackup {
 	private static void saveRegions(CommandContext<ServerCommandSource> context, int fromX, int fromZ, int toX, int toZ, ServerWorld world, boolean overwrite) {
 		ServerCommandSource source = context.getSource();
 		MinecraftServer server = context.getSource().getServer();
-		server.saveAll(true, true, true);
+		server.save(true, true, true);
 
 		Path savePath = EssentialUtils.getSavePath().resolve("backups").resolve(LocalDate.now().toString()).resolve(world.getRegistryKey().getValue().getPath());
 		if (!Files.exists(savePath)) {
 			EssentialUtils.throwAsRuntime(() -> Files.createDirectories(savePath));
 		}
 
-		Path fromPath = ((MinecraftServerAccessor) server).getSession().getWorldDirectory(world.getRegistryKey()).resolve("region");
+		Path fromPath = ((MinecraftServerAccessor) server).getSession().getWorldDirectory(world.getRegistryKey()).toPath().resolve("region");
 
 		if (!Files.exists(fromPath)) {
-			source.sendFeedback(new LiteralText("World has no such regions"), false);
+			source.sendFeedback(EssentialUtils.literal("World has no such regions"), false);
 			return;
 		}
 
@@ -138,11 +138,11 @@ public class CommandBackup {
 		}
 
 		if (successful) {
-			source.sendFeedback(new LiteralText("Successfully saved regions to: ").formatted(Formatting.GOLD)
-				.append(new LiteralText(savePath.toString()).formatted(Formatting.GREEN)), true);
+			source.sendFeedback(EssentialUtils.literal("Successfully saved regions to: ").formatted(Formatting.GOLD)
+				.append(EssentialUtils.literal(savePath.toString()).formatted(Formatting.GREEN)), true);
 		}
 		else {
-			source.sendFeedback(new LiteralText("Failed to save regions").formatted(Formatting.RED), true);
+			source.sendFeedback(EssentialUtils.literal("Failed to save regions").formatted(Formatting.RED), true);
 		}
 	}
 }

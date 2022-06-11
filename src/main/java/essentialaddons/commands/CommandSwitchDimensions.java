@@ -18,10 +18,10 @@ public class CommandSwitchDimensions {
                 ServerPlayerEntity playerEntity = context.getSource().getPlayer();
                 ServerWorld overworld = context.getSource().getServer().getWorld(World.OVERWORLD);
                 ServerWorld nether = context.getSource().getServer().getWorld(World.NETHER);
-                if (playerEntity.getWorld() == overworld) {
+                if (playerEntity.getServerWorld() == overworld) {
                     toNether(playerEntity, nether);
                 }
-                else if (playerEntity.getWorld() == nether) {
+                else if (playerEntity.getServerWorld() == nether) {
                     toOverworld(playerEntity, overworld);
                 }
                 else {
