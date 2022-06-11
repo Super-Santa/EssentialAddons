@@ -9,7 +9,7 @@ import net.minecraft.screen.GenericContainerScreenHandler;
 import net.minecraft.screen.SimpleNamedScreenHandlerFactory;
 import net.minecraft.server.command.ServerCommandSource;
 import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.text.TranslatableText;
+import net.minecraft.text.Text;
 
 import static net.minecraft.server.command.CommandManager.literal;
 
@@ -20,9 +20,9 @@ public class CommandEnderChest {
     }
 
     private static int execute(ServerCommandSource source) throws CommandSyntaxException {
-        ServerPlayerEntity playerEntity = source.getPlayer();
+        ServerPlayerEntity playerEntity = source.getPlayerOrThrow();
         EnderChestInventory enderChest = playerEntity.getEnderChestInventory();
-        playerEntity.openHandledScreen(new SimpleNamedScreenHandlerFactory((syncId, playerInv, player) -> GenericContainerScreenHandler.createGeneric9x3(syncId, playerInv, enderChest), new TranslatableText("container.enderchest")));
+        playerEntity.openHandledScreen(new SimpleNamedScreenHandlerFactory((syncId, playerInv, player) -> GenericContainerScreenHandler.createGeneric9x3(syncId, playerInv, enderChest), Text.translatable("container.enderchest")));
         return 0;
     }
 }

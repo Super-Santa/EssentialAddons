@@ -6,8 +6,8 @@ import com.mojang.brigadier.arguments.IntegerArgumentType;
 import essentialaddons.EssentialSettings;
 import essentialaddons.feature.LagSpike.PrePostSubPhase;
 import essentialaddons.feature.LagSpike.TickPhase;
-import essentialaddons.utils.EnumArgumentType;
 import essentialaddons.feature.LagSpike;
+import essentialaddons.utils.EnumArgumentType;
 import net.minecraft.command.CommandSource;
 import net.minecraft.server.command.ServerCommandSource;
 

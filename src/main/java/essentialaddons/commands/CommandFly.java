@@ -13,7 +13,7 @@ public class CommandFly {
     public static void register(CommandDispatcher<ServerCommandSource> dispatcher) {
         dispatcher.register(literal("fly").requires((player) -> SettingsManager.canUseCommand(player, EssentialSettings.commandFly))
             .executes(context -> {
-                ServerPlayerEntity playerEntity = context.getSource().getPlayer();
+                ServerPlayerEntity playerEntity = context.getSource().getPlayerOrThrow();
                 if (!playerEntity.getAbilities().allowFlying) {
                     playerEntity.getAbilities().allowFlying = true;
                     EssentialUtils.sendToActionBar(playerEntity, "§6Flying §aEnabled");

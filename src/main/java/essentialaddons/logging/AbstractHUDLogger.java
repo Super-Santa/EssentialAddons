@@ -1,7 +1,8 @@
 package essentialaddons.logging;
 
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.text.BaseText;
+import net.minecraft.text.Text;
+
 public abstract class AbstractHUDLogger {
     private final String NAME;
 
@@ -13,5 +14,5 @@ public abstract class AbstractHUDLogger {
         return this.NAME;
     }
 
-    public abstract BaseText[] onHudUpdate(String option, PlayerEntity playerEntity);
+    public abstract Text[] onHudUpdate(String option, PlayerEntity playerEntity);
 }

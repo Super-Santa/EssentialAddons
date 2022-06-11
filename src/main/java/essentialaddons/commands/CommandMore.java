@@ -16,7 +16,7 @@ public class CommandMore {
     public static void register(CommandDispatcher<ServerCommandSource> dispatcher) {
         dispatcher.register(literal("more").requires((player) -> SettingsManager.canUseCommand(player, EssentialSettings.commandMore))
             .executes(context -> {
-                ServerPlayerEntity playerEntity = context.getSource().getPlayer();
+                ServerPlayerEntity playerEntity = context.getSource().getPlayerOrThrow();
                 ItemStack itemStack = context.getSource().getEntityOrThrow().getItemsHand().iterator().next();
                 if (itemStack != null && itemStack.getItem() != Items.AIR) {
                     itemStack.setCount(itemStack.getMaxCount());

@@ -21,7 +21,7 @@ public class CommandRename {
         dispatcher.register(literal("rename").requires((player) -> SettingsManager.canUseCommand(player, EssentialSettings.commandRename))
             .then(argument("name", TextArgumentType.text())
                 .executes(context -> {
-                    ItemStack itemStack = context.getSource().getPlayer().getMainHandStack();
+                    ItemStack itemStack = context.getSource().getPlayerOrThrow().getMainHandStack();
                     if (itemStack.getItem() != Items.AIR) {
                         Text text = TextArgumentType.getTextArgument(context, "name");
                         context.getSource().sendFeedback(EssentialUtils.literal("Item name set to: ").append(text), false);

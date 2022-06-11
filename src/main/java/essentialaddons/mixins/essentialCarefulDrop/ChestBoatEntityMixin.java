@@ -7,8 +7,8 @@ import net.minecraft.entity.EntityType;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.mob.PiglinBrain;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.vehicle.AbstractMinecartEntity;
-import net.minecraft.entity.vehicle.StorageMinecartEntity;
+import net.minecraft.entity.vehicle.BoatEntity;
+import net.minecraft.entity.vehicle.ChestBoatEntity;
 import net.minecraft.entity.vehicle.VehicleInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.server.network.ServerPlayerEntity;
@@ -18,20 +18,11 @@ import net.minecraft.world.GameRules;
 import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
-import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.Redirect;
 
-@Mixin(StorageMinecartEntity.class)
-public abstract class StorageMinecartEntityMixin extends AbstractMinecartEntity implements VehicleInventory {
-
-	public StorageMinecartEntityMixin(EntityType<?> type, World world) {
-		super(type, world);
-	}
-
-	@Redirect(method = "dropItems", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/vehicle/AbstractMinecartEntity;dropItems(Lnet/minecraft/entity/damage/DamageSource;)V"))
-	private void onSuperDropItems(AbstractMinecartEntity instance, DamageSource damageSource) {
-		// Do nothing, we do not want to kill the mine cart yet
+@Mixin(ChestBoatEntity.class)
+public abstract class ChestBoatEntityMixin extends BoatEntity implements VehicleInventory {
+	public ChestBoatEntityMixin(EntityType<? extends BoatEntity> entityType, World world) {
+		super(entityType, world);
 	}
 
 	@Override
@@ -45,11 +36,11 @@ public abstract class StorageMinecartEntityMixin extends AbstractMinecartEntity 
 						ItemScatterer.spawn(this.world, this.getX(), this.getY(), this.getZ(), stack);
 					}
 				}
+				return;
 			}
 			if (!world.isClient && source.getSource() instanceof PlayerEntity player) {
 				PiglinBrain.onGuardedBlockInteracted(player, true);
 			}
 		}
-		super.dropItems(source);
 	}
 }

@@ -21,7 +21,7 @@ public class CommandWarp {
     public static void register(CommandDispatcher<ServerCommandSource> dispatcher) {
         dispatcher.register(literal("setwarp").requires((player) -> SettingsManager.canUseCommand(player, EssentialSettings.commandWarp))
             .executes(context -> {
-                ServerPlayerEntity playerEntity = context.getSource().getPlayer();
+                ServerPlayerEntity playerEntity = context.getSource().getPlayerOrThrow();
                 UUID playerUUID = playerEntity.getUuid();
                 CommandWarp.warpData.remove(playerUUID);
                 CommandWarp.warpData.put(playerUUID, new Location(playerEntity));
@@ -30,7 +30,7 @@ public class CommandWarp {
             }));
         dispatcher.register(literal("warp").requires((player) -> SettingsManager.canUseCommand(player, EssentialSettings.commandWarp))
             .executes(context -> {
-                ServerPlayerEntity playerEntity = context.getSource().getPlayer();
+                ServerPlayerEntity playerEntity = context.getSource().getPlayerOrThrow();
                 UUID playerUUID = playerEntity.getUuid();
                 Location location = CommandWarp.warpData.get(playerUUID);
                 if (location != null) {

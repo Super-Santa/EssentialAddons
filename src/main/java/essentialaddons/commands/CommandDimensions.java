@@ -18,14 +18,14 @@ public class CommandDimensions {
     public static void register(CommandDispatcher<ServerCommandSource> dispatcher) {
         dispatcher.register(literal("overworld").requires((player) -> SettingsManager.canUseCommand(player, EssentialSettings.commandDimensions))
             .executes(context -> {
-                ServerPlayerEntity playerEntity = context.getSource().getPlayer();
+                ServerPlayerEntity playerEntity = context.getSource().getPlayerOrThrow();
                 ServerWorld world = context.getSource().getServer().getWorld(World.OVERWORLD);
                 toDimension(playerEntity, world, "OVERWORLD");
                 return 0;
             })
             .then(argument("pos", Vec3ArgumentType.vec3())
                 .executes(context -> {
-                    ServerPlayerEntity playerEntity = context.getSource().getPlayer();
+                    ServerPlayerEntity playerEntity = context.getSource().getPlayerOrThrow();
                     ServerWorld world = context.getSource().getServer().getWorld(World.OVERWORLD);
                     Vec3d pos = Vec3ArgumentType.getVec3(context, "pos");
                     toDimension(playerEntity, world, "OVERWORLD", pos.x, pos.y, pos.z);
@@ -35,14 +35,14 @@ public class CommandDimensions {
         );
         dispatcher.register(literal("nether").requires((player) -> SettingsManager.canUseCommand(player, EssentialSettings.commandDimensions))
             .executes(context -> {
-                ServerPlayerEntity playerEntity = context.getSource().getPlayer();
+                ServerPlayerEntity playerEntity = context.getSource().getPlayerOrThrow();
                 ServerWorld world = context.getSource().getServer().getWorld(World.NETHER);
                 toDimension(playerEntity, world, "NETHER");
                 return 0;
             })
             .then(argument("pos", Vec3ArgumentType.vec3())
                 .executes(context -> {
-                    ServerPlayerEntity playerEntity = context.getSource().getPlayer();
+                    ServerPlayerEntity playerEntity = context.getSource().getPlayerOrThrow();
                     ServerWorld world = context.getSource().getServer().getWorld(World.NETHER);
                     Vec3d pos = Vec3ArgumentType.getVec3(context, "pos");
                     toDimension(playerEntity, world, "NETHER", pos.x, pos.y, pos.z);
@@ -52,14 +52,14 @@ public class CommandDimensions {
         );
         dispatcher.register(literal("end").requires((player) -> SettingsManager.canUseCommand(player, EssentialSettings.commandDimensions))
             .executes(context -> {
-                ServerPlayerEntity playerEntity = context.getSource().getPlayer();
+                ServerPlayerEntity playerEntity = context.getSource().getPlayerOrThrow();
                 ServerWorld world = context.getSource().getServer().getWorld(World.END);
                 toDimension(playerEntity, world, "END");
                 return 0;
             })
             .then(argument("pos", Vec3ArgumentType.vec3())
                 .executes(context -> {
-                    ServerPlayerEntity playerEntity = context.getSource().getPlayer();
+                    ServerPlayerEntity playerEntity = context.getSource().getPlayerOrThrow();
                     ServerWorld world = context.getSource().getServer().getWorld(World.END);
                     Vec3d pos = Vec3ArgumentType.getVec3(context, "pos");
                     toDimension(playerEntity, world, "END", pos.x, pos.y, pos.z);

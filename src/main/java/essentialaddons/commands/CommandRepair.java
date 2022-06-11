@@ -8,7 +8,6 @@ import essentialaddons.EssentialUtils;
 import net.minecraft.item.ItemStack;
 import net.minecraft.server.command.ServerCommandSource;
 import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.text.LiteralText;
 
 import static net.minecraft.server.command.CommandManager.literal;
 
@@ -18,7 +17,7 @@ public class CommandRepair {
     public static void register(CommandDispatcher<ServerCommandSource> dispatcher) {
         dispatcher.register(literal("repair").requires((player) -> SettingsManager.canUseCommand(player, EssentialSettings.commandRepair))
             .executes(context -> {
-                ServerPlayerEntity playerEntity = context.getSource().getPlayer();
+                ServerPlayerEntity playerEntity = context.getSource().getPlayerOrThrow();
                 ItemStack itemStack = playerEntity.getMainHandStack();
                 if (itemStack.isDamaged()) {
                     itemStack.setDamage(0);

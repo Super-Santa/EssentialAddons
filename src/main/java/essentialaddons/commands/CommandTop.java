@@ -14,7 +14,7 @@ public class CommandTop {
     public static void register(CommandDispatcher<ServerCommandSource> dispatcher) {
         dispatcher.register(literal("top").requires((player) -> SettingsManager.canUseCommand(player, EssentialSettings.commandTop))
             .executes(context -> {
-                ServerPlayerEntity playerEntity = context.getSource().getPlayer();
+                ServerPlayerEntity playerEntity = context.getSource().getPlayerOrThrow();
                 BlockPos blockPos = new BlockPos(playerEntity.getX(), playerEntity.world.getHeight(), playerEntity.getZ());
                 while (playerEntity.world.getBlockState(blockPos).isAir()) {
                     blockPos = blockPos.down();

@@ -9,6 +9,8 @@
     "combinePotionDuration.PotionEntityMixin",
     "combinePotionDuration.PotionItemMixin",
     "commandCameraMode.ServerPlayerEntityMixin",
+    "commands.ArgumentNodeMixin",
+    "commands.ArgumentTypesAccessor",
     "commands.ArgumentTypesMixin",
     "commands.KickCommandMixin",
     "commands.OpCommandMixin",
@@ -23,15 +25,12 @@
     "essentialCarefulbreak.BlockMixin",
     "essentialCarefulDrop.AbstractMinecartEntityMixin",
     "essentialCarefulDrop.BoatEntityMixin",
-    "essentialCarefulDrop.ChestMinecartEntityMixin",
-    "essentialCarefulDrop.FurnaceMinecartEntityMixin",
-    "essentialCarefulDrop.HopperMinecartEntityMixin",
+    "essentialCarefulDrop.ChestBoatEntityMixin",
     "essentialCarefulDrop.ItemFrameEntityMixin",
     "essentialCarefulDrop.LivingEntityMixin",
     "essentialCarefulDrop.PaintingEntityMixin",
     "essentialCarefulDrop.PlayerInventoryMixin",
     "essentialCarefulDrop.StorageMinecartEntityMixin",
-    "essentialCarefulDrop.TntMinecartMixin",
     "gameRuleSync.GameRulesMixin",
     "gameRuleSync.PlayerManagerMixin",
     "gameRuleSync.RuleInvoker",
@@ -52,7 +51,6 @@
     "reloadFakePlayers.EntityPlayerActionPackAccessor",
     "reloadFakePlayers.EntityPlayerMPFakeInvoker",
     "reloadFakePlayers.EntityPlayerMPFakeMixin",
-    "reloadFakePlayers.IntegratedPlayerManagerMixin",
     "removeWarnMismatchBlockPos.ServerPlayerInteractionManagerMixin",
     "removeWarnRemovedEntity.EntityTrackerEntryMixin",
     "shulkerSeption.ShulkerBoxSlotMixin",
@@ -62,6 +60,9 @@
     "stackableShulkers.ItemEntityMixin",
     "stackableShulkers.ItemStackMixin",
     "stackableShulkers.ScreenHandlerMixin"
+  ],
+  "client": [
+    "reloadFakePlayers.IntegratedPlayerManagerMixin"
   ],
   "injectors": {
     "defaultRequire": 1

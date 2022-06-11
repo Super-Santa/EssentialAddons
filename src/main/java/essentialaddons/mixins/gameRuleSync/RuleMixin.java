@@ -5,10 +5,9 @@ import essentialaddons.EssentialUtils;
 import essentialaddons.feature.GameRuleNetworkHandler;
 import essentialaddons.utils.ducks.IRule;
 import essentialaddons.utils.ducks.IRuleType;
-import net.minecraft.network.MessageType;
+import net.minecraft.network.message.MessageType;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.text.LiteralText;
 import net.minecraft.text.Text;
 import net.minecraft.world.GameRules;
 import org.jetbrains.annotations.Nullable;
@@ -44,8 +43,8 @@ public abstract class RuleMixin<T extends GameRules.Rule<T>> implements IRule {
 	 */
 	@Override
 	public void ruleChanged(ServerPlayerEntity player) {
-		Text text = new LiteralText("Set Game Rule %s to %s".formatted(((IRuleType) this.type).getName(), this.serialize()));
-		player.server.getPlayerManager().broadcast(text, MessageType.SYSTEM, player.getUuid());
+		Text text = EssentialUtils.literal("Set Game Rule %s to %s".formatted(((IRuleType) this.type).getName(), this.serialize()));
+		player.server.getPlayerManager().broadcast(text, MessageType.SYSTEM);
 		this.changed(player.server);
 	}
 }

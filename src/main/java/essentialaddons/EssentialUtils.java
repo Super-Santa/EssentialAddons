@@ -17,7 +17,7 @@ import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.stat.Stats;
-import net.minecraft.text.LiteralText;
+import net.minecraft.text.Text;
 import net.minecraft.util.WorldSavePath;
 import net.minecraft.text.MutableText;
 import net.minecraft.util.math.BlockPos;
@@ -36,7 +36,7 @@ public class EssentialUtils {
 
     // For easier porting to 1.19
     public static MutableText literal(String text) {
-        return new LiteralText(text);
+        return Text.literal(text);
     }
 
     public static boolean isItemShulkerBox(Item item) {
@@ -50,7 +50,7 @@ public class EssentialUtils {
                     dropStack(serverWorld, pos, itemStack);
                 }
             });
-            state.onStacksDropped(serverWorld, pos, stack);
+            state.onStacksDropped(serverWorld, pos, stack, true);
         }
     }
 

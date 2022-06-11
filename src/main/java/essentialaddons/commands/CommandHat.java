@@ -16,7 +16,7 @@ public class CommandHat {
     public static void register(CommandDispatcher<ServerCommandSource> dispatcher) {
         dispatcher.register(literal("hat").requires((player) -> SettingsManager.canUseCommand(player, EssentialSettings.commandHat))
             .executes(context -> {
-                ServerPlayerEntity playerEntity = context.getSource().getPlayer();
+                ServerPlayerEntity playerEntity = context.getSource().getPlayerOrThrow();
                 ItemStack hat = playerEntity.getEquippedStack(EquipmentSlot.HEAD);
                 ItemStack stack = playerEntity.getMainHandStack();
                 ItemStack stackCopy = stack.copy();

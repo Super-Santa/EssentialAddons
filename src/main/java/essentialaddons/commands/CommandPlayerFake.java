@@ -21,6 +21,7 @@ import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.PlayerManager;
 import net.minecraft.server.command.ServerCommandSource;
 import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.util.dynamic.DynamicSerializableUuid;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.registry.RegistryKey;
 import net.minecraft.world.World;
@@ -38,7 +39,7 @@ public class CommandPlayerFake {
             .then(argument("player", StringArgumentType.word())
                 .suggests((context, builder) -> CommandSource.suggestMatching(getPlayers(context.getSource()), builder))
                 .then(literal("spawn")
-                    .executes(context -> fakePlayerSpawn(context, StringArgumentType.getString(context, "player"), context.getSource().getPlayer().getPos(), null))
+                    .executes(context -> fakePlayerSpawn(context, StringArgumentType.getString(context, "player"), context.getSource().getPlayerOrThrow().getPos(), null))
                     .then(literal("at")
                         .then(argument("pos", Vec3ArgumentType.vec3())
                             .executes(context -> fakePlayerSpawn(context, StringArgumentType.getString(context, "player"), Vec3ArgumentType.getVec3(context, "pos"), null))
@@ -71,7 +72,8 @@ public class CommandPlayerFake {
             return 0;
         ServerCommandSource source = context.getSource();
         dim = dim == null ? source.getWorld().getRegistryKey() : dim;
-        ServerPlayerEntity playerEntity = GhostPlayerEntity.createFake(username, source.getServer(), pos.x, pos.y, pos.z, source.getPlayer().getYaw(), source.getPlayer().getPitch(), dim);
+        ServerPlayerEntity player = source.getPlayerOrThrow();
+        ServerPlayerEntity playerEntity = GhostPlayerEntity.createFake(username, source.getServer(), pos.x, pos.y, pos.z, player.getYaw(), player.getPitch(), dim);
         if (playerEntity == null) {
             source.sendFeedback(EssentialUtils.literal("Failed to spawn player"), false);
         }
@@ -95,7 +97,7 @@ public class CommandPlayerFake {
                     "Banned players can only be summoned in Singleplayer and in servers in off-line mode.");
                 return true;
             }
-            profile = new GameProfile(PlayerEntity.getOfflinePlayerUuid(playerName), playerName);
+            profile = new GameProfile(DynamicSerializableUuid.getOfflinePlayerUuid(playerName), playerName);
         }
         if (manager.getUserBanList().contains(profile)) {
             Messenger.m(context.getSource(), "r Player ", "rb " + playerName, "r  is banned on this server");

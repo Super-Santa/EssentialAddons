@@ -11,7 +11,6 @@ import essentialaddons.EssentialUtils;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.command.ServerCommandSource;
 import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.text.LiteralText;
 
 import static net.minecraft.server.command.CommandManager.argument;
 import static net.minecraft.server.command.CommandManager.literal;
@@ -23,7 +22,7 @@ public class CommandPublicViewDistance {
                 .executes(context -> viewDistance(context, context.getArgument("distance", Integer.class)))
             )
             .executes(context -> {
-                ServerPlayerEntity playerEntity = context.getSource().getPlayer();
+                ServerPlayerEntity playerEntity = context.getSource().getPlayerOrThrow();
                 MinecraftServer server = context.getSource().getServer();
                 EssentialUtils.sendToActionBar(playerEntity, "§6View distance is currently §a" + server.getPlayerManager().getViewDistance());
                 return 0;
@@ -33,7 +32,7 @@ public class CommandPublicViewDistance {
 
     // Mostly code from Carpet
     private static int viewDistance(CommandContext<ServerCommandSource> context, int range) throws CommandSyntaxException {
-        ServerPlayerEntity playerEntity = context.getSource().getPlayer();
+        ServerPlayerEntity playerEntity = context.getSource().getPlayerOrThrow();
         if (range < 10 || range > 32) {
             EssentialUtils.sendToActionBar(playerEntity, "§cView distance must be between 10 and 32");
             return 0;

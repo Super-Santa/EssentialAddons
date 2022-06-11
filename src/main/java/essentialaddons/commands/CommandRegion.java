@@ -18,13 +18,13 @@ public class CommandRegion {
             .then(literal("get")
                 .then(argument("pos", Vec2ArgumentType.vec2())
                     .executes(context -> {
-                        ServerPlayerEntity playerEntity = context.getSource().getPlayer();
+                        ServerPlayerEntity playerEntity = context.getSource().getPlayerOrThrow();
                         playerEntity.sendMessage(EssentialUtils.literal("§6Those coordinates are in region: §a" + (int) Math.floor(Vec2ArgumentType.getVec2(context, "pos").x/512) + "." + (int) Math.floor(Vec2ArgumentType.getVec2(context, "pos").y/512)), false);
                         return 0;
                     })
                 )
                 .executes(context -> {
-                    ServerPlayerEntity playerEntity = context.getSource().getPlayer();
+                    ServerPlayerEntity playerEntity = context.getSource().getPlayerOrThrow();
                     playerEntity.sendMessage(EssentialUtils.literal("§6You are in region: §a" + (int) Math.floor(playerEntity.getX()/512) + "." + (int) Math.floor(playerEntity.getZ()/512)), false);
                     return 0;
                 })
@@ -33,7 +33,7 @@ public class CommandRegion {
                 .then(argument("x", IntegerArgumentType.integer())
                     .then(argument("z", IntegerArgumentType.integer())
                         .executes(context -> {
-                            ServerPlayerEntity playerEntity = context.getSource().getPlayer();
+                            ServerPlayerEntity playerEntity = context.getSource().getPlayerOrThrow();
                             int x = context.getArgument("x", Integer.class) * 512 + 256;
                             int z = context.getArgument("z", Integer.class) * 512 + 256;
                             playerEntity.teleport(playerEntity.getWorld(), x, playerEntity.getY(), z, playerEntity.getYaw(), playerEntity.getPitch());

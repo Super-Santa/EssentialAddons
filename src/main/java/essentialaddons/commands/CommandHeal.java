@@ -14,7 +14,7 @@ public class CommandHeal {
     public static void register(CommandDispatcher<ServerCommandSource> dispatcher) {
         dispatcher.register(literal("heal").requires((player) -> SettingsManager.canUseCommand(player, EssentialSettings.commandHeal))
             .executes(context -> {
-                ServerPlayerEntity playerEntity = context.getSource().getPlayer();
+                ServerPlayerEntity playerEntity = context.getSource().getPlayerOrThrow();
                 playerEntity.setHealth(playerEntity.getMaxHealth());
                 playerEntity.getHungerManager().add(20, 20);
                 EssentialUtils.sendToActionBar(playerEntity, "§6You have been healed and fed");

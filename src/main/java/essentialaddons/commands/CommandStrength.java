@@ -15,7 +15,7 @@ public class CommandStrength {
     public static void register(CommandDispatcher<ServerCommandSource> dispatcher) {
         dispatcher.register(literal("strength").requires((player) -> SettingsManager.canUseCommand(player, EssentialSettings.commandStrength))
             .executes(context -> {
-                ServerPlayerEntity playerEntity = context.getSource().getPlayer();
+                ServerPlayerEntity playerEntity = context.getSource().getPlayerOrThrow();
                 if (!playerEntity.hasStatusEffect(StatusEffects.STRENGTH)) {
                     playerEntity.addStatusEffect(new StatusEffectInstance(StatusEffects.STRENGTH, 999999, 255, true, false));
                     EssentialUtils.sendToActionBar(playerEntity, "§6Strength has been §aenabled");

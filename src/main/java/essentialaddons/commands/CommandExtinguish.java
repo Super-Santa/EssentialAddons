@@ -14,7 +14,7 @@ public class CommandExtinguish {
     public static void register(CommandDispatcher<ServerCommandSource> dispatcher) {
         dispatcher.register(literal("extinguish").requires((player) -> SettingsManager.canUseCommand(player, EssentialSettings.commandExtinguish))
             .executes(context -> {
-                ServerPlayerEntity playerEntity = context.getSource().getPlayer();
+                ServerPlayerEntity playerEntity = context.getSource().getPlayerOrThrow();
                 if (playerEntity.isOnFire()) {
                     playerEntity.extinguish();
                     EssentialUtils.sendToActionBar(playerEntity, "§6You have been extinguished");

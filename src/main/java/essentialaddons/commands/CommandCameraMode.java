@@ -24,7 +24,7 @@ public class CommandCameraMode {
     public static void register(CommandDispatcher<ServerCommandSource> dispatcher) {
         LiteralArgumentBuilder<ServerCommandSource> csCommand = literal("cs");
         csCommand.requires((p) -> SettingsManager.canUseCommand(p, EssentialSettings.commandCameraMode)).executes(ctx -> {
-            return toggle(ctx.getSource().getPlayer());
+            return toggle(ctx.getSource().getPlayerOrThrow());
         });
         dispatcher.register(csCommand);
     }

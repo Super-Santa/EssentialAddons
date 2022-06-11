@@ -2,10 +2,10 @@ package essentialaddons.feature;
 
 public class LagSpike {
     private static TickPhase pendingLagPhase;
-    private static Enum<?> pendingLagSubPhase;
+    private static PrePostSubPhase pendingLagSubPhase;
     private static long pendingLagTime;
 
-    public static int addLagSpike(TickPhase phase, Enum<?> subPhase, long millis) {
+    public static int addLagSpike(TickPhase phase, PrePostSubPhase subPhase, long millis) {
         pendingLagPhase = phase;
         pendingLagSubPhase = subPhase;
         pendingLagTime = millis;

@@ -9,13 +9,11 @@ import essentialaddons.EssentialSettings;
 import essentialaddons.EssentialUtils;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.TntEntity;
-import net.minecraft.entity.mob.HostileEntity;
 import net.minecraft.server.command.ServerCommandSource;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.util.math.Box;
 
 import java.util.Collection;
-import java.util.List;
 
 import static net.minecraft.server.command.CommandManager.argument;
 import static net.minecraft.server.command.CommandManager.literal;
@@ -30,7 +28,7 @@ public class CommandDefuse {
     }
 
     private static Collection<TntEntity> getTntEntities(ServerCommandSource commandSource, int range) throws CommandSyntaxException {
-        ServerPlayerEntity playerEntity = commandSource.getPlayer();
+        ServerPlayerEntity playerEntity = commandSource.getPlayerOrThrow();
         double x = playerEntity.getX(), y = playerEntity.getY(), z = playerEntity.getZ();
         Box nearPlayer = new Box(x - range,y - range,z - range,x + range,y + range, z + range);
         return playerEntity.world.getEntitiesByClass(TntEntity.class, nearPlayer, tnt -> true);

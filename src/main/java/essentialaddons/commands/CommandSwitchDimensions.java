@@ -15,7 +15,7 @@ public class CommandSwitchDimensions {
     public static void register(CommandDispatcher<ServerCommandSource> dispatcher) {
         dispatcher.register(literal("switchdimensions").requires((player) -> SettingsManager.canUseCommand(player, EssentialSettings.commandSwitchDimensions))
             .executes(context -> {
-                ServerPlayerEntity playerEntity = context.getSource().getPlayer();
+                ServerPlayerEntity playerEntity = context.getSource().getPlayerOrThrow();
                 ServerWorld overworld = context.getSource().getServer().getWorld(World.OVERWORLD);
                 ServerWorld nether = context.getSource().getServer().getWorld(World.NETHER);
                 if (playerEntity.getWorld() == overworld) {

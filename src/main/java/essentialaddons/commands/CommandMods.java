@@ -19,7 +19,7 @@ public class CommandMods {
     public static void register(CommandDispatcher<ServerCommandSource> dispatcher) {
         dispatcher.register(literal("mods").requires((player) -> SettingsManager.canUseCommand(player, EssentialSettings.commandMods))
             .executes(context -> {
-                ServerPlayerEntity playerEntity = context.getSource().getPlayer();
+                ServerPlayerEntity playerEntity = context.getSource().getPlayerOrThrow();
                 Collection<ModContainer> mods = FabricLoader.getInstance().getAllMods();
                 Collection<ModContainer> usefulMods = new LinkedList<>();
                 for (ModContainer mod : mods) {

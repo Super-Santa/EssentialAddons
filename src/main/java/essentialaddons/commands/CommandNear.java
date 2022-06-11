@@ -21,7 +21,7 @@ public class CommandNear {
         dispatcher.register(literal("near").requires((player) -> SettingsManager.canUseCommand(player, EssentialSettings.commandNear))
             .then(argument("distance", IntegerArgumentType.integer(1))
                 .executes(context -> {
-                    ServerPlayerEntity serverPlayerEntity = context.getSource().getPlayer();
+                    ServerPlayerEntity serverPlayerEntity = context.getSource().getPlayerOrThrow();
                     int distance = context.getArgument("distance", Integer.class);
                     Box nearPlayer = new Box(serverPlayerEntity.getX() - distance,serverPlayerEntity.getY() - distance,serverPlayerEntity.getZ() - distance,serverPlayerEntity.getX() + distance,serverPlayerEntity.getY() + distance,serverPlayerEntity.getZ() + distance);
                     List<PlayerEntity> playerEntities = serverPlayerEntity.world.getEntitiesByType(EntityType.PLAYER, nearPlayer, ServerPlayerEntity -> true);

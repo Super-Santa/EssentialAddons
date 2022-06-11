@@ -14,7 +14,7 @@ public class CommandGod {
     public static void register(CommandDispatcher<ServerCommandSource> dispatcher) {
         dispatcher.register(literal("god").requires((player) -> SettingsManager.canUseCommand(player, EssentialSettings.commandGod))
             .executes(context -> {
-                ServerPlayerEntity playerEntity = context.getSource().getPlayer();
+                ServerPlayerEntity playerEntity = context.getSource().getPlayerOrThrow();
                 if (!playerEntity.getAbilities().invulnerable) {
                     playerEntity.getAbilities().invulnerable = true;
                     EssentialUtils.sendToActionBar(playerEntity, "§6Invulnerability §aEnabled");

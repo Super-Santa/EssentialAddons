@@ -12,14 +12,17 @@ import essentialaddons.utils.ducks.IFakePlayer;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtOps;
 import net.minecraft.network.NetworkSide;
+import net.minecraft.network.encryption.PlayerPublicKey;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
+import net.minecraft.text.MutableText;
 import net.minecraft.text.Text;
-import net.minecraft.text.TranslatableText;
+import net.minecraft.text.TranslatableTextContent;
 import net.minecraft.util.registry.RegistryKey;
 import net.minecraft.world.World;
 import net.minecraft.world.dimension.DimensionType;
+import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -27,19 +30,19 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(value = EntityPlayerMPFake.class)
 public abstract class EntityPlayerMPFakeMixin extends ServerPlayerEntity implements IFakePlayer {
-	public EntityPlayerMPFakeMixin(MinecraftServer server, ServerWorld world, GameProfile profile) {
-		super(server, world, profile);
+	public EntityPlayerMPFakeMixin(MinecraftServer server, ServerWorld world, GameProfile profile, @Nullable PlayerPublicKey publicKey) {
+		super(server, world, profile, publicKey);
 	}
 
 	@Inject(method = "<init>", at = @At("TAIL"), remap = false)
-	private void onCreateFakePlayer(MinecraftServer server, ServerWorld worldIn, GameProfile profile, boolean shadow, CallbackInfo ci) {
+	private void onCreateFakePlayer(MinecraftServer server, ServerWorld worldIn, GameProfile profile, boolean shadow, PlayerPublicKey profilePublicKey, CallbackInfo ci) {
 		ConfigFakePlayerData.INSTANCE.addFakePlayer((EntityPlayerMPFake) (Object) this);
 	}
 
 	@Inject(method = "kill(Lnet/minecraft/text/Text;)V", at = @At("HEAD"))
 	private void onPlayerKill(Text reason, CallbackInfo ci) {
 		ConfigFakePlayerData.INSTANCE.removeFakePlayer((EntityPlayerMPFake) (Object) this);
-		if (EssentialSettings.fakePlayerDropInventoryOnKill && !(reason instanceof TranslatableText text && text.getKey().equals("multiplayer.disconnect.duplicate_login"))) {
+		if (EssentialSettings.fakePlayerDropInventoryOnKill && !(reason instanceof MutableText text && text.getContent() instanceof TranslatableTextContent content && content.getKey().equals("multiplayer.disconnect.duplicate_login"))) {
 			this.dropInventory();
 		}
 	}

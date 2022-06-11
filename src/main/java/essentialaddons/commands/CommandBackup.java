@@ -17,7 +17,6 @@ import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.command.ServerCommandSource;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
-import net.minecraft.text.LiteralText;
 import net.minecraft.util.Formatting;
 
 import java.nio.file.Files;
@@ -88,7 +87,7 @@ public class CommandBackup {
 	}
 
 	private static CompletableFuture<Suggestions> getPlayerRegion(CommandContext<ServerCommandSource> context, SuggestionsBuilder builder, boolean xAxis) throws CommandSyntaxException {
-		ServerPlayerEntity playerEntity = context.getSource().getPlayer();
+		ServerPlayerEntity playerEntity = context.getSource().getPlayerOrThrow();
 		int position = (int) Math.floor((xAxis ? playerEntity.getX() : playerEntity.getZ()) / 512);
 		return CommandSource.suggestMatching(List.of(String.valueOf(position)), builder);
 	}

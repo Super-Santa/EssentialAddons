@@ -38,7 +38,7 @@ public class ReloadFakePlayers {
             SkullBlockEntity.loadProperties(gameProfile, result::set);
             gameProfile = result.get();
         }
-        EntityPlayerMPFake instance = EntityPlayerMPFakeInvoker.init(server, server.getOverworld(), gameProfile, false);
+        EntityPlayerMPFake instance = EntityPlayerMPFakeInvoker.init(server, server.getOverworld(), gameProfile, false, null);
         if (EssentialSettings.reloadFakePlayerActions) {
             EntityPlayerActionPack actionPack = ((ServerPlayerEntityInterface) instance).getActionPack();
             actionPack.setSneaking(sneaking).setSprinting(sprinting).setForward(forward).setStrafing(strafing);

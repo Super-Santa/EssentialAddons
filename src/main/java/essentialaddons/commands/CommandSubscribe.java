@@ -16,7 +16,7 @@ public class CommandSubscribe {
         for (Subscription subscription : Subscription.values()) {
             String subscriptionName = subscription.getName();
             subscribeCommand.then(literal(subscriptionName).requires(source -> subscription.getRequirement().get()).executes(ctx -> {
-                ServerPlayerEntity playerEntity = ctx.getSource().getPlayer();
+                ServerPlayerEntity playerEntity = ctx.getSource().getPlayerOrThrow();
                 String message = subMessage(subscription.togglePlayer(playerEntity));
                 EssentialUtils.sendToActionBar(playerEntity, message + " " + subscriptionName);
                 return 1;
