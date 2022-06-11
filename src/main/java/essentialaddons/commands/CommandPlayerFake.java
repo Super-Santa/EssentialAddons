@@ -58,7 +58,7 @@ public class CommandPlayerFake {
                             Messenger.m(context.getSource(), "r Cannot kill this player");
                             return 0;
                         }
-                        playerEntity.getServerWorld().getChunkManager().loadEntity(playerEntity);
+                        playerEntity.getWorld().getChunkManager().loadEntity(playerEntity);
                         playerEntity.kill();
                         return 0;
                     })

@@ -36,7 +36,7 @@ public class CommandRegion {
                             ServerPlayerEntity playerEntity = context.getSource().getPlayer();
                             int x = context.getArgument("x", Integer.class) * 512 + 256;
                             int z = context.getArgument("z", Integer.class) * 512 + 256;
-                            playerEntity.teleport(playerEntity.getServerWorld(), x, playerEntity.getY(), z, playerEntity.getYaw(), playerEntity.getPitch());
+                            playerEntity.teleport(playerEntity.getWorld(), x, playerEntity.getY(), z, playerEntity.getYaw(), playerEntity.getPitch());
                             return 0;
                         })
                     )

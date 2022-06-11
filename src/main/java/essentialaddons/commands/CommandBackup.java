@@ -103,7 +103,7 @@ public class CommandBackup {
 			EssentialUtils.throwAsRuntime(() -> Files.createDirectories(savePath));
 		}
 
-		Path fromPath = ((MinecraftServerAccessor) server).getSession().getWorldDirectory(world.getRegistryKey()).toPath().resolve("region");
+		Path fromPath = ((MinecraftServerAccessor) server).getSession().getWorldDirectory(world.getRegistryKey()).resolve("region");
 
 		if (!Files.exists(fromPath)) {
 			source.sendFeedback(EssentialUtils.literal("World has no such regions"), false);

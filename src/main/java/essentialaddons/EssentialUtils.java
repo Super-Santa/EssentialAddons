@@ -40,8 +40,8 @@ public class EssentialUtils {
     }
 
     public static boolean isItemShulkerBox(Item item) {
-    }
         return item instanceof BlockItem blockItem && blockItem.getBlock() instanceof ShulkerBoxBlock;
+    }
 
     public static void placeItemInInventory(BlockState state, World world, BlockPos pos, BlockEntity blockEntity, ServerPlayerEntity player, ItemStack stack){
         if (world instanceof ServerWorld serverWorld) {

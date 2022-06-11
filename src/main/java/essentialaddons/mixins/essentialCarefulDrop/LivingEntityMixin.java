@@ -35,7 +35,7 @@ public abstract class LivingEntityMixin extends Entity {
 		if (EssentialUtils.hasCareful(source.getAttacker(), Subscription.ESSENTIAL_CAREFUL_DROP)) {
 			ServerPlayerEntity player = (ServerPlayerEntity) source.getAttacker();
 			Identifier identifier = this.getLootTable();
-			LootTable lootTable = player.getServerWorld().getServer().getLootManager().getTable(identifier);
+			LootTable lootTable = player.getWorld().getServer().getLootManager().getTable(identifier);
 			LootContext.Builder builder = this.getLootContextBuilder(causedByPlayer, source);
 			lootTable.generateLoot(builder.build(LootContextTypes.ENTITY), stack -> {
 				if (!EssentialUtils.placeItemInInventory(player, stack)) {
