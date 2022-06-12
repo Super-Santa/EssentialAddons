@@ -8,7 +8,7 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Redirect;
 
-@Mixin(value = LithiumStackList.class, remap = false)
+@Mixin(LithiumStackList.class)
 public class LithiumStackListMixin {
     @Redirect(method = "calculateSignalStrength", at = @At(value = "INVOKE", target = "Lnet/minecraft/item/ItemStack;getMaxCount()I"))
     private int onGetMaxCount(ItemStack itemStack) {
