@@ -290,7 +290,7 @@ public class EssentialSettings {
     public static String commandWorkbench = "false";
 
     @Rule(
-        desc = "Allows your to edit a sign after its places by right clicking it while sneaking",
+        desc = "Allows you to edit a sign after it has been placed by right clicking it while sneaking",
         options = {"true", "false"},
         category = {ESSENTIAL, EXPERIMENTAL, FEATURE}
     )
@@ -345,9 +345,9 @@ public class EssentialSettings {
     public static boolean infiniteItems = false;
 
     @Rule(
-        desc = "Changes the max chat length, you need EssentialClient for this to work",
+        desc = "Changes the max chat length limit, you need EssentialClient for this to work, setting this rule below 256 may cause issues",
         options = {"256", "1024"},
-        category = {ESSENTIAL, FEATURE},
+        category = {ESSENTIAL, FEATURE, EXPERIMENTAL},
         strict = false,
         validate = Validator.NONNEGATIVE_NUMBER.class
     )
