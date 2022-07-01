@@ -46,6 +46,7 @@
     "lagSpike.WorldMixin",
     "lithium.HopperHelperMixin",
     "lithium.LithiumStackListMixin",
+    "maxChatLength.ChatMessageC2SPacketMixin",
     "minecartBoosting.AbstractMinecartEntityMixin",
     "reloadFakePlayers.ActionMixin",
     "reloadFakePlayers.EntityPlayerActionPackAccessor",
