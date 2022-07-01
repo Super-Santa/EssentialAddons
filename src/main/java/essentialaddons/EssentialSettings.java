@@ -345,6 +345,15 @@ public class EssentialSettings {
     public static boolean infiniteItems = false;
 
     @Rule(
+        desc = "Changes the max chat length, you need EssentialClient for this to work",
+        options = {"256", "1024"},
+        category = {ESSENTIAL, FEATURE},
+        strict = false,
+        validate = Validator.NONNEGATIVE_NUMBER.class
+    )
+    public static int maxChatLength = 256;
+
+    @Rule(
         desc = "Reimplements minecart boosting",
         options = {"false", "true"},
         category = {ESSENTIAL, FEATURE, EXPERIMENTAL}
