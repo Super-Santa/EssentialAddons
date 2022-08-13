@@ -72,13 +72,6 @@ public class EssentialAddons implements CarpetExtension, ModInitializer {
     }
 
     @Override
-    public void onServerLoadedWorlds(MinecraftServer server) {
-        if (EssentialSettings.reloadFakePlayers) {
-            ReloadFakePlayers.loadFakePlayers(server);
-        }
-    }
-
-    @Override
     public void onServerClosed(MinecraftServer server) {
         for (Config config : CONFIG_SET) {
             config.saveConfig();
@@ -119,5 +112,11 @@ public class EssentialAddons implements CarpetExtension, ModInitializer {
     @Override
     public void onPlayerLoggedIn(ServerPlayerEntity player) {
         NETWORK_HANDLERS.forEach(networkHandler -> networkHandler.sayHello(player));
+    }
+
+    public static void onServerStarted(MinecraftServer server) {
+        if (EssentialSettings.reloadFakePlayers) {
+            ReloadFakePlayers.loadFakePlayers(server);
+        }
     }
 }

@@ -6,6 +6,7 @@ import carpet.helpers.EntityPlayerActionPack.ActionType;
 import carpet.patches.EntityPlayerMPFake;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
+import essentialaddons.EssentialAddons;
 import essentialaddons.feature.ReloadFakePlayers;
 import essentialaddons.mixins.reloadFakePlayers.ActionMixin;
 import essentialaddons.mixins.reloadFakePlayers.EntityPlayerActionPackAccessor;
@@ -77,30 +78,37 @@ public class ConfigFakePlayerData implements Config {
 
 	public void readConfig(MinecraftServer server) {
 		JsonArray totalPlayerData = this.getConfigData();
+		Set<UUID> loadedPlayers = new HashSet<>();
 		totalPlayerData.forEach(jsonElement -> {
 			JsonObject playerData = jsonElement.getAsJsonObject();
 			UUID playerUUID = UUID.fromString(playerData.get("uuid").getAsString());
-			String username = playerData.get("username").getAsString();
-			boolean isSneaking = playerData.get("sneaking").getAsBoolean();
-			boolean isSprinting = playerData.get("sprinting").getAsBoolean();
-			float forward = playerData.get("forward").getAsFloat();
-			float strafing = playerData.get("strafing").getAsFloat();
-			Map<ActionType, Action> actionMap = new TreeMap<>();
-			JsonArray playerActions = playerData.get("actions").getAsJsonArray();
-			playerActions.forEach(element -> {
-				JsonObject actionData = element.getAsJsonObject();
-				ActionType type = ActionType.valueOf(actionData.get("type").getAsString());
-				Action action = ActionMixin.init(
-					actionData.get("limit").getAsInt(),
-					actionData.get("interval").getAsInt(),
-					actionData.get("offset").getAsInt(),
-					actionData.get("continuous").getAsBoolean()
-				);
-				((ActionMixin) action).setCount(actionData.get("count").getAsInt());
-				((ActionMixin) action).setNext(actionData.get("next").getAsInt());
-				actionMap.put(type, action);
-			});
-			ReloadFakePlayers.loadPlayer(server, playerUUID, username, isSneaking, isSprinting, forward, strafing, actionMap);
+
+			if (!loadedPlayers.contains(playerUUID)) {
+				String username = playerData.get("username").getAsString();
+				boolean isSneaking = playerData.get("sneaking").getAsBoolean();
+				boolean isSprinting = playerData.get("sprinting").getAsBoolean();
+				float forward = playerData.get("forward").getAsFloat();
+				float strafing = playerData.get("strafing").getAsFloat();
+				Map<ActionType, Action> actionMap = new TreeMap<>();
+				JsonArray playerActions = playerData.get("actions").getAsJsonArray();
+				playerActions.forEach(element -> {
+					JsonObject actionData = element.getAsJsonObject();
+					ActionType type = ActionType.valueOf(actionData.get("type").getAsString());
+					Action action = ActionMixin.init(
+						actionData.get("limit").getAsInt(),
+						actionData.get("interval").getAsInt(),
+						actionData.get("offset").getAsInt(),
+						actionData.get("continuous").getAsBoolean()
+					);
+					((ActionMixin) action).setCount(actionData.get("count").getAsInt());
+					((ActionMixin) action).setNext(actionData.get("next").getAsInt());
+					actionMap.put(type, action);
+				});
+				loadedPlayers.add(playerUUID);
+				ReloadFakePlayers.loadPlayer(server, playerUUID, username, isSneaking, isSprinting, forward, strafing, actionMap);
+			} else {
+				EssentialAddons.LOGGER.warn("Tried to load duplicate player: {}", playerUUID);
+			}
 		});
 	}
 }

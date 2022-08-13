@@ -1,7 +1,6 @@
 package essentialaddons.feature.script;
 
 import carpet.script.CarpetContext;
-import carpet.script.CarpetEventServer;
 import carpet.script.Expression;
 import carpet.script.exception.InternalExpressionException;
 import carpet.script.value.*;
@@ -25,13 +24,10 @@ import java.util.Optional;
 import static essentialaddons.utils.NetworkUtils.*;
 
 public class ScriptPacketHandler extends NetworkHandler {
-	private static final PacketEvent EVENT;
-
 	public static final ScriptPacketHandler INSTANCE = new ScriptPacketHandler();
 	public static final Identifier SCRIPT_HANDLER;
 
 	static {
-		EVENT = new PacketEvent();
 		SCRIPT_HANDLER = new Identifier("essentialclient", "clientscript");
 	}
 
@@ -88,17 +84,7 @@ public class ScriptPacketHandler extends NetworkHandler {
 	@Override
 	protected void processData(PacketByteBuf packetByteBuf, ServerPlayerEntity player) {
 		PacketParser parser = new PacketParser(packetByteBuf);
-		EVENT.onScriptPacket(player, List.of(EntityValue.of(player), parser.parseToValues()));
-	}
-
-	private static class PacketEvent extends CarpetEventServer.Event {
-		public PacketEvent() {
-			super("script_packet", 2, true);
-		}
-
-		public void onScriptPacket(ServerPlayerEntity player, List<Value> values) {
-			this.handler.call(() -> values, player::getCommandSource);
-		}
+		PacketEvent.EVENT.onScriptPacket(player, List.of(EntityValue.of(player), parser.parseToValues()));
 	}
 
 	private record PacketParser(PacketByteBuf buf) {

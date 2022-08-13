@@ -53,7 +53,6 @@
     "reloadFakePlayers.EntityPlayerActionPackAccessor",
     "reloadFakePlayers.EntityPlayerMPFakeInvoker",
     "reloadFakePlayers.EntityPlayerMPFakeMixin",
-    "reloadFakePlayers.IntegratedPlayerManagerMixin",
     "removeWarnMismatchBlockPos.ServerPlayerInteractionManagerMixin",
     "removeWarnRemovedEntity.EntityTrackerEntryMixin",
     "shulkerSeption.ShulkerBoxSlotMixin",
@@ -63,6 +62,9 @@
     "stackableShulkers.ItemEntityMixin",
     "stackableShulkers.ItemStackMixin",
     "stackableShulkers.ScreenHandlerMixin"
+  ],
+  "client": [
+    "reloadFakePlayers.IntegratedPlayerManagerMixin"
   ],
   "injectors": {
     "defaultRequire": 1

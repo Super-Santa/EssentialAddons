@@ -1,6 +1,5 @@
 package essentialaddons;
 
-import carpet.CarpetServer;
 import carpet.helpers.InventoryHelper;
 import essentialaddons.utils.Subscription;
 import net.fabricmc.api.EnvType;
@@ -24,12 +23,15 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
 import java.nio.file.Path;
+import java.util.Random;
 
 import static essentialaddons.EssentialAddons.server;
 import static net.minecraft.block.Block.dropStack;
 import static net.minecraft.block.Block.getDroppedStacks;
 
 public class EssentialUtils {
+    public static final Random RANDOM = new Random();
+
     public static void sendToActionBar(ServerPlayerEntity playerEntity, String message) {
         playerEntity.sendMessage(EssentialUtils.literal(message), true);
     }
@@ -62,7 +64,7 @@ public class EssentialUtils {
             item = itemStack.getItem();
         }
         if (player.getInventory().insertStack(itemStack)) {
-            player.getServerWorld().playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.ENTITY_ITEM_PICKUP, SoundCategory.PLAYERS, 0.2f, (CarpetServer.rand.nextFloat() - CarpetServer.rand.nextFloat()) * 1.4F + 2.0F);
+            player.getServerWorld().playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.ENTITY_ITEM_PICKUP, SoundCategory.PLAYERS, 0.2f, (RANDOM.nextFloat() - RANDOM.nextFloat()) * 1.4F + 2.0F);
             player.increaseStat(Stats.PICKED_UP.getOrCreateStat(item), itemAmount);
             return true;
         }
