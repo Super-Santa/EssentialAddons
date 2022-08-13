@@ -20,7 +20,8 @@ public class MinecraftServerMixin {
     }
 
     // For compatability with Voice Chat Mod
-    @Inject(method = "runServer", at = @At(value = "INVOKE", target = "Lnet/minecraft/server/MinecraftServer;setupServer()Z", shift = At.Shift.AFTER))
+    // This is the absolute latest we can add this event before server starts ticking
+    @Inject(method = "runServer", at = @At(value = "INVOKE", target = "Lnet/minecraft/server/MinecraftServer;setFavicon(Lnet/minecraft/server/ServerMetadata;)V", shift = At.Shift.AFTER))
     private void onServerStartingLate(CallbackInfo ci) {
         EssentialAddons.onServerStarted((MinecraftServer) (Object) this);
     }
