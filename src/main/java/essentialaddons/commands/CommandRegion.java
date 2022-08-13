@@ -1,6 +1,6 @@
 package essentialaddons.commands;
 
-import carpet.settings.SettingsManager;
+import carpet.utils.CommandHelper;
 import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.arguments.IntegerArgumentType;
 import essentialaddons.EssentialSettings;
@@ -14,7 +14,7 @@ import static net.minecraft.server.command.CommandManager.literal;
 
 public class CommandRegion {
     public static void register(CommandDispatcher<ServerCommandSource> dispatcher) {
-        dispatcher.register(literal("region").requires((player) -> SettingsManager.canUseCommand(player, EssentialSettings.commandRegion))
+        dispatcher.register(literal("region").requires((player) -> CommandHelper.canUseCommand(player, EssentialSettings.commandRegion))
             .then(literal("get")
                 .then(argument("pos", Vec2ArgumentType.vec2())
                     .executes(context -> {

@@ -1,6 +1,6 @@
 package essentialaddons.commands;
 
-import carpet.settings.SettingsManager;
+import carpet.utils.CommandHelper;
 import com.mojang.brigadier.CommandDispatcher;
 import essentialaddons.EssentialSettings;
 import essentialaddons.EssentialUtils;
@@ -19,7 +19,7 @@ public class CommandWarp {
     public static Map<UUID, Location> warpData = new HashMap<>();
 
     public static void register(CommandDispatcher<ServerCommandSource> dispatcher) {
-        dispatcher.register(literal("setwarp").requires((player) -> SettingsManager.canUseCommand(player, EssentialSettings.commandWarp))
+        dispatcher.register(literal("setwarp").requires((player) -> CommandHelper.canUseCommand(player, EssentialSettings.commandWarp))
             .executes(context -> {
                 ServerPlayerEntity playerEntity = context.getSource().getPlayerOrThrow();
                 UUID playerUUID = playerEntity.getUuid();
@@ -28,7 +28,7 @@ public class CommandWarp {
                 EssentialUtils.sendToActionBar(playerEntity, "§6Warp has been set");
                 return 0;
             }));
-        dispatcher.register(literal("warp").requires((player) -> SettingsManager.canUseCommand(player, EssentialSettings.commandWarp))
+        dispatcher.register(literal("warp").requires((player) -> CommandHelper.canUseCommand(player, EssentialSettings.commandWarp))
             .executes(context -> {
                 ServerPlayerEntity playerEntity = context.getSource().getPlayerOrThrow();
                 UUID playerUUID = playerEntity.getUuid();

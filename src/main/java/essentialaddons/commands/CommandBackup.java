@@ -1,6 +1,6 @@
 package essentialaddons.commands;
 
-import carpet.settings.SettingsManager;
+import carpet.utils.CommandHelper;
 import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.arguments.BoolArgumentType;
 import com.mojang.brigadier.arguments.IntegerArgumentType;
@@ -33,7 +33,7 @@ import static net.minecraft.server.command.CommandManager.literal;
 public class CommandBackup {
 	// Ngl one of the worst looking command trees...
 	public static void register(CommandDispatcher<ServerCommandSource> dispatcher) {
-		dispatcher.register(literal("backup").requires((player) -> SettingsManager.canUseCommand(player, EssentialSettings.commandBackup))
+		dispatcher.register(literal("backup").requires((player) -> CommandHelper.canUseCommand(player, EssentialSettings.commandBackup))
 			.then(argument("regionxfrom", IntegerArgumentType.integer())
 				.suggests((c, b) -> getPlayerRegion(c, b, true))
 				.then(argument("regionzfrom", IntegerArgumentType.integer())

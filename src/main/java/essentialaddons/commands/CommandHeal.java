@@ -1,6 +1,6 @@
 package essentialaddons.commands;
 
-import carpet.settings.SettingsManager;
+import carpet.utils.CommandHelper;
 import com.mojang.brigadier.CommandDispatcher;
 import essentialaddons.EssentialSettings;
 import essentialaddons.EssentialUtils;
@@ -10,9 +10,8 @@ import net.minecraft.server.network.ServerPlayerEntity;
 import static net.minecraft.server.command.CommandManager.literal;
 
 public class CommandHeal {
-
     public static void register(CommandDispatcher<ServerCommandSource> dispatcher) {
-        dispatcher.register(literal("heal").requires((player) -> SettingsManager.canUseCommand(player, EssentialSettings.commandHeal))
+        dispatcher.register(literal("heal").requires((player) -> CommandHelper.canUseCommand(player, EssentialSettings.commandHeal))
             .executes(context -> {
                 ServerPlayerEntity playerEntity = context.getSource().getPlayerOrThrow();
                 playerEntity.setHealth(playerEntity.getMaxHealth());

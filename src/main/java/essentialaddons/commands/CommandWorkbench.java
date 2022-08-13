@@ -1,6 +1,6 @@
 package essentialaddons.commands;
 
-import carpet.settings.SettingsManager;
+import carpet.utils.CommandHelper;
 import com.mojang.brigadier.CommandDispatcher;
 import essentialaddons.EssentialSettings;
 import net.minecraft.screen.CraftingScreenHandler;
@@ -14,7 +14,7 @@ import static net.minecraft.server.command.CommandManager.literal;
 
 public class CommandWorkbench {
     public static void register(CommandDispatcher<ServerCommandSource> dispatcher) {
-        dispatcher.register(literal("workbench").requires((player) -> SettingsManager.canUseCommand(player, EssentialSettings.commandWorkbench))
+        dispatcher.register(literal("workbench").requires((player) -> CommandHelper.canUseCommand(player, EssentialSettings.commandWorkbench))
             .executes(context -> {
                 ServerPlayerEntity playerEntity = context.getSource().getPlayerOrThrow();
                 playerEntity.openHandledScreen(new SimpleNamedScreenHandlerFactory((syncId, playerInv, player) ->

@@ -1,6 +1,6 @@
 package essentialaddons.commands;
 
-import carpet.settings.SettingsManager;
+import carpet.utils.CommandHelper;
 import com.mojang.brigadier.CommandDispatcher;
 import essentialaddons.EssentialSettings;
 import essentialaddons.EssentialUtils;
@@ -13,7 +13,7 @@ import static net.minecraft.server.command.CommandManager.literal;
 
 public class CommandSwitchDimensions {
     public static void register(CommandDispatcher<ServerCommandSource> dispatcher) {
-        dispatcher.register(literal("switchdimensions").requires((player) -> SettingsManager.canUseCommand(player, EssentialSettings.commandSwitchDimensions))
+        dispatcher.register(literal("switchdimensions").requires((player) -> CommandHelper.canUseCommand(player, EssentialSettings.commandSwitchDimensions))
             .executes(context -> {
                 ServerPlayerEntity playerEntity = context.getSource().getPlayerOrThrow();
                 ServerWorld overworld = context.getSource().getServer().getWorld(World.OVERWORLD);

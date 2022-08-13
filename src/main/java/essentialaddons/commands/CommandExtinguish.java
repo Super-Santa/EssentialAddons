@@ -1,6 +1,6 @@
 package essentialaddons.commands;
 
-import carpet.settings.SettingsManager;
+import carpet.utils.CommandHelper;
 import com.mojang.brigadier.CommandDispatcher;
 import essentialaddons.EssentialSettings;
 import essentialaddons.EssentialUtils;
@@ -10,9 +10,8 @@ import net.minecraft.server.network.ServerPlayerEntity;
 import static net.minecraft.server.command.CommandManager.literal;
 
 public class CommandExtinguish {
-
     public static void register(CommandDispatcher<ServerCommandSource> dispatcher) {
-        dispatcher.register(literal("extinguish").requires((player) -> SettingsManager.canUseCommand(player, EssentialSettings.commandExtinguish))
+        dispatcher.register(literal("extinguish").requires((player) -> CommandHelper.canUseCommand(player, EssentialSettings.commandExtinguish))
             .executes(context -> {
                 ServerPlayerEntity playerEntity = context.getSource().getPlayerOrThrow();
                 if (playerEntity.isOnFire()) {

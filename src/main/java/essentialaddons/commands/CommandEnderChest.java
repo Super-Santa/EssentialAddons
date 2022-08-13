@@ -1,6 +1,6 @@
 package essentialaddons.commands;
 
-import carpet.settings.SettingsManager;
+import carpet.utils.CommandHelper;
 import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import essentialaddons.EssentialSettings;
@@ -15,8 +15,8 @@ import static net.minecraft.server.command.CommandManager.literal;
 
 public class CommandEnderChest {
     public static void register(CommandDispatcher<ServerCommandSource> dispatcher) {
-        dispatcher.register(literal("enderchest").requires((player) -> SettingsManager.canUseCommand(player, EssentialSettings.commandEnderChest)).executes(context -> CommandEnderChest.execute(context.getSource())));
-        dispatcher.register(literal("ec").requires((player) -> SettingsManager.canUseCommand(player, EssentialSettings.commandEnderChest)).executes(context -> CommandEnderChest.execute(context.getSource())));
+        dispatcher.register(literal("enderchest").requires((player) -> CommandHelper.canUseCommand(player, EssentialSettings.commandEnderChest)).executes(context -> CommandEnderChest.execute(context.getSource())));
+        dispatcher.register(literal("ec").requires((player) -> CommandHelper.canUseCommand(player, EssentialSettings.commandEnderChest)).executes(context -> CommandEnderChest.execute(context.getSource())));
     }
 
     private static int execute(ServerCommandSource source) throws CommandSyntaxException {

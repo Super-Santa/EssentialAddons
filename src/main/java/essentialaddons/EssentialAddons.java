@@ -11,12 +11,14 @@ import essentialaddons.feature.script.ScriptPacketHandler;
 import essentialaddons.utils.*;
 import essentialaddons.logging.EssentialAddonsLoggerRegistry;
 import net.fabricmc.api.ModInitializer;
+import net.minecraft.command.CommandRegistryAccess;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.command.ServerCommandSource;
 import net.minecraft.server.network.ServerPlayerEntity;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import java.util.Map;
 import java.util.Set;
 
 public class EssentialAddons implements CarpetExtension, ModInitializer {
@@ -79,7 +81,7 @@ public class EssentialAddons implements CarpetExtension, ModInitializer {
     }
 
     @Override
-    public void registerCommands(CommandDispatcher<ServerCommandSource> dispatcher) {
+    public void registerCommands(CommandDispatcher<ServerCommandSource> dispatcher, CommandRegistryAccess commandBuildContext) {
         CommandRegion.register(dispatcher);
         CommandFly.register(dispatcher);
         CommandHat.register(dispatcher);
@@ -112,6 +114,11 @@ public class EssentialAddons implements CarpetExtension, ModInitializer {
     @Override
     public void onPlayerLoggedIn(ServerPlayerEntity player) {
         NETWORK_HANDLERS.forEach(networkHandler -> networkHandler.sayHello(player));
+    }
+
+    @Override
+    public Map<String, String> canHasTranslations(String lang) {
+        return EssentialUtils.getTranslations(lang);
     }
 
     public static void onServerStarted(MinecraftServer server) {

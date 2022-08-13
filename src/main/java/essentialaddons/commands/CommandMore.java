@@ -1,6 +1,6 @@
 package essentialaddons.commands;
 
-import carpet.settings.SettingsManager;
+import carpet.utils.CommandHelper;
 import com.mojang.brigadier.CommandDispatcher;
 import essentialaddons.EssentialSettings;
 import essentialaddons.EssentialUtils;
@@ -14,10 +14,10 @@ import static net.minecraft.server.command.CommandManager.literal;
 public class CommandMore {
 
     public static void register(CommandDispatcher<ServerCommandSource> dispatcher) {
-        dispatcher.register(literal("more").requires((player) -> SettingsManager.canUseCommand(player, EssentialSettings.commandMore))
+        dispatcher.register(literal("more").requires((player) -> CommandHelper.canUseCommand(player, EssentialSettings.commandMore))
             .executes(context -> {
                 ServerPlayerEntity playerEntity = context.getSource().getPlayerOrThrow();
-                ItemStack itemStack = context.getSource().getEntityOrThrow().getItemsHand().iterator().next();
+                ItemStack itemStack = context.getSource().getEntityOrThrow().getHandItems().iterator().next();
                 if (itemStack != null && itemStack.getItem() != Items.AIR) {
                     itemStack.setCount(itemStack.getMaxCount());
                     EssentialUtils.sendToActionBar(playerEntity, "§6You have been given a full stack");

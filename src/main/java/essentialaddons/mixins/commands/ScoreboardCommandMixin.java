@@ -1,6 +1,6 @@
 package essentialaddons.mixins.commands;
 
-import carpet.settings.SettingsManager;
+import carpet.utils.CommandHelper;
 import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.builder.LiteralArgumentBuilder;
 import essentialaddons.EssentialSettings;
@@ -17,7 +17,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 public class ScoreboardCommandMixin {
     @Inject(method = "register", at = @At("HEAD"))
     private static void register(CommandDispatcher<ServerCommandSource> dispatcher, CallbackInfo info) {
-        dispatcher.register(CommandManager.literal("scoreboard").requires((serverCommandSource) -> SettingsManager.canUseCommand(serverCommandSource, EssentialSettings.commandPublicScoreboard) || serverCommandSource.hasPermissionLevel(2)));
+        dispatcher.register(CommandManager.literal("scoreboard").requires((serverCommandSource) -> CommandHelper.canUseCommand(serverCommandSource, EssentialSettings.commandPublicScoreboard) || serverCommandSource.hasPermissionLevel(2)));
     }
 
     @Redirect(method = "register", at = @At(value = "INVOKE", target = "Lnet/minecraft/server/command/CommandManager;literal(Ljava/lang/String;)Lcom/mojang/brigadier/builder/LiteralArgumentBuilder;"))

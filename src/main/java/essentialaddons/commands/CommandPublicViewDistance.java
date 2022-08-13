@@ -1,7 +1,7 @@
 package essentialaddons.commands;
 
 import carpet.CarpetSettings;
-import carpet.settings.SettingsManager;
+import carpet.utils.CommandHelper;
 import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.arguments.IntegerArgumentType;
 import com.mojang.brigadier.context.CommandContext;
@@ -17,7 +17,7 @@ import static net.minecraft.server.command.CommandManager.literal;
 
 public class CommandPublicViewDistance {
     public static void register(CommandDispatcher<ServerCommandSource> dispatcher) {
-        dispatcher.register(literal("viewdistance").requires((player) -> SettingsManager.canUseCommand(player, EssentialSettings.commandPublicViewDistance))
+        dispatcher.register(literal("viewdistance").requires((player) -> CommandHelper.canUseCommand(player, EssentialSettings.commandPublicViewDistance))
             .then(argument("distance", IntegerArgumentType.integer(1))
                 .executes(context -> viewDistance(context, context.getArgument("distance", Integer.class)))
             )

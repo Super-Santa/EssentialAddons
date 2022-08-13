@@ -1,6 +1,6 @@
 package essentialaddons.commands;
 
-import carpet.settings.SettingsManager;
+import carpet.utils.CommandHelper;
 import com.mojang.brigadier.CommandDispatcher;
 import essentialaddons.EssentialSettings;
 import essentialaddons.EssentialUtils;
@@ -13,7 +13,7 @@ import static net.minecraft.server.command.CommandManager.literal;
 
 public class CommandNightVision {
     public static void register(CommandDispatcher<ServerCommandSource> dispatcher) {
-        dispatcher.register(literal("nightvision").requires((player) -> SettingsManager.canUseCommand(player, EssentialSettings.commandNightVision))
+        dispatcher.register(literal("nightvision").requires((player) -> CommandHelper.canUseCommand(player, EssentialSettings.commandNightVision))
             .executes(context -> {
                 ServerPlayerEntity playerEntity = context.getSource().getPlayerOrThrow();
                 if (!playerEntity.hasStatusEffect(StatusEffects.NIGHT_VISION)) {

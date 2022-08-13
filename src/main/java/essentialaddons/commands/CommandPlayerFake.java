@@ -2,7 +2,7 @@ package essentialaddons.commands;
 
 import carpet.CarpetSettings;
 import carpet.patches.EntityPlayerMPFake;
-import carpet.settings.SettingsManager;
+import carpet.utils.CommandHelper;
 import carpet.utils.Messenger;
 import com.google.common.collect.Sets;
 import com.mojang.authlib.GameProfile;
@@ -35,7 +35,7 @@ import static net.minecraft.server.command.CommandManager.literal;
 
 public class CommandPlayerFake {
     public static void register(CommandDispatcher<ServerCommandSource> dispatcher) {
-        dispatcher.register(literal("playerfake").requires((player) -> SettingsManager.canUseCommand(player, EssentialSettings.commandPlayerFake))
+        dispatcher.register(literal("playerfake").requires((player) -> CommandHelper.canUseCommand(player, EssentialSettings.commandPlayerFake))
             .then(argument("player", StringArgumentType.word())
                 .suggests((context, builder) -> CommandSource.suggestMatching(getPlayers(context.getSource()), builder))
                 .then(literal("spawn")

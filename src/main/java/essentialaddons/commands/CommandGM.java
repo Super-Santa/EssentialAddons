@@ -1,6 +1,6 @@
 package essentialaddons.commands;
 
-import carpet.settings.SettingsManager;
+import carpet.utils.CommandHelper;
 import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.builder.LiteralArgumentBuilder;
 import com.mojang.brigadier.tree.CommandNode;
@@ -15,7 +15,7 @@ import static net.minecraft.server.command.CommandManager.literal;
 public class CommandGM {
     public static void register(CommandDispatcher<ServerCommandSource> dispatcher) {
         CommandNode<ServerCommandSource> gamemode = dispatcher.getRoot().getChild("gamemode");
-        Predicate<ServerCommandSource> canUse = (p) -> SettingsManager.canUseCommand(p, EssentialSettings.commandGM);
+        Predicate<ServerCommandSource> canUse = (p) -> CommandHelper.canUseCommand(p, EssentialSettings.commandGM);
         dispatcher.register(setLiteral(((LiteralCommandNode<ServerCommandSource>) gamemode.getChild("creative")).createBuilder(), "gmc").requires(canUse));
         dispatcher.register(setLiteral(((LiteralCommandNode<ServerCommandSource>) gamemode.getChild("survival")).createBuilder(), "gms").requires(canUse));
         dispatcher.register(setLiteral(((LiteralCommandNode<ServerCommandSource>) gamemode.getChild("adventure")).createBuilder(), "gma").requires(canUse));

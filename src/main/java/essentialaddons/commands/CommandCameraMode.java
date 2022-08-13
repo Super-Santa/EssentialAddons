@@ -1,6 +1,6 @@
 package essentialaddons.commands;
 
-import carpet.settings.SettingsManager;
+import carpet.utils.CommandHelper;
 import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.builder.LiteralArgumentBuilder;
 import essentialaddons.EssentialAddons;
@@ -23,7 +23,7 @@ import static net.minecraft.server.command.CommandManager.literal;
 public class CommandCameraMode {
     public static void register(CommandDispatcher<ServerCommandSource> dispatcher) {
         LiteralArgumentBuilder<ServerCommandSource> csCommand = literal("cs");
-        csCommand.requires((p) -> SettingsManager.canUseCommand(p, EssentialSettings.commandCameraMode)).executes(ctx -> {
+        csCommand.requires((p) -> CommandHelper.canUseCommand(p, EssentialSettings.commandCameraMode)).executes(ctx -> {
             return toggle(ctx.getSource().getPlayerOrThrow());
         });
         dispatcher.register(csCommand);

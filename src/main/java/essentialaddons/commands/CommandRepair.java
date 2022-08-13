@@ -1,6 +1,6 @@
 package essentialaddons.commands;
 
-import carpet.settings.SettingsManager;
+import carpet.utils.CommandHelper;
 import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.exceptions.SimpleCommandExceptionType;
 import essentialaddons.EssentialSettings;
@@ -15,7 +15,7 @@ public class CommandRepair {
     private static final SimpleCommandExceptionType CANNOT_REPAIR = new SimpleCommandExceptionType(EssentialUtils.literal("Cannot repair Item"));
 
     public static void register(CommandDispatcher<ServerCommandSource> dispatcher) {
-        dispatcher.register(literal("repair").requires((player) -> SettingsManager.canUseCommand(player, EssentialSettings.commandRepair))
+        dispatcher.register(literal("repair").requires((player) -> CommandHelper.canUseCommand(player, EssentialSettings.commandRepair))
             .executes(context -> {
                 ServerPlayerEntity playerEntity = context.getSource().getPlayerOrThrow();
                 ItemStack itemStack = playerEntity.getMainHandStack();

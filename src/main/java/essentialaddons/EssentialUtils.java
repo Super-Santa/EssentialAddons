@@ -1,6 +1,8 @@
 package essentialaddons;
 
 import carpet.helpers.InventoryHelper;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import net.fabricmc.api.EnvType;
 import essentialaddons.utils.Subscription;
 import net.fabricmc.loader.api.FabricLoader;
@@ -21,8 +23,13 @@ import net.minecraft.util.WorldSavePath;
 import net.minecraft.text.MutableText;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import org.apache.commons.io.IOUtils;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Path;
+import java.util.Map;
 import java.util.Random;
 
 import static essentialaddons.EssentialAddons.server;
@@ -94,6 +101,20 @@ public class EssentialUtils {
     public static Path getConfigPath() {
         FabricLoader fabricLoader = FabricLoader.getInstance();
         return fabricLoader.getEnvironmentType() == EnvType.SERVER ? fabricLoader.getConfigDir() : getSavePath();
+    }
+
+    public static Map<String, String> getTranslations(String lang) {
+        InputStream langFile = EssentialUtils.class.getClassLoader().getResourceAsStream("assets/essentialaddons/lang/%s.json".formatted(lang));
+        if (langFile == null) {
+            return Map.of();
+        }
+        String jsonData;
+        try {
+            jsonData = IOUtils.toString(langFile, StandardCharsets.UTF_8);
+        } catch (IOException e) {
+            return Map.of();
+        }
+        return new Gson().fromJson(jsonData, new TypeToken<Map<String, String>>() {}.getType());
     }
 
     public static void throwAsRuntime(ThrowableRunnable runnable) {
