@@ -3,6 +3,7 @@ package essentialaddons.commands;
 import carpet.settings.SettingsManager;
 import com.mojang.brigadier.CommandDispatcher;
 import essentialaddons.EssentialSettings;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.screen.CraftingScreenHandler;
 import net.minecraft.screen.ScreenHandlerContext;
 import net.minecraft.screen.SimpleNamedScreenHandlerFactory;
@@ -18,7 +19,12 @@ public class CommandWorkbench {
             .executes(context -> {
                 ServerPlayerEntity playerEntity = context.getSource().getPlayer();
                 playerEntity.openHandledScreen(new SimpleNamedScreenHandlerFactory((syncId, playerInv, player) ->
-                    new CraftingScreenHandler(syncId, playerInv, ScreenHandlerContext.create(player.getEntityWorld(), player.getBlockPos())),
+                    new CraftingScreenHandler(syncId, playerInv, ScreenHandlerContext.create(player.getEntityWorld(), player.getBlockPos())) {
+                        @Override
+                        public boolean canUse(PlayerEntity player) {
+                            return true;
+                        }
+                    },
                     new TranslatableText("container.crafting"))
                 );
                 return 0;

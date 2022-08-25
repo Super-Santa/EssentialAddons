@@ -16,4 +16,6 @@ public class PacketEvent extends CarpetEventServer.Event {
 	public void onScriptPacket(ServerPlayerEntity player, List<Value> values) {
 		this.handler.call(() -> values, player::getCommandSource);
 	}
+
+	public static void noop() { }
 }
