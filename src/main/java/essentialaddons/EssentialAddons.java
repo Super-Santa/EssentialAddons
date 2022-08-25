@@ -7,6 +7,7 @@ import com.mojang.brigadier.CommandDispatcher;
 import essentialaddons.commands.*;
 import essentialaddons.feature.GameRuleNetworkHandler;
 import essentialaddons.feature.ReloadFakePlayers;
+import essentialaddons.feature.script.PacketEvent;
 import essentialaddons.feature.script.ScriptPacketHandler;
 import essentialaddons.utils.*;
 import essentialaddons.logging.EssentialAddonsLoggerRegistry;
@@ -74,6 +75,14 @@ public class EssentialAddons implements CarpetExtension, ModInitializer {
     }
 
     @Override
+    public void onServerLoadedWorlds(MinecraftServer server) {
+        if (EssentialSettings.reloadFakePlayers) {
+            ReloadFakePlayers.loadFakePlayers(server);
+        }
+        PacketEvent.noop();
+    }
+
+    @Override
     public void onServerClosed(MinecraftServer server) {
         for (Config config : CONFIG_SET) {
             config.saveConfig();
@@ -119,11 +128,5 @@ public class EssentialAddons implements CarpetExtension, ModInitializer {
     @Override
     public Map<String, String> canHasTranslations(String lang) {
         return EssentialUtils.getTranslations(lang);
-    }
-
-    public static void onServerStarted(MinecraftServer server) {
-        if (EssentialSettings.reloadFakePlayers) {
-            ReloadFakePlayers.loadFakePlayers(server);
-        }
     }
 }

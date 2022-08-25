@@ -5,7 +5,6 @@ import essentialaddons.EssentialUtils;
 import me.jellysquid.mods.lithium.common.hopper.LithiumStackList;
 import net.minecraft.item.ItemStack;
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Pseudo;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Redirect;
 
