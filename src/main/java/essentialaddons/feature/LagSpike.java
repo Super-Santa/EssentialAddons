@@ -19,8 +19,7 @@ public class LagSpike {
         if (phase == pendingLagPhase && subPhase == pendingLagSubPhase) {
             try {
                 Thread.sleep(pendingLagTime);
-            }
-            catch (InterruptedException e) {
+            } catch (InterruptedException e) {
                 e.printStackTrace();
             }
             pendingLagPhase = null;

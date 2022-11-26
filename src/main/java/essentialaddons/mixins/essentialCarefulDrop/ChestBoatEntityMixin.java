@@ -8,7 +8,6 @@ import net.minecraft.entity.EntityType;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.mob.PiglinBrain;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.vehicle.BoatEntity;
 import net.minecraft.entity.vehicle.ChestBoatEntity;
 import net.minecraft.entity.vehicle.VehicleInventory;
 import net.minecraft.item.ItemStack;
@@ -16,10 +15,23 @@ import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.util.ItemScatterer;
 import net.minecraft.world.GameRules;
 import net.minecraft.world.World;
+//#endif
+
+import net.minecraft.entity.vehicle.BoatEntity;
 import org.spongepowered.asm.mixin.Mixin;
 
+//#if MC >= 11900
 @Mixin(ChestBoatEntity.class)
-public abstract class ChestBoatEntityMixin extends BoatEntity implements VehicleInventory {
+//#else
+//$$@Mixin(BoatEntity.class)
+//#endif
+public abstract class ChestBoatEntityMixin
+	//#if MC >= 11900
+	extends BoatEntity implements VehicleInventory
+	//#endif
+{
+
+	//#if MC >= 11900
 	public ChestBoatEntityMixin(EntityType<? extends BoatEntity> entityType, World world) {
 		super(entityType, world);
 	}
@@ -42,5 +54,5 @@ public abstract class ChestBoatEntityMixin extends BoatEntity implements Vehicle
 			}
 		}
 	}
+	//#endif
 }
-//#endif
