@@ -12,7 +12,9 @@ import essentialaddons.feature.script.ScriptPacketHandler;
 import essentialaddons.utils.*;
 import essentialaddons.logging.EssentialAddonsLoggerRegistry;
 import net.fabricmc.api.ModInitializer;
+//#if MC >= 11900
 import net.minecraft.command.CommandRegistryAccess;
+//#endif
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.command.ServerCommandSource;
 import net.minecraft.server.network.ServerPlayerEntity;
@@ -90,7 +92,11 @@ public class EssentialAddons implements CarpetExtension, ModInitializer {
     }
 
     @Override
+    //#if MC >= 11900
     public void registerCommands(CommandDispatcher<ServerCommandSource> dispatcher, CommandRegistryAccess commandBuildContext) {
+        //#else
+        //$$public void registerCommands(CommandDispatcher<ServerCommandSource> dispatcher) {
+        //#endif
         CommandRegion.register(dispatcher);
         CommandFly.register(dispatcher);
         CommandHat.register(dispatcher);

@@ -13,7 +13,7 @@ import net.minecraft.text.Text;
 //#if MC >= 11900
 import static carpet.utils.CommandHelper.canUseCommand;
 //#else
-// import static carpet.settings.SettingsManager.canUseCommand;
+//$$import static carpet.settings.SettingsManager.canUseCommand;
 //#endif
 import static net.minecraft.server.command.CommandManager.literal;
 
