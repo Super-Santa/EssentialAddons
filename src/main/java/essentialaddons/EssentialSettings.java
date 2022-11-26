@@ -430,23 +430,25 @@ public class EssentialSettings {
     @Rule(
         //#if MC >= 11900
         categories = {ESSENTIAL, EXPERIMENTAL, FEATURE},
+        validators = EssentialValidators.GameRuleNoOpValidator.class
         //#else
         //$$desc = "Allows non-op players to change Game Rules from the client",
         //$$category = {ESSENTIAL, EXPERIMENTAL, FEATURE},
+        //$$validate = EssentialValidators.GameRuleNoOpValidator.class
         //#endif
-        validators = EssentialValidators.GameRuleNoOpValidator.class
     )
     public static boolean gameRuleNonOp = false;
 
     @Rule(
         //#if MC >= 11900
         categories = {ESSENTIAL, EXPERIMENTAL, FEATURE},
+        validators = EssentialValidators.GameRuleSyncValidator.class
         //#else
         //$$desc = "Syncs the Game Rules with the client",
         //$$extra = "Essential Client is required to change the rules on the client",
         //$$category = {ESSENTIAL, EXPERIMENTAL, FEATURE},
+        //$$validate = EssentialValidators.GameRuleSyncValidator.class
         //#endif
-        validators = EssentialValidators.GameRuleSyncValidator.class
     )
     public static boolean gameRuleSync = false;
 

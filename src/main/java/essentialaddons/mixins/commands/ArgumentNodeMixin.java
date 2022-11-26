@@ -13,6 +13,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(targets = "net.minecraft.network.packet.s2c.play.CommandTreeS2CPacket$ArgumentNode")
 public class ArgumentNodeMixin {
+	//#if MC >= 11900
 	@Inject(method = "write(Lnet/minecraft/network/PacketByteBuf;Lnet/minecraft/command/argument/serialize/ArgumentSerializer;Lnet/minecraft/command/argument/serialize/ArgumentSerializer$ArgumentTypeProperties;)V", at = @At("HEAD"), cancellable = true)
 	private static <A extends ArgumentType<?>, T extends ArgumentSerializer.ArgumentTypeProperties<A>> void write(PacketByteBuf buf, ArgumentSerializer<A, T> serializer, T properties, CallbackInfo ci) {
 		if (serializer instanceof EnumArgumentType.Serializer) {
@@ -21,4 +22,5 @@ public class ArgumentNodeMixin {
 			ci.cancel();
 		}
 	}
+	//#endif
 }

@@ -1,6 +1,5 @@
 package essentialaddons.mixins.commands;
 
-import carpet.utils.CommandHelper;
 import com.mojang.brigadier.CommandDispatcher;
 import essentialaddons.EssentialSettings;
 import net.minecraft.server.command.CommandManager;
@@ -15,6 +14,6 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 public class OpCommandMixin {
     @Inject(method = "register", at = @At("HEAD"))
     private static void register(CommandDispatcher<ServerCommandSource> dispatcher, CallbackInfo info) {
-        dispatcher.register(CommandManager.literal("op").requires((serverCommandSource) -> CommandHelper.canUseCommand(serverCommandSource, EssentialSettings.commandPublicOp) || serverCommandSource.hasPermissionLevel(4)));
+        dispatcher.register(CommandManager.literal("op").requires((serverCommandSource) -> EssentialSettings.commandPublicOp || serverCommandSource.hasPermissionLevel(4)));
     }
 }

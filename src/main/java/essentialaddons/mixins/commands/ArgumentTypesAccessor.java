@@ -9,8 +9,10 @@ import java.util.Map;
 
 @Mixin(ArgumentTypes.class)
 public interface ArgumentTypesAccessor {
+	//#if MC >= 11900
 	@Accessor("CLASS_MAP")
 	static Map<Class<?>, ArgumentSerializer<?, ?>> getClassMap() {
 		throw new AssertionError();
 	}
+	//#endif
 }

@@ -7,7 +7,9 @@ import net.minecraft.block.entity.SkullBlockEntity;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.network.NetworkSide;
+//#if MC >= 11900
 import net.minecraft.network.encryption.PlayerPublicKey;
+//#endif
 import net.minecraft.network.packet.s2c.play.EntityPositionS2CPacket;
 import net.minecraft.network.packet.s2c.play.EntitySetHeadYawS2CPacket;
 import net.minecraft.server.MinecraftServer;
@@ -24,12 +26,15 @@ import org.jetbrains.annotations.Nullable;
 import java.util.concurrent.atomic.AtomicReference;
 
 public class GhostPlayerEntity extends ServerPlayerEntity {
-
-    public Runnable fixStartingPosition = () -> { };
-
+    //#if MC >= 11900
     public GhostPlayerEntity(MinecraftServer server, ServerWorld world, GameProfile profile, @Nullable PlayerPublicKey publicKey) {
         super(server, world, profile, publicKey);
     }
+    //#else
+    //$$public GhostPlayerEntity(MinecraftServer server, ServerWorld world, GameProfile profile) {
+    //$$    super(server, world, profile);
+    //$$}
+    //#endif
 
     public static GhostPlayerEntity createFake(String username, MinecraftServer server, double d0, double d1, double d2, double yaw, double pitch, RegistryKey<World> dimensionId) {
         ServerWorld worldIn = server.getWorld(dimensionId);
@@ -49,8 +54,11 @@ public class GhostPlayerEntity extends ServerPlayerEntity {
             SkullBlockEntity.loadProperties(gameprofile, result::set);
             gameprofile = result.get();
         }
+        //#if MC >= 11900
         GhostPlayerEntity instance = new GhostPlayerEntity(server, worldIn, gameprofile, null);
-        instance.fixStartingPosition = () -> instance.refreshPositionAndAngles(d0, d1, d2, (float) yaw, (float) pitch);
+        //#else
+        //$$GhostPlayerEntity instance = new GhostPlayerEntity(server, worldIn, gameprofile);
+        //#endif
         server.getPlayerManager().onPlayerConnect(new FakeClientConnection(NetworkSide.SERVERBOUND), instance);
         instance.teleport(worldIn, d0, d1, d2, (float) yaw, (float) pitch);
         instance.setHealth(20.0F);
