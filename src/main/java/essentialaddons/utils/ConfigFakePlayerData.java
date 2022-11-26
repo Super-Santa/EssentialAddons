@@ -44,7 +44,7 @@ public class ConfigFakePlayerData implements Config {
 
 	@Override
 	public JsonArray getSaveData() {
-		JsonArray totalPlayerData = new JsonArray(this.fakePlayers.size());
+		JsonArray totalPlayerData = new JsonArray();
 		this.fakePlayers.forEach(player -> {
 			EntityPlayerActionPackAccessor actionPackAccessor = (EntityPlayerActionPackAccessor) ((ServerPlayerEntityInterface) player).getActionPack();
 			JsonObject playerData = new JsonObject();

@@ -12,7 +12,9 @@ import essentialaddons.utils.ducks.IFakePlayer;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtOps;
 import net.minecraft.network.NetworkSide;
+//#if MC >= 11900
 import net.minecraft.network.encryption.PlayerPublicKey;
+//#endif
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
@@ -30,19 +32,33 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(value = EntityPlayerMPFake.class)
 public abstract class EntityPlayerMPFakeMixin extends ServerPlayerEntity implements IFakePlayer {
+	//#if MC >= 11900
 	public EntityPlayerMPFakeMixin(MinecraftServer server, ServerWorld world, GameProfile profile, @Nullable PlayerPublicKey publicKey) {
 		super(server, world, profile, publicKey);
 	}
+	//#else
+	//$$public EntityPlayerMPFakeMixin(MinecraftServer server, ServerWorld world, GameProfile profile) {
+	//$$	super(server, world, profile);
+	//$$}
+	//#endif
 
 	@Inject(method = "<init>", at = @At("TAIL"), remap = false)
+	//#if MC >= 11900
 	private void onCreateFakePlayer(MinecraftServer server, ServerWorld worldIn, GameProfile profile, boolean shadow, PlayerPublicKey profilePublicKey, CallbackInfo ci) {
+		//#else
+		//$$private void onCreateFakePlayer(MinecraftServer server, ServerWorld worldIn, GameProfile profile, boolean shadow, CallbackInfo ci) {
+		//#endif
 		ConfigFakePlayerData.INSTANCE.addFakePlayer((EntityPlayerMPFake) (Object) this);
 	}
 
 	@Inject(method = "kill(Lnet/minecraft/text/Text;)V", at = @At("HEAD"))
 	private void onPlayerKill(Text reason, CallbackInfo ci) {
 		ConfigFakePlayerData.INSTANCE.removeFakePlayer((EntityPlayerMPFake) (Object) this);
+		//#if MC >= 11900
 		if (EssentialSettings.fakePlayerDropInventoryOnKill && !(reason instanceof MutableText text && text.getContent() instanceof TranslatableTextContent content && content.getKey().equals("multiplayer.disconnect.duplicate_login"))) {
+			//#else
+			//$$if (EssentialSettings.fakePlayerDropInventoryOnKill && !(reason instanceof TranslatableText text && text.getKey().equals("multiplayer.disconnect.duplicate_login"))) {
+			//#endif
 			this.dropInventory();
 		}
 	}

@@ -13,12 +13,20 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Redirect;
 
+//#if MC < 11900
+//$$import net.minecraft.item.Item;
+//$$import org.spongepowered.asm.mixin.Shadow;
+//$$import org.spongepowered.asm.mixin.injection.Inject;
+//$$import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
+//#endif
+
 @Mixin(BoatEntity.class)
 public abstract class BoatEntityMixin extends Entity {
 	public BoatEntityMixin(EntityType<?> type, World world) {
 		super(type, world);
 	}
 
+	//#if MC >= 11900
 	@Redirect(method = "dropItems", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/vehicle/BoatEntity;dropItem(Lnet/minecraft/item/ItemConvertible;)Lnet/minecraft/entity/ItemEntity;"))
 	private ItemEntity onDropItem(BoatEntity instance, ItemConvertible itemConvertible, DamageSource source) {
 		if (EssentialUtils.tryCareful(source.getAttacker(), Subscription.ESSENTIAL_CAREFUL_DROP, itemConvertible.asItem().getDefaultStack())) {
@@ -26,4 +34,20 @@ public abstract class BoatEntityMixin extends Entity {
 		}
 		return instance.dropItem(itemConvertible);
 	}
+	//#else
+	//$$@Shadow
+	//$$public abstract Item asItem();
+	//$$
+	//$$@Redirect(method = "damage", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/vehicle/BoatEntity;dropItem(Lnet/minecraft/item/ItemConvertible;)Lnet/minecraft/entity/ItemEntity;"))
+	//$$private ItemEntity onDropItem(BoatEntity instance, ItemConvertible itemConvertible) {
+	//$$	return null;
+	//$$}
+	//$$
+	//$$@Inject(method = "damage", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/vehicle/BoatEntity;dropItem(Lnet/minecraft/item/ItemConvertible;)Lnet/minecraft/entity/ItemEntity;", shift = At.Shift.BEFORE))
+	//$$private void onDropItem(DamageSource source, float amount, CallbackInfoReturnable<Boolean> cir) {
+	//$$	if (!EssentialUtils.tryCareful(source.getAttacker(), Subscription.ESSENTIAL_CAREFUL_DROP, this.asItem().getDefaultStack())) {
+	//$$		this.dropItem(this.asItem());
+	//$$	}
+	//$$}
+	//#endif
 }

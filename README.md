@@ -5,7 +5,7 @@
 
 [Fabric Carpet](https://github.com/gnembon/fabric-carpet) extension that adds  things from the Spigot plugin Essentials, or other features I think are needed for Minecraft.
 
-This mod is currently only supporting **1.17.1** and **1.18.2**
+This mod is currently supporting **1.17.1**, **1.18.2**, and **1.19.2**
 
 Feel free to contribute by adding as many features as you want!
 

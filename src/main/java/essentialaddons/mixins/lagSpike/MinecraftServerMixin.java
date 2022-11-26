@@ -11,23 +11,44 @@ import java.util.function.BooleanSupplier;
 
 @Mixin(MinecraftServer.class)
 public class MinecraftServerMixin {
-
-    @Inject(method= "tick(Ljava/util/function/BooleanSupplier;)V",at=@At(value="INVOKE",target="Lnet/minecraft/server/MinecraftServer;saveAll(ZZZ)Z",shift=At.Shift.BEFORE))
+    @Inject(
+        method = "tick(Ljava/util/function/BooleanSupplier;)V",
+        at = @At(
+            value = "INVOKE",
+            //#if MC >= 11800
+            target = "Lnet/minecraft/server/MinecraftServer;saveAll(ZZZ)Z",
+            //#else
+            //$$target = "Lnet/minecraft/server/MinecraftServer;save(ZZZ)Z",
+            //#endif
+            shift = At.Shift.BEFORE
+        )
+    )
     protected void BeforeAutoSave(BooleanSupplier shouldKeepTicking, CallbackInfo ci) {
         LagSpike.processLagSpikes(LagSpike.TickPhase.AUTOSAVE, LagSpike.PrePostSubPhase.PRE);
     }
 
-    @Inject(method= "tick(Ljava/util/function/BooleanSupplier;)V",at=@At(value="INVOKE",target="Lnet/minecraft/server/MinecraftServer;saveAll(ZZZ)Z",shift=At.Shift.AFTER))
+    @Inject(
+        method = "tick(Ljava/util/function/BooleanSupplier;)V",
+        at = @At(
+            value = "INVOKE",
+            //#if MC >= 11800
+            target = "Lnet/minecraft/server/MinecraftServer;saveAll(ZZZ)Z",
+            //#else
+            //$$target = "Lnet/minecraft/server/MinecraftServer;save(ZZZ)Z",
+            //#endif
+            shift = At.Shift.AFTER
+        )
+    )
     protected void AfterAutoSave(BooleanSupplier shouldKeepTicking, CallbackInfo ci) {
         LagSpike.processLagSpikes(LagSpike.TickPhase.AUTOSAVE, LagSpike.PrePostSubPhase.POST);
     }
 
-    @Inject(method= "tickWorlds(Ljava/util/function/BooleanSupplier;)V",at=@At(value="INVOKE",target="Lnet/minecraft/server/world/ServerWorld;tick(Ljava/util/function/BooleanSupplier;)V",shift=At.Shift.BEFORE))
+    @Inject(method = "tickWorlds(Ljava/util/function/BooleanSupplier;)V", at = @At(value = "INVOKE", target = "Lnet/minecraft/server/world/ServerWorld;tick(Ljava/util/function/BooleanSupplier;)V", shift = At.Shift.BEFORE))
     protected void BeforeServerTick(BooleanSupplier shouldKeepTicking, CallbackInfo ci) {
         LagSpike.processLagSpikes(LagSpike.TickPhase.TICK, LagSpike.PrePostSubPhase.PRE);
     }
 
-    @Inject(method= "tickWorlds(Ljava/util/function/BooleanSupplier;)V",at=@At(value="INVOKE",target="Lnet/minecraft/server/world/ServerWorld;tick(Ljava/util/function/BooleanSupplier;)V",shift=At.Shift.AFTER))
+    @Inject(method = "tickWorlds(Ljava/util/function/BooleanSupplier;)V", at = @At(value = "INVOKE", target = "Lnet/minecraft/server/world/ServerWorld;tick(Ljava/util/function/BooleanSupplier;)V", shift = At.Shift.AFTER))
     protected void AfterServerTick(BooleanSupplier shouldKeepTicking, CallbackInfo ci) {
         LagSpike.processLagSpikes(LagSpike.TickPhase.TICK, LagSpike.PrePostSubPhase.POST);
     }

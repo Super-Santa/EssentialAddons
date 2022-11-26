@@ -46,7 +46,7 @@ public class ConfigSubscribeData implements Config {
 
 	@Override
 	public JsonArray getSaveData() {
-		JsonArray playerSubscriptions = new JsonArray(this.playerSubscriptionMap.size());
+		JsonArray playerSubscriptions = new JsonArray();
 		this.playerSubscriptionMap.forEach((uuid, subscriptionSet) -> {
 			JsonObject playerData = new JsonObject();
 			JsonArray jsonArray = new JsonArray();

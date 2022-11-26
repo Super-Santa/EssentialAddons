@@ -37,7 +37,7 @@ import static carpet.utils.CommandHelper.canUseCommand;
 import static net.minecraft.server.command.CommandManager.argument;
 import static net.minecraft.server.command.CommandManager.literal;
 
-public class CommandPlayerFake {
+public class CommandGhostPlayer {
     public static void register(CommandDispatcher<ServerCommandSource> dispatcher) {
         dispatcher.register(literal("ghostplayer").requires((player) -> canUseCommand(player, EssentialSettings.commandGhostPlayer))
             .then(argument("player", StringArgumentType.word())
@@ -102,7 +102,11 @@ public class CommandPlayerFake {
                     "Banned players can only be summoned in Singleplayer and in servers in off-line mode.");
                 return true;
             }
+            //#if MC >= 11900
             profile = new GameProfile(DynamicSerializableUuid.getOfflinePlayerUuid(playerName), playerName);
+            //#else
+            //$$profile = new GameProfile(PlayerEntity.getOfflinePlayerUuid(playerName), playerName);
+            //#endif
         }
         if (manager.getUserBanList().contains(profile)) {
             Messenger.m(context.getSource(), "r Player ", "rb " + playerName, "r  is banned on this server");

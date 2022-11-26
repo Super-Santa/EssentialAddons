@@ -36,8 +36,7 @@ public enum Subscription {
 		boolean shouldDisable = this.hasPlayer(player);
 		if (shouldDisable) {
 			this.removePlayer(player);
-		}
-		else {
+		} else {
 			this.addPlayer(player);
 		}
 		return !shouldDisable;

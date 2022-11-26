@@ -3,8 +3,8 @@ package essentialaddons;
 import carpet.helpers.InventoryHelper;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-import net.fabricmc.api.EnvType;
 import essentialaddons.utils.Subscription;
+import net.fabricmc.api.EnvType;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.ShulkerBoxBlock;
@@ -18,9 +18,9 @@ import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.stat.Stats;
+import net.minecraft.text.MutableText;
 import net.minecraft.text.Text;
 import net.minecraft.util.WorldSavePath;
-import net.minecraft.text.MutableText;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import org.apache.commons.io.IOUtils;
@@ -36,6 +36,10 @@ import static essentialaddons.EssentialAddons.server;
 import static net.minecraft.block.Block.dropStack;
 import static net.minecraft.block.Block.getDroppedStacks;
 
+//#if MC < 11900
+//$$import net.minecraft.text.*;
+//#endif
+
 public class EssentialUtils {
     public static final Random RANDOM = new Random();
 
@@ -45,7 +49,19 @@ public class EssentialUtils {
 
     // For easier porting to 1.19
     public static MutableText literal(String text) {
+        //#if MC >= 11900
         return Text.literal(text);
+        //#else
+        //$$return new LiteralText(text);
+        //#endif
+    }
+
+    public static Text translatable(String key, Object... arguments) {
+        //#if MC >= 11900
+        return Text.translatable(key, arguments);
+        //#else
+        //$$return new TranslatableText(key, arguments);
+        //#endif
     }
 
     public static boolean isItemShulkerBox(Item item) {
@@ -59,7 +75,11 @@ public class EssentialUtils {
                     dropStack(serverWorld, pos, itemStack);
                 }
             });
+            //#if MC >= 11900
             state.onStacksDropped(serverWorld, pos, stack, true);
+            //#else
+            //$$state.onStacksDropped(serverWorld, pos, stack);
+            //#endif
         }
     }
 

@@ -2,6 +2,7 @@ package essentialaddons.commands;
 
 import com.mojang.brigadier.CommandDispatcher;
 import essentialaddons.EssentialSettings;
+import essentialaddons.EssentialUtils;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.screen.CraftingScreenHandler;
 import net.minecraft.screen.ScreenHandlerContext;
@@ -29,7 +30,7 @@ public class CommandWorkbench {
                             return true;
                         }
                     },
-                    Text.translatable("container.crafting"))
+                    EssentialUtils.translatable("container.crafting"))
                 );
                 return 0;
             })

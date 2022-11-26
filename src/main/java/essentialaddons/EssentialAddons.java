@@ -123,7 +123,7 @@ public class EssentialAddons implements CarpetExtension, ModInitializer {
         CommandLagSpike.register(dispatcher);
         CommandRename.register(dispatcher);
         CommandMods.register(dispatcher);
-        CommandPlayerFake.register(dispatcher);
+        CommandGhostPlayer.register(dispatcher);
     }
 
     @Override

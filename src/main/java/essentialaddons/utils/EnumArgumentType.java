@@ -10,7 +10,9 @@ import com.mojang.brigadier.exceptions.DynamicCommandExceptionType;
 import com.mojang.brigadier.suggestion.Suggestions;
 import com.mojang.brigadier.suggestion.SuggestionsBuilder;
 import essentialaddons.EssentialUtils;
+//#if MC >= 11900
 import net.minecraft.command.CommandRegistryAccess;
+//#endif
 import net.minecraft.command.CommandSource;
 import net.minecraft.command.argument.serialize.ArgumentSerializer;
 import net.minecraft.network.PacketByteBuf;
@@ -59,6 +61,7 @@ public class EnumArgumentType<T extends Enum<T>> implements ArgumentType<T> {
 		return CommandSource.suggestMatching(this.values.keySet(), builder);
 	}
 
+	//#if MC >= 11900
 	public static class Serializer implements ArgumentSerializer<EnumArgumentType<?>, Serializer.Properties> {
 		@Override
 		public void writePacket(Properties properties, PacketByteBuf buf) {
@@ -94,4 +97,5 @@ public class EnumArgumentType<T extends Enum<T>> implements ArgumentType<T> {
 			}
 		}
 	}
+	//#endif
 }
