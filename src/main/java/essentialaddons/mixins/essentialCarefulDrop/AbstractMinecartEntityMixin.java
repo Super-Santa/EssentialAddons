@@ -12,8 +12,8 @@ import org.spongepowered.asm.mixin.injection.Redirect;
 
 @Mixin(AbstractMinecartEntity.class)
 public abstract class AbstractMinecartEntityMixin {
-	@Redirect(method = "dropItems", at = @At(value = "INVOKE", target = "net/minecraft/entity/vehicle/AbstractMinecartEntity.dropStack(Lnet/minecraft/item/ItemStack;)Lnet/minecraft/entity/ItemEntity;"))
-	private ItemEntity onDropItems(AbstractMinecartEntity e, ItemStack stack, DamageSource damageSource) {
+	@Redirect(method = "dropItems", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/vehicle/AbstractMinecartEntity;dropStack(Lnet/minecraft/item/ItemStack;)Lnet/minecraft/entity/ItemEntity;"))
+	private ItemEntity oDropItems(AbstractMinecartEntity e, ItemStack stack, DamageSource damageSource) {
 		if (EssentialUtils.tryCareful(damageSource.getAttacker(), Subscription.ESSENTIAL_CAREFUL_DROP, stack)) {
 			return null;
 		}

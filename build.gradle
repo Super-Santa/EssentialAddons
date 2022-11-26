@@ -1,97 +1,34 @@
 plugins {
-	id 'fabric-loom' version '0.12-SNAPSHOT'
-	id 'maven-publish'
+	id "com.replaymod.preprocess" version "897c4096e2"
+	id 'fabric-loom' version '1.0-SNAPSHOT' apply false
+	id 'io.github.juuxel.loom-quiltflower' version '1.7.0' apply false
 }
 
-repositories {
-	maven {
-		url 'https://masa.dy.fi/maven'
+preprocess {
+	def mc117 = createNode("1.17.1", 1_17_01, "yarn")
+	def mc118 = createNode("1.18.2", 1_18_02, "yarn")
+	def mc119 = createNode("1.19.2", 1_19_01, "yarn")
+	mc119.link(mc117, file("versions/mapping-1.17.txt"))
+	mc119.link(mc118, file("versions/mapping-1.18.txt"))
+}
+
+
+task buildAndGather {
+	subprojects {
+		dependsOn project.name + ":build"
 	}
-	allprojects {
-		repositories {
-			maven { url 'https://jitpack.io' }
-		}
-	}
-}
-
-sourceCompatibility = JavaVersion.VERSION_17
-targetCompatibility = JavaVersion.VERSION_17
-
-archivesBaseName = project.archives_base_name
-version = project.minecraft_version+'-'+project.mod_version
-group = project.maven_group
-
-dependencies {
-	//to change the versions see the gradle.properties file
-	minecraft "com.mojang:minecraft:${project.minecraft_version}"
-	mappings "net.fabricmc:yarn:${project.yarn_mappings}:v2"
-	modImplementation "net.fabricmc:fabric-loader:${project.loader_version}"
-	modImplementation "com.github.gnembon:fabric-carpet:${project.carpet_core_version}"
-	modImplementation "com.github.CaffeineMC:lithium-fabric:${project.lithium_version}"
-//	modImplementation "curse.maven:lithium-360438:${project.lithium_version}"
-
-	// modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
-
-	// javax.annotation.Nullable/Nonnull
-	compileOnly "com.google.code.findbugs:jsr305:3.0.1"
-
-	testImplementation 'org.junit.jupiter:junit-jupiter-api:5.3.1'
-	testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.3.1'
-
-	// PSA: Some older mods, compiled on Loom 0.2.1, might have outdated Maven POMs.
-	// You may need to force-disable transitiveness on them.
-}
-
-processResources {
-	inputs.property "version", project.version
-
-	filesMatching("fabric.mod.json") {
-		expand "version": project.version
-	}
-}
-
-// ensure that the encoding is set to UTF-8, no matter what the system default is
-// this fixes some edge cases with special characters not displaying correctly
-// see http://yodaconditions.net/blog/fix-for-java-file-encoding-problems-with-gradle.html
-tasks.withType(JavaCompile).configureEach {
-	// ensure that the encoding is set to UTF-8, no matter what the system default is
-	// this fixes some edge cases with special characters not displaying correctly
-	// see http://yodaconditions.net/blog/fix-for-java-file-encoding-problems-with-gradle.html
-	// If Javadoc is generated, this must be specified in that task too.
-	it.options.encoding = "UTF-8"
-
-	// Minecraft 1.17 (21w19a) upwards uses Java 16.
-	it.options.release = 16
-}
-
-java {
-	// Loom will automatically attach sourcesJar to a RemapSourcesJar task and to the "build" task
-	// if it is present.
-	// If you remove this line, sources will not be generated.
-	withSourcesJar()
-}
-
-jar {
-	from "LICENSE"
-}
-
-// configure the maven publication
-publishing {
-	publications {
-		mavenJava(MavenPublication) {
-			// add all the jars that should be included when publishing to maven
-			artifact(jar) {
-				builtBy remapJar
-			}
-			artifact(sourcesJar) {
-				builtBy remapSourcesJar
+	doFirst {
+		println "Gathering builds"
+		copy {
+			subprojects {
+				def libDir = project.projectDir.toPath().resolve("build/libs")
+				from(libDir) {
+					include "*.jar"
+					exclude "*-dev.jar", "*-sources.jar", "*-all.jar"
+				}
+				into "build/libs/"
+				duplicatesStrategy DuplicatesStrategy.INCLUDE
 			}
 		}
-	}
-
-	// select the repositories you want to publish to
-	repositories {
-		// uncomment to publish to the local maven
-		// mavenLocal()
 	}
 }

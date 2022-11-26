@@ -41,7 +41,6 @@ public class EssentialSettings {
     public static boolean combinePotionDuration = false;
 
     @Rule(
-        options = {"false", "true", "ops"},
         categories = {ESSENTIAL, COMMAND, SURVIVAL, FEATURE}
     )
     public static String commandBackup = "false";
@@ -52,85 +51,61 @@ public class EssentialSettings {
     public static boolean commandCameraMode = false;
 
     @Rule(
-        validators = {carpet.api.settings.Validators.CommandLevel.class},
-        options = {"ops", "false", "true"},
         categories = {ESSENTIAL, COMMAND, CREATIVE}
     )
     public static String commandDefuse = "false";
 
     @Rule(
-        validators = {Validators.CommandLevel.class},
-        options = {"ops", "false", "true"},
         categories = {ESSENTIAL, COMMAND, CREATIVE}
     )
     public static String commandDimensions = "false";
 
     @Rule(
-        validators = {Validators.CommandLevel.class},
-        options = {"ops", "false", "true"},
         categories = {ESSENTIAL, COMMAND, CREATIVE}
     )
     public static String commandEnderChest = "false";
 
     @Rule(
-        validators = {Validators.CommandLevel.class},
-        options = {"ops", "false", "true"},
         categories = {ESSENTIAL, COMMAND}
     )
     public static String commandExtinguish = "false";
 
     @Rule(
-        validators = {Validators.CommandLevel.class},
-        options = {"ops", "false", "true"},
         categories = {ESSENTIAL, COMMAND}
     )
     public static String commandFly = "false";
 
     @Rule(
-        validators = {Validators.CommandLevel.class},
-        options = {"ops", "false", "true"},
         categories = {ESSENTIAL, COMMAND, CREATIVE}
     )
     public static String commandGM = "false";
 
     @Rule(
-        validators = {Validators.CommandLevel.class},
-        options = {"ops", "false", "true"},
         categories = {ESSENTIAL, COMMAND}
     )
     public static String commandGod = "false";
 
     @Rule(
-        validators = {Validators.CommandLevel.class},
-        options = {"ops", "false", "true"},
         categories = {ESSENTIAL, COMMAND, CREATIVE}
     )
     public static String commandHat = "false";
 
     @Rule(
-        validators = {Validators.CommandLevel.class},
-        options = {"ops", "false", "true"},
         categories = {ESSENTIAL, COMMAND}
     )
     public static String commandHeal = "false";
 
     @Rule(
-        validators = {Validators.CommandLevel.class},
-        options = {"ops", "false", "true"},
         categories = {ESSENTIAL, COMMAND, CREATIVE}
     )
     public static String commandLagSpike = "false";
 
     @Rule(
-        validators = {Validators.CommandLevel.class},
-        options = {"ops", "false", "true"},
         categories = {ESSENTIAL, COMMAND}
     )
     public static String commandMods = "ops";
 
     @Rule(
-        validators = {Validators.CommandLevel.class},
-        options = {"ops", "false", "true"},
         categories = {ESSENTIAL, COMMAND}
     )
     public static String commandMore = "false";
@@ -141,18 +116,14 @@ public class EssentialSettings {
     public static boolean commandNear = false;
 
     @Rule(
-        validators = {Validators.CommandLevel.class},
-        options = {"ops", "false", "true"},
         categories = {ESSENTIAL, COMMAND, CREATIVE}
     )
     public static String commandNightVision = "false";
 
     @Rule(
-        validators = {Validators.CommandLevel.class},
-        options = {"ops", "false", "true"},
         categories = {ESSENTIAL, COMMAND, EXPERIMENTAL}
     )
-    public static String commandPlayerFake = "false";
+    public static String commandGhostPlayer = "false";
 
     @Rule(
         categories = {ESSENTIAL, COMMAND, SURVIVAL}
@@ -190,22 +161,16 @@ public class EssentialSettings {
     public static boolean commandRename = false;
 
     @Rule(
-        validators = {Validators.CommandLevel.class},
-        options = {"ops", "false", "true"},
         categories = {ESSENTIAL, COMMAND}
     )
     public static String commandRepair = "false";
 
     @Rule(
-        validators = {Validators.CommandLevel.class},
-        options = {"ops", "false", "true"},
         categories = {ESSENTIAL, COMMAND, CREATIVE}
     )
     public static String commandStrength = "false";
 
     @Rule(
-        validators = {Validators.CommandLevel.class},
-        options = {"ops", "false", "true"},
         categories = {ESSENTIAL, COMMAND, CREATIVE}
     )
     public static String commandSwitchDimensions = "false";
@@ -216,15 +181,11 @@ public class EssentialSettings {
     public static boolean commandTop = false;
 
     @Rule(
-        validators = {Validators.CommandLevel.class},
-        options = {"ops", "false", "true"},
         categories = {ESSENTIAL, COMMAND, CREATIVE}
     )
     public static String commandWarp = "false";
 
     @Rule(
-        validators = {Validators.CommandLevel.class},
-        options = {"ops", "false", "true"},
         categories = {ESSENTIAL, COMMAND, CREATIVE}
     )
     public static String commandWorkbench = "false";
@@ -252,7 +213,6 @@ public class EssentialSettings {
     @Rule(
         categories = {ESSENTIAL, EXPERIMENTAL, FEATURE},
         validators = EssentialValidators.GameRuleNoOpValidator.class
-
     )
     public static boolean gameRuleNonOp = false;
 

@@ -1,6 +1,5 @@
 package essentialaddons.commands;
 
-import carpet.utils.CommandHelper;
 import com.mojang.brigadier.CommandDispatcher;
 import essentialaddons.EssentialSettings;
 import essentialaddons.EssentialUtils;
@@ -13,11 +12,16 @@ import net.minecraft.text.Text;
 import java.util.Collection;
 import java.util.LinkedList;
 
+//#if MC >= 11900
+import static carpet.utils.CommandHelper.canUseCommand;
+//#else
+// import static carpet.settings.SettingsManager.canUseCommand;
+//#endif
 import static net.minecraft.server.command.CommandManager.literal;
 
 public class CommandMods {
     public static void register(CommandDispatcher<ServerCommandSource> dispatcher) {
-        dispatcher.register(literal("mods").requires((player) -> CommandHelper.canUseCommand(player, EssentialSettings.commandMods))
+        dispatcher.register(literal("mods").requires((player) -> canUseCommand(player, EssentialSettings.commandMods))
             .executes(context -> {
                 ServerPlayerEntity playerEntity = context.getSource().getPlayerOrThrow();
                 Collection<ModContainer> mods = FabricLoader.getInstance().getAllMods();

@@ -2,7 +2,6 @@ package essentialaddons.commands;
 
 import carpet.CarpetSettings;
 import carpet.patches.EntityPlayerMPFake;
-import carpet.utils.CommandHelper;
 import carpet.utils.Messenger;
 import com.google.common.collect.Sets;
 import com.mojang.authlib.GameProfile;
@@ -30,12 +29,17 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.Set;
 
+//#if MC >= 11900
+import static carpet.utils.CommandHelper.canUseCommand;
+//#else
+// import static carpet.settings.SettingsManager.canUseCommand;
+//#endif
 import static net.minecraft.server.command.CommandManager.argument;
 import static net.minecraft.server.command.CommandManager.literal;
 
 public class CommandPlayerFake {
     public static void register(CommandDispatcher<ServerCommandSource> dispatcher) {
-        dispatcher.register(literal("playerfake").requires((player) -> CommandHelper.canUseCommand(player, EssentialSettings.commandPlayerFake))
+        dispatcher.register(literal("ghostplayer").requires((player) -> canUseCommand(player, EssentialSettings.commandGhostPlayer))
             .then(argument("player", StringArgumentType.word())
                 .suggests((context, builder) -> CommandSource.suggestMatching(getPlayers(context.getSource()), builder))
                 .then(literal("spawn")
@@ -67,6 +71,7 @@ public class CommandPlayerFake {
             )
         );
     }
+
     private static int fakePlayerSpawn(CommandContext<ServerCommandSource> context, String username, Vec3d pos, RegistryKey<World> dim) throws CommandSyntaxException {
         if (cantSpawn(context))
             return 0;

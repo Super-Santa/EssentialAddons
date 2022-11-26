@@ -120,8 +120,7 @@ public class EssentialUtils {
     public static void throwAsRuntime(ThrowableRunnable runnable) {
         try {
             runnable.run();
-        }
-        catch (Throwable throwable) {
+        } catch (Throwable throwable) {
             throw new RuntimeException(throwable);
         }
     }

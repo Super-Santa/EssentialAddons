@@ -1,6 +1,5 @@
 package essentialaddons.commands;
 
-import carpet.utils.CommandHelper;
 import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.arguments.IntegerArgumentType;
 import com.mojang.brigadier.context.CommandContext;
@@ -15,13 +14,17 @@ import net.minecraft.util.math.Box;
 
 import java.util.Collection;
 
+//#if MC >= 11900
+import static carpet.utils.CommandHelper.canUseCommand;
+//#else
+// import static carpet.settings.SettingsManager.canUseCommand;
+//#endif
 import static net.minecraft.server.command.CommandManager.argument;
 import static net.minecraft.server.command.CommandManager.literal;
 
 public class CommandDefuse {
-
     public static void register(CommandDispatcher<ServerCommandSource> dispatcher) {
-        dispatcher.register(literal("defuse").requires((player) -> CommandHelper.canUseCommand(player, EssentialSettings.commandDefuse))
+        dispatcher.register(literal("defuse").requires((player) -> canUseCommand(player, EssentialSettings.commandDefuse))
             .then(argument("range", IntegerArgumentType.integer(1))
                 .executes(CommandDefuse::defuse)
             ));

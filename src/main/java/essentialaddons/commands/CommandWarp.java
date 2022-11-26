@@ -1,6 +1,5 @@
 package essentialaddons.commands;
 
-import carpet.utils.CommandHelper;
 import com.mojang.brigadier.CommandDispatcher;
 import essentialaddons.EssentialSettings;
 import essentialaddons.EssentialUtils;
@@ -13,13 +12,18 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 
+//#if MC >= 11900
+import static carpet.utils.CommandHelper.canUseCommand;
+//#else
+// import static carpet.settings.SettingsManager.canUseCommand;
+//#endif
 import static net.minecraft.server.command.CommandManager.literal;
 
 public class CommandWarp {
     public static Map<UUID, Location> warpData = new HashMap<>();
 
     public static void register(CommandDispatcher<ServerCommandSource> dispatcher) {
-        dispatcher.register(literal("setwarp").requires((player) -> CommandHelper.canUseCommand(player, EssentialSettings.commandWarp))
+        dispatcher.register(literal("setwarp").requires((player) -> canUseCommand(player, EssentialSettings.commandWarp))
             .executes(context -> {
                 ServerPlayerEntity playerEntity = context.getSource().getPlayerOrThrow();
                 UUID playerUUID = playerEntity.getUuid();
@@ -28,7 +32,7 @@ public class CommandWarp {
                 EssentialUtils.sendToActionBar(playerEntity, "§6Warp has been set");
                 return 0;
             }));
-        dispatcher.register(literal("warp").requires((player) -> CommandHelper.canUseCommand(player, EssentialSettings.commandWarp))
+        dispatcher.register(literal("warp").requires((player) -> canUseCommand(player, EssentialSettings.commandWarp))
             .executes(context -> {
                 ServerPlayerEntity playerEntity = context.getSource().getPlayerOrThrow();
                 UUID playerUUID = playerEntity.getUuid();

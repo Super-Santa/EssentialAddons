@@ -4,6 +4,46 @@ pluginManagement {
             name = 'Fabric'
             url = 'https://maven.fabricmc.net/'
         }
+        maven {
+            name = 'Cotton'
+            url = 'https://server.bbkr.space/artifactory/libs-release/'
+        }
+        maven {
+            name = 'Jitpack'
+            url = "https://jitpack.io"
+        }
+        maven {
+            url "https://masa.dy.fi/maven"
+        }
+        mavenCentral()
         gradlePluginPortal()
     }
+    resolutionStrategy {
+        eachPlugin {
+            switch (requested.id.id) {
+                case "com.replaymod.preprocess": {
+                    useModule("com.github.Fallen-Breath:preprocessor:897c4096e2")
+                }
+            }
+        }
+    }
+    plugins {
+        id "maven-publish"
+        id "fabric-loom" version "1.0-SNAPSHOT"
+        id "io.github.juuxel.loom-quiltflower" version "1.7.0"
+        id "com.replaymod.preprocess" version "897c4096e2"
+    }
+}
+def versions = Arrays.asList(
+    "1.17.1",
+    "1.18.2",
+    "1.19.2"
+)
+
+for (String version : versions) {
+    include(":$version")
+
+    def proj = project(":$version")
+    proj.projectDir = file("versions/$version")
+    proj.buildFileName = "../../common.gradle"
 }

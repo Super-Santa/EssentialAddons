@@ -2,23 +2,25 @@
   "schemaVersion": 1,
   "id": "essentialaddons",
   "version": "${version}",
-
   "name": "Essential Addons",
-  "description": "The place where I add things from the Spigot plugin Essentials, or other features I think are needed for Minecraft.",
+  "description": "A carpet extension adding many things from the Spigot plugin Essentials, as well as other useful features.",
   "authors": [
     "SuperSanta",
-    "Sensei",
+    "Sensei"
+  ],
+  "contributors": [
     "PROCESS",
-    "Willowsticks"
+    "Willowsticks",
+    "Crec0",
+    "BisUmTo",
+    "Altrisi"
   ],
   "contact": {
     "homepage": "",
     "sources": "",
     "issues": ""
   },
-
-  "license": "CC0-1.0",
-
+  "license": "MIT",
   "environment": "*",
   "entrypoints": {
     "main": [
@@ -29,8 +31,8 @@
     "essentialaddons.mixins.json"
   ],
   "depends": {
-    "minecraft": "1.19.x",
     "fabricloader": ">=0.12.6",
-    "carpet": ">=1.4.79"
+    "minecraft": "minecraft_dependency",
+    "carpet": "carpet_dependency"
   }
 }

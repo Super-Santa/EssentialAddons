@@ -1,6 +1,5 @@
 package essentialaddons.commands;
 
-import carpet.utils.CommandHelper;
 import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.arguments.IntegerArgumentType;
 import essentialaddons.EssentialSettings;
@@ -14,6 +13,11 @@ import net.minecraft.server.command.ServerCommandSource;
 import java.util.Arrays;
 import java.util.List;
 
+//#if MC >= 11900
+import static carpet.utils.CommandHelper.canUseCommand;
+//#else
+// import static carpet.settings.SettingsManager.canUseCommand;
+//#endif
 import static net.minecraft.server.command.CommandManager.argument;
 import static net.minecraft.server.command.CommandManager.literal;
 
@@ -21,7 +25,7 @@ public class CommandLagSpike {
     private static final int MAX_LAG_TIME = 60000;
 
     public static void register(CommandDispatcher<ServerCommandSource> dispatcher) {
-        dispatcher.register(literal("lagspike").requires((player) -> CommandHelper.canUseCommand(player, EssentialSettings.commandLagSpike))
+        dispatcher.register(literal("lagspike").requires((player) -> canUseCommand(player, EssentialSettings.commandLagSpike))
             .then(argument("milliSeconds", IntegerArgumentType.integer(1, MAX_LAG_TIME))
                 .suggests((c, b) -> CommandSource.suggestMatching(List.of("600", "1200", "6000"), b))
                 .then(argument("tickPhase", EnumArgumentType.enumeration(TickPhase.class))

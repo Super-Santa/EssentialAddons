@@ -1,6 +1,5 @@
 package essentialaddons.commands;
 
-import carpet.utils.CommandHelper;
 import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.builder.LiteralArgumentBuilder;
 import essentialaddons.EssentialAddons;
@@ -18,12 +17,17 @@ import net.minecraft.world.GameMode;
 import java.util.List;
 import java.util.Set;
 
+//#if MC >= 11900
+import static carpet.utils.CommandHelper.canUseCommand;
+//#else
+// import static carpet.settings.SettingsManager.canUseCommand;
+//#endif
 import static net.minecraft.server.command.CommandManager.literal;
 
 public class CommandCameraMode {
     public static void register(CommandDispatcher<ServerCommandSource> dispatcher) {
         LiteralArgumentBuilder<ServerCommandSource> csCommand = literal("cs");
-        csCommand.requires((p) -> CommandHelper.canUseCommand(p, EssentialSettings.commandCameraMode)).executes(ctx -> {
+        csCommand.requires((p) -> canUseCommand(p, EssentialSettings.commandCameraMode)).executes(ctx -> {
             return toggle(ctx.getSource().getPlayerOrThrow());
         });
         dispatcher.register(csCommand);

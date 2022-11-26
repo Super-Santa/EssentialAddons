@@ -1,6 +1,5 @@
 package essentialaddons.commands;
 
-import carpet.utils.CommandHelper;
 import com.mojang.brigadier.CommandDispatcher;
 import essentialaddons.EssentialSettings;
 import essentialaddons.EssentialUtils;
@@ -11,12 +10,17 @@ import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 
+//#if MC >= 11900
+import static carpet.utils.CommandHelper.canUseCommand;
+//#else
+// import static carpet.settings.SettingsManager.canUseCommand;
+//#endif
 import static net.minecraft.server.command.CommandManager.argument;
 import static net.minecraft.server.command.CommandManager.literal;
 
 public class CommandDimensions {
     public static void register(CommandDispatcher<ServerCommandSource> dispatcher) {
-        dispatcher.register(literal("overworld").requires((player) -> CommandHelper.canUseCommand(player, EssentialSettings.commandDimensions))
+        dispatcher.register(literal("overworld").requires((player) -> canUseCommand(player, EssentialSettings.commandDimensions))
             .executes(context -> {
                 ServerPlayerEntity playerEntity = context.getSource().getPlayerOrThrow();
                 ServerWorld world = context.getSource().getServer().getWorld(World.OVERWORLD);
@@ -33,7 +37,7 @@ public class CommandDimensions {
                 })
             )
         );
-        dispatcher.register(literal("nether").requires((player) -> CommandHelper.canUseCommand(player, EssentialSettings.commandDimensions))
+        dispatcher.register(literal("nether").requires((player) -> canUseCommand(player, EssentialSettings.commandDimensions))
             .executes(context -> {
                 ServerPlayerEntity playerEntity = context.getSource().getPlayerOrThrow();
                 ServerWorld world = context.getSource().getServer().getWorld(World.NETHER);
@@ -50,7 +54,7 @@ public class CommandDimensions {
                 })
             )
         );
-        dispatcher.register(literal("end").requires((player) -> CommandHelper.canUseCommand(player, EssentialSettings.commandDimensions))
+        dispatcher.register(literal("end").requires((player) -> canUseCommand(player, EssentialSettings.commandDimensions))
             .executes(context -> {
                 ServerPlayerEntity playerEntity = context.getSource().getPlayerOrThrow();
                 ServerWorld world = context.getSource().getServer().getWorld(World.END);

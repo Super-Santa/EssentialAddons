@@ -52,7 +52,7 @@
 
   "carpet.rule.commandNightVision.desc": "Toggles night vision",
 
-  "carpet.rule.commandPlayerFake.desc": "This allows you to spawn a fake player that doesn't load chunks (They appear on tab list and you are able to teleport to them)",
+  "carpet.rule.commandGhostPlayer.desc": "This allows you to spawn a fake player that doesn't load chunks (They appear on tab list and you are able to teleport to them)",
 
   "carpet.rule.commandPublicKick.desc": "Allows anyone to use the /kick command",
 
