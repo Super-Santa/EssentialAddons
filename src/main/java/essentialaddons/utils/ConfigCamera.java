@@ -37,7 +37,7 @@ public class ConfigCamera implements Config {
 	@Override
 	public void readConfig(JsonArray configData) {
 		try {
-			if (!configData.isEmpty()) {
+			if (configData.size() != 0) {
 				this.commandName = configData.get(0).getAsJsonObject().get("commandName").getAsString();
 			}
 		} catch (RuntimeException e) {
