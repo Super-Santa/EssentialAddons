@@ -35,7 +35,8 @@ public class EssentialAddons implements CarpetExtension, ModInitializer {
         CONFIG_SET = Set.of(
             ConfigCameraData.INSTANCE,
             ConfigSubscribeData.INSTANCE,
-            ConfigFakePlayerData.INSTANCE
+            ConfigFakePlayerData.INSTANCE,
+            ConfigCamera.INSTANCE
         );
         NETWORK_HANDLERS = Set.of(
             GameRuleNetworkHandler.INSTANCE,
@@ -45,7 +46,10 @@ public class EssentialAddons implements CarpetExtension, ModInitializer {
 
     @Override
     public void onInitialize() {
-        CarpetServer.manageExtension(new EssentialAddons());
+        for (Config config : CONFIG_SET) {
+            config.readConfig();
+        }
+        CarpetServer.manageExtension(this);
     }
 
     @Override
@@ -71,9 +75,6 @@ public class EssentialAddons implements CarpetExtension, ModInitializer {
     @Override
     public void onServerLoaded(MinecraftServer minecaraftServer) {
         server = minecaraftServer;
-        for (Config config : CONFIG_SET) {
-            config.readConfig();
-        }
     }
 
     @Override

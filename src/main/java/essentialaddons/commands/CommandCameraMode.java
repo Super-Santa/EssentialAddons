@@ -5,6 +5,7 @@ import com.mojang.brigadier.builder.LiteralArgumentBuilder;
 import essentialaddons.EssentialAddons;
 import essentialaddons.EssentialSettings;
 import essentialaddons.EssentialUtils;
+import essentialaddons.utils.ConfigCamera;
 import essentialaddons.utils.ConfigCameraData;
 import net.minecraft.entity.effect.StatusEffect;
 import net.minecraft.entity.effect.StatusEffects;
@@ -26,7 +27,7 @@ import static net.minecraft.server.command.CommandManager.literal;
 
 public class CommandCameraMode {
     public static void register(CommandDispatcher<ServerCommandSource> dispatcher) {
-        LiteralArgumentBuilder<ServerCommandSource> csCommand = literal("cs");
+        LiteralArgumentBuilder<ServerCommandSource> csCommand = literal(ConfigCamera.INSTANCE.commandName);
         csCommand.requires((p) -> canUseCommand(p, EssentialSettings.commandCameraMode)).executes(ctx -> {
             return toggle(ctx.getSource().getPlayerOrThrow());
         });
