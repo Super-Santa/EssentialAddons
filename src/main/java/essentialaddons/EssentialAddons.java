@@ -125,6 +125,7 @@ public class EssentialAddons implements CarpetExtension, ModInitializer {
         CommandRename.register(dispatcher);
         CommandMods.register(dispatcher);
         CommandGhostPlayer.register(dispatcher);
+        CommandConfig.register(dispatcher);
     }
 
     @Override
