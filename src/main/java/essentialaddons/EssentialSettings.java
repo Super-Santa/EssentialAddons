@@ -298,6 +298,16 @@ public class EssentialSettings {
         //#if MC >= 11900
         categories = {ESSENTIAL, COMMAND, SURVIVAL}
         //#else
+        //$$desc = "Allows anyone to use the /team command",
+        //$$category = {ESSENTIAL, COMMAND, SURVIVAL}
+        //#endif
+    )
+    public static boolean commandPublicTeam = false;
+
+    @Rule(
+        //#if MC >= 11900
+        categories = {ESSENTIAL, COMMAND, SURVIVAL}
+        //#else
         //$$desc = "Allows all players to change view distance",
         //$$category = {ESSENTIAL, COMMAND, SURVIVAL}
         //#endif

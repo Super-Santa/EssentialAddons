@@ -62,6 +62,8 @@
 
   "carpet.rule.commandPublicScoreboard.desc": "Allows anyone to use the /scoreboard command",
 
+  "carpet.rule.commandPublicTeam.desc": "Allows anyone to use the /team command",
+
   "carpet.rule.commandPublicViewDistance.desc": "Allows all players to change view distance",
 
   "carpet.rule.commandRegion.desc": "Allows you see what region you are in and teleport to a region",

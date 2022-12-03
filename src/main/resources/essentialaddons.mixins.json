@@ -17,6 +17,7 @@
     "commands.PlayerCommandMixin",
     "commands.SaveAllCommandMixin",
     "commands.ScoreboardCommandMixin",
+    "commands.TeamCommandMixin",
     "core.MinecraftServerAccessor",
     "core.MinecraftServerMixin",
     "core.ServerPlayNetworkHandlerMixin",
