@@ -7,9 +7,6 @@ import net.minecraft.block.entity.SkullBlockEntity;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.network.NetworkSide;
-//#if MC >= 11900
-import net.minecraft.network.encryption.PlayerPublicKey;
-//#endif
 import net.minecraft.network.packet.s2c.play.EntityPositionS2CPacket;
 import net.minecraft.network.packet.s2c.play.EntitySetHeadYawS2CPacket;
 import net.minecraft.server.MinecraftServer;
@@ -18,22 +15,30 @@ import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.text.Text;
 import net.minecraft.util.UserCache;
-import net.minecraft.util.registry.RegistryKey;
 import net.minecraft.world.GameMode;
 import net.minecraft.world.World;
-import org.jetbrains.annotations.Nullable;
 
 import java.util.concurrent.atomic.AtomicReference;
 
+//#if MC >= 11900 && MC < 11903
+//$$import net.minecraft.network.encryption.PlayerPublicKey;
+//#endif
+
+//#if MC >= 11903
+import net.minecraft.registry.RegistryKey;
+//#else
+//$$import net.minecraft.util.registry.RegistryKey;
+//#endif
+
 public class GhostPlayerEntity extends ServerPlayerEntity {
-    //#if MC >= 11900
-    public GhostPlayerEntity(MinecraftServer server, ServerWorld world, GameProfile profile, @Nullable PlayerPublicKey publicKey) {
-        super(server, world, profile, publicKey);
-    }
-    //#else
-    //$$public GhostPlayerEntity(MinecraftServer server, ServerWorld world, GameProfile profile) {
-    //$$    super(server, world, profile);
+    //#if MC >= 11900 && MC < 11903
+    //$$public GhostPlayerEntity(MinecraftServer server, ServerWorld world, GameProfile profile, PlayerPublicKey publicKey) {
+    //$$    super(server, world, profile, publicKey);
     //$$}
+    //#else
+    public GhostPlayerEntity(MinecraftServer server, ServerWorld world, GameProfile profile) {
+        super(server, world, profile);
+    }
     //#endif
 
     public static GhostPlayerEntity createFake(String username, MinecraftServer server, double d0, double d1, double d2, double yaw, double pitch, RegistryKey<World> dimensionId) {
@@ -54,10 +59,10 @@ public class GhostPlayerEntity extends ServerPlayerEntity {
             SkullBlockEntity.loadProperties(gameprofile, result::set);
             gameprofile = result.get();
         }
-        //#if MC >= 11900
-        GhostPlayerEntity instance = new GhostPlayerEntity(server, worldIn, gameprofile, null);
+        //#if MC >= 11900 && MC < 11903
+        //$$GhostPlayerEntity instance = new GhostPlayerEntity(server, worldIn, gameprofile, null);
         //#else
-        //$$GhostPlayerEntity instance = new GhostPlayerEntity(server, worldIn, gameprofile);
+        GhostPlayerEntity instance = new GhostPlayerEntity(server, worldIn, gameprofile);
         //#endif
         server.getPlayerManager().onPlayerConnect(new FakeClientConnection(NetworkSide.SERVERBOUND), instance);
         instance.teleport(worldIn, d0, d1, d2, (float) yaw, (float) pitch);

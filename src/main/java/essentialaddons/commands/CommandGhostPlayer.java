@@ -20,14 +20,20 @@ import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.PlayerManager;
 import net.minecraft.server.command.ServerCommandSource;
 import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.util.dynamic.DynamicSerializableUuid;
 import net.minecraft.util.math.Vec3d;
-import net.minecraft.util.registry.RegistryKey;
 import net.minecraft.world.World;
 
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Set;
+
+//#if MC >= 11903
+import net.minecraft.registry.RegistryKey;
+import net.minecraft.util.Uuids;
+//#else
+//$$import net.minecraft.util.dynamic.DynamicSerializableUuid;
+//$$import net.minecraft.util.registry.RegistryKey;
+//#endif
 
 //#if MC >= 11900
 import static carpet.utils.CommandHelper.canUseCommand;
@@ -73,8 +79,9 @@ public class CommandGhostPlayer {
     }
 
     private static int fakePlayerSpawn(CommandContext<ServerCommandSource> context, String username, Vec3d pos, RegistryKey<World> dim) throws CommandSyntaxException {
-        if (cantSpawn(context))
+        if (cantSpawn(context)) {
             return 0;
+        }
         ServerCommandSource source = context.getSource();
         dim = dim == null ? source.getWorld().getRegistryKey() : dim;
         ServerPlayerEntity player = source.getPlayerOrThrow();
@@ -102,8 +109,10 @@ public class CommandGhostPlayer {
                     "Banned players can only be summoned in Singleplayer and in servers in off-line mode.");
                 return true;
             }
-            //#if MC >= 11900
-            profile = new GameProfile(DynamicSerializableUuid.getOfflinePlayerUuid(playerName), playerName);
+            //#if MC >= 11903
+            profile = new GameProfile(Uuids.getOfflinePlayerUuid(playerName), playerName);
+            //#elseif MC >= 11900
+            //$$profile = new GameProfile(DynamicSerializableUuid.getOfflinePlayerUuid(playerName), playerName);
             //#else
             //$$profile = new GameProfile(PlayerEntity.getOfflinePlayerUuid(playerName), playerName);
             //#endif

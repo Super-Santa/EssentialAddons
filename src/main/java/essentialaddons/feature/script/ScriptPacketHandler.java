@@ -4,6 +4,7 @@ import carpet.script.CarpetContext;
 import carpet.script.Expression;
 import carpet.script.exception.InternalExpressionException;
 import carpet.script.value.*;
+import essentialaddons.EssentialAddons;
 import essentialaddons.utils.NetworkHandler;
 import io.netty.buffer.Unpooled;
 import net.minecraft.item.Item;
@@ -14,7 +15,6 @@ import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.Vec3d;
-import net.minecraft.util.registry.Registry;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,6 +22,12 @@ import java.util.Locale;
 import java.util.Optional;
 
 import static essentialaddons.utils.NetworkUtils.*;
+
+//#if MC >= 11903
+import net.minecraft.registry.RegistryKeys;
+//#else
+//$$import net.minecraft.util.registry.Registry;
+//#endif
 
 public class ScriptPacketHandler extends NetworkHandler {
 	public static final ScriptPacketHandler INSTANCE = new ScriptPacketHandler();
@@ -181,7 +187,11 @@ public class ScriptPacketHandler extends NetworkHandler {
 
 			if (size == 3) {
 				if (list.get(0) instanceof StringValue str && list.get(1) instanceof NumericValue num) {
-					Optional<Item> optional = Registry.ITEM.getOrEmpty(new Identifier(str.getString()));
+					//#if MC >= 11903
+					Optional<Item> optional = EssentialAddons.server.getRegistryManager().get(RegistryKeys.ITEM).getOrEmpty(new Identifier(str.getString()));
+					//#else
+					//$$Optional<Item> optional = Registry.ITEM.getOrEmpty(new Identifier(str.getString()));
+					//#endif
 					if (optional.isPresent()) {
 						this.buf.writeByte(ITEM_STACK);
 						ItemStack stack = optional.get().getDefaultStack();

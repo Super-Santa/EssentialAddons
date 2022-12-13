@@ -12,8 +12,8 @@ import essentialaddons.utils.ducks.IFakePlayer;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtOps;
 import net.minecraft.network.NetworkSide;
-//#if MC >= 11900
-import net.minecraft.network.encryption.PlayerPublicKey;
+//#if MC >= 11900 && MC < 11903
+//$$import net.minecraft.network.encryption.PlayerPublicKey;
 //#endif
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.network.ServerPlayerEntity;
@@ -21,32 +21,36 @@ import net.minecraft.server.world.ServerWorld;
 import net.minecraft.text.MutableText;
 import net.minecraft.text.Text;
 import net.minecraft.text.TranslatableTextContent;
-import net.minecraft.util.registry.RegistryKey;
 import net.minecraft.world.World;
 import net.minecraft.world.dimension.DimensionType;
-import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
+//#if MC >= 11903
+import net.minecraft.registry.RegistryKey;
+//#else
+//$$import net.minecraft.util.registry.RegistryKey;
+//#endif
+
 @Mixin(value = EntityPlayerMPFake.class)
 public abstract class EntityPlayerMPFakeMixin extends ServerPlayerEntity implements IFakePlayer {
-	//#if MC >= 11900
-	public EntityPlayerMPFakeMixin(MinecraftServer server, ServerWorld world, GameProfile profile, @Nullable PlayerPublicKey publicKey) {
-		super(server, world, profile, publicKey);
-	}
-	//#else
-	//$$public EntityPlayerMPFakeMixin(MinecraftServer server, ServerWorld world, GameProfile profile) {
-	//$$	super(server, world, profile);
+	//#if MC >= 11900 && MC < 11903
+	//$$public EntityPlayerMPFakeMixin(MinecraftServer server, ServerWorld world, GameProfile profile, PlayerPublicKey publicKey) {
+	//$$	super(server, world, profile, publicKey);
 	//$$}
+	//#else
+	public EntityPlayerMPFakeMixin(MinecraftServer server, ServerWorld world, GameProfile profile) {
+		super(server, world, profile);
+	}
 	//#endif
 
 	@Inject(method = "<init>", at = @At("TAIL"), remap = false)
-	//#if MC >= 11900
-	private void onCreateFakePlayer(MinecraftServer server, ServerWorld worldIn, GameProfile profile, boolean shadow, PlayerPublicKey profilePublicKey, CallbackInfo ci) {
-		//#else
-		//$$private void onCreateFakePlayer(MinecraftServer server, ServerWorld worldIn, GameProfile profile, boolean shadow, CallbackInfo ci) {
+	//#if MC >= 11900 && MC < 11903
+	//$$private void onCreateFakePlayer(MinecraftServer server, ServerWorld worldIn, GameProfile profile, boolean shadow, PlayerPublicKey profilePublicKey, CallbackInfo ci) {
+	//#else
+	private void onCreateFakePlayer(MinecraftServer server, ServerWorld worldIn, GameProfile profile, boolean shadow, CallbackInfo ci) {
 		//#endif
 		ConfigFakePlayerData.INSTANCE.addFakePlayer((EntityPlayerMPFake) (Object) this);
 	}

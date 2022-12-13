@@ -38,10 +38,10 @@ public class ReloadFakePlayers {
             SkullBlockEntity.loadProperties(gameProfile, result::set);
             gameProfile = result.get();
         }
-        //#if MC >= 11900
-        EntityPlayerMPFake instance = EntityPlayerMPFakeInvoker.init(server, server.getOverworld(), gameProfile, false, null);
+        //#if MC >= 11900 && MC < 11903
+        //$$EntityPlayerMPFake instance = EntityPlayerMPFakeInvoker.init(server, server.getOverworld(), gameProfile, false, null);
         //#else
-        //$$EntityPlayerMPFake instance = EntityPlayerMPFakeInvoker.init(server, server.getOverworld(), gameProfile, false);
+        EntityPlayerMPFake instance = EntityPlayerMPFakeInvoker.init(server, server.getOverworld(), gameProfile, false);
         //#endif
         if (EssentialSettings.reloadFakePlayerActions) {
             EntityPlayerActionPack actionPack = ((ServerPlayerEntityInterface) instance).getActionPack();

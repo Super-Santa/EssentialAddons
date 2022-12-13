@@ -5,7 +5,7 @@ import essentialaddons.EssentialSettings;
 import essentialaddons.utils.ConfigCameraData;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.player.PlayerEntity;
-//#if MC >= 11900
+//#if MC >= 11900 && MC < 11903
 import net.minecraft.network.encryption.PlayerPublicKey;
 //#endif
 import net.minecraft.network.packet.s2c.play.EntityStatusEffectS2CPacket;
@@ -15,7 +15,6 @@ import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.GameMode;
 import net.minecraft.world.World;
-import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -31,14 +30,14 @@ public abstract class ServerPlayerEntityMixin extends PlayerEntity {
 	@Final
 	public MinecraftServer server;
 
-	//#if MC >= 11900
-	public ServerPlayerEntityMixin(World world, BlockPos pos, float yaw, GameProfile gameProfile, @Nullable PlayerPublicKey publicKey) {
-		super(world, pos, yaw, gameProfile, publicKey);
-	}
-	//#else
-	//$$public ServerPlayerEntityMixin(World world, BlockPos pos, float yaw, GameProfile gameProfile) {
-	//$$	super(world, pos, yaw, gameProfile);
+	//#if MC >= 11900 && MC < 11903
+	//$$public ServerPlayerEntityMixin(World world, BlockPos pos, float yaw, GameProfile gameProfile, PlayerPublicKey publicKey) {
+	//$$	super(world, pos, yaw, gameProfile, publicKey);
 	//$$}
+	//#else
+	public ServerPlayerEntityMixin(World world, BlockPos pos, float yaw, GameProfile gameProfile) {
+		super(world, pos, yaw, gameProfile);
+	}
 	//#endif
 
 

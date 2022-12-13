@@ -12,16 +12,16 @@ import org.spongepowered.asm.mixin.gen.Invoker;
 
 @Mixin(value = EntityPlayerMPFake.class, remap = false)
 public interface EntityPlayerMPFakeInvoker {
-	//#if MC >= 11900
-	@SuppressWarnings("unused")
-	@Invoker("<init>")
-	static EntityPlayerMPFake init(MinecraftServer server, ServerWorld worldIn, GameProfile profile, boolean shadow, PlayerPublicKey profilePublicKey) {
-		throw new AssertionError();
-	}
-	//#else
+	//#if MC >= 11900 && MC < 11903
 	//$$@Invoker("<init>")
-	//$$static EntityPlayerMPFake init(MinecraftServer server, ServerWorld worldIn, GameProfile profile, boolean shadow) {
+	//$$static EntityPlayerMPFake init(MinecraftServer server, ServerWorld worldIn, GameProfile profile, boolean shadow, PlayerPublicKey profilePublicKey) {
 	//$$	throw new AssertionError();
 	//$$}
+	//#else
+	@SuppressWarnings("unused")
+	@Invoker("<init>")
+	static EntityPlayerMPFake init(MinecraftServer server, ServerWorld worldIn, GameProfile profile, boolean shadow) {
+		throw new AssertionError();
+	}
 	//#endif
 }
