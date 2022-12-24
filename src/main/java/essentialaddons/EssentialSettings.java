@@ -500,7 +500,7 @@ public class EssentialSettings {
         categories = {ESSENTIAL, FEATURE, SURVIVAL}
         //#else
         //$$desc = "Makes phantoms unable to spawn unless the mobcap allows for them to",
-        //$$categories = {ESSENTIAL, FEATURE, SURVIVAL}
+        //$$category = {ESSENTIAL, FEATURE, SURVIVAL}
         //#endif
     )
     public static boolean phantomsObeyMobcaps = false;
