@@ -9,5 +9,9 @@ import org.spongepowered.asm.mixin.gen.Invoker;
 @Mixin(SpawnHelper.Info.class)
 public interface InfoInvoker {
 	@Invoker("isBelowCap")
+	//#if MC >= 11800
 	boolean isBelowCap(SpawnGroup group, ChunkPos chunkPos);
+	//#else
+	//$$boolean isBelowCap(SpawnGroup group);
+	//#endif
 }
