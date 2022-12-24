@@ -5,7 +5,7 @@
 
 [Fabric Carpet](https://github.com/gnembon/fabric-carpet) extension that adds  things from the Spigot plugin Essentials, or other features I think are needed for Minecraft.
 
-This mod is currently supporting **1.17.1**, **1.18.2**, and **1.19.2**
+This mod is currently supporting **1.17.1**, **1.18.2**, and **1.19.3**
 
 Feel free to contribute by adding as many features as you want!
 
@@ -51,6 +51,7 @@ Feel free to contribute by adding as many features as you want!
 * [fakePlayerDropInventoryOnKill](#fakePlayerDropInventoryOnKill)
 * [infiniteItems](#infiniteitems)
 * [minecartboosting](#minecartboosting)
+* [phantomsObeyMobcaps](#phantomsObeyMobcaps)
 * [reloadFakePlayerActions](#reloadfakeplayeractions)
 * [reloadFakePlayers](#reloadfakeplayers)
 * [removeItemEntitiesAfterThreshold](#removeitementitiesafterthreshold)
@@ -378,6 +379,13 @@ Reimplements minecart boosting
 * Default value: `false`
 * Required options: `false`,`true`
 * Categories: `ESSENTIAL`, `FEATURE`, `EXPERIMENTAL`
+
+# phantomsObeyMobcaps
+Makes phantoms unable to spawn unless the mobcap allows for them to
+* Type: `Boolean`
+* Default value: `false`
+* Required options: `false`, `true`
+* Categories: `ESSENTIAL`, `FEATURE`, `SURVIVAL`
 
 ## reloadFakePlayerActions
 Automatically reloads the fake players actions after server restart
