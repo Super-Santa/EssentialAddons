@@ -15,7 +15,6 @@ import static carpet.api.settings.RuleCategory.*;
 //$$import static carpet.settings.RuleCategory.*;
 //#endif
 
-
 public class EssentialSettings {
     private final static String ESSENTIAL = "essential";
 
@@ -495,6 +494,16 @@ public class EssentialSettings {
         //#endif
     )
     public static boolean minecartBoosting = false;
+
+    @Rule(
+        //#if MC >= 11900
+        categories = {ESSENTIAL, FEATURE, SURVIVAL}
+        //#else
+        //$$desc = "Makes phantoms unable to spawn unless the mobcap allows for them to",
+        //$$categories = {ESSENTIAL, FEATURE, SURVIVAL}
+        //#endif
+    )
+    public static boolean phantomsObeyMobcaps = false;
 
     @Rule(
         //#if MC >= 11900

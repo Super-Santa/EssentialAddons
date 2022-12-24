@@ -49,6 +49,8 @@
     "lithium.LithiumStackListMixin",
     "maxChatLength.GenericChatMessageC2SPacketMixin",
     "minecartBoosting.AbstractMinecartEntityMixin",
+    "phantomsObeyMobcap.InfoInvoker",
+    "phantomsObeyMobcap.PhantomSpawnerMixin",
     "reloadFakePlayers.ActionMixin",
     "reloadFakePlayers.EntityPlayerActionPackAccessor",
     "reloadFakePlayers.EntityPlayerMPFakeInvoker",

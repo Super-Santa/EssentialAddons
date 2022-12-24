@@ -103,6 +103,8 @@
 
   "carpet.rule.minecartBoosting.desc": "Reimplements minecart boosting",
 
+  "carpet.rule.phantomsObeyMobcaps": "Makes phantoms unable to spawn unless the mobcap allows for them to",
+
   "carpet.rule.reloadFakePlayerActions.desc": "Automatically reloads the fake players actions after server restart",
 
   "carpet.rule.reloadFakePlayers.desc": "Automatically respawns fake players on server restart",
