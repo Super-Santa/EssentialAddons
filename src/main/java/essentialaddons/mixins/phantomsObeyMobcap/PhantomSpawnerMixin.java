@@ -34,7 +34,7 @@ public class PhantomSpawnerMixin {
 	//$$private void onPhantomSpawn(ServerWorld world, boolean spawnMonsters, boolean spawnAnimals, CallbackInfoReturnable<Integer> cir) {
 	//$$	if (EssentialSettings.phantomsObeyMobcaps) {
 	//$$		InfoInvoker info = ((InfoInvoker) world.getChunkManager().getSpawnInfo());
-	//$$		if (info != null && info.isBelowCap(SpawnGroup.MONSTER)) {
+	//$$		if (info != null && !info.isBelowCap(SpawnGroup.MONSTER)) {
 	//$$			cir.setReturnValue(0);
 	//$$		}
 	//$$	}
