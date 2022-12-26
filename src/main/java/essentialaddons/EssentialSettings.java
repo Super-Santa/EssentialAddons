@@ -72,6 +72,16 @@ public class EssentialSettings {
 
     @Rule(
         //#if MC >= 11900
+        categories = {ESSENTIAL, SURVIVAL, COMMAND}
+        //#else
+        //$$desc = "Prevents players from teleporting to players on specific teams in spectator",
+        //$$category = {ESSENTIAL, SURVIVAL, COMMAND}
+        //#endif
+    )
+    public static boolean cameraModeTeamTeleportBlacklist = false;
+
+    @Rule(
+        //#if MC >= 11900
         categories = {ESSENTIAL, EXPERIMENTAL, FEATURE}
         //#else
         //$$desc = "Combines the duration of potions",
@@ -99,7 +109,7 @@ public class EssentialSettings {
         //$$category = {ESSENTIAL, COMMAND, EXPERIMENTAL, SURVIVAL, FEATURE}
         //#endif
     )
-    public static boolean commandCameraMode = false;
+    public static String commandCameraMode = "false";
 
     @Rule(
         //#if MC >= 11900
@@ -231,7 +241,7 @@ public class EssentialSettings {
         //$$category = {ESSENTIAL, COMMAND, CREATIVE}
         //#endif
     )
-    public static boolean commandNear = false;
+    public static String commandNear = "false";
 
     @Rule(
         //#if MC >= 11900

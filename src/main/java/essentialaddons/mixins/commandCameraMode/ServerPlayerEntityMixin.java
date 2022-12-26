@@ -22,6 +22,12 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
+//#if MC >= 11900
+import static carpet.utils.CommandHelper.canUseCommand;
+//#else
+//$$import static carpet.settings.SettingsManager.canUseCommand;
+//#endif
+
 @Mixin(ServerPlayerEntity.class)
 public abstract class ServerPlayerEntityMixin extends PlayerEntity {
 	@Shadow
@@ -43,14 +49,18 @@ public abstract class ServerPlayerEntityMixin extends PlayerEntity {
 
 	@Inject(method = "getServerGameMode", at = @At("HEAD"), cancellable = true)
 	private void onGetGameMode(GameMode backupGameMode, CallbackInfoReturnable<GameMode> cir) {
-		if (EssentialSettings.commandCameraMode && ConfigCameraData.INSTANCE.hasPlayerLocation((ServerPlayerEntity) (Object) this)) {
+
+		if (
+			canUseCommand(this.getCommandSource(), EssentialSettings.commandCameraMode) &&
+			ConfigCameraData.INSTANCE.hasPlayerLocation((ServerPlayerEntity) (Object) this)
+		) {
 			cir.setReturnValue(GameMode.SPECTATOR);
 		}
 	}
 
 	@Override
 	protected void tickStatusEffects() {
-		if (EssentialSettings.commandCameraMode && this.isSpectator()) {
+		if (canUseCommand(this.getCommandSource(), EssentialSettings.commandCameraMode) && this.isSpectator()) {
 			if (this.server.getTicks() % 20 == 0){
 				for (StatusEffectInstance statusEffectInstance : this.getStatusEffects()) {
 					this.networkHandler.sendPacket(new EntityStatusEffectS2CPacket(this.getId(), statusEffectInstance));

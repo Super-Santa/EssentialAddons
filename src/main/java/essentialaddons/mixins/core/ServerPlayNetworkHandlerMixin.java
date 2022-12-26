@@ -3,6 +3,7 @@ package essentialaddons.mixins.core;
 import essentialaddons.EssentialAddons;
 import essentialaddons.EssentialSettings;
 import essentialaddons.EssentialUtils;
+import essentialaddons.utils.ConfigTeamTeleportBlacklist;
 import essentialaddons.utils.NetworkHandler;
 import essentialaddons.utils.Subscription;
 import net.minecraft.entity.Entity;
@@ -10,6 +11,7 @@ import net.minecraft.network.NetworkThreadUtils;
 import net.minecraft.network.listener.ServerPlayPacketListener;
 import net.minecraft.network.packet.c2s.play.CustomPayloadC2SPacket;
 import net.minecraft.network.packet.c2s.play.SpectatorTeleportC2SPacket;
+import net.minecraft.scoreboard.AbstractTeam;
 import net.minecraft.server.network.ServerPlayNetworkHandler;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
@@ -35,6 +37,17 @@ abstract class ServerPlayNetworkHandlerMixin implements ServerPlayPacketListener
             }
             if (Subscription.TELEPORT_BLACKLIST.hasPlayer(otherPlayer) && !playerEntity.hasPermissionLevel(4)) {
                 EssentialUtils.sendToActionBar(playerEntity, "§6This player has teleporting §cDISABLED");
+                return;
+            }
+        }
+        if (EssentialSettings.cameraModeTeamTeleportBlacklist) {
+            Entity entity = packet.getTarget(targetWorld);
+            if (!(entity instanceof ServerPlayerEntity otherPlayer)) {
+                return;
+            }
+            AbstractTeam team = otherPlayer.getScoreboardTeam();
+            if (team != null && ConfigTeamTeleportBlacklist.INSTANCE.isTeamBlacklisted(team.getName())) {
+                EssentialUtils.sendToActionBar(playerEntity, "§6This player is on a team which you cannot teleport to!");
                 return;
             }
         }

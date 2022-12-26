@@ -36,7 +36,8 @@ public class EssentialAddons implements CarpetExtension, ModInitializer {
             ConfigCameraData.INSTANCE,
             ConfigSubscribeData.INSTANCE,
             ConfigFakePlayerData.INSTANCE,
-            ConfigCamera.INSTANCE
+            ConfigCamera.INSTANCE,
+            ConfigTeamTeleportBlacklist.INSTANCE
         );
         NETWORK_HANDLERS = Set.of(
             GameRuleNetworkHandler.INSTANCE,
@@ -126,6 +127,7 @@ public class EssentialAddons implements CarpetExtension, ModInitializer {
         CommandMods.register(dispatcher);
         CommandGhostPlayer.register(dispatcher);
         CommandConfig.register(dispatcher);
+        CommandTeamTeleportBlacklist.register(dispatcher);
     }
 
     @Override

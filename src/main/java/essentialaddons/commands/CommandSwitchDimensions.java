@@ -35,14 +35,14 @@ public class CommandSwitchDimensions {
             })
         );
     }
+
     private static void toOverworld(ServerPlayerEntity playerEntity, ServerWorld overworld) {
         playerEntity.teleport(overworld, playerEntity.getX() * 8, playerEntity.getY(), playerEntity.getZ() * 8, playerEntity.getYaw(1), playerEntity.getPitch(1));
         EssentialUtils.sendToActionBar(playerEntity, "§6You have been teleported to the §aOVERWORLD §6from your nether coords");
     }
+
     private static void toNether(ServerPlayerEntity playerEntity, ServerWorld nether) {
         playerEntity.teleport(nether, playerEntity.getX()/8, playerEntity.getY() > 128 ? playerEntity.getY() : 128, playerEntity.getZ()/8, playerEntity.getYaw(1), playerEntity.getPitch(1));
         EssentialUtils.sendToActionBar(playerEntity, "§6You have been teleported to the §aNETHER §6from your overworld coords");
     }
-
-
 }
