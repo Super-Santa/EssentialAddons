@@ -47,9 +47,6 @@ public class EssentialAddons implements CarpetExtension, ModInitializer {
 
     @Override
     public void onInitialize() {
-        for (Config config : CONFIG_SET) {
-            config.readConfig();
-        }
         CarpetServer.manageExtension(this);
     }
 
@@ -76,6 +73,9 @@ public class EssentialAddons implements CarpetExtension, ModInitializer {
     @Override
     public void onServerLoaded(MinecraftServer minecaraftServer) {
         server = minecaraftServer;
+        for (Config config : CONFIG_SET) {
+            config.readConfig();
+        }
     }
 
     @Override
