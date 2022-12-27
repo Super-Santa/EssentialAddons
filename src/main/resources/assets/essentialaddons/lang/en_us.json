@@ -11,6 +11,8 @@
   "carpet.rule.cameraModeSurvivalRestrictions.desc": "Ports cameraModeSurvivalRestrictions from carpet 1.12 into commandCameraMode",
   "carpet.rule.cameraModeSurvivalRestrictions.extra.0": "Does not allow you to use /cs if you are in danger",
 
+  "carpet.rule.cameraModeTeamTeleportBlacklist.desc": "Prevents players from teleporting to players on specific teams in spectator",
+
   "carpet.rule.cameraModeTeleportBlacklist.desc": "Prevents players from teleporting to players in spectator",
 
   "carpet.rule.combinePotionDuration.desc": "Combines the duration of potions",
