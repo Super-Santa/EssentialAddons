@@ -25,6 +25,9 @@
   "entrypoints": {
     "main": [
       "essentialaddons.EssentialAddons"
+    ],
+    "server": [
+      "essentialaddons.utils.EssentialRuleGenerator"
     ]
   },
   "mixins": [
