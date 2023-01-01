@@ -3,6 +3,7 @@ package essentialaddons.utils;
 //#if MC >= 11900
 import carpet.api.settings.SettingsManager;
 import carpet.utils.Translations;
+import essentialaddons.EssentialSettings;
 import joptsimple.OptionParser;
 import joptsimple.OptionSet;
 import joptsimple.OptionSpec;
@@ -62,6 +63,7 @@ public class EssentialRuleGenerator implements ModInitializer {
 
 		Translations.updateLanguage();
 		SettingsManager manager = new SettingsManager("1.2.0", "essentialaddons", "EssentialAddons");
+		manager.parseSettingsClass(EssentialSettings.class);
 		outputStream.println(START);
 		manager.dumpAllRulesToStream(outputStream, null);
 		outputStream.close();
