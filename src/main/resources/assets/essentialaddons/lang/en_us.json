@@ -19,7 +19,7 @@
 
   "carpet.rule.commandBackup.desc": "Allows you to backup regions in an area to the backups folder in the world folder",
 
-  "carpet.rule.commandCameraMode.desc": "Survival friendly spectator mode, puts the player in and out of spectator mode",
+  "carpet.rule.commandCameraMode.desc": "Survival friendly spectator mode, puts the player in and out of spectator mode. By default the command is `/cs`",
   "carpet.rule.commandCameraMode.extra.0": "Allows for saving location after server reset using rule cameraModeRestoreLocation and adds functionality for cameraModeSurvivalRestrictions",
 
   "carpet.rule.commandDefuse.desc": "Enables `/defuse` to be used to stop any tnt from exploding within a given range",
