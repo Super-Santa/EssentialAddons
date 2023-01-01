@@ -129,5 +129,10 @@
   "carpet.rule.stackableShulkersInPlayerInventories.extra.0": "Disable all other `stackableShulker` rules (unless you are using stackableShulkersWithItems)",
 
   "carpet.rule.stackableShulkersWithItems.desc": "Shulker boxes stack with items inside will stack with other shulkers with the same items",
-  "carpet.rule.stackableShulkersWithItems.extra.0": "This rule requires stackableShulkersInPlayerInventories to be enabled"
+  "carpet.rule.stackableShulkersWithItems.extra.0": "This rule requires stackableShulkersInPlayerInventories to be enabled",
+
+  "carpet.rule.structureBlockKillEntities.desc": "Kills all entities (bar players) within the structure bounding box when loading a structure",
+  "carpet.rule.structureBlockKillEntities.extra.0": "Requires ignore entities to be set to false",
+
+  "carpet.rule.structureBlockReplaceFluids.desc": "Replaces existing fluids when pasting. Why would you want to keep existing fluids anyways???"
 }

@@ -63,7 +63,9 @@
     "stackableShulkers.HopperBlockEntityMixin",
     "stackableShulkers.ItemEntityMixin",
     "stackableShulkers.ItemStackMixin",
-    "stackableShulkers.ScreenHandlerMixin"
+    "stackableShulkers.ScreenHandlerMixin",
+    "structureBlockKillEntities.StructureTemplateMixin",
+    "structureBlockReplaceFluids.StructureBlockBlockEntityMixin"
   ],
   "client": [
     "reloadFakePlayers.IntegratedPlayerManagerMixin"

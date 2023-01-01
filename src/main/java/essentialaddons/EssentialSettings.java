@@ -630,5 +630,26 @@ public class EssentialSettings {
         //#endif
     )
     public static boolean stackableShulkersWithItems = false;
+
+    @Rule(
+        //#if MC >= 11900
+        categories = {ESSENTIAL, CREATIVE, FEATURE}
+        //#else
+        //$$desc = "Kills all entities (bar players) within the structure bounding box when loading a structure",
+        //$$extra = "Requires ignore entities to be set to false",
+        //$$category = {ESSENTIAL, CREATIVE, FEATURE}
+        //#endif
+    )
+    public static boolean structureBlockKillEntities = false;
+
+    @Rule(
+        //#if MC >= 11900
+        categories = {ESSENTIAL, CREATIVE, FEATURE}
+        //#else
+        //$$desc = "Replaces existing fluids when pasting. Why would you want to keep existing fluids anyways???",
+        //$$category = {ESSENTIAL, CREATIVE, FEATURE}
+        //#endif
+    )
+    public static boolean structureBlockReplaceFluids = false;
 }
 
