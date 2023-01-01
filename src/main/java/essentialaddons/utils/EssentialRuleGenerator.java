@@ -17,6 +17,8 @@ import java.util.Arrays;
 //#endif
 
 import net.fabricmc.api.DedicatedServerModInitializer;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 // Ripped from Carpet
 public class EssentialRuleGenerator implements DedicatedServerModInitializer {
@@ -53,9 +55,12 @@ public class EssentialRuleGenerator implements DedicatedServerModInitializer {
 			return;
 		}
 
+		Logger logger = LogManager.getLogger("EssentialRuleGenerator");
+
 		PrintStream outputStream;
 		try {
 			Path path = Path.of(options.valueOf(pathSpec));
+			logger.info("Generating Rules for Path: {}", path.toString());
 			Files.createDirectories(path.getParent());
 			outputStream = new PrintStream(Files.newOutputStream(path));
 		} catch (IOException e) {
@@ -65,9 +70,11 @@ public class EssentialRuleGenerator implements DedicatedServerModInitializer {
 		Translations.updateLanguage();
 		SettingsManager manager = new SettingsManager("1.2.0", "carpet", "EssentialAddons");
 		manager.parseSettingsClass(EssentialSettings.class);
+		logger.info("Rule Count: {}", manager.getCarpetRules().size());
 		outputStream.println(START);
 		manager.dumpAllRulesToStream(outputStream, null);
 		outputStream.close();
+		logger.info("Complete");
 		System.exit(0);
 		//#endif
 	}
