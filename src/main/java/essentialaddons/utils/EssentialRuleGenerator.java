@@ -13,12 +13,13 @@ import java.io.IOException;
 import java.io.PrintStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.Arrays;
 //#endif
 
-import net.fabricmc.api.ModInitializer;
+import net.fabricmc.api.DedicatedServerModInitializer;
 
 // Ripped from Carpet
-public class EssentialRuleGenerator implements ModInitializer {
+public class EssentialRuleGenerator implements DedicatedServerModInitializer {
 	private static final String START =
 	"""
 	# EssentialAddons
@@ -35,9 +36,9 @@ public class EssentialRuleGenerator implements ModInitializer {
 	""";
 
 	@Override
-	public void onInitialize() {
+	public void onInitializeServer() {
 		//#if MC >= 11900
-		String[] launchArgs = FabricLoader.getInstance().getLaunchArguments(true);
+		String[] args = Arrays.stream(FabricLoader.getInstance().getLaunchArguments(true)).filter(opt -> !opt.equals("--")).toArray(String[]::new);
 
 		// Prepare an OptionParser for our parameters
 		OptionParser parser = new OptionParser();
@@ -45,7 +46,7 @@ public class EssentialRuleGenerator implements ModInitializer {
 
 		// Minecraft may need more stuff later that we don't want to special-case
 		parser.allowsUnrecognizedOptions();
-		OptionSet options = parser.parse(launchArgs);
+		OptionSet options = parser.parse(args);
 
 		// If our flag isn't set, continue regular launch
 		if (!options.has(pathSpec)) {

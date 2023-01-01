@@ -24,7 +24,9 @@
   "environment": "*",
   "entrypoints": {
     "main": [
-      "essentialaddons.EssentialAddons",
+      "essentialaddons.EssentialAddons"
+    ],
+    "server": [
       "essentialaddons.utils.EssentialRuleGenerator"
     ]
   },
