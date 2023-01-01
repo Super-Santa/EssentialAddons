@@ -54,7 +54,7 @@ public class EssentialRuleGenerator implements ModInitializer {
 		PrintStream outputStream;
 		try {
 			Path path = Path.of(options.valueOf(pathSpec));
-			Files.createDirectories(path);
+			Files.createDirectories(path.getParent());
 			outputStream = new PrintStream(Files.newOutputStream(path));
 		} catch (IOException e) {
 			throw new RuntimeException(e);
