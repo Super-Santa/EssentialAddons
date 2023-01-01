@@ -14,10 +14,10 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 //#endif
 
-import net.fabricmc.api.DedicatedServerModInitializer;
+import net.fabricmc.api.ModInitializer;
 
 // Ripped from Carpet
-public class EssentialRuleGenerator implements DedicatedServerModInitializer {
+public class EssentialRuleGenerator implements ModInitializer {
 	private static final String START =
 	"""
 	# EssentialAddons
@@ -34,7 +34,7 @@ public class EssentialRuleGenerator implements DedicatedServerModInitializer {
 	""";
 
 	@Override
-	public void onInitializeServer() {
+	public void onInitialize() {
 		//#if MC >= 11900
 		String[] launchArgs = FabricLoader.getInstance().getLaunchArguments(true);
 
