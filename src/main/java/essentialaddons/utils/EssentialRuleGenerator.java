@@ -63,7 +63,7 @@ public class EssentialRuleGenerator implements DedicatedServerModInitializer {
 		}
 
 		Translations.updateLanguage();
-		SettingsManager manager = new SettingsManager("1.2.0", "essentialaddons", "EssentialAddons");
+		SettingsManager manager = new SettingsManager("1.2.0", "carpet", "EssentialAddons");
 		manager.parseSettingsClass(EssentialSettings.class);
 		outputStream.println(START);
 		manager.dumpAllRulesToStream(outputStream, null);
