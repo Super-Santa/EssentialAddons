@@ -83,23 +83,15 @@ public class CommandCameraMode {
         String reason;
         if (!list.isEmpty()) {
             reason = "there are mobs nearby";
-        }
-        else if (playerEntity.isOnFire()) {
+        } else if (playerEntity.isOnFire()) {
             reason = "you are on fire";
-        }
-        else if (playerEntity.fallDistance > 0) {
+        } else if (playerEntity.fallDistance > 0) {
             reason = "you are falling";
-        }
-        else if (playerEntity.isFallFlying()) {
+        } else if (playerEntity.isFallFlying()) {
             reason = "you are flying";
-        }
-        else if (playerEntity.isSubmergedInWater()) {
+        } else if (playerEntity.isSubmergedInWater()) {
             reason = "you are under water";
-        }
-        else if (!list.isEmpty()) {
-            reason = "there are mobs nearby";
-        }
-        else {
+        } else {
             return false;
         }
         EssentialUtils.sendToActionBar(playerEntity, "§cYou cannot enter spectator because " + reason);
