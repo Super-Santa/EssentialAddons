@@ -111,6 +111,8 @@
 
   "carpet.rule.removeItemEntitiesAfterThreshold.desc": "Removes all item entities after set amount of item entities is reached in a world, set to 0 to disable",
 
+  "carpet.rule.removeWarnOversizedChunk.desc" : "Removes the warning 'Saving oversized chunk...' in console and logs",
+
   "carpet.rule.removeWarnMismatchBlockPos.desc": "Removes the warning 'Mismatch in destroy block pos...' in console and logs",
 
   "carpet.rule.removeWarnRemovedEntity.desc": "Removes the warning 'Fetching packet for removed entity...' in console and logs",

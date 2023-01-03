@@ -1,6 +1,7 @@
 package essentialaddons.mixins.phantomsObeyMobcap;
 
 import essentialaddons.EssentialSettings;
+import essentialaddons.utils.ducks.IInfo;
 import net.minecraft.entity.SpawnGroup;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.server.world.ServerWorld;
@@ -23,8 +24,8 @@ public class PhantomSpawnerMixin {
 			return true;
 		}
 		if (EssentialSettings.phantomsObeyMobcaps) {
-			InfoInvoker info = ((InfoInvoker) world.getChunkManager().getSpawnInfo());
-			return info != null && !info.isBelowCap(SpawnGroup.MONSTER, player.getChunkPos());
+			IInfo info = ((IInfo) world.getChunkManager().getSpawnInfo());
+			return info != null && !info.isBelowMobcap(SpawnGroup.MONSTER, player.getChunkPos());
 		}
 		return false;
 	}
@@ -33,8 +34,8 @@ public class PhantomSpawnerMixin {
 	//$$@Inject(method = "spawn", at = @At(value = "INVOKE", target = "Lnet/minecraft/server/world/ServerWorld;getPlayers()Ljava/util/List;", shift = At.Shift.BEFORE), cancellable = true)
 	//$$private void onPhantomSpawn(ServerWorld world, boolean spawnMonsters, boolean spawnAnimals, CallbackInfoReturnable<Integer> cir) {
 	//$$	if (EssentialSettings.phantomsObeyMobcaps) {
-	//$$		InfoInvoker info = ((InfoInvoker) world.getChunkManager().getSpawnInfo());
-	//$$		if (info != null && !info.isBelowCap(SpawnGroup.MONSTER)) {
+	//$$		IInfo info = ((IInfo) world.getChunkManager().getSpawnInfo());
+	//$$		if (info != null && !info.isBelowMobcap(SpawnGroup.MONSTER)) {
 	//$$			cir.setReturnValue(0);
 	//$$		}
 	//$$	}
