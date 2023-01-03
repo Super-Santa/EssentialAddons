@@ -477,6 +477,13 @@ Removes the warning 'Mismatch in destroy block pos...' in console and logs
 * Allowed options: `true`, `false`  
 * Categories: `ESSENTIAL`, `SURVIVAL`, `FEATURE`  
   
+## removeWarnOversizedChunk
+Removes the warning 'Saving oversized chunk...' in console and logs  
+* Type: `Boolean`  
+* Default value: `false`  
+* Allowed options: `true`, `false`  
+* Categories: `ESSENTIAL`, `SURVIVAL`, `FEATURE`  
+  
 ## removeWarnRemovedEntity
 Removes the warning 'Fetching packet for removed entity...' in console and logs  
 * Type: `Boolean`  
