@@ -36,7 +36,6 @@ public class EssentialAddons implements CarpetExtension, ModInitializer {
             ConfigCameraData.INSTANCE,
             ConfigSubscribeData.INSTANCE,
             ConfigFakePlayerData.INSTANCE,
-            ConfigCamera.INSTANCE,
             ConfigTeamTeleportBlacklist.INSTANCE
         );
         NETWORK_HANDLERS = Set.of(
@@ -48,6 +47,7 @@ public class EssentialAddons implements CarpetExtension, ModInitializer {
     @Override
     public void onInitialize() {
         CarpetServer.manageExtension(this);
+        ConfigCamera.INSTANCE.readConfig();
     }
 
     @Override
