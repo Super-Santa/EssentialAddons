@@ -114,9 +114,13 @@ public class EssentialUtils {
         return false;
     }
 
-    public static Path getSavePath() {
-        return server.getSavePath(WorldSavePath.ROOT);
-    }
+	public static Path getSavePath() {
+		if (server == null){
+			FabricLoader fabricLoader = FabricLoader.getInstance();
+			return fabricLoader.getConfigDir();
+		}
+		return server.getSavePath(WorldSavePath.ROOT);
+	}
 
     public static Path getConfigPath() {
         FabricLoader fabricLoader = FabricLoader.getInstance();
