@@ -115,6 +115,9 @@ public class EssentialUtils {
     }
 
     public static Path getSavePath() {
+        if (server == null) {
+            return FabricLoader.getInstance().getConfigDir();
+        }
         return server.getSavePath(WorldSavePath.ROOT);
     }
 
