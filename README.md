@@ -3,7 +3,29 @@
 [![Discord](https://badgen.net/discord/online-members/gn99m4QRY4?icon=discord&label=Discord&list=what)](https://discord.gg/gn99m4QRY4)
 [![GitHub downloads](https://img.shields.io/github/downloads/super-santa/essentialaddons/total?label=Github%20downloads&logo=github)](https://github.com/Super-Santa/EssentialAddons/releases)
 
-[Fabric Carpet](https://github.com/gnembon/fabric-carpet) extension that adds  things from the Spigot plugin Essentials, or other features I think are needed for Minecraft.
+[Fabric Carpet](https://github.com/gnembon/fabric-carpet) extension that adds things from the Spigot plugin Essentials, or other features I think are needed for Minecraft.
+
+Features can be enabled through the `/carpet` command:
+```
+/carpet <rule_name> <rule_value>
+
+# For example:
+/carpet phantomsObeyMobcaps true
+/carpet commandCameraMode ops
+/carpet stackableShulkersInPlayerInventories true
+```
+
+
+Permissions can be customised for commands through a permissions mod such as [LuckPerms](https://luckperms.net/),
+the name of the permissions are as follows:
+```
+esssentialaddons.command.<command_name>
+
+# For example:
+essentialaddons.command.cs
+essentialaddons.command.hat
+essentialaddons.command.lagspike
+```
 
 
 # EssentialAddons Settings
