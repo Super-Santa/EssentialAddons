@@ -5,6 +5,7 @@
 
 [Fabric Carpet](https://github.com/gnembon/fabric-carpet) extension that adds  things from the Spigot plugin Essentials, or other features I think are needed for Minecraft.
 
+
 # EssentialAddons Settings
 ## broadcastToAll
 Broadcasts all OP messages to everyone  
