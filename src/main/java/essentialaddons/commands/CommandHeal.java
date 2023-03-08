@@ -6,16 +6,12 @@ import essentialaddons.EssentialUtils;
 import net.minecraft.server.command.ServerCommandSource;
 import net.minecraft.server.network.ServerPlayerEntity;
 
-//#if MC >= 11900
-import static carpet.utils.CommandHelper.canUseCommand;
-//#else
-//$$import static carpet.settings.SettingsManager.canUseCommand;
-//#endif
+import static essentialaddons.EssentialUtils.enabled;
 import static net.minecraft.server.command.CommandManager.literal;
 
 public class CommandHeal {
     public static void register(CommandDispatcher<ServerCommandSource> dispatcher) {
-        dispatcher.register(literal("heal").requires((player) -> canUseCommand(player, EssentialSettings.commandHeal))
+        dispatcher.register(literal("heal").requires(enabled(() -> EssentialSettings.commandHeal, "essentialaddons.command.heal"))
             .executes(context -> {
                 ServerPlayerEntity playerEntity = context.getSource().getPlayerOrThrow();
                 playerEntity.setHealth(playerEntity.getMaxHealth());

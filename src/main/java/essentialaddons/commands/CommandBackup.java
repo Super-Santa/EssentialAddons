@@ -26,18 +26,14 @@ import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
-//#if MC >= 11900
-import static carpet.utils.CommandHelper.canUseCommand;
-//#else
-//$$import static carpet.settings.SettingsManager.canUseCommand;
-//#endif
+import static essentialaddons.EssentialUtils.enabled;
 import static net.minecraft.server.command.CommandManager.argument;
 import static net.minecraft.server.command.CommandManager.literal;
 
 public class CommandBackup {
 	// Ngl one of the worst looking command trees...
 	public static void register(CommandDispatcher<ServerCommandSource> dispatcher) {
-		dispatcher.register(literal("backup").requires((player) -> canUseCommand(player, EssentialSettings.commandBackup))
+		dispatcher.register(literal("backup").requires(enabled(() -> EssentialSettings.commandBackup, "essentialaddons.command.backup"))
 			.then(argument("regionxfrom", IntegerArgumentType.integer())
 				.suggests((c, b) -> getPlayerRegion(c, b, true))
 				.then(argument("regionzfrom", IntegerArgumentType.integer())

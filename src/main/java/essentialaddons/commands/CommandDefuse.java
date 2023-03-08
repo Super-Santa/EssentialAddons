@@ -14,17 +14,13 @@ import net.minecraft.util.math.Box;
 
 import java.util.Collection;
 
-//#if MC >= 11900
-import static carpet.utils.CommandHelper.canUseCommand;
-//#else
-//$$import static carpet.settings.SettingsManager.canUseCommand;
-//#endif
+import static essentialaddons.EssentialUtils.enabled;
 import static net.minecraft.server.command.CommandManager.argument;
 import static net.minecraft.server.command.CommandManager.literal;
 
 public class CommandDefuse {
     public static void register(CommandDispatcher<ServerCommandSource> dispatcher) {
-        dispatcher.register(literal("defuse").requires((player) -> canUseCommand(player, EssentialSettings.commandDefuse))
+        dispatcher.register(literal("defuse").requires(enabled(() -> EssentialSettings.commandDefuse, "essentialaddons.command.defuse"))
             .then(argument("range", IntegerArgumentType.integer(1))
                 .executes(CommandDefuse::defuse)
             ));

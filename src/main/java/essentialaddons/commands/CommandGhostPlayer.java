@@ -35,17 +35,13 @@ import net.minecraft.util.Uuids;
 //$$import net.minecraft.util.registry.RegistryKey;
 //#endif
 
-//#if MC >= 11900
-import static carpet.utils.CommandHelper.canUseCommand;
-//#else
-//$$import static carpet.settings.SettingsManager.canUseCommand;
-//#endif
+import static essentialaddons.EssentialUtils.enabled;
 import static net.minecraft.server.command.CommandManager.argument;
 import static net.minecraft.server.command.CommandManager.literal;
 
 public class CommandGhostPlayer {
     public static void register(CommandDispatcher<ServerCommandSource> dispatcher) {
-        dispatcher.register(literal("ghostplayer").requires((player) -> canUseCommand(player, EssentialSettings.commandGhostPlayer))
+        dispatcher.register(literal("ghostplayer").requires(enabled(() -> EssentialSettings.commandGhostPlayer, "essentialaddons.command.ghostplayer"))
             .then(argument("player", StringArgumentType.word())
                 .suggests((context, builder) -> CommandSource.suggestMatching(getPlayers(context.getSource()), builder))
                 .then(literal("spawn")

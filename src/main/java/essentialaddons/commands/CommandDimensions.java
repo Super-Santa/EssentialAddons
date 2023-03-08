@@ -10,17 +10,13 @@ import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 
-//#if MC >= 11900
-import static carpet.utils.CommandHelper.canUseCommand;
-//#else
-//$$import static carpet.settings.SettingsManager.canUseCommand;
-//#endif
+import static essentialaddons.EssentialUtils.enabled;
 import static net.minecraft.server.command.CommandManager.argument;
 import static net.minecraft.server.command.CommandManager.literal;
 
 public class CommandDimensions {
     public static void register(CommandDispatcher<ServerCommandSource> dispatcher) {
-        dispatcher.register(literal("overworld").requires((player) -> canUseCommand(player, EssentialSettings.commandDimensions))
+        dispatcher.register(literal("overworld").requires(enabled(() -> EssentialSettings.commandDimensions, "essentialaddons.command.overworld"))
             .executes(context -> {
                 ServerPlayerEntity playerEntity = context.getSource().getPlayerOrThrow();
                 ServerWorld world = context.getSource().getServer().getWorld(World.OVERWORLD);
@@ -37,7 +33,7 @@ public class CommandDimensions {
                 })
             )
         );
-        dispatcher.register(literal("nether").requires((player) -> canUseCommand(player, EssentialSettings.commandDimensions))
+        dispatcher.register(literal("nether").requires(enabled(() -> EssentialSettings.commandDimensions, "essentialaddons.command.nether"))
             .executes(context -> {
                 ServerPlayerEntity playerEntity = context.getSource().getPlayerOrThrow();
                 ServerWorld world = context.getSource().getServer().getWorld(World.NETHER);
@@ -54,7 +50,7 @@ public class CommandDimensions {
                 })
             )
         );
-        dispatcher.register(literal("end").requires((player) -> canUseCommand(player, EssentialSettings.commandDimensions))
+        dispatcher.register(literal("end").requires(enabled(() -> EssentialSettings.commandDimensions, "essentialaddons.command.end"))
             .executes(context -> {
                 ServerPlayerEntity playerEntity = context.getSource().getPlayerOrThrow();
                 ServerWorld world = context.getSource().getServer().getWorld(World.END);

@@ -8,17 +8,13 @@ import net.minecraft.command.argument.Vec2ArgumentType;
 import net.minecraft.server.command.ServerCommandSource;
 import net.minecraft.server.network.ServerPlayerEntity;
 
-//#if MC >= 11900
-import static carpet.utils.CommandHelper.canUseCommand;
-//#else
-//$$import static carpet.settings.SettingsManager.canUseCommand;
-//#endif
+import static essentialaddons.EssentialUtils.enabled;
 import static net.minecraft.server.command.CommandManager.argument;
 import static net.minecraft.server.command.CommandManager.literal;
 
 public class CommandRegion {
     public static void register(CommandDispatcher<ServerCommandSource> dispatcher) {
-        dispatcher.register(literal("region").requires((player) -> canUseCommand(player, EssentialSettings.commandRegion))
+        dispatcher.register(literal("region").requires(enabled(() -> EssentialSettings.commandRegion, "essentialaddons.command.region"))
             .then(literal("get")
                 .then(argument("pos", Vec2ArgumentType.vec2())
                     .executes(context -> {

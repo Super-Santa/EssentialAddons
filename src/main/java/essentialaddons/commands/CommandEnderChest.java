@@ -11,17 +11,13 @@ import net.minecraft.server.command.ServerCommandSource;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.text.Text;
 
-//#if MC >= 11900
-import static carpet.utils.CommandHelper.canUseCommand;
-//#else
-//$$import static carpet.settings.SettingsManager.canUseCommand;
-//#endif
+import static essentialaddons.EssentialUtils.enabled;
 import static net.minecraft.server.command.CommandManager.literal;
 
 public class CommandEnderChest {
     public static void register(CommandDispatcher<ServerCommandSource> dispatcher) {
-        dispatcher.register(literal("enderchest").requires((player) -> canUseCommand(player, EssentialSettings.commandEnderChest)).executes(context -> CommandEnderChest.execute(context.getSource())));
-        dispatcher.register(literal("ec").requires((player) -> canUseCommand(player, EssentialSettings.commandEnderChest)).executes(context -> CommandEnderChest.execute(context.getSource())));
+        dispatcher.register(literal("enderchest").requires(enabled(() -> EssentialSettings.commandEnderChest, "essentialaddons.command.enderchest")).executes(context -> CommandEnderChest.execute(context.getSource())));
+        dispatcher.register(literal("ec").requires(enabled(() -> EssentialSettings.commandEnderChest, "essentialaddons.command.ec")).executes(context -> CommandEnderChest.execute(context.getSource())));
     }
 
     private static int execute(ServerCommandSource source) throws CommandSyntaxException {

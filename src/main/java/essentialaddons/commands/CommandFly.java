@@ -6,16 +6,12 @@ import essentialaddons.EssentialUtils;
 import net.minecraft.server.command.ServerCommandSource;
 import net.minecraft.server.network.ServerPlayerEntity;
 
-//#if MC >= 11900
-import static carpet.utils.CommandHelper.canUseCommand;
-//#else
-//$$import static carpet.settings.SettingsManager.canUseCommand;
-//#endif
+import static essentialaddons.EssentialUtils.enabled;
 import static net.minecraft.server.command.CommandManager.literal;
 
 public class CommandFly {
     public static void register(CommandDispatcher<ServerCommandSource> dispatcher) {
-        dispatcher.register(literal("fly").requires((player) -> canUseCommand(player, EssentialSettings.commandFly))
+        dispatcher.register(literal("fly").requires(enabled(() -> EssentialSettings.commandFly, "essentialaddons.command.fly"))
             .executes(context -> {
                 ServerPlayerEntity playerEntity = context.getSource().getPlayerOrThrow();
                 if (!playerEntity.getAbilities().allowFlying) {

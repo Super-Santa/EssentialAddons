@@ -8,16 +8,12 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.server.command.ServerCommandSource;
 import net.minecraft.server.network.ServerPlayerEntity;
 
-//#if MC >= 11900
-import static carpet.utils.CommandHelper.canUseCommand;
-//#else
-//$$import static carpet.settings.SettingsManager.canUseCommand;
-//#endif
+import static essentialaddons.EssentialUtils.enabled;
 import static net.minecraft.server.command.CommandManager.literal;
 
 public class CommandHat {
     public static void register(CommandDispatcher<ServerCommandSource> dispatcher) {
-        dispatcher.register(literal("hat").requires((player) -> canUseCommand(player, EssentialSettings.commandHat))
+        dispatcher.register(literal("hat").requires(enabled(() -> EssentialSettings.commandHat, "essentialaddons.command.hat"))
             .executes(context -> {
                 ServerPlayerEntity playerEntity = context.getSource().getPlayerOrThrow();
                 ItemStack hat = playerEntity.getEquippedStack(EquipmentSlot.HEAD);

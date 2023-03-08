@@ -4,6 +4,7 @@ import carpet.helpers.InventoryHelper;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import essentialaddons.utils.Subscription;
+import me.lucko.fabric.api.permissions.v0.Permissions;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.block.BlockState;
@@ -13,6 +14,7 @@ import net.minecraft.entity.Entity;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.server.command.ServerCommandSource;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
@@ -31,13 +33,18 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Path;
 import java.util.Map;
 import java.util.Random;
+import java.util.function.Predicate;
+import java.util.function.Supplier;
 
 import static essentialaddons.EssentialAddons.server;
 import static net.minecraft.block.Block.dropStack;
 import static net.minecraft.block.Block.getDroppedStacks;
 
-//#if MC < 11900
+//#if MC >= 11900
+import static carpet.utils.CommandHelper.canUseCommand;
+//#else
 //$$import net.minecraft.text.*;
+//$$import static carpet.settings.SettingsManager.canUseCommand;
 //#endif
 
 public class EssentialUtils {
@@ -112,6 +119,18 @@ public class EssentialUtils {
             return placeItemInInventory(player, stack);
         }
         return false;
+    }
+
+    public static boolean hasPermission(ServerCommandSource source, Supplier<Object> field, String permission) {
+        return canUseCommand(source, field.get()) || Permissions.check(source, permission);
+    }
+
+    public static Predicate<ServerCommandSource> enabled(Supplier<Object> field, String permission) {
+        return source -> hasPermission(source, field, permission);
+    }
+
+    public static Predicate<ServerCommandSource> op(String permission) {
+        return source -> Permissions.check(source, permission, 4);
     }
 
     public static Path getSavePath() {

@@ -18,17 +18,13 @@ import net.minecraft.world.GameMode;
 import java.util.List;
 import java.util.Set;
 
-//#if MC >= 11900
-import static carpet.utils.CommandHelper.canUseCommand;
-//#else
-//$$import static carpet.settings.SettingsManager.canUseCommand;
-//#endif
+import static essentialaddons.EssentialUtils.enabled;
 import static net.minecraft.server.command.CommandManager.literal;
 
 public class CommandCameraMode {
     public static void register(CommandDispatcher<ServerCommandSource> dispatcher) {
         LiteralArgumentBuilder<ServerCommandSource> csCommand = literal(ConfigCamera.INSTANCE.commandName);
-        csCommand.requires((p) -> canUseCommand(p, EssentialSettings.commandCameraMode)).executes(ctx -> {
+        csCommand.requires(enabled(() -> EssentialSettings.commandCameraMode, "essentialaddons.command.cs")).executes(ctx -> {
             return toggle(ctx.getSource().getPlayerOrThrow());
         });
         dispatcher.register(csCommand);
@@ -52,7 +48,7 @@ public class CommandCameraMode {
 
     private static int returnMode(ServerPlayerEntity playerEntity) {
         GameMode previous = playerEntity.interactionManager.getPreviousGameMode();
-        // Id is -1 if not set in previous versions of MC
+        // The id is -1 if not set in previous versions of MC
         if (previous == null || previous.getId() < 0 || previous == GameMode.SPECTATOR) {
             // In the edge case you do some funky stuff and your previous game mode
             // is also the same as your current game mode. Otherwise, you will get stuck in spectator.

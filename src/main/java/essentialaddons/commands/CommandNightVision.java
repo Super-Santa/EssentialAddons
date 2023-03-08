@@ -8,16 +8,12 @@ import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.server.command.ServerCommandSource;
 import net.minecraft.server.network.ServerPlayerEntity;
 
-//#if MC >= 11900
-import static carpet.utils.CommandHelper.canUseCommand;
-//#else
-//$$import static carpet.settings.SettingsManager.canUseCommand;
-//#endif
+import static essentialaddons.EssentialUtils.enabled;
 import static net.minecraft.server.command.CommandManager.literal;
 
 public class CommandNightVision {
     public static void register(CommandDispatcher<ServerCommandSource> dispatcher) {
-        dispatcher.register(literal("nightvision").requires((player) -> canUseCommand(player, EssentialSettings.commandNightVision))
+        dispatcher.register(literal("nightvision").requires(enabled(() -> EssentialSettings.commandNightVision, "essentialaddons.command.nightvision"))
             .executes(context -> {
                 ServerPlayerEntity playerEntity = context.getSource().getPlayerOrThrow();
                 if (!playerEntity.hasStatusEffect(StatusEffects.NIGHT_VISION)) {

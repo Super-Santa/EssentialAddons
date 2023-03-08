@@ -12,17 +12,13 @@ import net.minecraft.util.math.Box;
 
 import java.util.List;
 
-//#if MC >= 11900
-import static carpet.utils.CommandHelper.canUseCommand;
-//#else
-//$$import static carpet.settings.SettingsManager.canUseCommand;
-//#endif
+import static essentialaddons.EssentialUtils.enabled;
 import static net.minecraft.server.command.CommandManager.argument;
 import static net.minecraft.server.command.CommandManager.literal;
 
 public class CommandNear {
     public static void register(CommandDispatcher<ServerCommandSource> dispatcher) {
-        dispatcher.register(literal("near").requires((player) -> canUseCommand(player, EssentialSettings.commandNear))
+        dispatcher.register(literal("near").requires(enabled(() -> EssentialSettings.commandNear, "essentialaddons.command.near"))
             .then(argument("distance", IntegerArgumentType.integer(1))
                 .executes(context -> {
                     ServerPlayerEntity serverPlayerEntity = context.getSource().getPlayerOrThrow();

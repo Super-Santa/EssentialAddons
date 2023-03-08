@@ -23,6 +23,10 @@ repositories {
 	maven {
 		url "https://pkgs.dev.azure.com/djtheredstoner/DevAuth/_packaging/public/maven/v1"
 	}
+	maven {
+		// Fabric permissions
+		url "https://oss.sonatype.org/content/repositories/snapshots"
+	}
 }
 
 archivesBaseName = project.archives_base_name
@@ -35,6 +39,7 @@ dependencies {
 	modImplementation "net.fabricmc:fabric-loader:${project.loader_version}"
 	modImplementation "carpet:fabric-carpet:${project.carpet_core_version}"
 	// modImplementation "com.github.CaffeineMC:lithium-fabric:${project.lithium_version}"
+	modImplementation "me.lucko:fabric-permissions-api:0.2-SNAPSHOT"
 
 	// Account authentication at runtime
 	modRuntimeOnly "me.djtheredstoner:DevAuth-fabric:1.0.0"

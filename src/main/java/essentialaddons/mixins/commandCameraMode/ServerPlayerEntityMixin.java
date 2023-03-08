@@ -2,6 +2,7 @@ package essentialaddons.mixins.commandCameraMode;
 
 import com.mojang.authlib.GameProfile;
 import essentialaddons.EssentialSettings;
+import essentialaddons.EssentialUtils;
 import essentialaddons.utils.ConfigCameraData;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.player.PlayerEntity;
@@ -22,11 +23,6 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-//#if MC >= 11900
-import static carpet.utils.CommandHelper.canUseCommand;
-//#else
-//$$import static carpet.settings.SettingsManager.canUseCommand;
-//#endif
 
 @Mixin(ServerPlayerEntity.class)
 public abstract class ServerPlayerEntityMixin extends PlayerEntity {
@@ -51,7 +47,7 @@ public abstract class ServerPlayerEntityMixin extends PlayerEntity {
 	private void onGetGameMode(GameMode backupGameMode, CallbackInfoReturnable<GameMode> cir) {
 
 		if (
-			canUseCommand(this.getCommandSource(), EssentialSettings.commandCameraMode) &&
+			EssentialUtils.hasPermission(this.getCommandSource(), () -> EssentialSettings.commandCameraMode, "essentialaddons.command.cs") &&
 			ConfigCameraData.INSTANCE.hasPlayerLocation((ServerPlayerEntity) (Object) this)
 		) {
 			cir.setReturnValue(GameMode.SPECTATOR);
@@ -60,8 +56,8 @@ public abstract class ServerPlayerEntityMixin extends PlayerEntity {
 
 	@Override
 	protected void tickStatusEffects() {
-		if (canUseCommand(this.getCommandSource(), EssentialSettings.commandCameraMode) && this.isSpectator()) {
-			if (this.server.getTicks() % 20 == 0){
+		if (EssentialUtils.hasPermission(this.getCommandSource(), () -> EssentialSettings.commandCameraMode, "essentialaddons.command.cs") && this.isSpectator()) {
+			if (this.server.getTicks() % 20 == 0) {
 				for (StatusEffectInstance statusEffectInstance : this.getStatusEffects()) {
 					this.networkHandler.sendPacket(new EntityStatusEffectS2CPacket(this.getId(), statusEffectInstance));
 				}

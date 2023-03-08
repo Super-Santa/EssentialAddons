@@ -10,11 +10,7 @@ import net.minecraft.item.Items;
 import net.minecraft.server.command.ServerCommandSource;
 import net.minecraft.text.Text;
 
-//#if MC >= 11900
-import static carpet.utils.CommandHelper.canUseCommand;
-//#else
-//$$import static carpet.settings.SettingsManager.canUseCommand;
-//#endif
+import static essentialaddons.EssentialUtils.enabled;
 import static net.minecraft.server.command.CommandManager.argument;
 import static net.minecraft.server.command.CommandManager.literal;
 
@@ -22,11 +18,11 @@ public class CommandRename {
     private static final SimpleCommandExceptionType ITEM_IS_AIR = new SimpleCommandExceptionType(EssentialUtils.literal("Cannot rename air!"));
 
     public static void register(CommandDispatcher<ServerCommandSource> dispatcher) {
-        dispatcher.register(literal("rename").requires((player) -> canUseCommand(player, EssentialSettings.commandRename))
+        dispatcher.register(literal("rename").requires(enabled(() -> EssentialSettings.commandRename, "essentialaddons.command.rename"))
             .then(argument("name", TextArgumentType.text())
                 .executes(context -> {
                     ItemStack itemStack = context.getSource().getPlayerOrThrow().getMainHandStack();
-                    if (itemStack.getItem() != Items.AIR) {
+                    if (!itemStack.isEmpty()) {
                         Text text = TextArgumentType.getTextArgument(context, "name");
                         context.getSource().sendFeedback(EssentialUtils.literal("Item name set to: ").append(text), false);
                         itemStack.setCustomName(text);
