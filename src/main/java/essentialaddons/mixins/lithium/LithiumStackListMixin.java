@@ -8,7 +8,6 @@ import org.spongepowered.asm.mixin.Pseudo;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Redirect;
 
-
 @Pseudo
 @SuppressWarnings("UnresolvedMixinReference")
 @Mixin(targets = "me.jellysquid.mods.lithium.common.hopper.LithiumStackList")
