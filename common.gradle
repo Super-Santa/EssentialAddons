@@ -34,7 +34,7 @@ dependencies {
 	mappings "net.fabricmc:yarn:${project.yarn_mappings}:v2"
 	modImplementation "net.fabricmc:fabric-loader:${project.loader_version}"
 	modImplementation "carpet:fabric-carpet:${project.carpet_core_version}"
-	modImplementation "com.github.CaffeineMC:lithium-fabric:${project.lithium_version}"
+	// modImplementation "com.github.CaffeineMC:lithium-fabric:${project.lithium_version}"
 
 	// Account authentication at runtime
 	modRuntimeOnly "me.djtheredstoner:DevAuth-fabric:1.0.0"
