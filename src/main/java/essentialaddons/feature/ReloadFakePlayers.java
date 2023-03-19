@@ -1,7 +1,7 @@
 package essentialaddons.feature;
 
 import carpet.CarpetSettings;
-import carpet.fakes.ServerPlayerEntityInterface;
+import carpet.fakes.ServerPlayerInterface;
 import carpet.helpers.EntityPlayerActionPack;
 import carpet.helpers.EntityPlayerActionPack.ActionType;
 import carpet.patches.EntityPlayerMPFake;
@@ -44,7 +44,7 @@ public class ReloadFakePlayers {
         EntityPlayerMPFake instance = EntityPlayerMPFakeInvoker.init(server, server.getOverworld(), gameProfile, false);
         //#endif
         if (EssentialSettings.reloadFakePlayerActions) {
-            EntityPlayerActionPack actionPack = ((ServerPlayerEntityInterface) instance).getActionPack();
+            EntityPlayerActionPack actionPack = ((ServerPlayerInterface) instance).getActionPack();
             actionPack.setSneaking(sneaking).setSprinting(sprinting).setForward(forward).setStrafing(strafing);
             ((EntityPlayerActionPackAccessor) actionPack).getActions().putAll(actionMap);
         }

@@ -1,6 +1,7 @@
 package essentialaddons.feature.script;
 
 import carpet.script.CarpetContext;
+import carpet.script.Context;
 import carpet.script.Expression;
 import carpet.script.exception.InternalExpressionException;
 import carpet.script.value.*;
@@ -12,6 +13,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.network.PacketByteBuf;
 import net.minecraft.network.packet.s2c.play.CustomPayloadS2CPacket;
 import net.minecraft.server.MinecraftServer;
+import net.minecraft.server.command.ServerCommandSource;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.Vec3d;
@@ -46,7 +48,7 @@ public class ScriptPacketHandler extends NetworkHandler {
 			}
 
 			Value playerValue = v.get(0);
-			MinecraftServer server = ((CarpetContext) c).s.getServer();
+			MinecraftServer server = this.source(c).getServer();
 			ServerPlayerEntity player = EntityValue.getPlayerByValue(server, playerValue);
 			if (player == null) {
 				throw new InternalExpressionException("Cannot target player '%s'".formatted(playerValue.getString()));
@@ -68,7 +70,7 @@ public class ScriptPacketHandler extends NetworkHandler {
 
 		expression.addContextFunction("is_scripter", 1, (c, t, v) -> {
 			Value playerValue = v.get(0);
-			MinecraftServer server = ((CarpetContext) c).s.getServer();
+			MinecraftServer server = this.source(c).getServer();
 			ServerPlayerEntity player = EntityValue.getPlayerByValue(server, playerValue);
 			if (player == null) {
 				throw new InternalExpressionException("Cannot target player '%s'".formatted(playerValue.getString()));
@@ -91,6 +93,14 @@ public class ScriptPacketHandler extends NetworkHandler {
 	protected void processData(PacketByteBuf packetByteBuf, ServerPlayerEntity player) {
 		PacketParser parser = new PacketParser(packetByteBuf);
 		PacketEvent.EVENT.onScriptPacket(player, List.of(EntityValue.of(player), parser.parseToValues()));
+	}
+
+	private ServerCommandSource source(Context context) {
+		//#if MC >= 11904
+		return ((CarpetContext) context).source();
+		//#else
+		//$$return ((CarpetContext) context).s;
+		//#endif
 	}
 
 	private record PacketParser(PacketByteBuf buf) {

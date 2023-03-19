@@ -1,6 +1,6 @@
 package essentialaddons.utils;
 
-import carpet.fakes.ServerPlayerEntityInterface;
+import carpet.fakes.ServerPlayerInterface;
 import carpet.helpers.EntityPlayerActionPack.Action;
 import carpet.helpers.EntityPlayerActionPack.ActionType;
 import carpet.patches.EntityPlayerMPFake;
@@ -46,7 +46,7 @@ public class ConfigFakePlayerData implements Config {
 	public JsonArray getSaveData() {
 		JsonArray totalPlayerData = new JsonArray();
 		this.fakePlayers.forEach(player -> {
-			EntityPlayerActionPackAccessor actionPackAccessor = (EntityPlayerActionPackAccessor) ((ServerPlayerEntityInterface) player).getActionPack();
+			EntityPlayerActionPackAccessor actionPackAccessor = (EntityPlayerActionPackAccessor) ((ServerPlayerInterface) player).getActionPack();
 			JsonObject playerData = new JsonObject();
 			playerData.addProperty("uuid", player.getUuid().toString());
 			playerData.addProperty("username", player.getGameProfile().getName());

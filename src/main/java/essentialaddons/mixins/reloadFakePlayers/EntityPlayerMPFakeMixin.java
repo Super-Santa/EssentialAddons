@@ -79,7 +79,11 @@ public abstract class EntityPlayerMPFakeMixin extends ServerPlayerEntity impleme
 		ServerWorld serverWorld = server.getWorld(registryKey);
 		this.setWorld(serverWorld);
 		server.getPlayerManager().onPlayerConnect(new FakeClientConnection(NetworkSide.SERVERBOUND), this);
-		this.stepHeight = 0.6F;
+		//#if MC >= 11904
+		this.setStepHeight(0.6F);
+		//#else
+		//this.stepHeight = 0.6F;
+		//#endif
 		this.unsetRemoved();
 	}
 }

@@ -6,6 +6,7 @@ import essentialaddons.EssentialUtils;
 import net.minecraft.server.command.ServerCommandSource;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.MathHelper;
 
 import static essentialaddons.EssentialUtils.enabled;
 import static net.minecraft.server.command.CommandManager.literal;
@@ -15,7 +16,7 @@ public class CommandTop {
         dispatcher.register(literal("top").requires(enabled(() -> EssentialSettings.commandTop, "essentialaddons.command.top"))
             .executes(context -> {
                 ServerPlayerEntity playerEntity = context.getSource().getPlayerOrThrow();
-                BlockPos blockPos = new BlockPos(playerEntity.getX(), playerEntity.world.getHeight(), playerEntity.getZ());
+                BlockPos blockPos = new BlockPos(MathHelper.floor(playerEntity.getX()), playerEntity.world.getHeight(), MathHelper.floor(playerEntity.getZ()));
                 while (playerEntity.world.getBlockState(blockPos).isAir()) {
                     blockPos = blockPos.down();
                     if (blockPos.getY() == 0) {

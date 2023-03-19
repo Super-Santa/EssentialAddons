@@ -68,7 +68,11 @@ public class GhostPlayerEntity extends ServerPlayerEntity {
         instance.teleport(worldIn, d0, d1, d2, (float) yaw, (float) pitch);
         instance.setHealth(20.0F);
         instance.unsetRemoved();
-        instance.stepHeight = 0.6F;
+        //#if MC >= 11904
+        instance.setStepHeight(0.6F);
+        //#else
+        //$$instance.stepHeight = 0.6F;
+        //#endif
         instance.interactionManager.changeGameMode(GameMode.SPECTATOR);
         server.getPlayerManager().sendToDimension(new EntitySetHeadYawS2CPacket(instance, (byte) (instance.headYaw * 256 / 360)), dimensionId);
         server.getPlayerManager().sendToDimension(new EntityPositionS2CPacket(instance), dimensionId);
