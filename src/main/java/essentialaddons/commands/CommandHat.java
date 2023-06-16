@@ -24,9 +24,9 @@ public class CommandHat {
                 if (!playerEntity.isCreative()) {
                     stack.decrement(1);
                     if (playerEntity.getInventory().getEmptySlot() < 0) {
-                        ItemEntity itemEntity = new ItemEntity(playerEntity.world, playerEntity.getX(), playerEntity.getY()+1.0, playerEntity.getZ(), hat.copy());
+                        ItemEntity itemEntity = new ItemEntity(playerEntity.getWorld(), playerEntity.getX(), playerEntity.getY()+1.0, playerEntity.getZ(), hat.copy());
                         itemEntity.setToDefaultPickupDelay();
-                        playerEntity.world.spawnEntity(itemEntity);
+                        playerEntity.getWorld().spawnEntity(itemEntity);
                     }
                     else {
                         playerEntity.getInventory().insertStack(hat.copy());

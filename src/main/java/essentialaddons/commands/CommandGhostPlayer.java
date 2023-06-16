@@ -20,6 +20,7 @@ import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.PlayerManager;
 import net.minecraft.server.command.ServerCommandSource;
 import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 
@@ -65,7 +66,7 @@ public class CommandGhostPlayer {
                             Messenger.m(context.getSource(), "r Cannot kill this player");
                             return 0;
                         }
-                        playerEntity.getWorld().getChunkManager().loadEntity(playerEntity);
+                        ((ServerWorld)playerEntity.getWorld()).getChunkManager().loadEntity(playerEntity);
                         playerEntity.kill();
                         return 0;
                     })
@@ -83,7 +84,7 @@ public class CommandGhostPlayer {
         ServerPlayerEntity player = source.getPlayerOrThrow();
         ServerPlayerEntity playerEntity = GhostPlayerEntity.createFake(username, source.getServer(), pos.x, pos.y, pos.z, player.getYaw(), player.getPitch(), dim);
         if (playerEntity == null) {
-            source.sendFeedback(EssentialUtils.literal("Failed to spawn player"), false);
+            EssentialUtils.sendFeedback(context.getSource(), EssentialUtils.literal("Failed to spawn player"), false);
         }
 
         return 0;

@@ -53,9 +53,9 @@ processResources {
 
 	filesMatching("fabric.mod.json") {
 		def map = [
-			"version"             : project.mod_version,
-			"carpet_dependency"   : project.carpet_dependency,
-			"minecraft_dependency": project.minecraft_dependency
+				"version"             : project.mod_version,
+				"carpet_dependency"   : project.carpet_dependency,
+				"minecraft_dependency": project.minecraft_dependency
 		]
 		expand map
 	}

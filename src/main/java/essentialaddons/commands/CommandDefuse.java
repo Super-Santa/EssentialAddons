@@ -30,13 +30,13 @@ public class CommandDefuse {
         ServerPlayerEntity playerEntity = commandSource.getPlayerOrThrow();
         double x = playerEntity.getX(), y = playerEntity.getY(), z = playerEntity.getZ();
         Box nearPlayer = new Box(x - range,y - range,z - range,x + range,y + range, z + range);
-        return playerEntity.world.getEntitiesByClass(TntEntity.class, nearPlayer, tnt -> true);
+        return playerEntity.getWorld().getEntitiesByClass(TntEntity.class, nearPlayer, tnt -> true);
     }
 
     private static int defuse(CommandContext<ServerCommandSource> context) throws CommandSyntaxException {
         Collection<TntEntity> tntEntities = getTntEntities(context.getSource(), context.getArgument("range", Integer.class));
         tntEntities.forEach(Entity::kill);
-        context.getSource().sendFeedback(EssentialUtils.literal("§a"+ tntEntities.size() + " §6TNT entities have been defused"), true);
+        EssentialUtils.sendFeedback(context.getSource(), EssentialUtils.literal("§a"+ tntEntities.size() + " §6TNT entities have been defused"), true);
         return 1;
     }
 }

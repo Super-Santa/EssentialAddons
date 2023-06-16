@@ -76,9 +76,15 @@ public class GhostPlayerEntity extends ServerPlayerEntity {
         instance.interactionManager.changeGameMode(GameMode.SPECTATOR);
         server.getPlayerManager().sendToDimension(new EntitySetHeadYawS2CPacket(instance, (byte) (instance.headYaw * 256 / 360)), dimensionId);
         server.getPlayerManager().sendToDimension(new EntityPositionS2CPacket(instance), dimensionId);
-        instance.getWorld().getChunkManager().updatePosition(instance);
+        //#if MC < 12000
+        //$$instance.getWorld().getChunkManager().updatePosition(instance);
+        //#endif
         instance.dataTracker.set(PLAYER_MODEL_PARTS, (byte) 0x7f);
-        instance.getWorld().getChunkManager().unloadEntity(instance);
+        //#if MC >= 12000
+        instance.getServerWorld().getChunkManager().unloadEntity(instance);
+        //#else
+        //$$instance.getWorld().getChunkManager().unloadEntity(instance);
+        //#endif
         return instance;
     }
 

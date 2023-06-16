@@ -82,7 +82,7 @@ public class CommandCameraMode {
         }
         double x = playerEntity.getX(), y = playerEntity.getY(), z = playerEntity.getZ();
         Box nearPlayer = new Box(x - 4,y - 4,z - 4,x + 4,y + 4, z + 4);
-        List<HostileEntity> list = playerEntity.world.getEntitiesByClass(HostileEntity.class, nearPlayer, hostileEntity -> true);
+        List<HostileEntity> list = playerEntity.getWorld().getEntitiesByClass(HostileEntity.class, nearPlayer, hostileEntity -> true);
         String reason;
         if (!list.isEmpty()) {
             reason = "there are mobs nearby";

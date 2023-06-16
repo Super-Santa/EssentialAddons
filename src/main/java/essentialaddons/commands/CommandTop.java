@@ -16,15 +16,19 @@ public class CommandTop {
         dispatcher.register(literal("top").requires(enabled(() -> EssentialSettings.commandTop, "essentialaddons.command.top"))
             .executes(context -> {
                 ServerPlayerEntity playerEntity = context.getSource().getPlayerOrThrow();
-                BlockPos blockPos = new BlockPos(MathHelper.floor(playerEntity.getX()), playerEntity.world.getHeight(), MathHelper.floor(playerEntity.getZ()));
-                while (playerEntity.world.getBlockState(blockPos).isAir()) {
+                BlockPos blockPos = new BlockPos(MathHelper.floor(playerEntity.getX()), playerEntity.getWorld().getHeight(), MathHelper.floor(playerEntity.getZ()));
+                while (playerEntity.getWorld().getBlockState(blockPos).isAir()) {
                     blockPos = blockPos.down();
                     if (blockPos.getY() == 0) {
                         EssentialUtils.sendToActionBar(playerEntity, "§6There is no top most block");
                         return 0;
                     }
                 }
-                playerEntity.teleport(playerEntity.getWorld(), blockPos.getX() + 0.5, blockPos.getY() + 1, blockPos.getZ() + 0.5, playerEntity.getYaw(), playerEntity.getPitch());
+                //#if MC >= 12000
+                playerEntity.teleport(playerEntity.getServerWorld(), blockPos.getX() + 0.5, blockPos.getY() + 1, blockPos.getZ() + 0.5, playerEntity.getYaw(), playerEntity.getPitch());
+                //#else
+                //$$playerEntity.teleport(playerEntity.getWorld(), blockPos.getX() + 0.5, blockPos.getY() + 1, blockPos.getZ() + 0.5, playerEntity.getYaw(), playerEntity.getPitch());
+                //#endif
                 EssentialUtils.sendToActionBar(playerEntity, "§6You have been teleported to the top most block");
                 return 0;
             })

@@ -11,6 +11,7 @@ import net.minecraft.block.BlockState;
 import net.minecraft.block.ShulkerBoxBlock;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -70,6 +71,19 @@ public class EssentialUtils {
         //$$return new TranslatableText(key, arguments);
         //#endif
     }
+
+    //generates a supplier for 1.20.0 feedback
+    public static void sendFeedback(ServerCommandSource source, Text feedback, boolean broadcastToOps) {
+
+        //#if MC >=12000
+        source.sendFeedback(() -> feedback, broadcastToOps);
+        //#else
+        //$$source.sendFeedback(feedback, broadcastToOps);
+        //#endif
+
+
+    }
+
 
     public static boolean isItemShulkerBox(Item item) {
         return item instanceof BlockItem blockItem && blockItem.getBlock() instanceof ShulkerBoxBlock;

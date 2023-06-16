@@ -24,7 +24,7 @@ public class CommandNear {
                     ServerPlayerEntity serverPlayerEntity = context.getSource().getPlayerOrThrow();
                     int distance = context.getArgument("distance", Integer.class);
                     Box nearPlayer = new Box(serverPlayerEntity.getX() - distance,serverPlayerEntity.getY() - distance,serverPlayerEntity.getZ() - distance,serverPlayerEntity.getX() + distance,serverPlayerEntity.getY() + distance,serverPlayerEntity.getZ() + distance);
-                    List<PlayerEntity> playerEntities = serverPlayerEntity.world.getEntitiesByType(EntityType.PLAYER, nearPlayer, ServerPlayerEntity -> true);
+                    List<PlayerEntity> playerEntities = serverPlayerEntity.getWorld().getEntitiesByType(EntityType.PLAYER, nearPlayer, ServerPlayerEntity -> true);
                     if (playerEntities.size() < 2) {
                         serverPlayerEntity.sendMessage(EssentialUtils.literal("§cThere are no players near you"), false);
                         return 0;
