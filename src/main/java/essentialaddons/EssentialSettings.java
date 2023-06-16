@@ -404,6 +404,8 @@ public class EssentialSettings {
     )
     public static String commandWorkbench = "false";
 
+
+    //#if MC < 12000
     @Rule(
         //#if MC >= 11900
         categories = {ESSENTIAL, EXPERIMENTAL, FEATURE}
@@ -413,6 +415,8 @@ public class EssentialSettings {
         //#endif
     )
     public static boolean editableSigns = false;
+
+    //#endif
 
     @Rule(
         //#if MC >= 11900

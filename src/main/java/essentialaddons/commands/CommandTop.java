@@ -5,6 +5,7 @@ import essentialaddons.EssentialSettings;
 import essentialaddons.EssentialUtils;
 import net.minecraft.server.command.ServerCommandSource;
 import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 
@@ -24,11 +25,7 @@ public class CommandTop {
                         return 0;
                     }
                 }
-                //#if MC >= 12000
-                playerEntity.teleport(playerEntity.getServerWorld(), blockPos.getX() + 0.5, blockPos.getY() + 1, blockPos.getZ() + 0.5, playerEntity.getYaw(), playerEntity.getPitch());
-                //#else
-                //$$playerEntity.teleport(playerEntity.getWorld(), blockPos.getX() + 0.5, blockPos.getY() + 1, blockPos.getZ() + 0.5, playerEntity.getYaw(), playerEntity.getPitch());
-                //#endif
+                playerEntity.teleport((ServerWorld) playerEntity.getWorld(), blockPos.getX() + 0.5, blockPos.getY() + 1, blockPos.getZ() + 0.5, playerEntity.getYaw(), playerEntity.getPitch());
                 EssentialUtils.sendToActionBar(playerEntity, "§6You have been teleported to the top most block");
                 return 0;
             })

@@ -80,11 +80,7 @@ public class GhostPlayerEntity extends ServerPlayerEntity {
         //$$instance.getWorld().getChunkManager().updatePosition(instance);
         //#endif
         instance.dataTracker.set(PLAYER_MODEL_PARTS, (byte) 0x7f);
-        //#if MC >= 12000
-        instance.getServerWorld().getChunkManager().unloadEntity(instance);
-        //#else
-        //$$instance.getWorld().getChunkManager().unloadEntity(instance);
-        //#endif
+        ((ServerWorld)instance.getWorld()).getChunkManager().unloadEntity(instance);
         return instance;
     }
 
