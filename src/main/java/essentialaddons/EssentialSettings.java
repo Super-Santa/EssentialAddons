@@ -404,15 +404,17 @@ public class EssentialSettings {
     )
     public static String commandWorkbench = "false";
 
-    @Rule(
-        //#if MC >= 11900
-        categories = {ESSENTIAL, EXPERIMENTAL, FEATURE}
-        //#else
-        //$$desc = "Allows you to edit a sign after it has been placed by right clicking it while sneaking",
-        //$$category = {ESSENTIAL, EXPERIMENTAL, FEATURE}
-        //#endif
-    )
-    public static boolean editableSigns = false;
+    //#if MC < 12000
+    //$$@Rule(
+    //$$    //#if MC >= 11900
+    //$$    categories = {ESSENTIAL, EXPERIMENTAL, FEATURE}
+    //$$    //#else
+    //$$    //$$desc = "Allows you to edit a sign after it has been placed by right clicking it while sneaking",
+    //$$    //$$category = {ESSENTIAL, EXPERIMENTAL, FEATURE}
+    //$$    //#endif
+    //$$)
+    //$$public static boolean editableSigns = false;
+    //#endif
 
     @Rule(
         //#if MC >= 11900

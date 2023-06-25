@@ -13,8 +13,10 @@ import org.spongepowered.asm.mixin.injection.Redirect;
 
 @Mixin(EntityTrackerEntry.class)
 public class EntityTrackerEntryMixin {
-    //#if MC >= 11800
-    @Redirect(method = "sendPackets(Ljava/util/function/Consumer;)V", at = @At(value = "INVOKE", target = "Lorg/slf4j/Logger;warn(Ljava/lang/String;Ljava/lang/Object;)V", remap = false), require = 0)
+    //#if MC >= 12000
+    @Redirect(method = "sendPackets", at = @At(value = "INVOKE", target = "Lorg/slf4j/Logger;warn(Ljava/lang/String;Ljava/lang/Object;)V", remap = false), require = 0)
+    //#elseif MC >= 11800
+    //$$@Redirect(method = "sendPackets(Ljava/util/function/Consumer;)V", at = @At(value = "INVOKE", target = "Lorg/slf4j/Logger;warn(Ljava/lang/String;Ljava/lang/Object;)V", remap = false), require = 0)
     //#else
     //$$@Redirect(method = "sendPackets(Ljava/util/function/Consumer;)V", at = @At(value = "INVOKE", target = "Lorg/apache/logging/log4j/Logger;warn(Ljava/lang/String;Ljava/lang/Object;)V", remap = false), require = 0)
     //#endif

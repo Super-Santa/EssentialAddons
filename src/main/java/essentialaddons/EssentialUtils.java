@@ -71,6 +71,18 @@ public class EssentialUtils {
         //#endif
     }
 
+    public static void sendFeedback(ServerCommandSource source, boolean log, Supplier<Text> generator) {
+        //#if MC >= 12000
+        source.sendFeedback(generator, log);
+        //#else
+        //$$source.sendFeedback(generator.get(), log);
+        //#endif
+    }
+
+    public static void sendRawFeedback(ServerCommandSource source, boolean log, String string) {
+        sendFeedback(source, log, () -> literal(string));
+    }
+
     public static boolean isItemShulkerBox(Item item) {
         return item instanceof BlockItem blockItem && blockItem.getBlock() instanceof ShulkerBoxBlock;
     }
@@ -127,6 +139,18 @@ public class EssentialUtils {
 
     public static Predicate<ServerCommandSource> enabled(Supplier<Object> field, String permission) {
         return source -> hasPermission(source, field, permission);
+    }
+
+    public static World getWorld(Entity entity) {
+        return entity.getEntityWorld();
+    }
+
+    public static ServerWorld getWorld(ServerPlayerEntity player) {
+        //#if MC >= 12000
+        return player.getServerWorld();
+        //#else
+        //$$return player.getWorld();
+        //#endif
     }
 
     public static Predicate<ServerCommandSource> op(String permission) {

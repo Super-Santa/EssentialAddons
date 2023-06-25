@@ -44,7 +44,7 @@ public abstract class ChestBoatEntityMixin
 				for (int i = 0; i < this.size(); ++i) {
 					ItemStack stack = this.getStack(i);
 					if (!EssentialUtils.placeItemInInventory(player, stack)) {
-						ItemScatterer.spawn(this.world, this.getX(), this.getY(), this.getZ(), stack);
+						ItemScatterer.spawn(EssentialUtils.getWorld(this), this.getX(), this.getY(), this.getZ(), stack);
 					}
 				}
 				return;

@@ -20,7 +20,7 @@ public class CommandTeamTeleportBlacklist {
 					.executes(context -> {
 						Team team = TeamArgumentType.getTeam(context, "team");
 						ConfigTeamTeleportBlacklist.INSTANCE.addBlacklistedTeam(team.getName());
-						context.getSource().sendFeedback(EssentialUtils.literal("Successfully added team: " + team.getName()).formatted(team.getColor()), false);
+						EssentialUtils.sendFeedback(context.getSource(), false, () ->  EssentialUtils.literal("Successfully added team: " + team.getName()).formatted(team.getColor()));
 						return 0;
 					})
 				)
@@ -32,7 +32,7 @@ public class CommandTeamTeleportBlacklist {
 						Text feedback = ConfigTeamTeleportBlacklist.INSTANCE.removeBlacklistedTeam(team.getName()) ?
 							EssentialUtils.literal("Successfully removed team: " + team.getName()).formatted(team.getColor()) :
 							EssentialUtils.literal("Failed to remove team: " + team.getName()).formatted(team.getColor());
-						context.getSource().sendFeedback(feedback, false);
+						EssentialUtils.sendFeedback(context.getSource(), false, () -> feedback);
 						return 0;
 					})
 				)

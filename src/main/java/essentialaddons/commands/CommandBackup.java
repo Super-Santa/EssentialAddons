@@ -109,7 +109,7 @@ public class CommandBackup {
 		//#endif
 
 		if (!Files.exists(fromPath)) {
-			source.sendFeedback(EssentialUtils.literal("World has no such regions"), false);
+			EssentialUtils.sendRawFeedback(source, false, "World has no such regions");
 			return;
 		}
 
@@ -128,8 +128,7 @@ public class CommandBackup {
 						if (Files.exists(savePathRegion)) {
 							if (overwrite) {
 								Files.deleteIfExists(savePathRegion);
-							}
-							else {
+							} else {
 								Files.move(savePathRegion, savePath.resolve(LocalTime.now().format(timeFormatter) + "_" + fileName ));
 							}
 						}
@@ -141,11 +140,13 @@ public class CommandBackup {
 		}
 
 		if (successful) {
-			source.sendFeedback(EssentialUtils.literal("Successfully saved regions to: ").formatted(Formatting.GOLD)
-				.append(EssentialUtils.literal(savePath.toString()).formatted(Formatting.GREEN)), true);
-		}
-		else {
-			source.sendFeedback(EssentialUtils.literal("Failed to save regions").formatted(Formatting.RED), true);
+			EssentialUtils.sendFeedback(
+				source, true,
+				() -> EssentialUtils.literal("Successfully saved regions to: ").formatted(Formatting.GOLD)
+					.append(EssentialUtils.literal(savePath.toString()).formatted(Formatting.GREEN))
+			);
+		} else {
+			EssentialUtils.sendFeedback(source, true, () -> EssentialUtils.literal("Failed to save regions").formatted(Formatting.RED));
 		}
 	}
 }
