@@ -10,6 +10,7 @@ import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
 
 import static essentialaddons.EssentialUtils.enabled;
+import static essentialaddons.EssentialUtils.getWorld;
 import static net.minecraft.server.command.CommandManager.argument;
 import static net.minecraft.server.command.CommandManager.literal;
 
@@ -34,10 +35,10 @@ public class CommandRegion {
                 .then(argument("x", IntegerArgumentType.integer())
                     .then(argument("z", IntegerArgumentType.integer())
                         .executes(context -> {
-                            ServerPlayerEntity playerEntity = context.getSource().getPlayerOrThrow();
+                            ServerPlayerEntity player = context.getSource().getPlayerOrThrow();
                             int x = context.getArgument("x", Integer.class) * 512 + 256;
                             int z = context.getArgument("z", Integer.class) * 512 + 256;
-                            playerEntity.teleport((ServerWorld)playerEntity.getWorld(), x, playerEntity.getY(), z, playerEntity.getYaw(), playerEntity.getPitch());
+                            player.teleport(getWorld(player), x, player.getY(), z, player.getYaw(), player.getPitch());
                             return 0;
                         })
                     )

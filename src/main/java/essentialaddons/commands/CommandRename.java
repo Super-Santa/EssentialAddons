@@ -24,7 +24,7 @@ public class CommandRename {
                     ItemStack itemStack = context.getSource().getPlayerOrThrow().getMainHandStack();
                     if (!itemStack.isEmpty()) {
                         Text text = TextArgumentType.getTextArgument(context, "name");
-                        EssentialUtils.sendFeedback(context.getSource(), EssentialUtils.literal("Item name set to: ").append(text), false);
+                        EssentialUtils.sendFeedback(context.getSource(), false, () -> EssentialUtils.literal("Item name set to: ").append(text));
                         itemStack.setCustomName(text);
                         return 0;
                     }

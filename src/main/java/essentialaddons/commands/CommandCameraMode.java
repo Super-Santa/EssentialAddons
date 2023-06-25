@@ -8,6 +8,8 @@ import essentialaddons.EssentialUtils;
 import essentialaddons.utils.ConfigCamera;
 import essentialaddons.utils.ConfigCameraData;
 import net.minecraft.entity.effect.StatusEffect;
+import net.minecraft.entity.effect.StatusEffectCategory;
+import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.mob.HostileEntity;
 import net.minecraft.server.command.ServerCommandSource;
@@ -65,39 +67,37 @@ public class CommandCameraMode {
         return 1;
     }
 
-    private static boolean isInDanger(ServerPlayerEntity playerEntity) {
-        if (playerEntity.isCreative()) {
+    private static boolean isInDanger(ServerPlayerEntity player) {
+        if (player.isCreative()) {
             return false;
         }
-        Set<StatusEffect> negativeStatusEffects = Set.of(
-            StatusEffects.LEVITATION,
-            StatusEffects.WITHER,
-            StatusEffects.POISON
-        );
-        for (StatusEffect statusEffect : negativeStatusEffects) {
-            if (playerEntity.hasStatusEffect(statusEffect)) {
-                EssentialUtils.sendToActionBar(playerEntity, "§cYou cannot enter spectator because you have a negative status effect");
+
+
+
+        for (StatusEffectInstance effect : player.getStatusEffects()) {
+            if (effect.getEffectType().getCategory() == StatusEffectCategory.HARMFUL) {
+                EssentialUtils.sendToActionBar(player, "§cYou cannot enter spectator because you have a negative status effect");
                 return true;
             }
         }
-        double x = playerEntity.getX(), y = playerEntity.getY(), z = playerEntity.getZ();
+        double x = player.getX(), y = player.getY(), z = player.getZ();
         Box nearPlayer = new Box(x - 4,y - 4,z - 4,x + 4,y + 4, z + 4);
-        List<HostileEntity> list = playerEntity.getWorld().getEntitiesByClass(HostileEntity.class, nearPlayer, hostileEntity -> true);
+        List<HostileEntity> list = EssentialUtils.getWorld(player).getEntitiesByClass(HostileEntity.class, nearPlayer, e -> true);
         String reason;
         if (!list.isEmpty()) {
             reason = "there are mobs nearby";
-        } else if (playerEntity.isOnFire()) {
+        } else if (player.isOnFire()) {
             reason = "you are on fire";
-        } else if (playerEntity.fallDistance > 0) {
+        } else if (player.fallDistance > 0) {
             reason = "you are falling";
-        } else if (playerEntity.isFallFlying()) {
+        } else if (player.isFallFlying()) {
             reason = "you are flying";
-        } else if (playerEntity.isSubmergedInWater()) {
+        } else if (player.isSubmergedInWater()) {
             reason = "you are under water";
         } else {
             return false;
         }
-        EssentialUtils.sendToActionBar(playerEntity, "§cYou cannot enter spectator because " + reason);
+        EssentialUtils.sendToActionBar(player, "§cYou cannot enter spectator because " + reason);
         return true;
     }
 }

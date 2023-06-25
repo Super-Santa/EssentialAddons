@@ -9,6 +9,7 @@ import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.arguments.StringArgumentType;
 import com.mojang.brigadier.context.CommandContext;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
+import essentialaddons.EssentialAddons;
 import essentialaddons.EssentialSettings;
 import essentialaddons.EssentialUtils;
 import essentialaddons.feature.GhostPlayerEntity;
@@ -21,6 +22,7 @@ import net.minecraft.server.PlayerManager;
 import net.minecraft.server.command.ServerCommandSource;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
+import net.minecraft.util.UserCache;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 
@@ -37,6 +39,7 @@ import net.minecraft.util.Uuids;
 //#endif
 
 import static essentialaddons.EssentialUtils.enabled;
+import static essentialaddons.EssentialUtils.getWorld;
 import static net.minecraft.server.command.CommandManager.argument;
 import static net.minecraft.server.command.CommandManager.literal;
 
@@ -61,13 +64,13 @@ public class CommandGhostPlayer {
                 .then(literal("kill")
                     .executes(context -> {
                         String username = StringArgumentType.getString(context, "player");
-                        ServerPlayerEntity playerEntity = context.getSource().getServer().getPlayerManager().getPlayer(username);
-                        if (!(playerEntity instanceof EntityPlayerMPFake || playerEntity instanceof GhostPlayerEntity)) {
+                        ServerPlayerEntity player = context.getSource().getServer().getPlayerManager().getPlayer(username);
+                        if (!(player instanceof EntityPlayerMPFake || player instanceof GhostPlayerEntity)) {
                             Messenger.m(context.getSource(), "r Cannot kill this player");
                             return 0;
                         }
-                        ((ServerWorld)playerEntity.getWorld()).getChunkManager().loadEntity(playerEntity);
-                        playerEntity.kill();
+                        getWorld(player).getChunkManager().loadEntity(player);
+                        player.kill();
                         return 0;
                     })
                 )
@@ -76,35 +79,40 @@ public class CommandGhostPlayer {
     }
 
     private static int fakePlayerSpawn(CommandContext<ServerCommandSource> context, String username, Vec3d pos, RegistryKey<World> dim) throws CommandSyntaxException {
-        if (cantSpawn(context)) {
-            return 0;
-        }
-        ServerCommandSource source = context.getSource();
-        dim = dim == null ? source.getWorld().getRegistryKey() : dim;
-        ServerPlayerEntity player = source.getPlayerOrThrow();
-        ServerPlayerEntity playerEntity = GhostPlayerEntity.createFake(username, source.getServer(), pos.x, pos.y, pos.z, player.getYaw(), player.getPitch(), dim);
-        if (playerEntity == null) {
-            EssentialUtils.sendFeedback(context.getSource(), EssentialUtils.literal("Failed to spawn player"), false);
+        if (canSpawn(context)) {
+            ServerCommandSource source = context.getSource();
+            dim = dim == null ? source.getWorld().getRegistryKey() : dim;
+            ServerPlayerEntity player = source.getPlayerOrThrow();
+            ServerPlayerEntity playerEntity = GhostPlayerEntity.createFake(username, source.getServer(), pos.x, pos.y, pos.z, player.getYaw(), player.getPitch(), dim);
+            if (playerEntity == null) {
+                EssentialUtils.sendRawFeedback(context.getSource(), false, "Failed to spawn player");
+            }
         }
 
         return 0;
     }
 
-    private static boolean cantSpawn(CommandContext<ServerCommandSource> context) {
+    private static boolean canSpawn(CommandContext<ServerCommandSource> context) {
         String playerName = StringArgumentType.getString(context, "player");
         MinecraftServer server = context.getSource().getServer();
         PlayerManager manager = server.getPlayerManager();
         PlayerEntity player = manager.getPlayer(playerName);
         if (player != null) {
             Messenger.m(context.getSource(), "r Player ", "rb " + playerName, "r  is already logged on");
-            return true;
+            return false;
         }
-        GameProfile profile = server.getUserCache().findByName(playerName).orElse(null);
+        UserCache cache = server.getUserCache();
+        if (cache == null) {
+            EssentialAddons.LOGGER.error("Server user cache was null!!??");
+            return false;
+        }
+
+        GameProfile profile = cache.findByName(playerName).orElse(null);
         if (profile == null) {
             if (!CarpetSettings.allowSpawningOfflinePlayers) {
                 Messenger.m(context.getSource(), "r Player "+playerName+" is either banned by Mojang, or auth servers are down. " +
                     "Banned players can only be summoned in Singleplayer and in servers in off-line mode.");
-                return true;
+                return false;
             }
             //#if MC >= 11903
             profile = new GameProfile(Uuids.getOfflinePlayerUuid(playerName), playerName);
@@ -116,13 +124,13 @@ public class CommandGhostPlayer {
         }
         if (manager.getUserBanList().contains(profile)) {
             Messenger.m(context.getSource(), "r Player ", "rb " + playerName, "r  is banned on this server");
-            return true;
+            return false;
         }
         if (manager.isWhitelistEnabled() && manager.isWhitelisted(profile) && !context.getSource().hasPermissionLevel(2)) {
             Messenger.m(context.getSource(), "r Whitelisted players can only be spawned by operators");
-            return true;
+            return false;
         }
-        return false;
+        return true;
     }
 
     private static Collection<String> getPlayers(ServerCommandSource source) {

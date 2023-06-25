@@ -3,6 +3,7 @@ package essentialaddons.feature;
 import carpet.patches.FakeClientConnection;
 import carpet.utils.Messenger;
 import com.mojang.authlib.GameProfile;
+import essentialaddons.EssentialUtils;
 import net.minecraft.block.entity.SkullBlockEntity;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -46,9 +47,13 @@ public class GhostPlayerEntity extends ServerPlayerEntity {
         UserCache.setUseRemote(false);
         GameProfile gameprofile;
         try {
-            gameprofile = server.getUserCache().findByName(username).orElse(null);
-        }
-        finally {
+            UserCache cache = server.getUserCache();
+            if (cache != null) {
+                gameprofile = cache.findByName(username).orElse(null);
+            } else {
+                gameprofile = null;
+            }
+        } finally {
             UserCache.setUseRemote(server.isDedicated() && server.isOnlineMode());
         }
         if (gameprofile == null) {
@@ -80,7 +85,7 @@ public class GhostPlayerEntity extends ServerPlayerEntity {
         //$$instance.getWorld().getChunkManager().updatePosition(instance);
         //#endif
         instance.dataTracker.set(PLAYER_MODEL_PARTS, (byte) 0x7f);
-        ((ServerWorld)instance.getWorld()).getChunkManager().unloadEntity(instance);
+        EssentialUtils.getWorld(instance).getChunkManager().unloadEntity(instance);
         return instance;
     }
 

@@ -55,7 +55,7 @@ public abstract class StorageMinecartEntityMixin extends AbstractMinecartEntity
 				for (int i = 0; i < this.size(); ++i) {
 					ItemStack stack = this.getStack(i);
 					if (!EssentialUtils.placeItemInInventory(player, stack)) {
-						ItemScatterer.spawn(this.getEntityWorld(), this.getX(), this.getY(), this.getZ(), stack);
+						ItemScatterer.spawn(EssentialUtils.getWorld(this), this.getX(), this.getY(), this.getZ(), stack);
 					}
 				}
 			}

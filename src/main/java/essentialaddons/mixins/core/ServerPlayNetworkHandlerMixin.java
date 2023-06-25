@@ -59,7 +59,7 @@ abstract class ServerPlayNetworkHandlerMixin implements ServerPlayPacketListener
         Identifier identifier = packet.getChannel();
         for (NetworkHandler networkHandler : EssentialAddons.NETWORK_HANDLERS) {
             if (networkHandler.getNetworkChannel().equals(identifier)) {
-                NetworkThreadUtils.forceMainThread(packet, this, (ServerWorld) this.player.getWorld());
+                NetworkThreadUtils.forceMainThread(packet, this, EssentialUtils.getWorld(this.player));
                 networkHandler.handlePacket(packet.getData(), this.player);
                 ci.cancel();
             }

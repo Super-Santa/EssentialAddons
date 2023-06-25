@@ -43,7 +43,7 @@ public class CommandPublicViewDistance {
                 server.getPlayerManager().setViewDistance(range);
                 CarpetSettings.viewDistance = range;
             }
-            EssentialUtils.sendFeedback(context.getSource(), EssentialUtils.literal("View distance has changed to: " + range), true);
+            EssentialUtils.sendRawFeedback(context.getSource(), true, "View distance has changed to: " + range);
             EssentialUtils.sendToActionBar(playerEntity, "§6View distance has been changed to: §a" + range);
         }
         else {

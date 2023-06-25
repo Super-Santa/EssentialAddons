@@ -7,7 +7,6 @@ import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.loot.LootTable;
-import net.minecraft.loot.context.LootContext;
 import org.spongepowered.asm.mixin.Shadow;
 import net.minecraft.loot.context.LootContextParameters;
 import net.minecraft.loot.context.LootContextTypes;
@@ -22,6 +21,8 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 //#if MC >= 12000
 import net.minecraft.loot.context.LootContextParameterSet;
+//#else
+//$$import net.minecraft.loot.context.LootContext;
 //#endif
 
 @Mixin(LivingEntity.class)
@@ -39,43 +40,42 @@ public abstract class LivingEntityMixin extends Entity {
 	//$$@Shadow protected abstract LootContext.Builder getLootContextBuilder(boolean causedByPlayer, DamageSource source);
 	//#endif
 
-
-	// Should this just be split into 2 parts? -Jack TODO: Remove this comment
 	@Inject(method = "dropLoot", at = @At("HEAD"), cancellable = true)
 	private void onDropLoot(DamageSource source, boolean causedByPlayer, CallbackInfo ci) {
 		if (EssentialUtils.hasCareful(source.getAttacker(), Subscription.ESSENTIAL_CAREFUL_DROP)) {
-
 			ServerPlayerEntity player = (ServerPlayerEntity) source.getAttacker();
 
-
 			Identifier identifier = this.getLootTable();
-			LootTable lootTable = player.getWorld().getServer().getLootManager()
-					// This probably can just be a mapping -Jack TODO: Remove this comment
-					//#if MC > 12000
-					.getLootTable(identifier);
-					//#else
-					//$$.getTable(identifier);
-					//#endif
+			LootTable lootTable = EssentialUtils.getWorld(player).getServer().getLootManager().getLootTable(identifier);
 
+			ServerWorld world = (ServerWorld) EssentialUtils.getWorld(this);
 
 			//#if MC >= 12000
-			LootContextParameterSet.Builder builder = (new LootContextParameterSet.Builder((ServerWorld)this.getWorld())).add(LootContextParameters.THIS_ENTITY, this).add(LootContextParameters.ORIGIN, this.getPos()).add(LootContextParameters.DAMAGE_SOURCE, getDamageSources().playerAttack(player)).addOptional(LootContextParameters.KILLER_ENTITY, player).addOptional(LootContextParameters.DIRECT_KILLER_ENTITY, player).add(LootContextParameters.LAST_DAMAGE_PLAYER, player).luck(player.getLuck());
+			LootContextParameterSet.Builder builder = new LootContextParameterSet.Builder(world)
+				.add(LootContextParameters.THIS_ENTITY, this)
+				.add(LootContextParameters.ORIGIN, this.getPos())
+				.add(LootContextParameters.DAMAGE_SOURCE, this.getDamageSources().playerAttack(player))
+				.addOptional(LootContextParameters.KILLER_ENTITY, player)
+				.addOptional(LootContextParameters.DIRECT_KILLER_ENTITY, player)
+				.add(LootContextParameters.LAST_DAMAGE_PLAYER, player)
+				.luck(player.getLuck());
 			LootContextParameterSet lootContextParameterSet = builder.build(LootContextTypes.ENTITY);
 			//#else
 			//$$LootContext.Builder builder = this.getLootContextBuilder(causedByPlayer, source);
 			//$$LootContext lootContextParameterSet = builder.build(LootContextTypes.ENTITY);
 			//#endif
 
-			lootTable.generateLoot(lootContextParameterSet
-					//#if MC >=12000
-					, this.getLootTableSeed()
-					//#endif
-					, stack -> {
-				if (!EssentialUtils.placeItemInInventory(player, stack)) {
-					this.dropStack(stack);
+			lootTable.generateLoot(
+				lootContextParameterSet,
+				//#if MC >=12000
+				this.getLootTableSeed(),
+				//#endif
+				stack -> {
+					if (!EssentialUtils.placeItemInInventory(player, stack)) {
+						this.dropStack(stack);
+					}
 				}
-			});
-
+			);
 
 			ci.cancel();
 
