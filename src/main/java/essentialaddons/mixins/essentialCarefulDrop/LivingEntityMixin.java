@@ -46,8 +46,11 @@ public abstract class LivingEntityMixin extends Entity {
 			ServerPlayerEntity player = (ServerPlayerEntity) source.getAttacker();
 
 			Identifier identifier = this.getLootTable();
+			//#if MC >= 12000
 			LootTable lootTable = EssentialUtils.getWorld(player).getServer().getLootManager().getLootTable(identifier);
-
+			//#else
+			//$$LootTable lootTable = EssentialUtils.getWorld(player).getServer().getLootManager().getTable(identifier);
+			//#endif
 			ServerWorld world = (ServerWorld) EssentialUtils.getWorld(this);
 
 			//#if MC >= 12000
