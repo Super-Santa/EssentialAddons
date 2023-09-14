@@ -36,6 +36,7 @@
   "depends": {
     "fabricloader": ">=0.12.6",
     "minecraft": "${minecraft_dependency}",
-    "carpet": "${carpet_dependency}"
+    "carpet": "${carpet_dependency}",
+    "fabric": "*"
   }
 }
