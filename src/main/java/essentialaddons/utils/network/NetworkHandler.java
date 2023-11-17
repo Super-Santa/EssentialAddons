@@ -1,10 +1,9 @@
 package essentialaddons.utils.network;
 
 import essentialaddons.EssentialAddons;
+import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
+import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.minecraft.network.PacketByteBuf;
-import net.minecraft.network.packet.CustomPayload;
-import net.minecraft.network.packet.c2s.common.CustomPayloadC2SPacket;
-import net.minecraft.network.packet.s2c.common.CustomPayloadS2CPacket;
 import net.minecraft.server.network.ServerPlayNetworkHandler;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.util.Identifier;
@@ -20,15 +19,27 @@ public abstract class NetworkHandler {
 
 	private final Set<ServerPlayNetworkHandler> validPlayers = new HashSet<>();
 
-	public abstract Identifier getNetworkChannel();
+	private final Identifier channel;
+
+	public NetworkHandler(Identifier channel) {
+		this.channel = channel;
+		ServerPlayNetworking.registerGlobalReceiver(
+			channel,
+			(s, p, handler, buf, r) -> s.execute(() -> this.handlePacket(buf, handler))
+		);
+	}
 
 	public abstract int getVersion();
 
-	public Set<ServerPlayerEntity> getValidPlayers() {
+	public final Identifier getNetworkChannel() {
+		return this.channel;
+	}
+
+	public final Set<ServerPlayerEntity> getValidPlayers() {
 		return this.validPlayers.stream().map(h -> h.player).collect(Collectors.toSet());
 	}
 
-	public void handlePacket(PacketByteBuf packetByteBuf, ServerPlayNetworkHandler handler) {
+	public final void handlePacket(PacketByteBuf packetByteBuf, ServerPlayNetworkHandler handler) {
 		if (packetByteBuf != null) {
 			switch (packetByteBuf.readVarInt()) {
 				case HELLO -> this.onHello(packetByteBuf, handler);
@@ -43,32 +54,32 @@ public abstract class NetworkHandler {
 		}
 	}
 
-	public void sayHello(ServerPlayerEntity player) {
+	public final void sayHello(ServerPlayerEntity player) {
 		this.sendPacketTo(player, buf -> buf.writeVarInt(HELLO).writeVarInt(this.getVersion()));
 	}
 
-	protected void sendDataPacketToAll(PacketWriter writer) {
-		CustomPayload payload = new CustomPacketWriter(this.getNetworkChannel(), writer);
-		CustomPayloadS2CPacket packet = new CustomPayloadS2CPacket(payload);
+	protected final void sendDataPacketToAll(PacketWriter writer) {
+		PacketByteBuf buf = PacketByteBufs.create();
+		writer.write(buf);
 		for (ServerPlayerEntity player : this.getValidPlayers()) {
 			if (player.networkHandler != null) {
-				player.networkHandler.sendPacket(packet);
+				ServerPlayNetworking.send(player, this.getNetworkChannel(), buf);
 			}
 		}
 	}
 
-	protected void sendDataPacketTo(ServerPlayerEntity player, PacketWriter writer) {
+	protected final void sendDataPacketTo(ServerPlayerEntity player, PacketWriter writer) {
 		this.sendPacketTo(player, buf -> {
 			buf.writeVarInt(DATA);
 			writer.write(buf);
 		});
 	}
 
-	protected void sendPacketTo(ServerPlayerEntity player, PacketWriter writer) {
+	protected final void sendPacketTo(ServerPlayerEntity player, PacketWriter writer) {
 		if (player.networkHandler != null) {
-			player.networkHandler.sendPacket(new CustomPayloadC2SPacket(
-				new CustomPacketWriter(this.getNetworkChannel(), writer)
-			));
+			PacketByteBuf buf = PacketByteBufs.create();
+			writer.write(buf);
+			ServerPlayNetworking.send(player, this.getNetworkChannel(), buf);
 		}
 	}
 

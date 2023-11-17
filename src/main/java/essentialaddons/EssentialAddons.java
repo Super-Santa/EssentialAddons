@@ -95,11 +95,7 @@ public class EssentialAddons implements CarpetExtension, ModInitializer {
     }
 
     @Override
-    //#if MC >= 11900
     public void registerCommands(CommandDispatcher<ServerCommandSource> dispatcher, CommandRegistryAccess commandBuildContext) {
-        //#else
-        //$$public void registerCommands(CommandDispatcher<ServerCommandSource> dispatcher) {
-        //#endif
         CommandRegion.register(dispatcher);
         CommandFly.register(dispatcher);
         CommandHat.register(dispatcher);

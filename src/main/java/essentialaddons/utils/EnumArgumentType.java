@@ -61,7 +61,6 @@ public class EnumArgumentType<T extends Enum<T>> implements ArgumentType<T> {
 		return CommandSource.suggestMatching(this.values.keySet(), builder);
 	}
 
-	//#if MC >= 11900
 	public static class Serializer implements ArgumentSerializer<EnumArgumentType<?>, Serializer.Properties> {
 		@Override
 		public void writePacket(Properties properties, PacketByteBuf buf) {
@@ -97,5 +96,4 @@ public class EnumArgumentType<T extends Enum<T>> implements ArgumentType<T> {
 			}
 		}
 	}
-	//#endif
 }

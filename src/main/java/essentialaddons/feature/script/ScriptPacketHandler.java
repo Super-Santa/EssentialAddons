@@ -26,13 +26,10 @@ import static essentialaddons.utils.NetworkUtils.*;
 
 public class ScriptPacketHandler extends NetworkHandler {
 	public static final ScriptPacketHandler INSTANCE = new ScriptPacketHandler();
-	public static final Identifier SCRIPT_HANDLER;
 
-	static {
-		SCRIPT_HANDLER = new Identifier("essentialclient", "clientscript");
+	private ScriptPacketHandler() {
+		super(new Identifier("essentialclient", "clientscript"));
 	}
-
-	private ScriptPacketHandler() { }
 
 	public void addScarpetExpression(Expression expression) {
 		expression.addContextFunction("send_script_packet", -1, (c, t, v) -> {
@@ -63,11 +60,6 @@ public class ScriptPacketHandler extends NetworkHandler {
 			ServerPlayerEntity player = EntityValue.getPlayerByValue(server, playerValue);
 			return BooleanValue.of(this.getValidPlayers().contains(player));
 		});
-	}
-
-	@Override
-	public Identifier getNetworkChannel() {
-		return SCRIPT_HANDLER;
 	}
 
 	@Override

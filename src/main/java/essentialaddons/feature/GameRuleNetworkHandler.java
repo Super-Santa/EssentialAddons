@@ -18,11 +18,11 @@ import java.util.Map;
 public class GameRuleNetworkHandler extends NetworkHandler {
 	public static final GameRuleNetworkHandler INSTANCE = new GameRuleNetworkHandler();
 
-	public static Identifier GAME_RULE_CHANNEL = new Identifier("essentialclient", "gamerule");
-
 	private final Map<String, GameRules.Key<?>> keyMap = new HashMap<>();
 
-	private GameRuleNetworkHandler() { }
+	private GameRuleNetworkHandler() {
+		super(new Identifier("essentialclient", "gamerule"));
+	}
 
 	public void onHelloSuccess(ServerPlayNetworkHandler handler) {
 		this.updatePlayerStatus(handler.player);
@@ -68,11 +68,6 @@ public class GameRuleNetworkHandler extends NetworkHandler {
 
 	public void addGameRuleKey(GameRules.Key<?> gameRuleKey) {
 		this.keyMap.put(gameRuleKey.getName(), gameRuleKey);
-	}
-
-	@Override
-	public Identifier getNetworkChannel() {
-		return GAME_RULE_CHANNEL;
 	}
 
 	@Override
