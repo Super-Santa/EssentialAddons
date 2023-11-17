@@ -4,6 +4,7 @@ plugins {
 	id "com.github.johnrengelman.shadow" version "7.1.2"
 	id "io.github.juuxel.loom-quiltflower" version "1.7.0"
 	id "com.replaymod.preprocess" version "897c4096e2"
+	id 'me.modmuss50.mod-publish-plugin' version '0.3.4'
 }
 
 int mcVersion = 1
@@ -78,6 +79,29 @@ jar {
 	from "LICENSE"
 }
 
+publishMods {
+	file = remapJar.archiveFile
+	changelog = """
+	Fixed a bug that caused /lagspike to crash in singleplayer environments
+	"""
+	type = STABLE
+	modLoaders.add("fabric")
+
+	displayName = "EssentialAddons ${minecraft_version} v${mod_version}"
+
+	modrinth {
+		accessToken = providers.environmentVariable("MODRINTH_API_KEY")
+		projectId = "3WQaouc1"
+		minecraftVersions.add(minecraft_version)
+
+		requires {
+			id = "P7dR8mSH"
+		}
+		requires {
+			id = "TQTTVgYE"
+		}
+	}
+}
 
 // configure the maven publication
 publishing {
