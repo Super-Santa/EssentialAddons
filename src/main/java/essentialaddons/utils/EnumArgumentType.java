@@ -61,7 +61,7 @@ public class EnumArgumentType<T extends Enum<T>> implements ArgumentType<T> {
 		return CommandSource.suggestMatching(this.values.keySet(), builder);
 	}
 
-	public static class Serializer implements ArgumentSerializer<EnumArgumentType<?>, Serializer.Properties> {
+	public static class Serializer implements ArgumentSerializer<EnumArgumentType<?>, Serializer.Properties<?>> {
 		@Override
 		public void writePacket(Properties properties, PacketByteBuf buf) {
 			buf.writeEnumConstant(StringArgumentType.StringType.SINGLE_WORD);
@@ -69,7 +69,7 @@ public class EnumArgumentType<T extends Enum<T>> implements ArgumentType<T> {
 
 		// Client only
 		@Override
-		public Properties fromPacket(PacketByteBuf buf) {
+		public Properties<?> fromPacket(PacketByteBuf buf) {
 			return null;
 		}
 
@@ -79,15 +79,21 @@ public class EnumArgumentType<T extends Enum<T>> implements ArgumentType<T> {
 		}
 
 		@Override
-		public Properties getArgumentTypeProperties(EnumArgumentType<?> argumentType) {
-			return new Properties();
+		public Properties<?> getArgumentTypeProperties(EnumArgumentType<?> argumentType) {
+			return new Properties<>(argumentType.clazz);
 		}
 
-		public class Properties implements ArgumentSerializer.ArgumentTypeProperties<EnumArgumentType<?>> {
-			// Client only
+		public class Properties<T extends Enum<T>> implements ArgumentSerializer.ArgumentTypeProperties<EnumArgumentType<?>> {
+			private final Class<T> clazz;
+
+			public Properties(Class<T> clazz) {
+				this.clazz = clazz;
+			}
+
 			@Override
-			public EnumArgumentType<?> createType(CommandRegistryAccess commandRegistryAccess) {
-				return null;
+			public EnumArgumentType<T> createType(CommandRegistryAccess commandRegistryAccess) {
+				// We need to implement this for client side functionality
+				return new EnumArgumentType<>(this.clazz);
 			}
 
 			@Override
