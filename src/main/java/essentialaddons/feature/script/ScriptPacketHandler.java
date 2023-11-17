@@ -5,15 +5,14 @@ import carpet.script.Context;
 import carpet.script.Expression;
 import carpet.script.exception.InternalExpressionException;
 import carpet.script.value.*;
-import essentialaddons.EssentialAddons;
-import essentialaddons.utils.NetworkHandler;
-import io.netty.buffer.Unpooled;
+import essentialaddons.utils.network.NetworkHandler;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.PacketByteBuf;
-import net.minecraft.network.packet.s2c.play.CustomPayloadS2CPacket;
+import net.minecraft.registry.Registries;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.command.ServerCommandSource;
+import net.minecraft.server.network.ServerPlayNetworkHandler;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.Vec3d;
@@ -24,12 +23,6 @@ import java.util.Locale;
 import java.util.Optional;
 
 import static essentialaddons.utils.NetworkUtils.*;
-
-//#if MC >= 11903
-import net.minecraft.registry.RegistryKeys;
-//#else
-//$$import net.minecraft.util.registry.Registry;
-//#endif
 
 public class ScriptPacketHandler extends NetworkHandler {
 	public static final ScriptPacketHandler INSTANCE = new ScriptPacketHandler();
@@ -43,24 +36,20 @@ public class ScriptPacketHandler extends NetworkHandler {
 
 	public void addScarpetExpression(Expression expression) {
 		expression.addContextFunction("send_script_packet", -1, (c, t, v) -> {
-			if (v.size() == 0) {
+			if (v.isEmpty()) {
 				throw new InternalExpressionException("'send_script_packet' must specify player to send to");
 			}
 
 			Value playerValue = v.get(0);
 			MinecraftServer server = this.source(c).getServer();
 			ServerPlayerEntity player = EntityValue.getPlayerByValue(server, playerValue);
-			if (player == null) {
-				throw new InternalExpressionException("Cannot target player '%s'".formatted(playerValue.getString()));
-			}
 
 			List<Value> values = new ArrayList<>();
 			for (int i = 1; i < v.size(); i++) {
 				values.add(v.get(i));
 			}
 
-			ArgumentParser parser = new ArgumentParser(values);
-			player.networkHandler.sendPacket(new CustomPayloadS2CPacket(SCRIPT_HANDLER, parser.parse()));
+			this.sendDataPacketTo(player, buf -> new ArgumentParser(values, buf).parse());
 			return Value.NULL;
 		});
 
@@ -72,9 +61,6 @@ public class ScriptPacketHandler extends NetworkHandler {
 			Value playerValue = v.get(0);
 			MinecraftServer server = this.source(c).getServer();
 			ServerPlayerEntity player = EntityValue.getPlayerByValue(server, playerValue);
-			if (player == null) {
-				throw new InternalExpressionException("Cannot target player '%s'".formatted(playerValue.getString()));
-			}
 			return BooleanValue.of(this.getValidPlayers().contains(player));
 		});
 	}
@@ -90,17 +76,13 @@ public class ScriptPacketHandler extends NetworkHandler {
 	}
 
 	@Override
-	protected void processData(PacketByteBuf packetByteBuf, ServerPlayerEntity player) {
+	protected void processData(PacketByteBuf packetByteBuf, ServerPlayNetworkHandler handler) {
 		PacketParser parser = new PacketParser(packetByteBuf);
-		PacketEvent.EVENT.onScriptPacket(player, List.of(EntityValue.of(player), parser.parseToValues()));
+		PacketEvent.EVENT.onScriptPacket(handler.player, List.of(EntityValue.of(handler.player), parser.parseToValues()));
 	}
 
 	private ServerCommandSource source(Context context) {
-		//#if MC >= 11904
 		return ((CarpetContext) context).source();
-		//#else
-		//$$return ((CarpetContext) context).s;
-		//#endif
 	}
 
 	private record PacketParser(PacketByteBuf buf) {
@@ -138,17 +120,8 @@ public class ScriptPacketHandler extends NetworkHandler {
 		}
 	}
 
-	private static class ArgumentParser {
-		private final List<Value> arguments;
-		private final PacketByteBuf buf;
-
-		private ArgumentParser(List<Value> arguments) {
-			this.arguments = arguments;
-			this.buf = new PacketByteBuf(Unpooled.buffer());
-			this.buf.writeVarInt(16);
-		}
-
-		private PacketByteBuf parse() {
+	private record ArgumentParser(List<Value> arguments, PacketByteBuf buf) {
+		private void parse() {
 			for (Value value : this.arguments) {
 				if (value instanceof BooleanValue booleanValue) {
 					this.buf.writeByte(BOOLEAN);
@@ -184,7 +157,6 @@ public class ScriptPacketHandler extends NetworkHandler {
 					this.parseList(list);
 				}
 			}
-			return this.buf;
 		}
 
 		private void parseList(ListValue listValue) {
@@ -197,11 +169,7 @@ public class ScriptPacketHandler extends NetworkHandler {
 
 			if (size == 3) {
 				if (list.get(0) instanceof StringValue str && list.get(1) instanceof NumericValue num) {
-					//#if MC >= 11903
-					Optional<Item> optional = EssentialAddons.server.getRegistryManager().get(RegistryKeys.ITEM).getOrEmpty(new Identifier(str.getString()));
-					//#else
-					//$$Optional<Item> optional = Registry.ITEM.getOrEmpty(new Identifier(str.getString()));
-					//#endif
+					Optional<Item> optional = Registries.ITEM.getOrEmpty(new Identifier(str.getString()));
 					if (optional.isPresent()) {
 						this.buf.writeByte(ITEM_STACK);
 						ItemStack stack = optional.get().getDefaultStack();
@@ -229,7 +197,7 @@ public class ScriptPacketHandler extends NetworkHandler {
 				switch (string.getString().toLowerCase(Locale.ROOT)) {
 					case "b" -> {
 						byte[] bytes = new byte[list.size() - 1];
-						for ( ; mod < list.size(); mod++) {
+						for (; mod < list.size(); mod++) {
 							Value value = list.get(mod);
 							if (!(value instanceof NumericValue number)) {
 								throw new InternalExpressionException("Expected numbers in packet list, got: %s".formatted(value.getString()));
@@ -242,7 +210,7 @@ public class ScriptPacketHandler extends NetworkHandler {
 					}
 					case "i" -> {
 						int[] ints = new int[list.size() - 1];
-						for ( ; mod < list.size(); mod++) {
+						for (; mod < list.size(); mod++) {
 							Value value = list.get(mod);
 							if (!(value instanceof NumericValue number)) {
 								throw new InternalExpressionException("Expected numbers in packet list, got: %s".formatted(value.getString()));

@@ -45,7 +45,6 @@ public abstract class ServerPlayerEntityMixin extends PlayerEntity {
 
 	@Inject(method = "getServerGameMode", at = @At("HEAD"), cancellable = true)
 	private void onGetGameMode(GameMode backupGameMode, CallbackInfoReturnable<GameMode> cir) {
-
 		if (
 			EssentialUtils.hasPermission(this.getCommandSource(), () -> EssentialSettings.commandCameraMode, "essentialaddons.command.cs") &&
 			ConfigCameraData.INSTANCE.hasPlayerLocation((ServerPlayerEntity) (Object) this)

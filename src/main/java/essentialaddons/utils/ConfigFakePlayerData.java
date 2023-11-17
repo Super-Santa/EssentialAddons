@@ -105,7 +105,17 @@ public class ConfigFakePlayerData implements Config {
 					actionMap.put(type, action);
 				});
 				loadedPlayers.add(playerUUID);
-				ReloadFakePlayers.loadPlayer(server, playerUUID, username, isSneaking, isSprinting, forward, strafing, actionMap);
+
+				ReloadFakePlayers.loadPlayer(
+					server,
+					playerUUID,
+					username,
+					isSneaking,
+					isSprinting,
+					forward,
+					strafing,
+					actionMap
+				);
 			} else {
 				EssentialAddons.LOGGER.warn("Tried to load duplicate player: {}", playerUUID);
 			}

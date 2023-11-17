@@ -4,12 +4,11 @@ import essentialaddons.EssentialAddons;
 import essentialaddons.EssentialSettings;
 import essentialaddons.EssentialUtils;
 import essentialaddons.utils.ConfigTeamTeleportBlacklist;
-import essentialaddons.utils.NetworkHandler;
+import essentialaddons.utils.network.NetworkHandler;
 import essentialaddons.utils.Subscription;
 import net.minecraft.entity.Entity;
 import net.minecraft.network.NetworkThreadUtils;
 import net.minecraft.network.listener.ServerPlayPacketListener;
-import net.minecraft.network.packet.c2s.play.CustomPayloadC2SPacket;
 import net.minecraft.network.packet.c2s.play.SpectatorTeleportC2SPacket;
 import net.minecraft.scoreboard.AbstractTeam;
 import net.minecraft.server.network.ServerPlayNetworkHandler;
@@ -52,17 +51,5 @@ abstract class ServerPlayNetworkHandlerMixin implements ServerPlayPacketListener
             }
         }
         playerEntity.teleport(targetWorld, x, y, z, yaw, pitch);
-    }
-
-    @Inject(method = "onCustomPayload", at = @At("HEAD"), cancellable = true)
-    private void onCustomPayload(CustomPayloadC2SPacket packet, CallbackInfo ci) {
-        Identifier identifier = packet.getChannel();
-        for (NetworkHandler networkHandler : EssentialAddons.NETWORK_HANDLERS) {
-            if (networkHandler.getNetworkChannel().equals(identifier)) {
-                NetworkThreadUtils.forceMainThread(packet, this, EssentialUtils.getWorld(this.player));
-                networkHandler.handlePacket(packet.getData(), this.player);
-                ci.cancel();
-            }
-        }
     }
 }

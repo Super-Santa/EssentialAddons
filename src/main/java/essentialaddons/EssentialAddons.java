@@ -11,6 +11,7 @@ import essentialaddons.feature.script.PacketEvent;
 import essentialaddons.feature.script.ScriptPacketHandler;
 import essentialaddons.utils.*;
 import essentialaddons.logging.EssentialAddonsLoggerRegistry;
+import essentialaddons.utils.network.NetworkHandler;
 import net.fabricmc.api.ModInitializer;
 //#if MC >= 11900
 import net.minecraft.command.CommandRegistryAccess;

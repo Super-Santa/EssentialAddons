@@ -3,12 +3,11 @@ package essentialaddons.feature;
 import essentialaddons.EssentialAddons;
 import essentialaddons.EssentialSettings;
 import essentialaddons.mixins.gameRuleSync.RuleInvoker;
-import essentialaddons.utils.NetworkHandler;
 import essentialaddons.utils.ducks.IRule;
-import io.netty.buffer.Unpooled;
+import essentialaddons.utils.network.NetworkHandler;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.network.PacketByteBuf;
-import net.minecraft.network.packet.s2c.play.CustomPayloadS2CPacket;
+import net.minecraft.server.network.ServerPlayNetworkHandler;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.util.Identifier;
 import net.minecraft.world.GameRules;
@@ -25,49 +24,45 @@ public class GameRuleNetworkHandler extends NetworkHandler {
 
 	private GameRuleNetworkHandler() { }
 
-	public void onHelloSuccess(ServerPlayerEntity player) {
-		this.updatePlayerStatus(player);
+	public void onHelloSuccess(ServerPlayNetworkHandler handler) {
+		this.updatePlayerStatus(handler.player);
 		if (EssentialSettings.gameRuleSync) {
-			this.sendAllRules(player);
+			this.sendAllRules(handler.player);
 		}
 	}
 
 	public void updatePlayerStatus(ServerPlayerEntity player) {
-		PacketByteBuf byteBuf = new PacketByteBuf(Unpooled.buffer()).writeVarInt(15);
-		byteBuf.writeBoolean(EssentialSettings.gameRuleSync && (EssentialSettings.gameRuleNonOp || player.hasPermissionLevel(2)));
-		player.networkHandler.sendPacket(new CustomPayloadS2CPacket(GAME_RULE_CHANNEL, byteBuf));
+		this.sendPacketTo(player, buf -> {
+			boolean allowed = EssentialSettings.gameRuleSync && (EssentialSettings.gameRuleNonOp || player.hasPermissionLevel(2));
+			buf.writeVarInt(15).writeBoolean(allowed);
+		});
 	}
 
 	public void sendAllRules(ServerPlayerEntity player) {
-		PacketByteBuf byteBuf = new PacketByteBuf(Unpooled.buffer()).writeVarInt(DATA);
-		player.networkHandler.sendPacket(new CustomPayloadS2CPacket(
-			GAME_RULE_CHANNEL, byteBuf.writeNbt(player.server.getGameRules().toNbt())
-		));
+		this.sendDataPacketTo(player, buf -> buf.writeNbt(player.getWorld().getGameRules().toNbt()));
 	}
 
-	public void processData(PacketByteBuf packetByteBuf, ServerPlayerEntity player) {
+	public void processData(PacketByteBuf packetByteBuf, ServerPlayNetworkHandler handler) {
 		if (EssentialSettings.gameRuleSync) {
+			ServerPlayerEntity player = handler.player;
 			String ruleName = packetByteBuf.readString();
 			String ruleValue = packetByteBuf.readString();
 			GameRules.Key<?> gameRuleKey = this.keyMap.get(ruleName);
 			if (gameRuleKey == null) {
-				EssentialAddons.LOGGER.warn("Received bad Game Rule packet from %s".formatted(player.getEntityName()));
+				EssentialAddons.LOGGER.warn("Received bad Game Rule packet from " + player.getEntityName());
 				return;
 			}
 			GameRules.Rule<?> rule = player.server.getGameRules().get(gameRuleKey);
 			((RuleInvoker) rule).deserialize(ruleValue);
-			((IRule) rule).ruleChanged(player);
+			((IRule) rule).essentialaddons$ruleChanged(player);
 		}
 	}
 
 	public void onRuleChange(String ruleName, String ruleValue) {
 		NbtCompound compound = new NbtCompound();
 		compound.putString(ruleName, ruleValue);
-		this.getValidPlayers().forEach(player -> {
-			PacketByteBuf byteBuf = new PacketByteBuf(Unpooled.buffer()).writeVarInt(DATA);
-			player.networkHandler.sendPacket(new CustomPayloadS2CPacket(
-				GAME_RULE_CHANNEL, byteBuf.writeNbt(compound)
-			));
+		this.sendDataPacketToAll(buf -> {
+			buf.writeNbt(compound);
 		});
 	}
 

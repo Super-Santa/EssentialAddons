@@ -18,34 +18,4 @@ pluginManagement {
         mavenCentral()
         gradlePluginPortal()
     }
-    resolutionStrategy {
-        eachPlugin {
-            switch (requested.id.id) {
-                case "com.replaymod.preprocess": {
-                    useModule("com.github.Fallen-Breath:preprocessor:897c4096e2")
-                }
-            }
-        }
-    }
-    plugins {
-        id "maven-publish"
-        id "fabric-loom" version "1.0-SNAPSHOT"
-        id "io.github.juuxel.loom-quiltflower" version "1.7.0"
-        id "com.replaymod.preprocess" version "897c4096e2"
-    }
-}
-def versions = Arrays.asList(
-    "1.17.1",
-    "1.18.2",
-    "1.19.2",
-    "1.19.4",
-    "1.20.1"
-)
-
-for (String version : versions) {
-    include(":$version")
-
-    def proj = project(":$version")
-    proj.projectDir = file("versions/$version")
-    proj.buildFileName = "../../common.gradle"
 }

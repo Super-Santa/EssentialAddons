@@ -83,10 +83,9 @@ public class CommandGhostPlayer {
             ServerCommandSource source = context.getSource();
             dim = dim == null ? source.getWorld().getRegistryKey() : dim;
             ServerPlayerEntity player = source.getPlayerOrThrow();
-            ServerPlayerEntity playerEntity = GhostPlayerEntity.createFake(username, source.getServer(), pos.x, pos.y, pos.z, player.getYaw(), player.getPitch(), dim);
-            if (playerEntity == null) {
+            GhostPlayerEntity.createFake(username, source.getServer(), pos, player.getYaw(), player.getPitch(), dim, () -> {
                 EssentialUtils.sendRawFeedback(context.getSource(), false, "Failed to spawn player");
-            }
+            });
         }
 
         return 0;
