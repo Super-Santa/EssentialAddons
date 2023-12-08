@@ -57,7 +57,7 @@ public class CommandCameraMode {
             previous = GameMode.SURVIVAL;
         }
         if (EssentialSettings.cameraModeRestoreLocation && !ConfigCameraData.INSTANCE.restorePlayer(playerEntity)) {
-            EssentialAddons.LOGGER.error("Could not load previous location for " + playerEntity.getEntityName());
+            EssentialAddons.LOGGER.error("Could not load previous location for " + playerEntity.getNameForScoreboard());
             EssentialUtils.sendToActionBar(playerEntity, "§c[ERROR] Unable to get previous location");
             playerEntity.changeGameMode(previous);
             return 0;

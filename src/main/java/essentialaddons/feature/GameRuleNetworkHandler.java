@@ -49,7 +49,7 @@ public class GameRuleNetworkHandler extends NetworkHandler {
 			String ruleValue = packetByteBuf.readString();
 			GameRules.Key<?> gameRuleKey = this.keyMap.get(ruleName);
 			if (gameRuleKey == null) {
-				EssentialAddons.LOGGER.warn("Received bad Game Rule packet from " + player.getEntityName());
+				EssentialAddons.LOGGER.warn("Received bad Game Rule packet from " + player.getNameForScoreboard());
 				return;
 			}
 			GameRules.Rule<?> rule = player.server.getGameRules().get(gameRuleKey);

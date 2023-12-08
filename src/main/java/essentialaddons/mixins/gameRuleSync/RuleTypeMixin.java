@@ -11,12 +11,12 @@ public class RuleTypeMixin implements IRuleType {
 	private String ruleName;
 
 	@Override
-	public void setName(String name) {
+	public void essentialaddons$setName(String name) {
 		this.ruleName = name;
 	}
 
 	@Override
-	public String getName() {
+	public String essentialaddons$getName() {
 		return this.ruleName;
 	}
 }

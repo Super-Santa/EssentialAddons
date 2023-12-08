@@ -1,6 +1,5 @@
 package essentialaddons.mixins.essentialCarefulDrop;
 
-//#if MC >= 11900
 import essentialaddons.EssentialUtils;
 import essentialaddons.utils.Subscription;
 import net.minecraft.entity.Entity;
@@ -15,23 +14,12 @@ import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.util.ItemScatterer;
 import net.minecraft.world.GameRules;
 import net.minecraft.world.World;
-//#endif
 
 import net.minecraft.entity.vehicle.BoatEntity;
 import org.spongepowered.asm.mixin.Mixin;
 
-//#if MC >= 11900
 @Mixin(ChestBoatEntity.class)
-//#else
-//$$@Mixin(BoatEntity.class)
-//#endif
-public abstract class ChestBoatEntityMixin
-	//#if MC >= 11900
-	extends BoatEntity implements VehicleInventory
-	//#endif
-{
-
-	//#if MC >= 11900
+public abstract class ChestBoatEntityMixin extends BoatEntity implements VehicleInventory {
 	public ChestBoatEntityMixin(EntityType<? extends BoatEntity> entityType, World world) {
 		super(entityType, world);
 	}
@@ -54,5 +42,4 @@ public abstract class ChestBoatEntityMixin
 			}
 		}
 	}
-	//#endif
 }

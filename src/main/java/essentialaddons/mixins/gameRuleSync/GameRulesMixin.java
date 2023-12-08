@@ -22,6 +22,6 @@ public class GameRulesMixin {
 
 	@Inject(method = "register", at = @At("HEAD"))
 	private static <T extends GameRules.Rule<T>> void onRegister(String name, Category category, Type<T> type, CallbackInfoReturnable<Key<T>> cir) {
-		((IRuleType) type).setName(name);
+		((IRuleType) type).essentialaddons$setName(name);
 	}
 }

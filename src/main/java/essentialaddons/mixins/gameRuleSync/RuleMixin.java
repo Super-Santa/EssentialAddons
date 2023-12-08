@@ -32,7 +32,7 @@ public abstract class RuleMixin<T extends GameRules.Rule<T>> implements IRule {
 	@Inject(method = "changed", at = @At("HEAD"))
 	private void onChanged(MinecraftServer server, CallbackInfo ci) {
 		if (EssentialSettings.gameRuleSync) {
-			GameRuleNetworkHandler.INSTANCE.onRuleChange(((IRuleType) this.type).getName(), this.serialize());
+			GameRuleNetworkHandler.INSTANCE.onRuleChange(((IRuleType) this.type).essentialaddons$getName(), this.serialize());
 		}
 	}
 
@@ -42,7 +42,7 @@ public abstract class RuleMixin<T extends GameRules.Rule<T>> implements IRule {
 	 */
 	@Override
 	public void essentialaddons$ruleChanged(ServerPlayerEntity player) {
-		Text text = EssentialUtils.literal("Set Game Rule %s to %s".formatted(((IRuleType) this.type).getName(), this.serialize()));
+		Text text = EssentialUtils.literal("Set Game Rule %s to %s".formatted(((IRuleType) this.type).essentialaddons$getName(), this.serialize()));
 		player.server.getPlayerManager().broadcast(text, false);
 		this.changed(player.server);
 	}

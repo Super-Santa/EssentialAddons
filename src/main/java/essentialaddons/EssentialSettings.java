@@ -550,12 +550,12 @@ public class EssentialSettings {
     public static int removeItemEntitiesAfterThreshold = 0;
 
     @Rule(
-            //#if MC >= 11900
-            categories = { ESSENTIAL, SURVIVAL, FEATURE}
-            //#else
-            //$$desc = "Removes the warning 'Saving oversized chunk...' in console and logs",
-            //$$category = {ESSENTIAL, SURVIVAL, FEATURE}
-            //#endif
+        //#if MC >= 11900
+        categories = {ESSENTIAL, SURVIVAL, FEATURE}
+        //#else
+        //$$desc = "Removes the warning 'Saving oversized chunk...' in console and logs",
+        //$$category = {ESSENTIAL, SURVIVAL, FEATURE}
+        //#endif
     )
     public static boolean removeWarnOversizedChunk = false;
 

@@ -60,6 +60,7 @@ public abstract class NetworkHandler {
 
 	protected final void sendDataPacketToAll(PacketWriter writer) {
 		PacketByteBuf buf = PacketByteBufs.create();
+		buf.writeVarInt(DATA);
 		writer.write(buf);
 		for (ServerPlayerEntity player : this.getValidPlayers()) {
 			if (player.networkHandler != null) {

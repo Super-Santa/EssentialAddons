@@ -14,6 +14,7 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(Block.class)
 public abstract class BlockMixin {
@@ -26,7 +27,7 @@ public abstract class BlockMixin {
     }
 
     @Inject(method = "onBreak", at = @At("HEAD"))
-    private void onBreak(World world, BlockPos pos, BlockState state, PlayerEntity player, CallbackInfo ci) {
+    private void onBreak(World world, BlockPos pos, BlockState state, PlayerEntity player, CallbackInfoReturnable<BlockState> cir) {
         if (state.getBlock() == Blocks.PISTON_HEAD) {
             if (EssentialUtils.hasCareful(player, Subscription.ESSENTIAL_CAREFUL_BREAK)) {
                 Direction direction = state.get(FacingBlock.FACING).getOpposite();

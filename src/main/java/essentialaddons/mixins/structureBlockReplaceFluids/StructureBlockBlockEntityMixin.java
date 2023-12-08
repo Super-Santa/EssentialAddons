@@ -9,7 +9,13 @@ import org.spongepowered.asm.mixin.injection.Redirect;
 
 @Mixin(StructureBlockBlockEntity.class)
 public class StructureBlockBlockEntityMixin {
-	@Redirect(method = "place", at = @At(value = "INVOKE", target = "Lnet/minecraft/structure/StructurePlacementData;setIgnoreEntities(Z)Lnet/minecraft/structure/StructurePlacementData;"))
+	@Redirect(
+		method = "loadAndPlaceStructure(Lnet/minecraft/server/world/ServerWorld;Lnet/minecraft/structure/StructureTemplate;)V",
+		at = @At(
+			value = "INVOKE",
+			target = "Lnet/minecraft/structure/StructurePlacementData;setIgnoreEntities(Z)Lnet/minecraft/structure/StructurePlacementData;"
+		)
+	)
 	private StructurePlacementData modifyStructurePlacement(StructurePlacementData instance, boolean ignoreEntities) {
 		return instance.setIgnoreEntities(ignoreEntities).setPlaceFluids(!EssentialSettings.structureBlockReplaceFluids);
 	}

@@ -31,7 +31,7 @@ public class CommandNear {
                         return 0;
                     }
 
-                    String names = nearby.stream().map(PlayerEntity::getEntityName).collect(Collectors.joining(", "));
+                    String names = nearby.stream().map(PlayerEntity::getNameForScoreboard).collect(Collectors.joining(", "));
                     player.sendMessage(EssentialUtils.literal("§6Players near you: §a" + names), false);
                     return 0;
                 })
