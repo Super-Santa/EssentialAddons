@@ -52,6 +52,11 @@ public abstract class StorageMinecartEntityMixin extends AbstractMinecartEntity 
 						ItemScatterer.spawn(EssentialUtils.getWorld(this), this.getX(), this.getY(), this.getZ(), stack);
 					}
 				}
+			} else {
+				for (int i = 0; i < this.size(); ++i) {
+					ItemStack stack = this.getStack(i);
+					ItemScatterer.spawn(EssentialUtils.getWorld(this), this.getX(), this.getY(), this.getZ(), stack);
+				}
 			}
 			if (!world.isClient && source.getSource() instanceof PlayerEntity player) {
 				PiglinBrain.onGuardedBlockInteracted(player, true);
