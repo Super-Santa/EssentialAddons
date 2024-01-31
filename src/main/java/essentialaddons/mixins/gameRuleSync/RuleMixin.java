@@ -1,7 +1,6 @@
 package essentialaddons.mixins.gameRuleSync;
 
 import essentialaddons.EssentialSettings;
-import essentialaddons.EssentialUtils;
 import essentialaddons.feature.GameRuleNetworkHandler;
 import essentialaddons.utils.ducks.IRule;
 import essentialaddons.utils.ducks.IRuleType;
@@ -38,7 +37,7 @@ public abstract class RuleMixin<T extends GameRules.Rule<T>> implements IRule {
 
 	@Override
 	public void essentialaddons$ruleChanged(ServerPlayerEntity player) {
-		Text text = EssentialUtils.literal("Set Game Rule %s to %s".formatted(((IRuleType) this.type).essentialaddons$getName(), this.serialize()));
+		Text text = Text.literal("Set Game Rule %s to %s".formatted(((IRuleType) this.type).essentialaddons$getName(), this.serialize()));
 		player.server.getPlayerManager().broadcast(text, false);
 		this.changed(player.server);
 	}

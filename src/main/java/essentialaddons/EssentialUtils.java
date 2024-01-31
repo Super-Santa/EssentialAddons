@@ -25,7 +25,6 @@ import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.stat.Stats;
-import net.minecraft.text.MutableText;
 import net.minecraft.text.Text;
 import net.minecraft.util.ItemScatterer;
 import net.minecraft.util.WorldSavePath;
@@ -52,27 +51,11 @@ public class EssentialUtils {
     public static final Random RANDOM = new Random();
 
     public static void sendToActionBar(ServerPlayerEntity playerEntity, String message) {
-        playerEntity.sendMessage(EssentialUtils.literal(message), true);
-    }
-
-    @Deprecated
-    public static MutableText literal(String text) {
-        return Text.literal(text);
-    }
-
-    @Deprecated
-    public static Text translatable(String key, Object... arguments) {
-        return Text.translatable(key, arguments);
-    }
-
-    @Deprecated
-    public static void sendFeedback(ServerCommandSource source, boolean log, Supplier<Text> generator) {
-        //#if MC >= 12000
-        source.sendFeedback(generator, log);
+        playerEntity.sendMessage(Text.literal(message), true);
     }
 
     public static void sendRawFeedback(ServerCommandSource source, boolean log, String string) {
-        sendFeedback(source, log, () -> literal(string));
+        source.sendFeedback(() -> Text.literal(string), log);
     }
 
     public static boolean isItemShulkerBox(Item item) {
