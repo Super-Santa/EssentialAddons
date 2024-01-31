@@ -67,8 +67,6 @@
 
   "carpet.rule.commandPublicViewDistance.desc": "Allows all players to change view distance",
 
-  "carpet.rule.commandRegion.desc": "Allows you see what region you are in and teleport to a region",
-
   "carpet.rule.commandRename.desc": "Allows you to rename items with a command",
 
   "carpet.rule.commandRepair.desc": "Allows `/repair` to be used to repair any item the player is holding",

@@ -5,8 +5,6 @@ import essentialaddons.EssentialSettings;
 import net.minecraft.server.command.ServerCommandSource;
 import net.minecraft.world.GameMode;
 
-import java.util.function.Predicate;
-
 import static essentialaddons.EssentialUtils.enabled;
 import static net.minecraft.server.command.CommandManager.literal;
 

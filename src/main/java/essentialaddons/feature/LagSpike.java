@@ -1,5 +1,7 @@
 package essentialaddons.feature;
 
+import essentialaddons.EssentialAddons;
+
 public class LagSpike {
     private static TickPhase pendingLagPhase;
     private static PrePostSubPhase pendingLagSubPhase;
@@ -20,7 +22,7 @@ public class LagSpike {
             try {
                 Thread.sleep(pendingLagTime);
             } catch (InterruptedException e) {
-                e.printStackTrace();
+                EssentialAddons.LOGGER.error("Interrupted during lag spike!");
             }
             pendingLagPhase = null;
             pendingLagSubPhase = null;

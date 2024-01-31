@@ -9,13 +9,11 @@ import essentialaddons.feature.GameRuleNetworkHandler;
 import essentialaddons.feature.ReloadFakePlayers;
 import essentialaddons.feature.script.PacketEvent;
 import essentialaddons.feature.script.ScriptPacketHandler;
-import essentialaddons.utils.*;
 import essentialaddons.logging.EssentialAddonsLoggerRegistry;
+import essentialaddons.utils.*;
 import essentialaddons.utils.network.NetworkHandler;
 import net.fabricmc.api.ModInitializer;
-//#if MC >= 11900
 import net.minecraft.command.CommandRegistryAccess;
-//#endif
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.command.ServerCommandSource;
 import net.minecraft.server.network.ServerPlayerEntity;
@@ -72,8 +70,8 @@ public class EssentialAddons implements CarpetExtension, ModInitializer {
     }
 
     @Override
-    public void onServerLoaded(MinecraftServer minecaraftServer) {
-        server = minecaraftServer;
+    public void onServerLoaded(MinecraftServer server) {
+        EssentialAddons.server = server;
         for (Config config : CONFIG_SET) {
             config.readConfig();
         }
@@ -96,7 +94,6 @@ public class EssentialAddons implements CarpetExtension, ModInitializer {
 
     @Override
     public void registerCommands(CommandDispatcher<ServerCommandSource> dispatcher, CommandRegistryAccess commandBuildContext) {
-        CommandRegion.register(dispatcher);
         CommandFly.register(dispatcher);
         CommandHat.register(dispatcher);
         CommandRepair.register(dispatcher);

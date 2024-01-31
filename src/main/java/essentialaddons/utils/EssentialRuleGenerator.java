@@ -1,24 +1,21 @@
 package essentialaddons.utils;
 
-//#if MC >= 11900
 import carpet.api.settings.SettingsManager;
 import carpet.utils.Translations;
 import essentialaddons.EssentialSettings;
 import joptsimple.OptionParser;
 import joptsimple.OptionSet;
 import joptsimple.OptionSpec;
+import net.fabricmc.api.DedicatedServerModInitializer;
 import net.fabricmc.loader.api.FabricLoader;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.io.IOException;
 import java.io.PrintStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Arrays;
-//#endif
-
-import net.fabricmc.api.DedicatedServerModInitializer;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 
 // Ripped from Carpet
 public class EssentialRuleGenerator implements DedicatedServerModInitializer {
@@ -60,7 +57,6 @@ public class EssentialRuleGenerator implements DedicatedServerModInitializer {
 
 	@Override
 	public void onInitializeServer() {
-		//#if MC >= 11900
 		String[] args = Arrays.stream(FabricLoader.getInstance().getLaunchArguments(true)).filter(opt -> !opt.equals("--")).toArray(String[]::new);
 
 		// Prepare an OptionParser for our parameters
@@ -97,6 +93,5 @@ public class EssentialRuleGenerator implements DedicatedServerModInitializer {
 		outputStream.close();
 		logger.info("Complete");
 		System.exit(0);
-		//#endif
 	}
 }

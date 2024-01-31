@@ -18,8 +18,7 @@ public class CommandGod {
                     playerEntity.getAbilities().invulnerable = true;
                     EssentialUtils.sendToActionBar(playerEntity, "§6Invulnerability §aEnabled");
 
-                }
-                else {
+                } else {
                     playerEntity.getAbilities().invulnerable = false;
                     EssentialUtils.sendToActionBar(playerEntity, "§6Invulnerability §cDisabled");
                 }

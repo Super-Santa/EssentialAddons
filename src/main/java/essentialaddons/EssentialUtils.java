@@ -43,16 +43,10 @@ import java.util.Random;
 import java.util.function.Predicate;
 import java.util.function.Supplier;
 
+import static carpet.utils.CommandHelper.canUseCommand;
 import static essentialaddons.EssentialAddons.server;
 import static net.minecraft.block.Block.dropStack;
 import static net.minecraft.block.Block.getDroppedStacks;
-
-//#if MC >= 11900
-import static carpet.utils.CommandHelper.canUseCommand;
-//#else
-//$$import net.minecraft.text.*;
-//$$import static carpet.settings.SettingsManager.canUseCommand;
-//#endif
 
 public class EssentialUtils {
     public static final Random RANDOM = new Random();
@@ -61,23 +55,17 @@ public class EssentialUtils {
         playerEntity.sendMessage(EssentialUtils.literal(message), true);
     }
 
-    // For easier porting to 1.19
+    @Deprecated
     public static MutableText literal(String text) {
-        //#if MC >= 11900
         return Text.literal(text);
-        //#else
-        //$$return new LiteralText(text);
-        //#endif
     }
 
+    @Deprecated
     public static Text translatable(String key, Object... arguments) {
-        //#if MC >= 11900
         return Text.translatable(key, arguments);
-        //#else
-        //$$return new TranslatableText(key, arguments);
-        //#endif
     }
 
+    @Deprecated
     public static void sendFeedback(ServerCommandSource source, boolean log, Supplier<Text> generator) {
         //#if MC >= 12000
         source.sendFeedback(generator, log);
@@ -172,16 +160,14 @@ public class EssentialUtils {
         return source -> hasPermission(source, field, permission);
     }
 
+    @Deprecated
     public static World getWorld(Entity entity) {
         return entity.getEntityWorld();
     }
 
+    @Deprecated
     public static ServerWorld getWorld(ServerPlayerEntity player) {
-        //#if MC >= 12000
         return player.getServerWorld();
-        //#else
-        //$$return player.getWorld();
-        //#endif
     }
 
     public static Predicate<ServerCommandSource> op(String permission) {

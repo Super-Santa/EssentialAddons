@@ -16,7 +16,9 @@ import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.command.ServerCommandSource;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
+import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
+import net.minecraft.util.math.BlockPos;
 
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -102,11 +104,7 @@ public class CommandBackup {
 			EssentialUtils.throwAsRuntime(() -> Files.createDirectories(savePath));
 		}
 
-		//#if MC >= 11800
 		Path fromPath = ((MinecraftServerAccessor) server).getSession().getWorldDirectory(world.getRegistryKey()).resolve("region");
-		//#else
-		//$$Path fromPath = ((MinecraftServerAccessor) server).getSession().getWorldDirectory(world.getRegistryKey()).toPath().resolve("region");
-		//#endif
 
 		if (!Files.exists(fromPath)) {
 			EssentialUtils.sendRawFeedback(source, false, "World has no such regions");
@@ -116,37 +114,37 @@ public class CommandBackup {
 		DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH.mm.ss");
 
 		boolean successful = false;
-		boolean shouldXIncrement = fromX < toX;
-		boolean shouldZIncrement = fromZ < toZ;
-		for (int x = fromX; shouldXIncrement ? x <= toX : x >= toX; x = shouldXIncrement ? x + 1 : x - 1) {
-			for (int z = fromZ; shouldZIncrement ? z <= toZ : z >= toZ; z = shouldZIncrement ? z + 1 : z - 1) {
-				String fileName = "r.%d.%d.mca".formatted(x, z);
-				Path region = fromPath.resolve(fileName);
-				if (Files.exists(region)) {
-					Path savePathRegion = savePath.resolve(fileName);
-					EssentialUtils.throwAsRuntime(() -> {
-						if (Files.exists(savePathRegion)) {
-							if (overwrite) {
-								Files.deleteIfExists(savePathRegion);
-							} else {
-								Files.move(savePathRegion, savePath.resolve(LocalTime.now().format(timeFormatter) + "_" + fileName ));
-							}
+		Iterable<BlockPos> iterable = BlockPos.iterate(new BlockPos(fromX, 0, fromZ), new BlockPos(toX, 0, toZ));
+		for (BlockPos pos : iterable) {
+			int x = pos.getX();
+			int z = pos.getZ();
+			String fileName = "r.%d.%d.mca".formatted(x, z);
+			Path region = fromPath.resolve(fileName);
+			if (Files.exists(region)) {
+				Path savePathRegion = savePath.resolve(fileName);
+				EssentialUtils.throwAsRuntime(() -> {
+					if (Files.exists(savePathRegion)) {
+						if (overwrite) {
+							Files.deleteIfExists(savePathRegion);
+						} else {
+							Files.move(savePathRegion, savePath.resolve(LocalTime.now().format(timeFormatter) + "_" + fileName ));
 						}
-						Files.copy(region, savePath.resolve(fileName));
-					});
-					successful = true;
-				}
+					}
+					Files.copy(region, savePath.resolve(fileName));
+				});
+				successful = true;
 			}
 		}
 
 		if (successful) {
-			EssentialUtils.sendFeedback(
-				source, true,
-				() -> EssentialUtils.literal("Successfully saved regions to: ").formatted(Formatting.GOLD)
-					.append(EssentialUtils.literal(savePath.toString()).formatted(Formatting.GREEN))
-			);
+			source.sendFeedback(() -> {
+				return Text.literal("Successfully saved regions to: ").formatted(Formatting.GOLD)
+					.append(Text.literal(savePath.toString()).formatted(Formatting.GREEN));
+			}, true);
 		} else {
-			EssentialUtils.sendFeedback(source, true, () -> EssentialUtils.literal("Failed to save regions").formatted(Formatting.RED));
+			source.sendFeedback(() -> {
+				return Text.literal("Failed to save regions").formatted(Formatting.RED);
+			}, true);
 		}
 	}
 }

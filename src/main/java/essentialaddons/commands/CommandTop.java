@@ -9,7 +9,6 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 
 import static essentialaddons.EssentialUtils.enabled;
-import static essentialaddons.EssentialUtils.getWorld;
 import static net.minecraft.server.command.CommandManager.literal;
 
 public class CommandTop {
@@ -25,7 +24,7 @@ public class CommandTop {
                         return 0;
                     }
                 }
-                player.teleport(getWorld(player), blockPos.getX() + 0.5, blockPos.getY() + 1, blockPos.getZ() + 0.5, player.getYaw(), player.getPitch());
+                player.teleport(player.getServerWorld(), blockPos.getX() + 0.5, blockPos.getY() + 1, blockPos.getZ() + 0.5, player.getYaw(), player.getPitch());
                 EssentialUtils.sendToActionBar(player, "§6You have been teleported to the top most block");
                 return 0;
             })

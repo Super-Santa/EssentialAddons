@@ -2,7 +2,6 @@ package essentialaddons.commands;
 
 import com.mojang.brigadier.CommandDispatcher;
 import essentialaddons.EssentialSettings;
-import essentialaddons.EssentialUtils;
 import essentialaddons.utils.ConfigTeamTeleportBlacklist;
 import net.minecraft.command.argument.TeamArgumentType;
 import net.minecraft.scoreboard.Team;
@@ -20,8 +19,10 @@ public class CommandTeamTeleportBlacklist {
 					.executes(context -> {
 						Team team = TeamArgumentType.getTeam(context, "team");
 						ConfigTeamTeleportBlacklist.INSTANCE.addBlacklistedTeam(team.getName());
-						EssentialUtils.sendFeedback(context.getSource(), false, () ->  EssentialUtils.literal("Successfully added team: " + team.getName()).formatted(team.getColor()));
-						return 0;
+						context.getSource().sendFeedback(() -> {
+							return Text.literal("Successfully added team: " + team.getName()).formatted(team.getColor());
+						}, false);
+						return 1;
 					})
 				)
 			)
@@ -29,10 +30,12 @@ public class CommandTeamTeleportBlacklist {
 				.then(argument("team", TeamArgumentType.team())
 					.executes(context -> {
 						Team team = TeamArgumentType.getTeam(context, "team");
-						Text feedback = ConfigTeamTeleportBlacklist.INSTANCE.removeBlacklistedTeam(team.getName()) ?
-							EssentialUtils.literal("Successfully removed team: " + team.getName()).formatted(team.getColor()) :
-							EssentialUtils.literal("Failed to remove team: " + team.getName()).formatted(team.getColor());
-						EssentialUtils.sendFeedback(context.getSource(), false, () -> feedback);
+						context.getSource().sendFeedback(() -> {
+							if (ConfigTeamTeleportBlacklist.INSTANCE.removeBlacklistedTeam(team.getName())) {
+								return Text.literal("Successfully removed team: " + team.getName()).formatted(team.getColor());
+							}
+							return Text.literal("Failed to remove team: " + team.getName()).formatted(team.getColor());
+						}, false);
 						return 0;
 					})
 				)

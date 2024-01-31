@@ -15,11 +15,7 @@ public class MinecraftServerMixin {
         method = "tick(Ljava/util/function/BooleanSupplier;)V",
         at = @At(
             value = "INVOKE",
-            //#if MC >= 11800
             target = "Lnet/minecraft/server/MinecraftServer;saveAll(ZZZ)Z",
-            //#else
-            //$$target = "Lnet/minecraft/server/MinecraftServer;save(ZZZ)Z",
-            //#endif
             shift = At.Shift.BEFORE
         )
     )
@@ -31,11 +27,7 @@ public class MinecraftServerMixin {
         method = "tick(Ljava/util/function/BooleanSupplier;)V",
         at = @At(
             value = "INVOKE",
-            //#if MC >= 11800
             target = "Lnet/minecraft/server/MinecraftServer;saveAll(ZZZ)Z",
-            //#else
-            //$$target = "Lnet/minecraft/server/MinecraftServer;save(ZZZ)Z",
-            //#endif
             shift = At.Shift.AFTER
         )
     )

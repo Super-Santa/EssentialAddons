@@ -17,12 +17,13 @@ import net.minecraft.command.CommandSource;
 import net.minecraft.command.argument.DimensionArgumentType;
 import net.minecraft.command.argument.Vec3ArgumentType;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.registry.RegistryKey;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.PlayerManager;
 import net.minecraft.server.command.ServerCommandSource;
 import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.UserCache;
+import net.minecraft.util.Uuids;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 
@@ -30,16 +31,7 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.Set;
 
-//#if MC >= 11903
-import net.minecraft.registry.RegistryKey;
-import net.minecraft.util.Uuids;
-//#else
-//$$import net.minecraft.util.dynamic.DynamicSerializableUuid;
-//$$import net.minecraft.util.registry.RegistryKey;
-//#endif
-
 import static essentialaddons.EssentialUtils.enabled;
-import static essentialaddons.EssentialUtils.getWorld;
 import static net.minecraft.server.command.CommandManager.argument;
 import static net.minecraft.server.command.CommandManager.literal;
 
@@ -69,7 +61,7 @@ public class CommandGhostPlayer {
                             Messenger.m(context.getSource(), "r Cannot kill this player");
                             return 0;
                         }
-                        getWorld(player).getChunkManager().loadEntity(player);
+                        player.getServerWorld().getChunkManager().loadEntity(player);
                         player.kill();
                         return 0;
                     })

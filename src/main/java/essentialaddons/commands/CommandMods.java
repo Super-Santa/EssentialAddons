@@ -2,7 +2,6 @@ package essentialaddons.commands;
 
 import com.mojang.brigadier.CommandDispatcher;
 import essentialaddons.EssentialSettings;
-import essentialaddons.EssentialUtils;
 import net.fabricmc.loader.api.FabricLoader;
 import net.fabricmc.loader.api.ModContainer;
 import net.minecraft.server.command.ServerCommandSource;
@@ -34,7 +33,7 @@ public class CommandMods {
                     modNames[i] = modName;
                     i++;
                 }
-                Text message = EssentialUtils.literal(modNames.length == 0 ? "There are no mods installed" : "§6Installed Mods: §a" + String.join(", ", modNames));
+                Text message = Text.literal(modNames.length == 0 ? "There are no mods installed" : "§6Installed Mods: §a" + String.join(", ", modNames));
                 playerEntity.sendMessage(message, false);
                 return 0;
             })

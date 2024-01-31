@@ -10,7 +10,6 @@ import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
 
 import static essentialaddons.EssentialUtils.enabled;
-import static essentialaddons.EssentialUtils.getWorld;
 import static net.minecraft.server.command.CommandManager.literal;
 
 public class CommandHat {
@@ -25,13 +24,11 @@ public class CommandHat {
                 player.equipStack(EquipmentSlot.HEAD, stackCopy);
                 if (!player.isCreative()) {
                     stack.decrement(1);
-                    if (player.getInventory().getEmptySlot() < 0) {
-                        ServerWorld world = getWorld(player);
+                    if (!player.getInventory().insertStack(hat.copy())) {
+                        ServerWorld world = player.getServerWorld();
                         ItemEntity itemEntity = new ItemEntity(world, player.getX(), player.getY() + 1.0, player.getZ(), hat.copy());
                         itemEntity.setToDefaultPickupDelay();
                         world.spawnEntity(itemEntity);
-                    } else {
-                        player.getInventory().insertStack(hat.copy());
                     }
                 }
                 player.playerScreenHandler.sendContentUpdates();

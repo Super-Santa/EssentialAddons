@@ -3,7 +3,6 @@ package essentialaddons.commands;
 import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import essentialaddons.EssentialSettings;
-import essentialaddons.EssentialUtils;
 import net.minecraft.inventory.EnderChestInventory;
 import net.minecraft.screen.GenericContainerScreenHandler;
 import net.minecraft.screen.SimpleNamedScreenHandlerFactory;
@@ -23,7 +22,9 @@ public class CommandEnderChest {
     private static int execute(ServerCommandSource source) throws CommandSyntaxException {
         ServerPlayerEntity playerEntity = source.getPlayerOrThrow();
         EnderChestInventory enderChest = playerEntity.getEnderChestInventory();
-        playerEntity.openHandledScreen(new SimpleNamedScreenHandlerFactory((syncId, playerInv, player) -> GenericContainerScreenHandler.createGeneric9x3(syncId, playerInv, enderChest), EssentialUtils.translatable("container.enderchest")));
+        playerEntity.openHandledScreen(new SimpleNamedScreenHandlerFactory((syncId, playerInv, player) -> {
+            return GenericContainerScreenHandler.createGeneric9x3(syncId, playerInv, enderChest);
+        }, Text.translatable("container.enderchest")));
         return 0;
     }
 }

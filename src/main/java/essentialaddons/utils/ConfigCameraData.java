@@ -2,6 +2,8 @@ package essentialaddons.utils;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
+import net.minecraft.registry.RegistryKey;
+import net.minecraft.registry.RegistryKeys;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.Identifier;
@@ -12,14 +14,6 @@ import java.nio.file.Path;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
-
-//#if MC >= 11903
-import net.minecraft.registry.RegistryKey;
-import net.minecraft.registry.RegistryKeys;
-//#else
-//$$import net.minecraft.util.registry.Registry;
-//$$import net.minecraft.util.registry.RegistryKey;
-//#endif
 
 public class ConfigCameraData implements Config {
 	public static final ConfigCameraData INSTANCE = new ConfigCameraData();
@@ -80,11 +74,7 @@ public class ConfigCameraData implements Config {
 		playerLocations.forEach(jsonElement -> {
 			JsonObject playerData = jsonElement.getAsJsonObject();
 			UUID playerUUID = UUID.fromString(playerData.get("uuid").getAsString());
-			//#if MC >= 11903
 			RegistryKey<World> worldRegistry = RegistryKey.of(RegistryKeys.WORLD, Identifier.tryParse(playerData.get("dimension").getAsString()));
-			//#else
-			//$$RegistryKey<World> worldRegistry = RegistryKey.of(Registry.WORLD_KEY, Identifier.tryParse(playerData.get("dimension").getAsString()));
-			//#endif
 			Vec3d position = new Vec3d(playerData.get("x").getAsDouble(), playerData.get("y").getAsDouble(), playerData.get("z").getAsDouble());
 			float yaw = playerData.get("yaw").getAsFloat();
 			float pitch = playerData.get("pitch").getAsFloat();

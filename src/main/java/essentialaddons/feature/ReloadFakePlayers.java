@@ -61,7 +61,7 @@ public abstract class ReloadFakePlayers extends PlayerEntity {
 		}
         GameProfile immutable = mutable;
 
-        SkullBlockEntityInvoker.fetchProfile(immutable.getName()).thenAccept(optional -> {
+        SkullBlockEntityInvoker.fetchProfile(immutable.getName()).thenAcceptAsync(optional -> {
             GameProfile profile = optional.isPresent() ? optional.get() : immutable;
 
             EntityPlayerMPFake instance = EntityPlayerMPFakeInvoker.init(
@@ -92,6 +92,6 @@ public abstract class ReloadFakePlayers extends PlayerEntity {
                 new EntityPositionS2CPacket(instance), instance.getServerWorld().getRegistryKey()
             );
             instance.getDataTracker().set(PLAYER_MODEL_PARTS, (byte) 0x7f);
-        });
+        }, server);
     }
 }

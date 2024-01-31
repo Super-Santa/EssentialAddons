@@ -17,8 +17,7 @@ public class CommandExtinguish {
                 if (playerEntity.isOnFire()) {
                     playerEntity.extinguish();
                     EssentialUtils.sendToActionBar(playerEntity, "§6You have been extinguished");
-                }
-                else {
+                } else {
                     EssentialUtils.sendToActionBar(playerEntity, "§cYou are not on fire");
                 }
                 return 0;

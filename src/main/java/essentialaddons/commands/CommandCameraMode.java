@@ -7,10 +7,8 @@ import essentialaddons.EssentialSettings;
 import essentialaddons.EssentialUtils;
 import essentialaddons.utils.ConfigCamera;
 import essentialaddons.utils.ConfigCameraData;
-import net.minecraft.entity.effect.StatusEffect;
 import net.minecraft.entity.effect.StatusEffectCategory;
 import net.minecraft.entity.effect.StatusEffectInstance;
-import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.mob.HostileEntity;
 import net.minecraft.server.command.ServerCommandSource;
 import net.minecraft.server.network.ServerPlayerEntity;
@@ -18,7 +16,6 @@ import net.minecraft.util.math.Box;
 import net.minecraft.world.GameMode;
 
 import java.util.List;
-import java.util.Set;
 
 import static essentialaddons.EssentialUtils.enabled;
 import static net.minecraft.server.command.CommandManager.literal;
@@ -52,7 +49,7 @@ public class CommandCameraMode {
         GameMode previous = playerEntity.interactionManager.getPreviousGameMode();
         // The id is -1 if not set in previous versions of MC
         if (previous == null || previous.getId() < 0 || previous == GameMode.SPECTATOR) {
-            // In the edge case you do some funky stuff and your previous game mode
+            // In the edge case, you do some funky stuff and your previous game mode
             // is also the same as your current game mode. Otherwise, you will get stuck in spectator.
             previous = GameMode.SURVIVAL;
         }
@@ -72,8 +69,6 @@ public class CommandCameraMode {
             return false;
         }
 
-
-
         for (StatusEffectInstance effect : player.getStatusEffects()) {
             if (effect.getEffectType().getCategory() == StatusEffectCategory.HARMFUL) {
                 EssentialUtils.sendToActionBar(player, "§cYou cannot enter spectator because you have a negative status effect");
@@ -82,7 +77,7 @@ public class CommandCameraMode {
         }
         double x = player.getX(), y = player.getY(), z = player.getZ();
         Box nearPlayer = new Box(x - 4,y - 4,z - 4,x + 4,y + 4, z + 4);
-        List<HostileEntity> list = EssentialUtils.getWorld(player).getEntitiesByClass(HostileEntity.class, nearPlayer, e -> true);
+        List<HostileEntity> list = player.getServerWorld().getEntitiesByClass(HostileEntity.class, nearPlayer, e -> true);
         String reason;
         if (!list.isEmpty()) {
             reason = "there are mobs nearby";

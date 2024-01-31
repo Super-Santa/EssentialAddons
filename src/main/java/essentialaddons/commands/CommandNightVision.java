@@ -19,8 +19,7 @@ public class CommandNightVision {
                 if (!playerEntity.hasStatusEffect(StatusEffects.NIGHT_VISION)) {
                     playerEntity.addStatusEffect(new StatusEffectInstance(StatusEffects.NIGHT_VISION, 999999, 1, true, false));
                     EssentialUtils.sendToActionBar(playerEntity, "§6Night Vision has been §aenabled");
-                }
-                else {
+                } else {
                     playerEntity.removeStatusEffect(StatusEffects.NIGHT_VISION);
                     EssentialUtils.sendToActionBar(playerEntity, "§6Night Vision has been §cdisabled");
                 }

@@ -36,10 +36,6 @@ public abstract class RuleMixin<T extends GameRules.Rule<T>> implements IRule {
 		}
 	}
 
-	/**
-	 * We can't @Invoke this method because it
-	 * leads to some weird recursion, idk.
-	 */
 	@Override
 	public void essentialaddons$ruleChanged(ServerPlayerEntity player) {
 		Text text = EssentialUtils.literal("Set Game Rule %s to %s".formatted(((IRuleType) this.type).essentialaddons$getName(), this.serialize()));

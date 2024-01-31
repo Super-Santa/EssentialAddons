@@ -15,7 +15,6 @@ import net.minecraft.util.math.Box;
 import java.util.Collection;
 
 import static essentialaddons.EssentialUtils.enabled;
-import static essentialaddons.EssentialUtils.getWorld;
 import static net.minecraft.server.command.CommandManager.argument;
 import static net.minecraft.server.command.CommandManager.literal;
 
@@ -31,7 +30,7 @@ public class CommandDefuse {
         ServerPlayerEntity player = commandSource.getPlayerOrThrow();
         double x = player.getX(), y = player.getY(), z = player.getZ();
         Box nearPlayer = new Box(x - range,y - range,z - range,x + range,y + range, z + range);
-        return getWorld(player).getEntitiesByClass(TntEntity.class, nearPlayer, tnt -> true);
+        return player.getServerWorld().getEntitiesByClass(TntEntity.class, nearPlayer, tnt -> true);
     }
 
     private static int defuse(CommandContext<ServerCommandSource> context) throws CommandSyntaxException {

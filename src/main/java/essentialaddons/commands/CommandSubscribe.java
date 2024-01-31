@@ -11,18 +11,18 @@ import static net.minecraft.server.command.CommandManager.literal;
 
 public class CommandSubscribe {
     public static void register(CommandDispatcher<ServerCommandSource> dispatcher) {
-        LiteralArgumentBuilder<ServerCommandSource> subscribeCommand = literal("subscribe");
-        subscribeCommand.requires(source -> Subscription.canUseSubscribeCommand());
+        LiteralArgumentBuilder<ServerCommandSource> subscribe = literal("subscribe");
+        subscribe.requires(source -> Subscription.canUseSubscribeCommand());
         for (Subscription subscription : Subscription.values()) {
             String subscriptionName = subscription.getName();
-            subscribeCommand.then(literal(subscriptionName).requires(source -> subscription.getRequirement().get()).executes(ctx -> {
+            subscribe.then(literal(subscriptionName).requires(source -> subscription.getRequirement().get()).executes(ctx -> {
                 ServerPlayerEntity playerEntity = ctx.getSource().getPlayerOrThrow();
                 String message = subMessage(subscription.togglePlayer(playerEntity));
                 EssentialUtils.sendToActionBar(playerEntity, message + " " + subscriptionName);
                 return 1;
             }));
         }
-        dispatcher.register(subscribeCommand);
+        dispatcher.register(subscribe);
     }
 
     private static String subMessage(boolean bool) {

@@ -3,12 +3,7 @@ package essentialaddons.utils;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonArray;
-import essentialaddons.EssentialAddons;
 import essentialaddons.EssentialUtils;
-import net.fabricmc.api.EnvType;
-import net.fabricmc.loader.api.FabricLoader;
-import net.minecraft.util.WorldSavePath;
-import org.apache.commons.lang3.exception.ExceptionUtils;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -16,7 +11,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 
-import static essentialaddons.EssentialAddons.*;
+import static essentialaddons.EssentialAddons.LOGGER;
 
 public interface Config {
 	Gson GSON = new GsonBuilder().setPrettyPrinting().disableHtmlEscaping().create();

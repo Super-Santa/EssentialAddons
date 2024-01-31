@@ -6,9 +6,6 @@ import essentialaddons.EssentialUtils;
 import essentialaddons.utils.ConfigCameraData;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.player.PlayerEntity;
-//#if MC >= 11900 && MC < 11903
-import net.minecraft.network.encryption.PlayerPublicKey;
-//#endif
 import net.minecraft.network.packet.s2c.play.EntityStatusEffectS2CPacket;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.network.ServerPlayNetworkHandler;
@@ -32,16 +29,9 @@ public abstract class ServerPlayerEntityMixin extends PlayerEntity {
 	@Final
 	public MinecraftServer server;
 
-	//#if MC >= 11900 && MC < 11903
-	//$$public ServerPlayerEntityMixin(World world, BlockPos pos, float yaw, GameProfile gameProfile, PlayerPublicKey publicKey) {
-	//$$	super(world, pos, yaw, gameProfile, publicKey);
-	//$$}
-	//#else
 	public ServerPlayerEntityMixin(World world, BlockPos pos, float yaw, GameProfile gameProfile) {
 		super(world, pos, yaw, gameProfile);
 	}
-	//#endif
-
 
 	@Inject(method = "getServerGameMode", at = @At("HEAD"), cancellable = true)
 	private void onGetGameMode(GameMode backupGameMode, CallbackInfoReturnable<GameMode> cir) {

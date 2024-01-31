@@ -2,13 +2,13 @@ package essentialaddons.commands;
 
 import com.mojang.brigadier.CommandDispatcher;
 import essentialaddons.EssentialSettings;
-import essentialaddons.EssentialUtils;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.screen.CraftingScreenHandler;
 import net.minecraft.screen.ScreenHandlerContext;
 import net.minecraft.screen.SimpleNamedScreenHandlerFactory;
 import net.minecraft.server.command.ServerCommandSource;
 import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.text.Text;
 
 import static essentialaddons.EssentialUtils.enabled;
 import static net.minecraft.server.command.CommandManager.literal;
@@ -25,7 +25,7 @@ public class CommandWorkbench {
                             return true;
                         }
                     },
-                    EssentialUtils.translatable("container.crafting"))
+                    Text.translatable("container.crafting"))
                 );
                 return 0;
             })

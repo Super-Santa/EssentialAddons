@@ -10,28 +10,26 @@ import java.util.*;
 public class ConfigSubscribeData implements Config {
 	public static final ConfigSubscribeData INSTANCE = new ConfigSubscribeData();
 
-	private final Map<UUID, Set<Subscription>> playerSubscriptionMap;
+	private final Map<UUID, Set<Subscription>> subscriptions;
 
 	private ConfigSubscribeData() {
-		this.playerSubscriptionMap = new HashMap<>();
+		this.subscriptions = new HashMap<>();
 	}
 
 	protected void addPlayerSubscription(ServerPlayerEntity player, Subscription subscription) {
-		Set<Subscription> subscriptionSet = this.playerSubscriptionMap.getOrDefault(player.getUuid(), new HashSet<>());
-		subscriptionSet.add(subscription);
-		this.playerSubscriptionMap.putIfAbsent(player.getUuid(), subscriptionSet);
+		this.subscriptions.computeIfAbsent(player.getUuid(), id -> EnumSet.noneOf(Subscription.class)).add(subscription);
 	}
 
 	protected void removePlayerSubscription(ServerPlayerEntity player, Subscription subscription) {
-		Set<Subscription> subscriptionSet = this.playerSubscriptionMap.get(player.getUuid());
-		if (subscriptionSet != null) {
-			subscriptionSet.remove(subscription);
+		Set<Subscription> subscriptions = this.subscriptions.get(player.getUuid());
+		if (subscriptions != null) {
+			subscriptions.remove(subscription);
 		}
 	}
 
 	protected boolean isPlayerSubscribedTo(ServerPlayerEntity player, Subscription subscription) {
-		Set<Subscription> subscriptionSet = this.playerSubscriptionMap.get(player.getUuid());
-		return subscriptionSet != null && subscriptionSet.contains(subscription);
+		Set<Subscription> subscriptions = this.subscriptions.get(player.getUuid());
+		return subscriptions != null && subscriptions.contains(subscription);
 	}
 
 	@Override
@@ -47,12 +45,12 @@ public class ConfigSubscribeData implements Config {
 	@Override
 	public JsonArray getSaveData() {
 		JsonArray playerSubscriptions = new JsonArray();
-		this.playerSubscriptionMap.forEach((uuid, subscriptionSet) -> {
+		this.subscriptions.forEach((uuid, subscriptionSet) -> {
 			JsonObject playerData = new JsonObject();
-			JsonArray jsonArray = new JsonArray();
-			subscriptionSet.forEach(subscription -> jsonArray.add(subscription.getName()));
+			JsonArray array = new JsonArray();
+			subscriptionSet.forEach(subscription -> array.add(subscription.getName()));
 			playerData.addProperty("uuid", uuid.toString());
-			playerData.add("subscriptions", jsonArray);
+			playerData.add("subscriptions", array);
 			playerSubscriptions.add(playerData);
 		});
 		return playerSubscriptions;
@@ -63,7 +61,7 @@ public class ConfigSubscribeData implements Config {
 		playerSubscriptions.forEach(jsonElement -> {
 			JsonObject playerData = jsonElement.getAsJsonObject();
 			UUID playerUUID = UUID.fromString(playerData.get("uuid").getAsString());
-			JsonArray jsonArray = playerData.get("subscriptions").getAsJsonArray();
+			JsonArray jsonArray = playerData.getAsJsonArray("subscriptions");
 			Set<Subscription> subscriptions = new HashSet<>();
 			jsonArray.forEach(element -> {
 				Subscription subscription = Subscription.fromString(element.getAsString());
@@ -71,7 +69,7 @@ public class ConfigSubscribeData implements Config {
 					subscriptions.add(subscription);
 				}
 			});
-			this.playerSubscriptionMap.put(playerUUID, subscriptions);
+			this.subscriptions.put(playerUUID, subscriptions);
 		});
 	}
 }

@@ -19,8 +19,7 @@ public class EssentialAddonsLoggerRegistry {
     public static Field getLoggerField(String logName) {
         try {
             return EssentialAddonsLoggerRegistry.class.getField("__" + logName);
-        }
-        catch (NoSuchFieldException e) {
+        } catch (NoSuchFieldException e) {
             throw new RuntimeException();
         }
     }

@@ -63,7 +63,7 @@ public class GhostPlayerEntity extends ServerPlayerEntity {
         }
         GameProfile immutable = mutable;
 
-        SkullBlockEntityInvoker.fetchProfile(immutable.getName()).thenAccept(optional -> {
+        SkullBlockEntityInvoker.fetchProfile(immutable.getName()).thenAcceptAsync(optional -> {
             GameProfile profile = optional.isPresent() ? optional.get() : immutable;
 
             EntityPlayerMPFake instance = EntityPlayerMPFakeInvoker.init(
@@ -84,7 +84,7 @@ public class GhostPlayerEntity extends ServerPlayerEntity {
             instance.setHealth(20.0F);
             ((EntityInvoker) instance).unsetRemoved();
             instance.interactionManager.changeGameMode(GameMode.SPECTATOR);
-        });
+        }, server);
     }
 
     @Override

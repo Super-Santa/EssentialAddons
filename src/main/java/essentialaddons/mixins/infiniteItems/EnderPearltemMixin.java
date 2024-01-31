@@ -20,8 +20,7 @@ public class EnderPearltemMixin {
                 int slot = playerEntity.getInventory().selectedSlot + 36;
                 playerEntity.networkHandler.sendPacket(new ScreenHandlerSlotUpdateS2CPacket(0, 0, slot, itemStack));
             }
-        }
-        else {
+        } else {
             itemStack.decrement(1);
         }
     }

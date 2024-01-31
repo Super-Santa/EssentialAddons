@@ -7,7 +7,6 @@ import essentialaddons.EssentialUtils;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.command.argument.TextArgumentType;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
 import net.minecraft.server.command.ServerCommandSource;
 import net.minecraft.text.Text;
 
@@ -30,7 +29,9 @@ public class CommandRename {
                     ItemStack itemStack = context.getSource().getPlayerOrThrow().getMainHandStack();
                     if (!itemStack.isEmpty()) {
                         Text text = TextArgumentType.getTextArgument(context, "name");
-                        EssentialUtils.sendFeedback(context.getSource(), false, () -> EssentialUtils.literal("Item name set to: ").append(text));
+                        context.getSource().sendFeedback(() -> {
+                            return Text.literal("Item name set to: ").append(text);
+                        }, false);
                         itemStack.setCustomName(text);
                         return 0;
                     }

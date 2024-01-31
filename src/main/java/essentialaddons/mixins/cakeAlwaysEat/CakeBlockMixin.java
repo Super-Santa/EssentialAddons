@@ -32,8 +32,7 @@ public class CakeBlockMixin {
             if (i < 6) {
                 world.setBlockState(pos, state.with(BITES, i + 1), 3);
                 player.swingHand(Hand.MAIN_HAND, true);
-            }
-            else {
+            } else {
                 world.removeBlock(pos, false);
             }
         }

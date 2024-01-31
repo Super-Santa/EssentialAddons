@@ -22,9 +22,9 @@ public class CommandPublicViewDistance {
                 .executes(context -> viewDistance(context, context.getArgument("distance", Integer.class)))
             )
             .executes(context -> {
-                ServerPlayerEntity playerEntity = context.getSource().getPlayerOrThrow();
+                ServerPlayerEntity player = context.getSource().getPlayerOrThrow();
                 MinecraftServer server = context.getSource().getServer();
-                EssentialUtils.sendToActionBar(playerEntity, "§6View distance is currently §a" + server.getPlayerManager().getViewDistance());
+                EssentialUtils.sendToActionBar(player, "§6View distance is currently §a" + server.getPlayerManager().getViewDistance());
                 return 0;
             })
         );
@@ -45,10 +45,9 @@ public class CommandPublicViewDistance {
             }
             EssentialUtils.sendRawFeedback(context.getSource(), true, "View distance has changed to: " + range);
             EssentialUtils.sendToActionBar(playerEntity, "§6View distance has been changed to: §a" + range);
-        }
-        else {
+        } else {
             EssentialUtils.sendToActionBar(playerEntity, "§cView distance can only be changed on a server");
         }
-        return 0;
+        return 1;
     }
 }
