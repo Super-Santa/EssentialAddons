@@ -11,6 +11,11 @@ import net.minecraft.block.BlockState;
 import net.minecraft.block.ShulkerBoxBlock;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityType;
+import net.minecraft.entity.damage.DamageSource;
+import net.minecraft.entity.mob.PiglinBrain;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.vehicle.VehicleInventory;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -22,8 +27,10 @@ import net.minecraft.sound.SoundEvents;
 import net.minecraft.stat.Stats;
 import net.minecraft.text.MutableText;
 import net.minecraft.text.Text;
+import net.minecraft.util.ItemScatterer;
 import net.minecraft.util.WorldSavePath;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.GameRules;
 import net.minecraft.world.World;
 import org.apache.commons.io.IOUtils;
 
@@ -74,9 +81,6 @@ public class EssentialUtils {
     public static void sendFeedback(ServerCommandSource source, boolean log, Supplier<Text> generator) {
         //#if MC >= 12000
         source.sendFeedback(generator, log);
-        //#else
-        //$$source.sendFeedback(generator.get(), log);
-        //#endif
     }
 
     public static void sendRawFeedback(ServerCommandSource source, boolean log, String string) {
@@ -87,6 +91,37 @@ public class EssentialUtils {
         return item instanceof BlockItem blockItem && blockItem.getBlock() instanceof ShulkerBoxBlock;
     }
 
+    public static void breakVehicleStorage(
+        VehicleInventory inventory,
+        DamageSource source,
+        World world,
+        Entity vehicle
+    ) {
+        if (!world.getGameRules().getBoolean(GameRules.DO_ENTITY_DROPS)) {
+            return;
+        }
+
+        Entity attacker = source.getAttacker();
+        if (hasCareful(attacker, Subscription.ESSENTIAL_CAREFUL_DROP)) {
+            ServerPlayerEntity player = (ServerPlayerEntity) attacker;
+            for (int i = 0; i < inventory.size(); i++) {
+                ItemStack stack = inventory.getStack(i);
+                if (!placeItemInInventory(player, stack)) {
+                    ItemScatterer.spawn(vehicle.getWorld(), vehicle.getX(), vehicle.getY(), vehicle.getZ(), stack);
+                }
+            }
+        } else {
+            ItemScatterer.spawn(world, vehicle, inventory);
+        }
+
+        if (!world.isClient) {
+            Entity entity = source.getSource();
+            if (entity != null && entity.getType() == EntityType.PLAYER) {
+                PiglinBrain.onGuardedBlockInteracted((PlayerEntity) entity, true);
+            }
+        }
+    }
+
     public static void placeItemInInventory(BlockState state, World world, BlockPos pos, BlockEntity blockEntity, ServerPlayerEntity player, ItemStack stack){
         if (world instanceof ServerWorld serverWorld) {
             getDroppedStacks(state, serverWorld, pos, blockEntity, player, stack).forEach((itemStack) -> {
@@ -94,11 +129,7 @@ public class EssentialUtils {
                     dropStack(serverWorld, pos, itemStack);
                 }
             });
-            //#if MC >= 11900
             state.onStacksDropped(serverWorld, pos, stack, true);
-            //#else
-            //$$state.onStacksDropped(serverWorld, pos, stack);
-            //#endif
         }
     }
 

@@ -17,6 +17,8 @@ import net.minecraft.world.World;
 
 import net.minecraft.entity.vehicle.BoatEntity;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.Redirect;
 
 @Mixin(ChestBoatEntity.class)
 public abstract class ChestBoatEntityMixin extends BoatEntity implements VehicleInventory {
@@ -24,22 +26,14 @@ public abstract class ChestBoatEntityMixin extends BoatEntity implements Vehicle
 		super(entityType, world);
 	}
 
-	@Override
-	public void onBroken(DamageSource source, World world, Entity vehicle) {
-		if (world.getGameRules().getBoolean(GameRules.DO_ENTITY_DROPS)) {
-			if (EssentialUtils.hasCareful(source.getAttacker(), Subscription.ESSENTIAL_CAREFUL_DROP)) {
-				ServerPlayerEntity player = (ServerPlayerEntity) source.getAttacker();
-				for (int i = 0; i < this.size(); ++i) {
-					ItemStack stack = this.getStack(i);
-					if (!EssentialUtils.placeItemInInventory(player, stack)) {
-						ItemScatterer.spawn(EssentialUtils.getWorld(this), this.getX(), this.getY(), this.getZ(), stack);
-					}
-				}
-				return;
-			}
-			if (!world.isClient && source.getSource() instanceof PlayerEntity player) {
-				PiglinBrain.onGuardedBlockInteracted(player, true);
-			}
-		}
+	@Redirect(
+		method = "killAndDropSelf",
+		at = @At(
+			value = "INVOKE",
+			target = "Lnet/minecraft/entity/vehicle/ChestBoatEntity;onBroken(Lnet/minecraft/entity/damage/DamageSource;Lnet/minecraft/world/World;Lnet/minecraft/entity/Entity;)V"
+		)
+	)
+	private void onBreak(ChestBoatEntity instance, DamageSource source, World world, Entity entity) {
+		EssentialUtils.breakVehicleStorage(instance, source, world, entity);
 	}
 }

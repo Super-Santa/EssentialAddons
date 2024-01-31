@@ -31,36 +31,13 @@ public abstract class StorageMinecartEntityMixin extends AbstractMinecartEntity 
 	}
 
 	@Redirect(
-		method = "remove",
+		method = "killAndDropSelf",
 		at = @At(
 			value = "INVOKE",
-			target = "Lnet/minecraft/util/ItemScatterer;spawn(Lnet/minecraft/world/World;Lnet/minecraft/entity/Entity;Lnet/minecraft/inventory/Inventory;)V"
+			target = "Lnet/minecraft/entity/vehicle/StorageMinecartEntity;onBroken(Lnet/minecraft/entity/damage/DamageSource;Lnet/minecraft/world/World;Lnet/minecraft/entity/Entity;)V"
 		)
 	)
-	private void onDropItems(World world, Entity entity, Inventory inventory) {
-
-	}
-
-	@Override
-	public void onBroken(DamageSource source, World world, Entity vehicle) {
-		if (world.getGameRules().getBoolean(GameRules.DO_ENTITY_DROPS)) {
-			if (EssentialUtils.hasCareful(source.getAttacker(), Subscription.ESSENTIAL_CAREFUL_DROP)) {
-				ServerPlayerEntity player = (ServerPlayerEntity) source.getAttacker();
-				for (int i = 0; i < this.size(); ++i) {
-					ItemStack stack = this.getStack(i);
-					if (!EssentialUtils.placeItemInInventory(player, stack)) {
-						ItemScatterer.spawn(EssentialUtils.getWorld(this), this.getX(), this.getY(), this.getZ(), stack);
-					}
-				}
-			} else {
-				for (int i = 0; i < this.size(); ++i) {
-					ItemStack stack = this.getStack(i);
-					ItemScatterer.spawn(EssentialUtils.getWorld(this), this.getX(), this.getY(), this.getZ(), stack);
-				}
-			}
-			if (!world.isClient && source.getSource() instanceof PlayerEntity player) {
-				PiglinBrain.onGuardedBlockInteracted(player, true);
-			}
-		}
+	private void onBroken(StorageMinecartEntity instance, DamageSource source, World world, Entity entity) {
+		EssentialUtils.breakVehicleStorage(instance, source, world, entity);
 	}
 }
