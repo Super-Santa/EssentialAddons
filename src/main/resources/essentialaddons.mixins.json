@@ -22,7 +22,6 @@
     "core.MinecraftServerMixin",
     "core.ServerPlayNetworkHandlerMixin",
     "core.ServerWorldMixin",
-    "editableSigns.SignBlockEntityMixin",
     "essentialCarefulbreak.BlockMixin",
     "essentialCarefulDrop.ChestBoatEntityMixin",
     "essentialCarefulDrop.ItemFrameEntityMixin",

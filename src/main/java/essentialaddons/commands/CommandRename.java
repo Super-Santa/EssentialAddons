@@ -1,6 +1,7 @@
 package essentialaddons.commands;
 
 import com.mojang.brigadier.CommandDispatcher;
+import com.mojang.brigadier.arguments.StringArgumentType;
 import com.mojang.brigadier.exceptions.SimpleCommandExceptionType;
 import essentialaddons.EssentialSettings;
 import net.fabricmc.loader.api.FabricLoader;
@@ -23,19 +24,37 @@ public class CommandRename {
         }
 
         dispatcher.register(literal("rename").requires(enabled(() -> EssentialSettings.commandRename, "essentialaddons.command.rename"))
-            .then(argument("name", TextArgumentType.text())
-                .executes(context -> {
-                    ItemStack itemStack = context.getSource().getPlayerOrThrow().getMainHandStack();
-                    if (!itemStack.isEmpty()) {
-                        Text text = TextArgumentType.getTextArgument(context, "name");
-                        context.getSource().sendFeedback(() -> {
-                            return Text.literal("Item name set to: ").append(text);
-                        }, false);
-                        itemStack.setCustomName(text);
-                        return 0;
-                    }
-                    throw ITEM_IS_AIR.create();
-                })
+            .then(literal("json")
+                .then(argument("name", TextArgumentType.text())
+                    .executes(context -> {
+                        ItemStack stack = context.getSource().getPlayerOrThrow().getMainHandStack();
+                        if (!stack.isEmpty()) {
+                            Text text = TextArgumentType.getTextArgument(context, "name");
+                            context.getSource().sendFeedback(() -> {
+                                return Text.literal("Item name set to: ").append(text);
+                            }, false);
+                            stack.setCustomName(text);
+                            return 0;
+                        }
+                        throw ITEM_IS_AIR.create();
+                    })
+                )
+            )
+            .then(literal("literal")
+                .then(argument("name", StringArgumentType.greedyString())
+                    .executes(context -> {
+                        ItemStack itemStack = context.getSource().getPlayerOrThrow().getMainHandStack();
+                        if (!itemStack.isEmpty()) {
+                            String name = StringArgumentType.getString(context, "name");
+                            context.getSource().sendFeedback(() -> {
+                                return Text.literal("Item name set to: ").append(name);
+                            }, false);
+                            itemStack.setCustomName(Text.literal(name).styled(s -> s.withItalic(false)));
+                            return 0;
+                        }
+                        throw ITEM_IS_AIR.create();
+                    })
+                )
             )
         );
     }
