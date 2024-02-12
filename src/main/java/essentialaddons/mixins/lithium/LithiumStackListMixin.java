@@ -2,21 +2,20 @@ package essentialaddons.mixins.lithium;
 
 import essentialaddons.EssentialSettings;
 import essentialaddons.EssentialUtils;
+import me.jellysquid.mods.lithium.common.hopper.LithiumStackList;
 import net.minecraft.item.ItemStack;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Pseudo;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Redirect;
 
-@Pseudo
-@SuppressWarnings("UnresolvedMixinReference")
-@Mixin(targets = "me.jellysquid.mods.lithium.common.hopper.LithiumStackList")
+@Mixin(LithiumStackList.class)
 public class LithiumStackListMixin {
     @Redirect(
         method = {
             "<init>(Lnet/minecraft/util/collection/DefaultedList;I)V",
             "changedALot",
-            "beforeSlotCountChange",
+            "lithium$notifyBeforeCountChange",
             "set(ILnet/minecraft/item/ItemStack;)Lnet/minecraft/item/ItemStack;"
         },
         at = @At(

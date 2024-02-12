@@ -28,6 +28,9 @@ dependencies {
 	modImplementation "net.fabricmc.fabric-api:fabric-api:${fabric_version}"
 
 	modImplementation "com.github.gnembon:fabric-carpet:${carpet_version}"
+	modImplementation("com.github.CaffeineMC:lithium-fabric:mc1.20.4-0.12.1") {
+		exclude group: 'com.github.2No2Name', module: 'McTester'
+	}
 	include modImplementation("me.lucko:fabric-permissions-api:0.2-SNAPSHOT")
 }
 
