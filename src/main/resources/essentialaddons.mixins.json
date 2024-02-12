@@ -62,6 +62,7 @@
     "shulkerSeption.ShulkerBoxSlotMixin",
     "shulkerSeption.ShulkerBoxTileEntityMixin",
     "spectatorPotionNoCountdown.LivingEntityMixin",
+    "stackableShulkers.BlockItemMixin",
     "stackableShulkers.HopperBlockEntityMixin",
     "stackableShulkers.ItemEntityMixin",
     "stackableShulkers.ItemStackMixin",
