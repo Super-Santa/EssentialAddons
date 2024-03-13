@@ -63,7 +63,8 @@ jar {
 publishMods {
 	file = remapJar.archiveFile
 	changelog = """
-	- Fixed a bug that caused storage minecarts to not drop their items
+	- Fixes a bug that caused `stackableShulkersWithItems` to only drop one set of items when shulkers were destroyed
+	- Fixes a conflict with lithium that caused hoppers to not properly transfer items
 	"""
 	type = STABLE
 	modLoaders.add("fabric")

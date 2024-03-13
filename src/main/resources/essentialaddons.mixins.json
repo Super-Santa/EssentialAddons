@@ -23,6 +23,7 @@
     "core.ServerPlayNetworkHandlerMixin",
     "core.ServerWorldMixin",
     "essentialCarefulbreak.BlockMixin",
+    "essentialCarefulbreak.PistonHeadBlockMixin",
     "essentialCarefulDrop.ChestBoatEntityMixin",
     "essentialCarefulDrop.ItemFrameEntityMixin",
     "essentialCarefulDrop.LivingEntityMixin",
