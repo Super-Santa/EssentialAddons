@@ -11,20 +11,20 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-@Mixin(ItemStack.class)
+// We need to mixin before Tweakeroo
+@Mixin(value = ItemStack.class, priority = 900)
 public abstract class ItemStackMixin {
     @Shadow
     public abstract Item getItem();
 
-    @Inject(method = "getMaxCount", at=@At("RETURN"), cancellable = true)
+    @Inject(method = "getMaxCount", at = @At("HEAD"), cancellable = true)
     public void getMaxCount(CallbackInfoReturnable<Integer> cir) {
         if (EssentialSettings.stackableShulkersInPlayerInventories && EssentialUtils.isItemShulkerBox(this.getItem())) {
             ItemStack stack = (ItemStack) (Object) this;
             if (!InventoryHelper.shulkerBoxHasItems(stack)) {
                 stack.removeSubNbt("BlockEntityTag");
                 cir.setReturnValue(64);
-            }
-            else if (EssentialSettings.stackableShulkersWithItems) {
+            } else if (EssentialSettings.stackableShulkersWithItems) {
                 cir.setReturnValue(64);
             }
         }
