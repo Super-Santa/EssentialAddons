@@ -10,8 +10,8 @@ import essentialaddons.EssentialSettings;
 import essentialaddons.mixins.reloadFakePlayers.EntityInvoker;
 import essentialaddons.mixins.reloadFakePlayers.EntityPlayerActionPackAccessor;
 import essentialaddons.mixins.reloadFakePlayers.EntityPlayerMPFakeInvoker;
-import essentialaddons.mixins.reloadFakePlayers.SkullBlockEntityInvoker;
 import essentialaddons.utils.ConfigFakePlayerData;
+import net.minecraft.block.entity.SkullBlockEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.network.NetworkSide;
 import net.minecraft.network.packet.c2s.common.SyncedClientOptions;
@@ -61,9 +61,8 @@ public abstract class ReloadFakePlayers extends PlayerEntity {
 		}
         GameProfile immutable = mutable;
 
-        SkullBlockEntityInvoker.fetchProfile(immutable.getName()).thenAcceptAsync(optional -> {
-            GameProfile profile = optional.isPresent() ? optional.get() : immutable;
-
+        SkullBlockEntity.fetchProfileByName(immutable.getName()).thenAcceptAsync(optional -> {
+            GameProfile profile = optional.orElse(immutable);
             EntityPlayerMPFake instance = EntityPlayerMPFakeInvoker.init(
                 server,
                 server.getOverworld(),
@@ -80,11 +79,10 @@ public abstract class ReloadFakePlayers extends PlayerEntity {
             server.getPlayerManager().onPlayerConnect(
                 new FakeClientConnection(NetworkSide.SERVERBOUND),
                 instance,
-                new ConnectedClientData(profile, 0, instance.getClientOptions())
+                new ConnectedClientData(profile, 0, instance.getClientOptions(), true)
             );
 
             ((EntityInvoker) instance).unsetRemoved();
-            instance.setStepHeight(0.6F);
             server.getPlayerManager().sendToDimension(
                 new EntitySetHeadYawS2CPacket(instance, (byte) (instance.headYaw * 256 / 360)), instance.getServerWorld().getRegistryKey()
             );

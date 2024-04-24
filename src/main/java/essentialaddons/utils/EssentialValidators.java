@@ -12,7 +12,7 @@ public class EssentialValidators {
 		public Boolean validate(ServerCommandSource source, CarpetRule<Boolean> changingRule, Boolean newValue, String userInput) {
 			// We set it prematurely, so we can do the following check
 			EssentialSettings.gameRuleNonOp = newValue;
-			GameRuleNetworkHandler.INSTANCE.getValidPlayers().forEach(GameRuleNetworkHandler.INSTANCE::updatePlayerStatus);
+			GameRuleNetworkHandler.INSTANCE.updateAllPlayerStatuses();
 			return newValue;
 		}
 	}
@@ -22,9 +22,9 @@ public class EssentialValidators {
 		public Boolean validate(ServerCommandSource source, CarpetRule<Boolean> changingRule, Boolean newValue, String userInput) {
 			EssentialSettings.gameRuleSync = newValue;
 			if (newValue) {
-				GameRuleNetworkHandler.INSTANCE.getValidPlayers().forEach(GameRuleNetworkHandler.INSTANCE::sendAllRules);
+				GameRuleNetworkHandler.INSTANCE.sendAllRules();
 			}
-			GameRuleNetworkHandler.INSTANCE.getValidPlayers().forEach(GameRuleNetworkHandler.INSTANCE::updatePlayerStatus);
+			GameRuleNetworkHandler.INSTANCE.updateAllPlayerStatuses();
 			return newValue;
 		}
 	}

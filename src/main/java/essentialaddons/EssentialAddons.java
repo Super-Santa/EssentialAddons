@@ -2,16 +2,12 @@ package essentialaddons;
 
 import carpet.CarpetExtension;
 import carpet.CarpetServer;
-import carpet.script.CarpetExpression;
 import com.mojang.brigadier.CommandDispatcher;
 import essentialaddons.commands.*;
 import essentialaddons.feature.GameRuleNetworkHandler;
 import essentialaddons.feature.ReloadFakePlayers;
-import essentialaddons.feature.script.PacketEvent;
-import essentialaddons.feature.script.ScriptPacketHandler;
 import essentialaddons.logging.EssentialAddonsLoggerRegistry;
 import essentialaddons.utils.*;
-import essentialaddons.utils.network.NetworkHandler;
 import net.fabricmc.api.ModInitializer;
 import net.minecraft.command.CommandRegistryAccess;
 import net.minecraft.server.MinecraftServer;
@@ -26,7 +22,6 @@ import java.util.Set;
 public class EssentialAddons implements CarpetExtension, ModInitializer {
     public static final Logger LOGGER;
     public static final Set<Config> CONFIG_SET;
-    public static final Set<NetworkHandler> NETWORK_HANDLERS;
     public static MinecraftServer server;
 
     static {
@@ -37,16 +32,14 @@ public class EssentialAddons implements CarpetExtension, ModInitializer {
             ConfigFakePlayerData.INSTANCE,
             ConfigTeamTeleportBlacklist.INSTANCE
         );
-        NETWORK_HANDLERS = Set.of(
-            GameRuleNetworkHandler.INSTANCE,
-            ScriptPacketHandler.INSTANCE
-        );
     }
 
     @Override
     public void onInitialize() {
         CarpetServer.manageExtension(this);
         ConfigCamera.INSTANCE.readConfig();
+
+        GameRuleNetworkHandler.INSTANCE.registerGameRulePayloads();
     }
 
     @Override
@@ -65,11 +58,6 @@ public class EssentialAddons implements CarpetExtension, ModInitializer {
     }
 
     @Override
-    public void scarpetApi(CarpetExpression expression) {
-        ScriptPacketHandler.INSTANCE.addScarpetExpression(expression.getExpr());
-    }
-
-    @Override
     public void onServerLoaded(MinecraftServer server) {
         EssentialAddons.server = server;
         for (Config config : CONFIG_SET) {
@@ -82,7 +70,6 @@ public class EssentialAddons implements CarpetExtension, ModInitializer {
         if (EssentialSettings.reloadFakePlayers) {
             ReloadFakePlayers.loadFakePlayers(server);
         }
-        PacketEvent.noop();
     }
 
     @Override
@@ -93,7 +80,7 @@ public class EssentialAddons implements CarpetExtension, ModInitializer {
     }
 
     @Override
-    public void registerCommands(CommandDispatcher<ServerCommandSource> dispatcher, CommandRegistryAccess commandBuildContext) {
+    public void registerCommands(CommandDispatcher<ServerCommandSource> dispatcher, CommandRegistryAccess access) {
         CommandFly.register(dispatcher);
         CommandHat.register(dispatcher);
         CommandRepair.register(dispatcher);
@@ -117,7 +104,7 @@ public class EssentialAddons implements CarpetExtension, ModInitializer {
         CommandTop.register(dispatcher);
         CommandNear.register(dispatcher);
         CommandLagSpike.register(dispatcher);
-        CommandRename.register(dispatcher);
+        CommandRename.register(dispatcher, access);
         CommandMods.register(dispatcher);
         CommandGhostPlayer.register(dispatcher);
         CommandConfig.register(dispatcher);
@@ -126,7 +113,7 @@ public class EssentialAddons implements CarpetExtension, ModInitializer {
 
     @Override
     public void onPlayerLoggedIn(ServerPlayerEntity player) {
-        NETWORK_HANDLERS.forEach(networkHandler -> networkHandler.sayHello(player));
+        GameRuleNetworkHandler.INSTANCE.sayHello(player);
     }
 
     @Override

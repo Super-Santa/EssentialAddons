@@ -70,7 +70,7 @@ public class CommandCameraMode {
         }
 
         for (StatusEffectInstance effect : player.getStatusEffects()) {
-            if (effect.getEffectType().getCategory() == StatusEffectCategory.HARMFUL) {
+            if (effect.getEffectType().value().getCategory() == StatusEffectCategory.HARMFUL) {
                 EssentialUtils.sendToActionBar(player, "§cYou cannot enter spectator because you have a negative status effect");
                 return true;
             }

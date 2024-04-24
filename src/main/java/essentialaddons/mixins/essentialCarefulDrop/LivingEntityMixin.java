@@ -1,24 +1,22 @@
 package essentialaddons.mixins.essentialCarefulDrop;
 
+import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
+import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import essentialaddons.EssentialUtils;
 import essentialaddons.utils.Subscription;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.damage.DamageSource;
+import net.minecraft.item.ItemStack;
 import net.minecraft.loot.LootTable;
 import net.minecraft.loot.context.LootContextParameterSet;
-import net.minecraft.loot.context.LootContextParameters;
-import net.minecraft.loot.context.LootContextTypes;
 import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.server.world.ServerWorld;
-import net.minecraft.util.Identifier;
 import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+
+import java.util.function.Consumer;
 
 @Mixin(LivingEntity.class)
 public abstract class LivingEntityMixin extends Entity {
@@ -26,41 +24,32 @@ public abstract class LivingEntityMixin extends Entity {
 		super(type, world);
 	}
 
-	@Shadow
-	public abstract Identifier getLootTable();
-
-	@Shadow public abstract long getLootTableSeed();
-
-	@Inject(method = "dropLoot", at = @At("HEAD"), cancellable = true)
-	private void onDropLoot(DamageSource source, boolean causedByPlayer, CallbackInfo ci) {
+	@WrapOperation(
+		method = "dropLoot",
+		at = @At(
+			value = "INVOKE",
+			target = "Lnet/minecraft/loot/LootTable;generateLoot(Lnet/minecraft/loot/context/LootContextParameterSet;JLjava/util/function/Consumer;)V"
+		)
+	)
+	private void applyCarefulDrop(
+		LootTable instance,
+		LootContextParameterSet parameters,
+		long seed,
+		Consumer<ItemStack> original,
+		Operation<Void> operation,
+		DamageSource source
+	) {
+		Consumer<ItemStack> consumer;
 		if (EssentialUtils.hasCareful(source.getAttacker(), Subscription.ESSENTIAL_CAREFUL_DROP)) {
 			ServerPlayerEntity player = (ServerPlayerEntity) source.getAttacker();
-
-			Identifier identifier = this.getLootTable();
-			LootTable lootTable = player.server.getLootManager().getLootTable(identifier);
-			ServerWorld world = (ServerWorld) this.getWorld();
-
-			LootContextParameterSet.Builder builder = new LootContextParameterSet.Builder(world)
-				.add(LootContextParameters.THIS_ENTITY, this)
-				.add(LootContextParameters.ORIGIN, this.getPos())
-				.add(LootContextParameters.DAMAGE_SOURCE, this.getDamageSources().playerAttack(player))
-				.addOptional(LootContextParameters.KILLER_ENTITY, player)
-				.addOptional(LootContextParameters.DIRECT_KILLER_ENTITY, player)
-				.add(LootContextParameters.LAST_DAMAGE_PLAYER, player)
-				.luck(player.getLuck());
-			LootContextParameterSet lootContextParameterSet = builder.build(LootContextTypes.ENTITY);
-
-			lootTable.generateLoot(
-				lootContextParameterSet,
-				this.getLootTableSeed(),
-				stack -> {
-					if (!EssentialUtils.placeItemInInventory(player, stack)) {
-						this.dropStack(stack);
-					}
+			consumer = stack -> {
+				if (!EssentialUtils.placeItemInInventory(player, stack)) {
+					original.accept(stack);
 				}
-			);
-
-			ci.cancel();
+			};
+		} else {
+			consumer = original;
 		}
+		operation.call(instance, parameters, seed, consumer);
 	}
 }

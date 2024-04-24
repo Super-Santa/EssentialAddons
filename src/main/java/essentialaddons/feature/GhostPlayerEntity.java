@@ -7,7 +7,7 @@ import carpet.utils.Messenger;
 import com.mojang.authlib.GameProfile;
 import essentialaddons.mixins.reloadFakePlayers.EntityInvoker;
 import essentialaddons.mixins.reloadFakePlayers.EntityPlayerMPFakeInvoker;
-import essentialaddons.mixins.reloadFakePlayers.SkullBlockEntityInvoker;
+import net.minecraft.block.entity.SkullBlockEntity;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.network.NetworkSide;
@@ -63,8 +63,8 @@ public class GhostPlayerEntity extends ServerPlayerEntity {
         }
         GameProfile immutable = mutable;
 
-        SkullBlockEntityInvoker.fetchProfile(immutable.getName()).thenAcceptAsync(optional -> {
-            GameProfile profile = optional.isPresent() ? optional.get() : immutable;
+        SkullBlockEntity.fetchProfileByName(immutable.getName()).thenAcceptAsync(optional -> {
+            GameProfile profile = optional.orElse(immutable);
 
             EntityPlayerMPFake instance = EntityPlayerMPFakeInvoker.init(
                 server,
@@ -78,7 +78,7 @@ public class GhostPlayerEntity extends ServerPlayerEntity {
             server.getPlayerManager().onPlayerConnect(
                 new FakeClientConnection(NetworkSide.SERVERBOUND),
                 instance,
-                new ConnectedClientData(profile, 0, instance.getClientOptions())
+                new ConnectedClientData(profile, 0, instance.getClientOptions(), true)
             );
             instance.teleport(worldIn, pos.x, pos.y, pos.z, (float) yaw, (float) pitch);
             instance.setHealth(20.0F);

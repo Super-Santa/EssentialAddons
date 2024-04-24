@@ -48,7 +48,7 @@ public abstract class ServerPlayerEntityMixin extends PlayerEntity {
 		if (EssentialUtils.hasPermission(this.getCommandSource(), () -> EssentialSettings.commandCameraMode, "essentialaddons.command.cs") && this.isSpectator()) {
 			if (this.server.getTicks() % 20 == 0) {
 				for (StatusEffectInstance statusEffectInstance : this.getStatusEffects()) {
-					this.networkHandler.sendPacket(new EntityStatusEffectS2CPacket(this.getId(), statusEffectInstance));
+					this.networkHandler.sendPacket(new EntityStatusEffectS2CPacket(this.getId(), statusEffectInstance, false));
 				}
 			}
 			return;

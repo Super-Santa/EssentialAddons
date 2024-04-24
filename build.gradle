@@ -1,7 +1,7 @@
 plugins {
 	id "maven-publish"
-	id "fabric-loom" version "1.5-SNAPSHOT"
-	id 'me.modmuss50.mod-publish-plugin' version '0.3.4'
+	id "fabric-loom" version "1.6-SNAPSHOT"
+	id 'me.modmuss50.mod-publish-plugin' version '0.5.1'
 }
 
 repositories {
@@ -18,7 +18,7 @@ repositories {
 	}
 }
 
-version = minecraft_version + "-" + mod_version
+version = "${mod_version}+mc${minecraft_version}"
 group = maven_group
 
 dependencies {
@@ -27,8 +27,8 @@ dependencies {
 	modImplementation "net.fabricmc:fabric-loader:${loader_version}"
 	modImplementation "net.fabricmc.fabric-api:fabric-api:${fabric_version}"
 
-	modImplementation "com.github.gnembon:fabric-carpet:${carpet_version}"
-	modImplementation("com.github.CaffeineMC:lithium-fabric:mc1.20.4-0.12.1") {
+	modImplementation "com.github.senseiwells:fabric-carpet:${carpet_version}"
+	modImplementation("com.github.CaffeineMC:lithium-fabric:${lithium_version}") {
 		exclude group: 'com.github.2No2Name', module: 'McTester'
 	}
 	include modImplementation("me.lucko:fabric-permissions-api:0.2-SNAPSHOT")
@@ -40,7 +40,7 @@ processResources {
 	filesMatching("fabric.mod.json") {
 		def map = [
 			"version"             : mod_version,
-			"carpet_dependency"   : ">=" + carpet_version,
+//			"carpet_dependency"   : ">=" + carpet_version,
 			"minecraft_dependency": minecraft_dependency
 		]
 		expand map

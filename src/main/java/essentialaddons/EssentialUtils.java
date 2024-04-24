@@ -1,15 +1,12 @@
 package essentialaddons;
 
-import carpet.helpers.InventoryHelper;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import essentialaddons.utils.Subscription;
 import me.lucko.fabric.api.permissions.v0.Permissions;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.loader.api.FabricLoader;
-import net.minecraft.block.BlockState;
 import net.minecraft.block.ShulkerBoxBlock;
-import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.damage.DamageSource;
@@ -28,7 +25,6 @@ import net.minecraft.stat.Stats;
 import net.minecraft.text.Text;
 import net.minecraft.util.ItemScatterer;
 import net.minecraft.util.WorldSavePath;
-import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.GameRules;
 import net.minecraft.world.World;
 import org.apache.commons.io.IOUtils;
@@ -44,8 +40,6 @@ import java.util.function.Supplier;
 
 import static carpet.utils.CommandHelper.canUseCommand;
 import static essentialaddons.EssentialAddons.server;
-import static net.minecraft.block.Block.dropStack;
-import static net.minecraft.block.Block.getDroppedStacks;
 
 public class EssentialUtils {
     public static final Random RANDOM = new Random();
@@ -93,24 +87,9 @@ public class EssentialUtils {
         }
     }
 
-    public static void placeItemInInventory(BlockState state, World world, BlockPos pos, BlockEntity blockEntity, ServerPlayerEntity player, ItemStack stack){
-        if (world instanceof ServerWorld serverWorld) {
-            getDroppedStacks(state, serverWorld, pos, blockEntity, player, stack).forEach((itemStack) -> {
-                if (!placeItemInInventory(player, itemStack)) {
-                    dropStack(serverWorld, pos, itemStack);
-                }
-            });
-            state.onStacksDropped(serverWorld, pos, stack, true);
-        }
-    }
-
     public static boolean placeItemInInventory(ServerPlayerEntity player, ItemStack itemStack) {
         Item item = itemStack.getItem();
         int itemAmount = itemStack.getCount();
-        if (EssentialSettings.stackableShulkersInPlayerInventories && !InventoryHelper.shulkerBoxHasItems(itemStack) && isItemShulkerBox(itemStack.getItem())) {
-            itemStack.removeSubNbt("BlockEntityTag");
-            item = itemStack.getItem();
-        }
         if (player.getInventory().insertStack(itemStack)) {
             player.getWorld().playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.ENTITY_ITEM_PICKUP, SoundCategory.PLAYERS, 0.2f, (RANDOM.nextFloat() - RANDOM.nextFloat()) * 1.4F + 2.0F);
             player.increaseStat(Stats.PICKED_UP.getOrCreateStat(item), itemAmount);
