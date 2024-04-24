@@ -82,7 +82,7 @@ public class GameRuleNetworkHandler {
 
 	public void registerGameRulePayloads() {
 		PayloadTypeRegistry.playC2S().register(GameRuleHelloPayload.ID, GameRuleHelloPayload.CODEC);
-		PayloadTypeRegistry.playC2S().register(SetGameRule.ID, SetGameRule.CODEC);
+		PayloadTypeRegistry.playC2S().register(SetGameRulePayload.ID, SetGameRulePayload.CODEC);
 
 		PayloadTypeRegistry.playS2C().register(GameRuleHelloPayload.ID, GameRuleHelloPayload.CODEC);
 		PayloadTypeRegistry.playS2C().register(GameRulePermissionsPayload.ID, GameRulePermissionsPayload.CODEC);
@@ -91,7 +91,7 @@ public class GameRuleNetworkHandler {
 		ServerPlayNetworking.registerGlobalReceiver(GameRuleHelloPayload.ID, (payload, context) -> {
 			this.handleHello(context.player().networkHandler, payload);
 		});
-		ServerPlayNetworking.registerGlobalReceiver(SetGameRule.ID, (payload, context) -> {
+		ServerPlayNetworking.registerGlobalReceiver(SetGameRulePayload.ID, (payload, context) -> {
 			this.handleGameRuleSet(context.player().networkHandler, payload);
 		});
 	}
@@ -106,7 +106,7 @@ public class GameRuleNetworkHandler {
 		}
 	}
 
-	private void handleGameRuleSet(ServerPlayNetworkHandler handler, SetGameRule payload) {
+	private void handleGameRuleSet(ServerPlayNetworkHandler handler, SetGameRulePayload payload) {
 		ServerPlayerEntity player = handler.player;
 		String playerName = player.getNameForScoreboard();
 		if (!this.validPlayers.contains(handler)) {
@@ -142,11 +142,11 @@ public class GameRuleNetworkHandler {
 		}
 	}
 
-	private record SetGameRule(String name, String value) implements CustomPayload {
-		public static final Id<SetGameRule> ID = CustomPayload.id("essential:set_game_rule");
-		public static final PacketCodec<PacketByteBuf, SetGameRule> CODEC = PacketCodec.of(
+	private record SetGameRulePayload(String name, String value) implements CustomPayload {
+		public static final Id<SetGameRulePayload> ID = CustomPayload.id("essential:set_game_rule");
+		public static final PacketCodec<PacketByteBuf, SetGameRulePayload> CODEC = PacketCodec.of(
 			(payload, buf) -> buf.writeString(payload.name).writeString(payload.value),
-			(buf) -> new SetGameRule(buf.readString(), buf.readString())
+			(buf) -> new SetGameRulePayload(buf.readString(), buf.readString())
 		);
 
 		@Override
