@@ -129,7 +129,7 @@ public class GameRuleNetworkHandler {
 		((IRule) rule).essentialaddons$ruleChanged(player);
 	}
 
-	private record GameRuleHelloPayload(String brand, int version) implements CustomPayload {
+	public record GameRuleHelloPayload(String brand, int version) implements CustomPayload {
 		public static final Id<GameRuleHelloPayload> ID = CustomPayload.id("essential:game_rule_hello");
 		public static final PacketCodec<PacketByteBuf, GameRuleHelloPayload> CODEC = PacketCodec.of(
 			(payload, buf) -> buf.writeString(payload.brand).writeInt(payload.version),
@@ -142,7 +142,7 @@ public class GameRuleNetworkHandler {
 		}
 	}
 
-	private record SetGameRulePayload(String name, String value) implements CustomPayload {
+	public record SetGameRulePayload(String name, String value) implements CustomPayload {
 		public static final Id<SetGameRulePayload> ID = CustomPayload.id("essential:set_game_rule");
 		public static final PacketCodec<PacketByteBuf, SetGameRulePayload> CODEC = PacketCodec.of(
 			(payload, buf) -> buf.writeString(payload.name).writeString(payload.value),
@@ -155,7 +155,7 @@ public class GameRuleNetworkHandler {
 		}
 	}
 
-	private record GameRulesChangedPayload(NbtCompound compound) implements CustomPayload {
+	public record GameRulesChangedPayload(NbtCompound compound) implements CustomPayload {
 		public static final Id<GameRulesChangedPayload> ID = CustomPayload.id("essential:game_rules_changed");
 		public static final PacketCodec<PacketByteBuf, GameRulesChangedPayload> CODEC = PacketCodec.of(
 			(payload, buf) -> buf.writeNbt(payload.compound),
@@ -168,7 +168,7 @@ public class GameRuleNetworkHandler {
 		}
 	}
 
-	private record GameRulePermissionsPayload(boolean canUpdateGamerules) implements CustomPayload {
+	public record GameRulePermissionsPayload(boolean canUpdateGamerules) implements CustomPayload {
 		public static final Id<GameRulePermissionsPayload> ID = CustomPayload.id("essential:game_rule_permissions");
 		public static final PacketCodec<PacketByteBuf, GameRulePermissionsPayload> CODEC = PacketCodec.of(
 			(payload, buf) -> buf.writeBoolean(payload.canUpdateGamerules),
