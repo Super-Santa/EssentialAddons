@@ -10,6 +10,7 @@ import essentialaddons.mixins.reloadFakePlayers.EntityPlayerMPFakeInvoker;
 import net.minecraft.block.entity.SkullBlockEntity;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.network.DisconnectionInfo;
 import net.minecraft.network.NetworkSide;
 import net.minecraft.network.packet.c2s.common.SyncedClientOptions;
 import net.minecraft.registry.RegistryKey;
@@ -95,7 +96,7 @@ public class GhostPlayerEntity extends ServerPlayerEntity {
     public void kill(Text reason) {
         this.shakeOff();
         this.server.send(new ServerTask(this.server.getTicks(), () -> {
-            this.networkHandler.onDisconnected(reason);
+            this.networkHandler.onDisconnected(new DisconnectionInfo(reason));
         }));
     }
 

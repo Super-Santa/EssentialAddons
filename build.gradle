@@ -27,7 +27,7 @@ dependencies {
 	modImplementation "net.fabricmc:fabric-loader:${loader_version}"
 	modImplementation "net.fabricmc.fabric-api:fabric-api:${fabric_version}"
 
-	modImplementation "com.github.senseiwells:fabric-carpet:${carpet_version}"
+	modImplementation "com.github.gnembon:fabric-carpet:${carpet_version}"
 	modImplementation("com.github.CaffeineMC:lithium-fabric:${lithium_version}") {
 		exclude group: 'com.github.2No2Name', module: 'McTester'
 	}

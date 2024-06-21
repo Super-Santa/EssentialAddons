@@ -62,8 +62,10 @@
     "spectatorPotionNoCountdown.LivingEntityMixin",
     "stackableShulkers.BlockItemMixin",
     "stackableShulkers.HopperBlockEntityMixin",
+    "stackableShulkers.InventoryS2CPacketMixin",
     "stackableShulkers.ItemStackMixin",
     "stackableShulkers.ScreenHandlerMixin",
+    "stackableShulkers.ScreenHandlerSlotUpdateS2CPacketMixin",
     "structureBlockKillEntities.StructureTemplateMixin",
     "structureBlockReplaceFluids.StructureBlockBlockEntityMixin"
   ],

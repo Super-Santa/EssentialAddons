@@ -5,7 +5,6 @@ import essentialaddons.EssentialUtils;
 import me.jellysquid.mods.lithium.common.hopper.LithiumStackList;
 import net.minecraft.item.ItemStack;
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Pseudo;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Redirect;
 
@@ -15,7 +14,7 @@ public class LithiumStackListMixin {
         method = {
             "<init>(Lnet/minecraft/util/collection/DefaultedList;I)V",
             "changedALot",
-            "lithium$notifyBeforeCountChange",
+            "lithium$notifyCount(Lnet/minecraft/item/ItemStack;II)V",
             "set(ILnet/minecraft/item/ItemStack;)Lnet/minecraft/item/ItemStack;"
         },
         at = @At(

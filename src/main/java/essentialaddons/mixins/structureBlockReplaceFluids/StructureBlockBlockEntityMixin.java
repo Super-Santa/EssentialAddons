@@ -2,6 +2,7 @@ package essentialaddons.mixins.structureBlockReplaceFluids;
 
 import essentialaddons.EssentialSettings;
 import net.minecraft.block.entity.StructureBlockBlockEntity;
+import net.minecraft.structure.StructureLiquidSettings;
 import net.minecraft.structure.StructurePlacementData;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -17,6 +18,8 @@ public class StructureBlockBlockEntityMixin {
 		)
 	)
 	private StructurePlacementData modifyStructurePlacement(StructurePlacementData instance, boolean ignoreEntities) {
-		return instance.setIgnoreEntities(ignoreEntities).setPlaceFluids(!EssentialSettings.structureBlockReplaceFluids);
+		StructureLiquidSettings settings = EssentialSettings.structureBlockReplaceFluids ?
+			StructureLiquidSettings.IGNORE_WATERLOGGING : StructureLiquidSettings.APPLY_WATERLOGGING;
+		return instance.setIgnoreEntities(ignoreEntities).setLiquidSettings(settings);
 	}
 }

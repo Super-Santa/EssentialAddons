@@ -13,7 +13,11 @@ import java.util.function.BooleanSupplier;
 public class ServerChunkManagerMixin {
 	@Inject(
         method = "tick(Ljava/util/function/BooleanSupplier;Z)V",
-        at = @At(value = "INVOKE", target = "Lnet/minecraft/server/world/ThreadedAnvilChunkStorage;tick(Ljava/util/function/BooleanSupplier;)V", shift = At.Shift.BEFORE)
+        at = @At(
+			value = "INVOKE",
+			target = "Lnet/minecraft/server/world/ChunkTicketManager;purge()V",
+			shift = At.Shift.BEFORE
+		)
     )
 	protected void BeforeChunkUnload(BooleanSupplier shouldKeepTicking, boolean tickChunks, CallbackInfo ci) {
 		LagSpike.processLagSpikes(LagSpike.TickPhase.CHUNK_UNLOADING, LagSpike.PrePostSubPhase.PRE);
@@ -21,7 +25,11 @@ public class ServerChunkManagerMixin {
 
 	@Inject(
         method = "tick(Ljava/util/function/BooleanSupplier;Z)V",
-        at = @At(value = "INVOKE", target = "Lnet/minecraft/server/world/ThreadedAnvilChunkStorage;tick(Ljava/util/function/BooleanSupplier;)V", shift = At.Shift.AFTER)
+        at = @At(
+			value = "INVOKE",
+			target = "Lnet/minecraft/server/world/ChunkTicketManager;purge()V",
+			shift = At.Shift.AFTER
+		)
     )
 	protected void AfterChunkUnload(BooleanSupplier shouldKeepTicking, boolean tickChunks, CallbackInfo ci) {
 		LagSpike.processLagSpikes(LagSpike.TickPhase.CHUNK_UNLOADING, LagSpike.PrePostSubPhase.POST);
@@ -47,7 +55,7 @@ public class ServerChunkManagerMixin {
 		method = "tick",
 		at = @At(
 			value = "INVOKE",
-			target = "Lnet/minecraft/server/world/ThreadedAnvilChunkStorage;tickEntityMovement()V",
+			target = "Lnet/minecraft/server/world/ServerChunkLoadingManager;tickEntityMovement()V",
 			shift = At.Shift.BEFORE
 		)
 	)
@@ -59,7 +67,7 @@ public class ServerChunkManagerMixin {
 		method = "tick",
 		at = @At(
 			value = "INVOKE",
-			target = "Lnet/minecraft/server/world/ThreadedAnvilChunkStorage;tickEntityMovement()V",
+			target = "Lnet/minecraft/server/world/ServerChunkLoadingManager;tickEntityMovement()V",
 			shift = At.Shift.AFTER
 		)
 	)
