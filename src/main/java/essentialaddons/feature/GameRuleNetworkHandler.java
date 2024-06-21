@@ -97,7 +97,7 @@ public class GameRuleNetworkHandler {
 	}
 
 	private void handleHello(ServerPlayNetworkHandler handler, GameRuleHelloPayload payload) {
-		if (VERSION > payload.version) {
+		if (VERSION >= payload.version) {
 			this.validPlayers.add(handler);
 			this.updatePlayerStatus(handler.player);
 			if (EssentialSettings.gameRuleSync) {
