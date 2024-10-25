@@ -9,9 +9,9 @@ import org.spongepowered.asm.mixin.Shadow;
 
 @Mixin(SpawnHelper.Info.class)
 public abstract class InfoInvoker implements IInfo {
-	@Shadow abstract boolean isBelowCap(SpawnGroup par1, ChunkPos par2);
+	@Shadow abstract boolean canSpawn(SpawnGroup group, ChunkPos chunkPos);
 
 	public boolean essentialaddons$isBelowMobcap(SpawnGroup group, ChunkPos chunkPos) {
-		return this.isBelowCap(group, chunkPos);
+		return this.canSpawn(group, chunkPos);
 	}
 }

@@ -6,7 +6,6 @@ import com.mojang.brigadier.context.CommandContext;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import essentialaddons.EssentialSettings;
 import essentialaddons.EssentialUtils;
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.TntEntity;
 import net.minecraft.server.command.ServerCommandSource;
 import net.minecraft.server.network.ServerPlayerEntity;
@@ -35,7 +34,7 @@ public class CommandDefuse {
 
     private static int defuse(CommandContext<ServerCommandSource> context) throws CommandSyntaxException {
         Collection<TntEntity> tntEntities = getTntEntities(context.getSource(), context.getArgument("range", Integer.class));
-        tntEntities.forEach(Entity::kill);
+        tntEntities.forEach(e -> e.kill(context.getSource().getWorld()));
         EssentialUtils.sendRawFeedback(context.getSource(),true, "§a"+ tntEntities.size() + " §6TNT entities have been defused");
         return 1;
     }

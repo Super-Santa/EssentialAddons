@@ -10,8 +10,9 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.item.ItemStack;
 import net.minecraft.loot.LootTable;
-import net.minecraft.loot.context.LootContextParameterSet;
+import net.minecraft.loot.context.LootWorldContext;
 import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.server.world.ServerWorld;
 import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -28,15 +29,16 @@ public abstract class LivingEntityMixin extends Entity {
 		method = "dropLoot",
 		at = @At(
 			value = "INVOKE",
-			target = "Lnet/minecraft/loot/LootTable;generateLoot(Lnet/minecraft/loot/context/LootContextParameterSet;JLjava/util/function/Consumer;)V"
+			target = "Lnet/minecraft/loot/LootTable;generateLoot(Lnet/minecraft/loot/context/LootWorldContext;JLjava/util/function/Consumer;)V"
 		)
 	)
 	private void applyCarefulDrop(
 		LootTable instance,
-		LootContextParameterSet parameters,
+		LootWorldContext parameters,
 		long seed,
 		Consumer<ItemStack> original,
 		Operation<Void> operation,
+		ServerWorld world,
 		DamageSource source
 	) {
 		Consumer<ItemStack> consumer;

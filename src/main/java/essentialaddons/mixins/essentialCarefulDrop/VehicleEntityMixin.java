@@ -8,6 +8,7 @@ import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.vehicle.VehicleEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.server.world.ServerWorld;
 import net.minecraft.world.GameRules;
 import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Mixin;
@@ -24,19 +25,19 @@ public abstract class VehicleEntityMixin extends Entity {
 		method = "killAndDropSelf",
 		at = @At(
 			value = "INVOKE",
-			target = "Lnet/minecraft/entity/vehicle/VehicleEntity;killAndDropItem(Lnet/minecraft/item/Item;)V"
+			target = "Lnet/minecraft/entity/vehicle/VehicleEntity;killAndDropItem(Lnet/minecraft/server/world/ServerWorld;Lnet/minecraft/item/Item;)V"
 		)
 	)
-	private void onKillAndDropSelf(VehicleEntity instance, Item selfAsItem, DamageSource source) {
-		boolean drops = this.getWorld().getGameRules().getBoolean(GameRules.DO_ENTITY_DROPS);
+	private void onKillAndDropSelf(VehicleEntity instance, ServerWorld world, Item item, ServerWorld ignored, DamageSource source) {
+		boolean drops = world.getGameRules().getBoolean(GameRules.DO_ENTITY_DROPS);
 		if (drops) {
 			Entity attacker = source.getAttacker();
-			ItemStack stack = selfAsItem.getDefaultStack();
+			ItemStack stack = item.getDefaultStack();
 			if (EssentialUtils.tryCareful(attacker, Subscription.ESSENTIAL_CAREFUL_DROP, stack)) {
-				this.kill();
+				this.kill(world);
 				return;
 			}
 		}
-		instance.killAndDropItem(selfAsItem);
+		instance.killAndDropItem(world, item);
 	}
 }

@@ -62,7 +62,7 @@ public class CommandGhostPlayer {
                             return 0;
                         }
                         player.getServerWorld().getChunkManager().loadEntity(player);
-                        player.kill();
+                        player.kill(player.getServerWorld());
                         return 0;
                     })
                 )

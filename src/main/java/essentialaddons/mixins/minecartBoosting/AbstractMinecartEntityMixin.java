@@ -8,7 +8,10 @@ import org.spongepowered.asm.mixin.injection.ModifyConstant;
 
 @Mixin(AbstractMinecartEntity.class)
 public class AbstractMinecartEntityMixin {
-    @ModifyConstant(method = "pushAwayFrom", constant = @Constant(doubleValue = 0.800000011920929D))
+    @ModifyConstant(
+        method = "pushAwayFromMinecart",
+        constant = @Constant(doubleValue = 0.800000011920929D)
+    )
     private double minecartBoosting(double v) {
         if (EssentialSettings.minecartBoosting) {
             return -Double.MAX_VALUE;

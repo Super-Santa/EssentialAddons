@@ -15,7 +15,7 @@ public class ServerChunkManagerMixin {
         method = "tick(Ljava/util/function/BooleanSupplier;Z)V",
         at = @At(
 			value = "INVOKE",
-			target = "Lnet/minecraft/server/world/ChunkTicketManager;purge()V",
+			target = "Lnet/minecraft/server/world/ChunkTicketManager;purgeExpiredTickets()V",
 			shift = At.Shift.BEFORE
 		)
     )
@@ -27,7 +27,7 @@ public class ServerChunkManagerMixin {
         method = "tick(Ljava/util/function/BooleanSupplier;Z)V",
         at = @At(
 			value = "INVOKE",
-			target = "Lnet/minecraft/server/world/ChunkTicketManager;purge()V",
+			target = "Lnet/minecraft/server/world/ChunkTicketManager;purgeExpiredTickets()V",
 			shift = At.Shift.AFTER
 		)
     )

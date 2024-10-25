@@ -6,8 +6,8 @@
   "mixins": [
     "broadcastToAll.ServerCommandSourceMixin",
     "cakeAlwaysEat.CakeBlockMixin",
+    "combinePotionDuration.ApplyEffectsConsumeEfftectMixin",
     "combinePotionDuration.PotionEntityMixin",
-    "combinePotionDuration.PotionItemMixin",
     "commandCameraMode.ServerPlayerEntityMixin",
     "commands.ArgumentNodeMixin",
     "commands.ArgumentTypesAccessor",

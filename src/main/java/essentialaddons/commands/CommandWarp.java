@@ -10,6 +10,7 @@ import net.minecraft.server.world.ServerWorld;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
 import java.util.UUID;
 
 import static essentialaddons.EssentialUtils.enabled;
@@ -35,7 +36,13 @@ public class CommandWarp {
                 Location location = CommandWarp.warpData.get(playerUUID);
                 if (location != null) {
                     ServerWorld world = context.getSource().getServer().getWorld(location.worldRegistry());
-                    playerEntity.teleport(world, location.position().x, location.position().y, location.position().z, location.yaw(), location.pitch());
+                    playerEntity.teleport(
+                        world,
+                        location.position().x, location.position().y, location.position().z,
+                        Set.of(),
+                        location.yaw(), location.pitch(),
+                        true
+                    );
                     EssentialUtils.sendToActionBar(playerEntity, "§6You have been warped");
                 }
                 else {

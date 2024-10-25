@@ -85,7 +85,7 @@ public class CommandCameraMode {
             reason = "you are on fire";
         } else if (player.fallDistance > 0) {
             reason = "you are falling";
-        } else if (player.isFallFlying()) {
+        } else if (player.isGliding()) {
             reason = "you are flying";
         } else if (player.isSubmergedInWater()) {
             reason = "you are under water";

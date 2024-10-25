@@ -8,6 +8,7 @@ import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.network.packet.s2c.play.EntityStatusEffectS2CPacket;
 import net.minecraft.server.MinecraftServer;
+import net.minecraft.server.command.ServerCommandSource;
 import net.minecraft.server.network.ServerPlayNetworkHandler;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.util.math.BlockPos;
@@ -29,6 +30,8 @@ public abstract class ServerPlayerEntityMixin extends PlayerEntity {
 	@Final
 	public MinecraftServer server;
 
+	@Shadow public abstract ServerCommandSource getCommandSource();
+
 	public ServerPlayerEntityMixin(World world, BlockPos pos, float yaw, GameProfile gameProfile) {
 		super(world, pos, yaw, gameProfile);
 	}
@@ -37,7 +40,7 @@ public abstract class ServerPlayerEntityMixin extends PlayerEntity {
 	private void onGetGameMode(GameMode backupGameMode, CallbackInfoReturnable<GameMode> cir) {
 		if (
 			EssentialUtils.hasPermission(this.getCommandSource(), () -> EssentialSettings.commandCameraMode, "essentialaddons.command.cs") &&
-			ConfigCameraData.INSTANCE.hasPlayerLocation((ServerPlayerEntity) (Object) this)
+				ConfigCameraData.INSTANCE.hasPlayerLocation((ServerPlayerEntity) (Object) this)
 		) {
 			cir.setReturnValue(GameMode.SPECTATOR);
 		}

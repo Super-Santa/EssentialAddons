@@ -8,6 +8,7 @@ import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.Vec3d;
+import net.minecraft.world.TeleportTarget;
 import net.minecraft.world.World;
 
 import java.nio.file.Path;
@@ -38,7 +39,14 @@ public class ConfigCameraData implements Config {
 			return false;
 		}
 		ServerWorld world = player.server.getWorld(playerLocation.worldRegistry());
-		player.teleport(world, playerLocation.position().x, playerLocation.position().y, playerLocation.position().z, playerLocation.yaw(), playerLocation.pitch());
+		player.teleportTo(new TeleportTarget(
+			world,
+			playerLocation.position(),
+			Vec3d.ZERO,
+			playerLocation.yaw(),
+			playerLocation.pitch(),
+			TeleportTarget.NO_OP
+		));
 		return true;
 	}
 

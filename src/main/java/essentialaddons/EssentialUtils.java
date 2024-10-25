@@ -59,7 +59,7 @@ public class EssentialUtils {
     public static void breakVehicleStorage(
         VehicleInventory inventory,
         DamageSource source,
-        World world,
+        ServerWorld world,
         Entity vehicle
     ) {
         if (!world.getGameRules().getBoolean(GameRules.DO_ENTITY_DROPS)) {
@@ -79,11 +79,9 @@ public class EssentialUtils {
             ItemScatterer.spawn(world, vehicle, inventory);
         }
 
-        if (!world.isClient) {
-            Entity entity = source.getSource();
-            if (entity != null && entity.getType() == EntityType.PLAYER) {
-                PiglinBrain.onGuardedBlockInteracted((PlayerEntity) entity, true);
-            }
+        Entity entity = source.getSource();
+        if (entity != null && entity.getType() == EntityType.PLAYER) {
+            PiglinBrain.onGuardedBlockInteracted(world, (PlayerEntity) entity, true);
         }
     }
 

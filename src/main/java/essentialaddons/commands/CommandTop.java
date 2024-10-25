@@ -24,7 +24,7 @@ public class CommandTop {
                         return 0;
                     }
                 }
-                player.teleport(player.getServerWorld(), blockPos.getX() + 0.5, blockPos.getY() + 1, blockPos.getZ() + 0.5, player.getYaw(), player.getPitch());
+                player.teleport(blockPos.getX() + 0.5, blockPos.getY() + 1, blockPos.getZ() + 0.5, false);
                 EssentialUtils.sendToActionBar(player, "§6You have been teleported to the top most block");
                 return 0;
             })

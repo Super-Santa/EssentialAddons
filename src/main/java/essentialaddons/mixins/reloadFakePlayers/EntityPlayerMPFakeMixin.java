@@ -38,7 +38,7 @@ public abstract class EntityPlayerMPFakeMixin extends ServerPlayerEntity {
 	private void onPlayerKill(Text reason, CallbackInfo ci) {
 		ConfigFakePlayerData.INSTANCE.removeFakePlayer((EntityPlayerMPFake) (Object) this);
 		if (EssentialSettings.fakePlayerDropInventoryOnKill && !(reason instanceof MutableText text && text.getContent() instanceof TranslatableTextContent content && content.getKey().equals("multiplayer.disconnect.duplicate_login"))) {
-			this.dropInventory();
+			this.dropInventory(this.getServerWorld());
 		}
 	}
 }

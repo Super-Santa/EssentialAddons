@@ -15,7 +15,7 @@ public class MinecraftServerMixin {
         method = "tick(Ljava/util/function/BooleanSupplier;)V",
         at = @At(
             value = "INVOKE",
-            target = "Lnet/minecraft/server/MinecraftServer;saveAll(ZZZ)Z",
+            target = "Lnet/minecraft/server/MinecraftServer;runAutosave()V",
             shift = At.Shift.BEFORE
         )
     )
@@ -27,7 +27,7 @@ public class MinecraftServerMixin {
         method = "tick(Ljava/util/function/BooleanSupplier;)V",
         at = @At(
             value = "INVOKE",
-            target = "Lnet/minecraft/server/MinecraftServer;saveAll(ZZZ)Z",
+            target = "Lnet/minecraft/server/MinecraftServer;runAutosave()V",
             shift = At.Shift.AFTER
         )
     )

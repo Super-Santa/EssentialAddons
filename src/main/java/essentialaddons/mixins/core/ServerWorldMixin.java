@@ -26,13 +26,13 @@ public abstract class ServerWorldMixin {
         if (EssentialSettings.removeXpEntitiesAfterThreshold > 0) {
             List<? extends ExperienceOrbEntity> all = this.getEntitiesByType(EntityType.EXPERIENCE_ORB, ExperienceOrbEntity -> true);
             if (all.size() > EssentialSettings.removeXpEntitiesAfterThreshold) {
-                all.forEach(Entity::kill);
+                all.forEach(e -> e.kill((ServerWorld) (Object) this));
             }
         }
         if (EssentialSettings.removeItemEntitiesAfterThreshold > 0) {
             List<? extends ItemEntity> all = this.getEntitiesByType(EntityType.ITEM, ItemEntity -> true);
             if (all.size() > EssentialSettings.removeItemEntitiesAfterThreshold) {
-                all.forEach(Entity::kill);
+                all.forEach(e -> e.kill((ServerWorld) (Object) this));
             }
         }
     }

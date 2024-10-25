@@ -13,9 +13,9 @@ import net.minecraft.network.packet.CustomPayload;
 import net.minecraft.network.packet.s2c.common.CustomPayloadS2CPacket;
 import net.minecraft.server.network.ServerPlayNetworkHandler;
 import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.Identifier;
 import net.minecraft.world.GameRules;
-import net.minecraft.world.World;
 
 import java.util.HashMap;
 import java.util.HashSet;
@@ -52,9 +52,9 @@ public class GameRuleNetworkHandler {
 	}
 
 	public void sendAllRules() {
-		Map<World, CustomPayloadS2CPacket> cache = new HashMap<>();
+		Map<ServerWorld, CustomPayloadS2CPacket> cache = new HashMap<>();
 		for (ServerPlayNetworkHandler handler : this.validPlayers) {
-			CustomPayloadS2CPacket packet = cache.computeIfAbsent(handler.player.getWorld(), (world) -> {
+			CustomPayloadS2CPacket packet = cache.computeIfAbsent(handler.player.getServerWorld(), (world) -> {
 				NbtCompound gamerules = world.getGameRules().toNbt();
 				return new CustomPayloadS2CPacket(new GameRulesChangedPayload(gamerules));
 			});
@@ -63,7 +63,7 @@ public class GameRuleNetworkHandler {
 	}
 
 	public void sendAllRules(ServerPlayerEntity player) {
-		NbtCompound gamerules = player.getWorld().getGameRules().toNbt();
+		NbtCompound gamerules = player.getServerWorld().getGameRules().toNbt();
 		CustomPayloadS2CPacket packet = new CustomPayloadS2CPacket(new GameRulesChangedPayload(gamerules));
 		player.networkHandler.sendPacket(packet);
 	}

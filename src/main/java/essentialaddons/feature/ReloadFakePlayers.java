@@ -15,7 +15,7 @@ import net.minecraft.block.entity.SkullBlockEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.network.NetworkSide;
 import net.minecraft.network.packet.c2s.common.SyncedClientOptions;
-import net.minecraft.network.packet.s2c.play.EntityPositionS2CPacket;
+import net.minecraft.network.packet.s2c.play.EntityPositionSyncS2CPacket;
 import net.minecraft.network.packet.s2c.play.EntitySetHeadYawS2CPacket;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.network.ConnectedClientData;
@@ -87,7 +87,7 @@ public abstract class ReloadFakePlayers extends PlayerEntity {
                 new EntitySetHeadYawS2CPacket(instance, (byte) (instance.headYaw * 256 / 360)), instance.getServerWorld().getRegistryKey()
             );
             server.getPlayerManager().sendToDimension(
-                new EntityPositionS2CPacket(instance), instance.getServerWorld().getRegistryKey()
+                EntityPositionSyncS2CPacket.create(instance), instance.getServerWorld().getRegistryKey()
             );
             instance.getDataTracker().set(PLAYER_MODEL_PARTS, (byte) 0x7f);
         }, server);

@@ -27,6 +27,7 @@ import net.minecraft.world.GameMode;
 import net.minecraft.world.World;
 
 import java.util.Objects;
+import java.util.Set;
 
 public class GhostPlayerEntity extends ServerPlayerEntity {
     public GhostPlayerEntity(
@@ -81,7 +82,13 @@ public class GhostPlayerEntity extends ServerPlayerEntity {
                 instance,
                 new ConnectedClientData(profile, 0, instance.getClientOptions(), true)
             );
-            instance.teleport(worldIn, pos.x, pos.y, pos.z, (float) yaw, (float) pitch);
+            instance.teleport(
+                worldIn,
+                pos.x, pos.y, pos.z,
+                Set.of(),
+                (float) yaw, (float) pitch,
+                true
+            );
             instance.setHealth(20.0F);
             ((EntityInvoker) instance).unsetRemoved();
             instance.interactionManager.changeGameMode(GameMode.SPECTATOR);
@@ -89,7 +96,7 @@ public class GhostPlayerEntity extends ServerPlayerEntity {
     }
 
     @Override
-    public void kill() {
+    public void kill(ServerWorld level) {
         this.kill(Messenger.s("Killed"));
     }
 

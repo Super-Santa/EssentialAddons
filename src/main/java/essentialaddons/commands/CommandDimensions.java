@@ -10,6 +10,8 @@ import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 
+import java.util.Set;
+
 import static essentialaddons.EssentialUtils.enabled;
 import static net.minecraft.server.command.CommandManager.argument;
 import static net.minecraft.server.command.CommandManager.literal;
@@ -70,12 +72,12 @@ public class CommandDimensions {
     }
 
     private static void toDimension(ServerPlayerEntity playerEntity, ServerWorld world, String dimension) {
-        playerEntity.teleport(world, 0, 128, 0, 0, 0);
+        playerEntity.teleport(world, 0, 128, 0, Set.of(), 0, 0, true);
         EssentialUtils.sendToActionBar(playerEntity, "§6You have been teleported to 0,0 in the §a" + dimension);
     }
 
     private static void toDimension(ServerPlayerEntity playerEntity, ServerWorld world, String dimension, double x, double y, double z) {
-        playerEntity.teleport(world, x, y, z, playerEntity.getYaw(), playerEntity.getPitch());
+        playerEntity.teleport(world, x, y, z, Set.of(), playerEntity.getYaw(), playerEntity.getPitch(), true);
         EssentialUtils.sendToActionBar(playerEntity, "§6You have been teleported to " + x + " " + z + " in the §a" + dimension);
     }
 }
