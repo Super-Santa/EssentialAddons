@@ -1,7 +1,7 @@
 plugins {
 	id "maven-publish"
-	id "fabric-loom" version "1.7-SNAPSHOT"
-	id 'me.modmuss50.mod-publish-plugin' version '0.5.1'
+	id "fabric-loom" version "1.9-SNAPSHOT"
+	id 'me.modmuss50.mod-publish-plugin' version '0.8.1'
 }
 
 repositories {
@@ -10,11 +10,7 @@ repositories {
 		url "https://jitpack.io"
 	}
 	maven {
-		url "https://pkgs.dev.azure.com/djtheredstoner/DevAuth/_packaging/public/maven/v1"
-	}
-	maven {
-		// Fabric permissions
-		url "https://oss.sonatype.org/content/repositories/snapshots"
+		url "https://api.modrinth.com/maven"
 	}
 }
 
@@ -28,10 +24,10 @@ dependencies {
 	modImplementation "net.fabricmc.fabric-api:fabric-api:${fabric_version}"
 
 	modImplementation "com.github.gnembon:fabric-carpet:${carpet_version}"
-	modCompileOnly("com.github.CaffeineMC:lithium-fabric:${lithium_version}") {
+	modCompileOnly("maven.modrinth:lithium:${lithium_version}") {
 		exclude group: 'com.github.2No2Name', module: 'McTester'
 	}
-	include modImplementation("me.lucko:fabric-permissions-api:0.2-SNAPSHOT")
+	include modImplementation("me.lucko:fabric-permissions-api:0.3.3")
 }
 
 processResources {
@@ -63,7 +59,7 @@ jar {
 publishMods {
 	file = remapJar.archiveFile
 	changelog = """
-	- Updated to 1.21.3
+	- Updated to 1.21.4
 	"""
 	type = STABLE
 	modLoaders.add("fabric")

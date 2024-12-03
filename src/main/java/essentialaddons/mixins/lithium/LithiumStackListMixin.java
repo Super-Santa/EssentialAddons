@@ -2,7 +2,7 @@ package essentialaddons.mixins.lithium;
 
 import essentialaddons.EssentialSettings;
 import essentialaddons.EssentialUtils;
-import me.jellysquid.mods.lithium.common.hopper.LithiumStackList;
+import net.caffeinemc.mods.lithium.common.hopper.LithiumStackList;
 import net.minecraft.item.ItemStack;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;

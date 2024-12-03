@@ -2,7 +2,7 @@ package essentialaddons.mixins.lithium;
 
 import essentialaddons.EssentialSettings;
 import essentialaddons.EssentialUtils;
-import me.jellysquid.mods.lithium.common.hopper.HopperHelper;
+import net.caffeinemc.mods.lithium.common.hopper.HopperHelper;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.inventory.SidedInventory;
 import net.minecraft.item.ItemStack;
