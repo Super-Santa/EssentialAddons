@@ -1,7 +1,9 @@
 package essentialaddons.mixins.stackableShulkers;
 
+import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
 import essentialaddons.EssentialSettings;
 import essentialaddons.EssentialUtils;
+import net.minecraft.component.DataComponentTypes;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.screen.ScreenHandler;
@@ -24,5 +26,19 @@ public class ScreenHandlerMixin {
             return 1;
         }
         return inventory.getMaxCount(stack);
+    }
+
+    @ModifyExpressionValue(
+        method = "syncState",
+        at = @At(
+            value = "INVOKE",
+            target = "Lnet/minecraft/item/ItemStack;copy()Lnet/minecraft/item/ItemStack;"
+        )
+    )
+    private ItemStack onCopyItemStacks(ItemStack original) {
+        if (EssentialSettings.stackableShulkersInPlayerInventories && EssentialUtils.isItemShulkerBox(original.getItem())) {
+            original.set(DataComponentTypes.MAX_STACK_SIZE, 64);
+        }
+        return original;
     }
 }

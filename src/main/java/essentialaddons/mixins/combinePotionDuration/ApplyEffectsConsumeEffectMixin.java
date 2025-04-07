@@ -10,7 +10,7 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 
 @Mixin(ApplyEffectsConsumeEffect.class)
-public class ApplyEffectsConsumeEfftectMixin {
+public class ApplyEffectsConsumeEffectMixin {
     @WrapOperation(
         method = "onConsume",
         at = @At(

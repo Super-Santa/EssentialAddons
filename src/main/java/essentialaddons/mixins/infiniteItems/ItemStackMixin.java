@@ -19,7 +19,7 @@ public class ItemStackMixin {
 	)
 	private void onDecrementUnlessCreative(int amount, LivingEntity entity, CallbackInfo ci) {
 		if (entity instanceof ServerPlayerEntity player && !player.isInCreativeMode() && EssentialSettings.infiniteItems) {
-			int slot = player.getInventory().selectedSlot + 36;
+			int slot = player.getInventory().getSelectedSlot() + 36;
 			player.networkHandler.sendPacket(new ScreenHandlerSlotUpdateS2CPacket(0, 0, slot, (ItemStack) (Object) this));
 			ci.cancel();
 		}

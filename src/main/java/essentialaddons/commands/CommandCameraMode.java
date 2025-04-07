@@ -48,7 +48,7 @@ public class CommandCameraMode {
     private static int returnMode(ServerPlayerEntity playerEntity) {
         GameMode previous = playerEntity.interactionManager.getPreviousGameMode();
         // The id is -1 if not set in previous versions of MC
-        if (previous == null || previous.getId() < 0 || previous == GameMode.SPECTATOR) {
+        if (previous == null || previous == GameMode.SPECTATOR) {
             // In the edge case, you do some funky stuff and your previous game mode
             // is also the same as your current game mode. Otherwise, you will get stuck in spectator.
             previous = GameMode.SURVIVAL;

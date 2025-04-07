@@ -6,7 +6,7 @@
   "mixins": [
     "broadcastToAll.ServerCommandSourceMixin",
     "cakeAlwaysEat.CakeBlockMixin",
-    "combinePotionDuration.ApplyEffectsConsumeEfftectMixin",
+    "combinePotionDuration.ApplyEffectsConsumeEffectMixin",
     "combinePotionDuration.PotionEntityMixin",
     "commandCameraMode.ServerPlayerEntityMixin",
     "commands.ArgumentNodeMixin",
@@ -62,7 +62,6 @@
     "spectatorPotionNoCountdown.LivingEntityMixin",
     "stackableShulkers.BlockItemMixin",
     "stackableShulkers.HopperBlockEntityMixin",
-    "stackableShulkers.InventoryS2CPacketMixin",
     "stackableShulkers.ItemStackMixin",
     "stackableShulkers.ScreenHandlerMixin",
     "stackableShulkers.ScreenHandlerSlotUpdateS2CPacketMixin",

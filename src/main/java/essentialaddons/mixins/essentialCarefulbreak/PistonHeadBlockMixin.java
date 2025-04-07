@@ -15,8 +15,8 @@ public class PistonHeadBlockMixin {
 	@ModifyExpressionValue(
 		method = "onBreak",
 		at = @At(
-			value = "FIELD",
-			target = "Lnet/minecraft/entity/player/PlayerAbilities;creativeMode:Z"
+			value = "INVOKE",
+			target = "Lnet/minecraft/entity/player/PlayerEntity;shouldSkipBlockDrops()Z"
 		)
 	)
 	private boolean shouldBreak(boolean original) {
@@ -42,6 +42,6 @@ public class PistonHeadBlockMixin {
 		BlockState state,
 		PlayerEntity player
 	) {
-		return instance.breakBlock(blockPos, !player.getAbilities().creativeMode, player);
+		return instance.breakBlock(blockPos, !player.shouldSkipBlockDrops(), player);
 	}
 }
