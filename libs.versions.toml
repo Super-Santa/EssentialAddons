@@ -1,0 +1,36 @@
+[versions]
+minecraft     = "1.21.5"
+fabric-loader = "0.16.11"
+fabric-api    = "0.119.6+1.21.5"
+parchment     = "1.21.5:2025.06.01"
+fabric-kotlin = "1.13.2+kotlin.2.1.20"
+permissions   = "0.3.3"
+carpet        = "1.4.169"
+arcade        = "0.4.1-beta.43+1.21.5"
+
+# Compatability
+lithium       = "mc1.21.5-0.16.1-fabric"
+
+# Plugins
+fabric-loom   = "1.10-SNAPSHOT"
+mod-publish   = "0.8.4"
+
+[libraries]
+minecraft             = { module = "com.mojang:minecraft"                         , version.ref = "minecraft" }
+fabric-loader         = { module = "net.fabricmc:fabric-loader"                   , version.ref = "fabric-loader" }
+fabric-api            = { module = "net.fabricmc.fabric-api:fabric-api"           , version.ref = "fabric-api" }
+fabric-kotlin         = { module = "net.fabricmc:fabric-language-kotlin"          , version.ref = "fabric-kotlin" }
+permissions           = { module = "me.lucko:fabric-permissions-api"              , version.ref = "permissions" }
+carpet                = { module = "com.github.gnembon:fabric-carpet"             , version.ref = "carpet" }
+arcade-commands       = { module = "net.casualchampionships:arcade-commands"      , version.ref = "arcade" }
+arcade-event-registry = { module = "net.casualchampionships:arcade-event-registry", version.ref = "arcade" }
+arcade-events-server  = { module = "net.casualchampionships:arcade-events-server" , version.ref = "arcade" }
+arcade-extensions     = { module = "net.casualchampionships:arcade-extensions"    , version.ref = "arcade" }
+arcade-utils          = { module = "net.casualchampionships:arcade-utils"         , version.ref = "arcade" }
+
+# Compatability
+lithium = { module = "maven.modrinth:lithium", version.ref = "lithium" }
+
+[plugins]
+fabric-loom   = { id = "fabric-loom"                    , version.ref = "fabric-loom" }
+mod-publish   = { id = "me.modmuss50.mod-publish-plugin", version.ref = "mod-publish" }
