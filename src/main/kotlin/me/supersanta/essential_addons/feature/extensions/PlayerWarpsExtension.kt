@@ -6,6 +6,7 @@ import me.supersanta.essential_addons.utils.essentialAddonsPath
 import net.casual.arcade.events.GlobalEventHandler
 import net.casual.arcade.events.ListenerRegistry.Companion.register
 import net.casual.arcade.extensions.ExternalDataExtension
+import net.casual.arcade.extensions.ExternalDataExtension.Companion.read
 import net.casual.arcade.extensions.ExternalDataExtension.Companion.write
 import net.casual.arcade.extensions.PlayerExtension
 import net.casual.arcade.extensions.event.EntityExtensionEvent.Companion.getExtension
@@ -20,6 +21,10 @@ import kotlin.jvm.optionals.getOrNull
 
 class PlayerWarpsExtension(player: ServerPlayer): PlayerExtension(player), ExternalDataExtension {
     private val warps = Object2ObjectOpenHashMap<String, LocationWithLevel.Resolvable>()
+
+    init {
+        this.read()
+    }
 
     fun get(name: String): LocationWithLevel.Resolvable? {
         return this.warps[name]
