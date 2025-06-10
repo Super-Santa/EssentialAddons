@@ -8,13 +8,9 @@ import org.spongepowered.asm.mixin.extensibility.IMixinInfo
 
 class EssentialMixinConfigPlugin: IMixinConfigPlugin {
     companion object {
-        private const val MIXIN_COMPAT = "me.supersanta.essential_addons.mixin.compat."
+        private const val MIXIN_COMPAT = "me.supersanta.essential_addons.mixins.compat."
 
         private val incompatible = HashMultimap.create<String, String>()
-
-        init {
-            this.incompatible.put("essentialaddons.mixins.combinePotionDuration", "RPGStats")
-        }
     }
 
     override fun shouldApplyMixin(targetClassName: String, mixinClassName: String): Boolean {
