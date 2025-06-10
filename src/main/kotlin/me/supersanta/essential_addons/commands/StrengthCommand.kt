@@ -29,12 +29,12 @@ object StrengthCommand: CommandTree {
         if (!player.hasEffect(MobEffects.STRENGTH)) {
             player.addEffect(MobEffectInstance(MobEffects.STRENGTH, MobEffectInstance.INFINITE_DURATION, 0, true, false))
             player.sendToActionBar(
-                Component.literal("Strength has been ").append(Component.literal("enabled").lime()).gold()
+                Component.literal("Strength has been ").append(Component.literal("ENABLED").lime()).gold()
             )
         } else {
             player.removeEffect(MobEffects.STRENGTH)
             player.sendToActionBar(
-                Component.literal("Strength has been ").append(Component.literal("disabled").red()).gold()
+                Component.literal("Strength has been ").append(Component.literal("DISABLED").red()).gold()
             )
         }
     }

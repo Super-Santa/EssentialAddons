@@ -29,12 +29,12 @@ object NightVisionCommand: CommandTree {
         if (!player.hasEffect(MobEffects.NIGHT_VISION)) {
             player.addEffect(MobEffectInstance(MobEffects.NIGHT_VISION, MobEffectInstance.INFINITE_DURATION, 0, true, false))
             player.sendToActionBar(
-                Component.literal("Night vision has been ").append(Component.literal("enabled").lime()).gold()
+                Component.literal("Night vision has been ").append(Component.literal("ENABLED").lime()).gold()
             )
         } else {
             player.removeEffect(MobEffects.NIGHT_VISION)
             player.sendToActionBar(
-                Component.literal("Night vision has been ").append(Component.literal("disabled").red()).gold()
+                Component.literal("Night vision has been ").append(Component.literal("DISABLED").red()).gold()
             )
         }
     }
