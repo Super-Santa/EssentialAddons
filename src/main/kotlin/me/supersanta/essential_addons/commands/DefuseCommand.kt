@@ -21,8 +21,9 @@ object DefuseCommand: CommandTree {
     override fun create(buildContext: CommandBuildContext): LiteralArgumentBuilder<CommandSourceStack> {
         return CommandTree.buildLiteral("defuse") {
             requires(EssentialSettings::commandDefuse, "command.defuse")
-            argument("range", DoubleArgumentType.doubleArg(0.0))
-            executes(::defuseTnt)
+            argument("range", DoubleArgumentType.doubleArg(0.0)) {
+                executes(::defuseTnt)
+            }
         }
     }
 
