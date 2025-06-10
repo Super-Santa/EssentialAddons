@@ -26,7 +26,10 @@ object NearCommand: CommandTree {
     private fun listNearbyPlayers(context: CommandContext<CommandSourceStack>): Int {
         val range = DoubleArgumentType.getDouble(context, "range")
         val location = context.source.locationWithLevel
-        val players = location.level.getPlayers { it.distanceToSqr(location.position) < range * range }
+        val player = context.source.player
+        val players = location.level.getPlayers {
+            it.distanceToSqr(location.position) < range * range && it != player
+        }
         if (players.isEmpty()) {
             return context.source.fail("There are no players near you")
         }

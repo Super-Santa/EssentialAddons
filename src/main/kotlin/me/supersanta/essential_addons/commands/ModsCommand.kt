@@ -6,6 +6,7 @@ import me.supersanta.essential_addons.EssentialSettings
 import me.supersanta.essential_addons.utils.requires
 import net.casual.arcade.commands.CommandTree
 import net.casual.arcade.commands.fail
+import net.casual.arcade.commands.literal
 import net.casual.arcade.commands.success
 import net.casual.arcade.utils.ComponentUtils.aqua
 import net.casual.arcade.utils.ComponentUtils.gold
@@ -23,16 +24,28 @@ object ModsCommand: CommandTree {
         return CommandTree.buildLiteral("mods") {
             requires(EssentialSettings::commandMods, "command.mods")
             executes(::displayLoadedMods)
+            literal("with") {
+                literal("versions") {
+                    executes { displayLoadedMods(it, true) }
+                }
+            }
         }
     }
 
-    private fun displayLoadedMods(context: CommandContext<CommandSourceStack>): Int {
+    private fun displayLoadedMods(
+        context: CommandContext<CommandSourceStack>,
+        withVersions: Boolean = false
+    ): Int {
         val mods = this.getLoadedMods()
         if (mods.isEmpty()) {
             return context.source.fail("There are no mods installed")
         }
         val formatted = mods.map { (key, value) ->
-            Component.literal(key).append(" ").append(Component.literal(value).aqua()).lime()
+            val component = Component.literal(key).lime()
+            if (withVersions) {
+                component.append(" ").append(Component.literal(value).aqua())
+            }
+            component
         }.join()
         return context.source.success(
             Component.literal("Installed mods: ").append(formatted).gold()
