@@ -12,6 +12,7 @@ import java.io.PrintStream
 import java.nio.file.Files
 import java.nio.file.Path
 import java.util.*
+import kotlin.io.path.absolutePathString
 import kotlin.system.exitProcess
 
 // Ripped from Carpet
@@ -38,7 +39,7 @@ class EssentialRuleGenerator: DedicatedServerModInitializer {
         val outputStream: PrintStream
         try {
             val path = Path.of(options.valueOf(pathSpec))
-            logger.info("Generating Rules for Path: {}", path.toString())
+            logger.info("Generating Rules for Path: {}", path.absolutePathString())
             Files.createDirectories(path.parent)
             outputStream = PrintStream(Files.newOutputStream(path))
         } catch (e: IOException) {
