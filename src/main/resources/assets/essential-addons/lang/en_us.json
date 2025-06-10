@@ -1,0 +1,124 @@
+{
+  "carpet.category.essential": "essential",
+
+  "carpet.rule.broadcastToAll.desc": "Broadcasts all OP messages to everyone",
+
+  "carpet.rule.cakeAlwaysEat.desc": "Allows you to always eat cake, even when you are not hungry",
+
+  "carpet.rule.cameraModeRestoreLocation.desc": "Restores player location back to original location in survival, similar to the cs script by Kdender",
+  "carpet.rule.cameraModeRestoreLocation.extra.0": "Saves location even after server restart",
+
+  "carpet.rule.cameraModeSurvivalRestrictions.desc": "Ports cameraModeSurvivalRestrictions from carpet 1.12 into commandCameraMode",
+  "carpet.rule.cameraModeSurvivalRestrictions.extra.0": "Does not allow you to use camera mode if you are in danger",
+
+  "carpet.rule.cameraModeCommandName.desc": "Specifies the alias for the camera command, 'cs' by default",
+
+  "carpet.rule.cameraModeTeamTeleportBlacklist.desc": "Prevents players from teleporting to players on specific teams in spectator",
+  "carpet.rule.cameraModeTeamTeleportBlacklist.extra.0": "Use the `/team-teleport-blacklist` command to specify teams",
+
+  "carpet.rule.cameraModeTeleportBlacklist.desc": "Prevents players from teleporting to specific players in spectator",
+  "carpet.rule.cameraModeTeleportBlacklist.extra.0": "Use the `/subscribe` command to enable/disable teleport blacklist per player",
+
+  "carpet.rule.combinePotionDuration.desc": "Combines the duration of potions",
+
+  "carpet.rule.commandBackup.desc": "Allows you to backup regions in an area to the backups folder in the world folder",
+
+  "carpet.rule.commandCameraMode.desc": "Survival friendly spectator mode, puts the player in and out of spectator mode. By default the command is `/cs`",
+  "carpet.rule.commandCameraMode.extra.0": "Allows for saving location after server reset using rule cameraModeRestoreLocation and adds functionality for cameraModeSurvivalRestrictions",
+
+  "carpet.rule.commandDefuse.desc": "Enables `/defuse` to be used to stop any tnt from exploding within a given range",
+
+  "carpet.rule.commandEnderChest.desc": "Allows you to open your enderchest with `/enderchest`",
+
+  "carpet.rule.commandExtinguish.desc": "Allows `/extinguish` to be used to extinguish the player",
+
+  "carpet.rule.commandFly.desc": "Toggles the ability to fly while in survival mode using `/fly`",
+  "carpet.rule.commandFly.extra.0": "Using this also disables fall damage",
+
+  "carpet.rule.commandGM.desc": "Allows `/gmc`, `/gms`, `/gmsp`, and `/gma` to be used",
+
+  "carpet.rule.commandGod.desc": "Toggles invulnerability using `/god`",
+  "carpet.rule.commandGod.extra.0": "Can be buggy if used while in creative mode",
+
+  "carpet.rule.commandHat.desc": "Allows you to equip your held item to your head slot using `/hat`",
+
+  "carpet.rule.commandHeal.desc": "Allows `/heal` to be used to heal and feed the player",
+
+  "carpet.rule.commandLagSpike.desc": "Allows you to simulate a lag spike during a specified tick phase using `/lag-spike`",
+
+  "carpet.rule.commandMods.desc": "Allows you to do `/mods`, it lists all the mods running on the server",
+
+  "carpet.rule.commandMore.desc": "Allows `/more` to be used to give a full stack of whatever item the player is holding",
+
+  "carpet.rule.commandNear.desc": "Lists other players near you within the specified range",
+
+  "carpet.rule.commandNightVision.desc": "Toggles night vision",
+
+  "carpet.rule.commandPublicKick.desc": "Allows anyone to use the `/kick` command",
+
+  "carpet.rule.commandPublicOp.desc": "Allows anyone to use the `/op` command",
+
+  "carpet.rule.commandPublicSaveAll.desc": "Allows anyone to use the command `/save-all`",
+
+  "carpet.rule.commandPublicScoreboard.desc": "Allows anyone to use a subset of the `/scoreboard` commands",
+
+  "carpet.rule.commandPublicTeam.desc": "Allows anyone to use the `/team` command",
+
+  "carpet.rule.commandViewDistance.desc": "Allows `/view-distance` for changing the server's view distance",
+
+  "carpet.rule.commandRename.desc": "Allows you to rename items with a command",
+
+  "carpet.rule.commandRepair.desc": "Allows `/repair` to be used to repair any item the player is holding",
+
+  "carpet.rule.commandStrength.desc": "Toggles strength",
+
+  "carpet.rule.commandTop.desc": "Teleports the player up using the `/top` command",
+
+  "carpet.rule.commandWarp.desc": "Allows players create and teleport to warps using `/warp`",
+
+  "carpet.rule.commandWorkbench.desc": "Allows you to open a crafting table with `/workbench`",
+
+  "carpet.rule.essentialCarefulBreak.desc": "Mining blocks while crouching will put mined blocks straight into your inventory, requires players to subscribe to careful break using the `/subscribe` command",
+  "carpet.rule.essentialCarefulBreak.extra.0": "Same as wholmT's implementation in carpetAddons but works with stackable shulkers`",
+
+  "carpet.rule.essentialCarefulDrop.desc": "Killing entities while crouching will put dropped items straight into your inventory, requires players to subscribe to careful drop using the `/subscribe` command",
+
+  "carpet.rule.fakePlayerDropInventoryOnKill.desc": "Automatically drop the fake player's inventory on kill",
+
+  "carpet.rule.infiniteItems.desc": "Prevents items from being consumed in survival or adventure mode",
+
+  "carpet.rule.minecartBoosting.desc": "Re-implements minecart boosting",
+
+  "carpet.rule.phantomsObeyMobcaps.desc": "Makes phantoms unable to spawn unless the mobcap allows for them to",
+
+  "carpet.rule.savePlayerActions.desc": "Saves all fake player actions and restarts them when players re-log",
+
+  "carpet.rule.reloadFakePlayers.desc": "Automatically respawns fake players on server restart",
+
+  "carpet.rule.removeItemEntitiesAfterThreshold.desc": "Removes all item entities after set amount of item entities is reached in a world, set to 0 to disable",
+
+  "carpet.rule.removeWarnOversizedChunk.desc" : "Removes the warning 'Saving oversized chunk...' in console and logs",
+
+  "carpet.rule.removeWarnMismatchBlockPos.desc": "Removes the warning 'Mismatch in destroy block pos...' in console and logs",
+
+  "carpet.rule.removeWarnRemovedEntity.desc": "Removes the warning 'Fetching packet for removed entity...' in console and logs",
+
+  "carpet.rule.removeXpEntitiesAfterThreshold.desc": "Removes all xp entities after set amount of xp entities is reached in a world, set to 0 to disable",
+
+  "carpet.rule.shulkerception.desc": "Allows you to put shulker boxes inside of other shulkers",
+
+  "carpet.rule.spectatorPotionNoCountdown.desc": "Stops potion effects from ticking when in spectator",
+
+  "carpet.rule.stackableShulkerComparatorOverloadFix.desc": "Fixes stacked shulkers overloading comparators",
+
+  "carpet.rule.stackableShulkersInPlayerInventories.desc": "This will always allow you to stack shulkers manually in your inventory and on the ground, but cannot be stacked by hoppers.",
+  "carpet.rule.stackableShulkersInPlayerInventories.extra.0": "Disable all other `stackableShulker` rules (unless you are using stackableShulkersWithItems)",
+
+  "carpet.rule.stackableShulkersWithItems.desc": "Shulker boxes stack with items inside will stack with other shulkers with the same items",
+  "carpet.rule.stackableShulkersWithItems.extra.0": "This rule requires stackableShulkersInPlayerInventories to be enabled",
+
+  "carpet.rule.structureBlockKillEntities.desc": "Kills all entities (bar players) within the structure bounding box when loading a structure",
+  "carpet.rule.structureBlockKillEntities.extra.0": "Requires ignore entities to be set to false",
+
+  "carpet.rule.structureBlockReplaceFluids.desc": "Replaces existing fluids when pasting. Why would you want to keep existing fluids anyways???"
+}

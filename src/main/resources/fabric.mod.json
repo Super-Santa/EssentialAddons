@@ -1,9 +1,11 @@
 {
   "schemaVersion": 1,
-  "id": "essentialaddons",
+  "id": "essential-addons",
+  "provides": ["essentialaddons"],
   "version": "${version}",
   "name": "Essential Addons",
   "description": "A carpet extension adding many things from the Spigot plugin Essentials, as well as other useful features.",
+  "icon": "assets/essential-addons/icon.png",
   "authors": [
     "SuperSanta",
     "Sensei"
@@ -23,17 +25,23 @@
   "environment": "*",
   "entrypoints": {
     "main": [
-      "essentialaddons.EssentialAddons"
+      {
+        "adapter": "kotlin",
+        "value": "me.supersanta.essential_addons.EssentialAddons"
+      }
     ],
     "server": [
-      "essentialaddons.utils.EssentialRuleGenerator"
+      {
+        "adapter": "kotlin",
+        "value": "me.supersanta.essential_addons.utils.EssentialRuleGenerator"
+      }
     ]
   },
   "mixins": [
-    "essentialaddons.mixins.json"
+    "essential-addons.mixins.json"
   ],
   "depends": {
-    "fabricloader": ">=0.15.0",
+    "fabricloader": ">=${fabric_loader_dependency}",
     "minecraft": "${minecraft_dependency}",
     "fabric": "*"
   },
