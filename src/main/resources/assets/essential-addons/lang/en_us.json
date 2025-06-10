@@ -105,6 +105,10 @@
 
   "carpet.rule.removeXpEntitiesAfterThreshold.desc": "Removes all xp entities after set amount of xp entities is reached in a world, set to 0 to disable",
 
+  "carpet.rule.sensitiveBamboo.desc": "Makes bamboo break if next to a solid block - like cactus",
+
+  "carpet.rule.sensitiveSugarCane.desc": "Makes sugar cane break if next to a solid block - like cactus",
+
   "carpet.rule.shulkerception.desc": "Allows you to put shulker boxes inside of other shulkers",
 
   "carpet.rule.spectatorPotionNoCountdown.desc": "Stops potion effects from ticking when in spectator",

@@ -41,6 +41,8 @@
     "feature.remove_warn.RegionFileMixin",
     "feature.remove_warn.ServerEntityMixin",
     "feature.remove_warn.ServerPlayerGameModeMixin",
+    "feature.sensitive_plants.BambooStalkBlockMixin",
+    "feature.sensitive_plants.SugarCaneBlockMixin",
     "feature.shulkerception.ShulkerBoxBlockEntityMixin",
     "feature.shulkerception.ShulkerBoxSlotMixin",
     "feature.spectator_potion_no_countdown.LivingEntityMixin",

@@ -163,6 +163,12 @@ object EssentialSettings {
     )
     @JvmField var removeXpEntitiesAfterThreshold: Int = 0
 
+    @Rule(categories = [ESSENTIAL, SURVIVAL, FEATURE])
+    @JvmField var sensitiveBamboo: Boolean = false
+
+    @Rule(categories = [ESSENTIAL, SURVIVAL, FEATURE])
+    @JvmField var sensitiveSugarCane: Boolean = false
+
     @Rule(categories = [ESSENTIAL, EXPERIMENTAL, FEATURE])
     @JvmField var shulkerception: Boolean = false
 
