@@ -8,6 +8,7 @@ import me.supersanta.essential_addons.utils.sendToActionBar
 import net.casual.arcade.commands.CommandTree
 import net.casual.arcade.commands.executes
 import net.casual.arcade.utils.ComponentUtils.gold
+import net.casual.arcade.utils.ComponentUtils.lime
 import net.casual.arcade.utils.ComponentUtils.red
 import net.minecraft.commands.CommandBuildContext
 import net.minecraft.commands.CommandSourceStack
@@ -23,15 +24,16 @@ object FlyCommand: CommandTree {
 
     private fun toggleFlying(context: CommandContext<CommandSourceStack>) {
         val player = context.source.playerOrException
-        if (player.abilities.flying) {
+        if (player.abilities.mayfly) {
+            player.abilities.mayfly = false
             player.abilities.flying = false
             player.sendToActionBar(
                 Component.literal("Flying ").append(Component.literal("Disabled").red()).gold()
             )
         } else {
-            player.abilities.flying = true
+            player.abilities.mayfly = true
             player.sendToActionBar(
-                Component.literal("Flying ").append(Component.literal("Enabled").red()).gold()
+                Component.literal("Flying ").append(Component.literal("Enabled").lime()).gold()
             )
         }
         player.onUpdateAbilities()

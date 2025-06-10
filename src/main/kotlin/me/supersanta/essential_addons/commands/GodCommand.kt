@@ -8,6 +8,7 @@ import me.supersanta.essential_addons.utils.sendToActionBar
 import net.casual.arcade.commands.CommandTree
 import net.casual.arcade.commands.executes
 import net.casual.arcade.utils.ComponentUtils.gold
+import net.casual.arcade.utils.ComponentUtils.lime
 import net.casual.arcade.utils.ComponentUtils.red
 import net.minecraft.commands.CommandBuildContext
 import net.minecraft.commands.CommandSourceStack
@@ -31,7 +32,7 @@ object GodCommand: CommandTree {
         } else {
             player.abilities.invulnerable = true
             player.sendToActionBar(
-                Component.literal("Invulnerability ").append(Component.literal("Enabled").red()).gold()
+                Component.literal("Invulnerability ").append(Component.literal("Enabled").lime()).gold()
             )
         }
         player.onUpdateAbilities()
