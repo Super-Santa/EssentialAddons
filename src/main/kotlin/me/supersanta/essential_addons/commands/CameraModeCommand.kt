@@ -47,8 +47,8 @@ object CameraModeCommand: CommandTree {
                 player.sendToActionBar(
                     Component.literal("You cannot enter spectator because ${danger.message}").red()
                 )
+                return
             }
-            return
         }
 
         player.cameraModeLocation = player.locationWithLevel

@@ -3,6 +3,7 @@ package me.supersanta.essential_addons.mixins.feature.combine_potion_duration;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import me.supersanta.essential_addons.EssentialSettings;
+import me.supersanta.essential_addons.feature.combine_potion_duration.CombinePotionDuration;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.consume_effects.ApplyStatusEffectsConsumeEffect;
@@ -24,14 +25,7 @@ public class ApplyStatusEffectsConsumeEffectMixin {
         Operation<Boolean> original
     ) {
         if (EssentialSettings.combinePotionDuration) {
-            MobEffectInstance old = entity.getEffect(instance.getEffect());
-            if (old != null && old.getAmplifier() == instance.getAmplifier()) {
-                if (!old.isInfiniteDuration() && !instance.isInfiniteDuration()) {
-                    float scale = old.getDuration() + instance.getDuration() / (float) instance.getDuration();
-                    MobEffectInstance updated = instance.withScaledDuration(scale);
-                    return original.call(entity, updated);
-                }
-            }
+            instance = CombinePotionDuration.tryCombineEffects(entity, instance);
         }
         return original.call(entity, instance);
     }

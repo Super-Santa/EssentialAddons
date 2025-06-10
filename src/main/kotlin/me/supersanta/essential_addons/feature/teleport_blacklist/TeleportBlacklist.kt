@@ -43,6 +43,7 @@ object TeleportBlacklist {
                 player.sendToActionBar(
                     Component.literal("This player is on a team which you cannot teleport to").gold()
                 )
+                event.cancel()
             }
         }
     }

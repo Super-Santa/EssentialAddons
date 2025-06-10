@@ -5,30 +5,28 @@ import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import me.supersanta.essential_addons.EssentialSettings;
 import me.supersanta.essential_addons.feature.combine_potion_duration.CombinePotionDuration;
 import net.minecraft.world.effect.MobEffectInstance;
-import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.projectile.ThrownSplashPotion;
+import net.minecraft.world.item.alchemy.PotionContents;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 
-@Mixin(ThrownSplashPotion.class)
-public class ThrownSplashPotionMixin {
+@Mixin(PotionContents.class)
+public class PotionContentsMixin {
     @WrapOperation(
-        method = "onHitAsPotion",
+        method = "method_62840",
         at = @At(
             value = "INVOKE",
-            target = "Lnet/minecraft/world/entity/LivingEntity;addEffect(Lnet/minecraft/world/effect/MobEffectInstance;Lnet/minecraft/world/entity/Entity;)Z"
+            target = "Lnet/minecraft/world/entity/LivingEntity;addEffect(Lnet/minecraft/world/effect/MobEffectInstance;)Z"
         )
     )
-    private boolean onAddEffect(
+    private static boolean onAddEffect(
         LivingEntity entity,
         MobEffectInstance instance,
-        Entity thrower,
         Operation<Boolean> original
     ) {
         if (EssentialSettings.combinePotionDuration) {
             instance = CombinePotionDuration.tryCombineEffects(entity, instance);
         }
-        return original.call(entity, instance, thrower);
+        return original.call(entity, instance);
     }
 }

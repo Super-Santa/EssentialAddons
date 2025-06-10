@@ -18,6 +18,7 @@
     "feature.careful_drop.PaintingMixin",
     "feature.careful_drop.VehicleEntityMixin",
     "feature.combine_potion_duration.ApplyStatusEffectsConsumeEffectMixin",
+    "feature.combine_potion_duration.PotionContentsMixin",
     "feature.combine_potion_duration.ThrownSplashPotionMixin",
     "feature.command_camera_mode.ServerPlayerGameModeMixin",
     "feature.command_camera_mode.ServerPlayerMixin",
