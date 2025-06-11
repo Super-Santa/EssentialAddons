@@ -22,14 +22,13 @@ Features can be enabled through the `/carpet` command:
 Permissions can be customised for commands through a permissions mod such as [LuckPerms](https://luckperms.net/),
 the name of the permissions are as follows:
 ```
-esssentialaddons.command.<command_name>
+essential-addons.command.<command_name>
 
 # For example:
-essentialaddons.command.cs
-essentialaddons.command.hat
-essentialaddons.command.lagspike
+essential-addons.command.cs
+essential-addons.command.hat
+essential-addons.command.lag-spike
 ```
-
 
 # EssentialAddons Settings
 ## broadcastToAll
@@ -46,13 +45,19 @@ Allows you to always eat cake, even when you are not hungry
 * Allowed options: `true`, `false`  
 * Categories: `ESSENTIAL`, `EXPERIMENTAL`, `FEATURE`  
   
+## cameraModeCommandName
+Specifies the alias for the camera command, 'cs' by default  
+* Type: `String`  
+* Default value: `cs`  
+* Categories: `ESSENTIAL`, `SURVIVAL`, `FEATURE`  
+  
 ## cameraModeRestoreLocation
 Restores player location back to original location in survival, similar to the cs script by Kdender  
 Saves location even after server restart  
 * Type: `Boolean`  
 * Default value: `true`  
 * Allowed options: `true`, `false`  
-* Categories: `ESSENTIAL`, `EXPERIMENTAL`, `SURVIVAL`, `FEATURE`  
+* Categories: `ESSENTIAL`, `SURVIVAL`, `FEATURE`  
   
 ## cameraModeSurvivalRestrictions
 Ports cameraModeSurvivalRestrictions from carpet 1.12 into commandCameraMode  
@@ -64,6 +69,7 @@ Does not allow you to use camera mode if you are in danger
   
 ## cameraModeTeamTeleportBlacklist
 Prevents players from teleporting to players on specific teams in spectator  
+Use the `/team-teleport-blacklist` command to specify teams  
 * Type: `Boolean`  
 * Default value: `false`  
 * Allowed options: `true`, `false`  
@@ -72,7 +78,8 @@ Prevents players from teleporting to players on specific teams in spectator
   * It has an accompanying command  
   
 ## cameraModeTeleportBlacklist
-Prevents players from teleporting to players in spectator  
+Prevents players from teleporting to specific players in spectator  
+Use the `/subscribe` command to enable/disable teleport blacklist per player  
 * Type: `Boolean`  
 * Default value: `false`  
 * Allowed options: `true`, `false`  
@@ -110,17 +117,6 @@ Allows for saving location after server reset using rule cameraModeRestoreLocati
   
 ## commandDefuse
 Enables `/defuse` to be used to stop any tnt from exploding within a given range  
-* Type: `String`  
-* Default value: `false`  
-* Allowed options: `true`, `false`, `ops`, `0`, `1`, `2`, `3`, `4`  
-* Categories: `ESSENTIAL`, `COMMAND`, `CREATIVE`  
-* Additional notes:  
-  * It has an accompanying command  
-  * Can be limited to 'ops' only, true/false for everyone/no one, or a custom permission level  
-  
-## commandDimensions
-Allows the player to teleport to different dimensions with a simple command  
-It will teleport you to specified location, unless unspecified in which case it will teleport you to 0,0  
 * Type: `String`  
 * Default value: `false`  
 * Allowed options: `true`, `false`, `ops`, `0`, `1`, `2`, `3`, `4`  
@@ -170,16 +166,6 @@ Allows `/gmc`, `/gms`, `/gmsp`, and `/gma` to be used
   * It has an accompanying command  
   * Can be limited to 'ops' only, true/false for everyone/no one, or a custom permission level  
   
-## commandGhostPlayer
-This allows you to spawn a fake player that doesn't load chunks (They appear on tab list and you are able to teleport to them)  
-* Type: `String`  
-* Default value: `false`  
-* Allowed options: `true`, `false`, `ops`, `0`, `1`, `2`, `3`, `4`  
-* Categories: `ESSENTIAL`, `COMMAND`, `EXPERIMENTAL`  
-* Additional notes:  
-  * It has an accompanying command  
-  * Can be limited to 'ops' only, true/false for everyone/no one, or a custom permission level  
-  
 ## commandGod
 Toggles invulnerability using `/god`  
 Can be buggy if used while in creative mode  
@@ -192,7 +178,7 @@ Can be buggy if used while in creative mode
   * Can be limited to 'ops' only, true/false for everyone/no one, or a custom permission level  
   
 ## commandHat
-Allows you to equip items to your head slot using `/hat`  
+Allows you to equip your held item to your head slot using `/hat`  
 * Type: `String`  
 * Default value: `false`  
 * Allowed options: `true`, `false`, `ops`, `0`, `1`, `2`, `3`, `4`  
@@ -212,7 +198,7 @@ Allows `/heal` to be used to heal and feed the player
   * Can be limited to 'ops' only, true/false for everyone/no one, or a custom permission level  
   
 ## commandLagSpike
-Allows you to simulate a lag spike using `/lagspike`  
+Allows you to simulate a lag spike during a specified tick phase using `/lag-spike`  
 * Type: `String`  
 * Default value: `false`  
 * Allowed options: `true`, `false`, `ops`, `0`, `1`, `2`, `3`, `4`  
@@ -242,7 +228,7 @@ Allows `/more` to be used to give a full stack of whatever item the player is ho
   * Can be limited to 'ops' only, true/false for everyone/no one, or a custom permission level  
   
 ## commandNear
-Lists other players near you  
+Lists other players near you within the specified range  
 * Type: `String`  
 * Default value: `false`  
 * Allowed options: `true`, `false`, `ops`, `0`, `1`, `2`, `3`, `4`  
@@ -280,7 +266,7 @@ Allows anyone to use the `/op` command
   * It has an accompanying command  
   
 ## commandPublicSaveAll
-Allows all players to use the command `/save-all`  
+Allows anyone to use the command `/save-all`  
 * Type: `Boolean`  
 * Default value: `false`  
 * Allowed options: `true`, `false`  
@@ -289,7 +275,7 @@ Allows all players to use the command `/save-all`
   * It has an accompanying command  
   
 ## commandPublicScoreboard
-Allows anyone to use the `/scoreboard` command  
+Allows anyone to use a subset of the `/scoreboard` commands  
 * Type: `Boolean`  
 * Default value: `false`  
 * Allowed options: `true`, `false`  
@@ -303,24 +289,6 @@ Allows anyone to use the `/team` command
 * Default value: `false`  
 * Allowed options: `true`, `false`  
 * Categories: `ESSENTIAL`, `COMMAND`, `SURVIVAL`  
-* Additional notes:  
-  * It has an accompanying command  
-  
-## commandPublicViewDistance
-Allows all players to change view distance  
-* Type: `Boolean`  
-* Default value: `false`  
-* Allowed options: `true`, `false`  
-* Categories: `ESSENTIAL`, `COMMAND`, `SURVIVAL`  
-* Additional notes:  
-  * It has an accompanying command  
-  
-## commandRegion
-Allows you see what region you are in and teleport to a region  
-* Type: `Boolean`  
-* Default value: `false`  
-* Allowed options: `true`, `false`  
-* Categories: `ESSENTIAL`, `COMMAND`, `CREATIVE`  
 * Additional notes:  
   * It has an accompanying command  
   
@@ -353,16 +321,6 @@ Toggles strength
   * It has an accompanying command  
   * Can be limited to 'ops' only, true/false for everyone/no one, or a custom permission level  
   
-## commandSwitchDimensions
-Allows the player to teleport between the nether and overworld at equivalent coords  
-* Type: `String`  
-* Default value: `false`  
-* Allowed options: `true`, `false`, `ops`, `0`, `1`, `2`, `3`, `4`  
-* Categories: `ESSENTIAL`, `COMMAND`, `CREATIVE`  
-* Additional notes:  
-  * It has an accompanying command  
-  * Can be limited to 'ops' only, true/false for everyone/no one, or a custom permission level  
-  
 ## commandTop
 Teleports the player up using the `/top` command  
 * Type: `Boolean`  
@@ -372,8 +330,17 @@ Teleports the player up using the `/top` command
 * Additional notes:  
   * It has an accompanying command  
   
+## commandViewDistance
+Allows `/view-distance` for changing the server's view distance  
+* Type: `Boolean`  
+* Default value: `false`  
+* Allowed options: `true`, `false`  
+* Categories: `ESSENTIAL`, `COMMAND`, `SURVIVAL`  
+* Additional notes:  
+  * It has an accompanying command  
+  
 ## commandWarp
-Allows players to warp using `/setwarp` and `/warp`  
+Allows players create and teleport to warps using `/warp`  
 * Type: `String`  
 * Default value: `false`  
 * Allowed options: `true`, `false`, `ops`, `0`, `1`, `2`, `3`, `4`  
@@ -392,15 +359,8 @@ Allows you to open a crafting table with `/workbench`
   * It has an accompanying command  
   * Can be limited to 'ops' only, true/false for everyone/no one, or a custom permission level  
   
-## editableSigns
-Allows you to edit a sign after it has been placed by right clicking it while sneaking  
-* Type: `Boolean`  
-* Default value: `false`  
-* Allowed options: `true`, `false`  
-* Categories: `ESSENTIAL`, `EXPERIMENTAL`, `FEATURE`  
-  
 ## essentialCarefulBreak
-Mining blocks while crouching will put mined blocks straight into your inventory, requires players to subscribe to careful break using `/subscribe essential_careful_break  
+Mining blocks while crouching will put mined blocks straight into your inventory, requires players to subscribe to careful break using the `/subscribe` command  
 Same as wholmT's implementation in carpetAddons but works with stackable shulkers`  
 * Type: `Boolean`  
 * Default value: `false`  
@@ -410,7 +370,7 @@ Same as wholmT's implementation in carpetAddons but works with stackable shulker
   * It has an accompanying command  
   
 ## essentialCarefulDrop
-Killing mobs while crouching will put dropped items straight into your inventory, requires players to subscribe to careful drop using `/subscribe essential_careful_drop`  
+Killing entities while crouching will put dropped items straight into your inventory, requires players to subscribe to careful drop using the `/subscribe` command  
 * Type: `Boolean`  
 * Default value: `false`  
 * Allowed options: `true`, `false`  
@@ -419,45 +379,21 @@ Killing mobs while crouching will put dropped items straight into your inventory
   * It has an accompanying command  
   
 ## fakePlayerDropInventoryOnKill
-Automatically drop the fake player inventory on kill  
+Automatically drop the fake player's inventory on kill  
 * Type: `Boolean`  
 * Default value: `false`  
 * Allowed options: `true`, `false`  
 * Categories: `ESSENTIAL`, `SURVIVAL`, `FEATURE`  
   
-## gameRuleNonOp
-Allows non-op players to change Game Rules from the client  
-* Type: `Boolean`  
-* Default value: `false`  
-* Allowed options: `true`, `false`  
-* Categories: `ESSENTIAL`, `EXPERIMENTAL`, `FEATURE`  
-  
-## gameRuleSync
-Syncs the Game Rules with the client  
-Essential Client is required to change the rules on the client  
-* Type: `Boolean`  
-* Default value: `false`  
-* Allowed options: `true`, `false`  
-* Categories: `ESSENTIAL`, `EXPERIMENTAL`, `FEATURE`  
-  
 ## infiniteItems
-This allows for survival players to have infinite blocks, food, and enderpearls  
+Prevents items from being consumed in survival or adventure mode  
 * Type: `Boolean`  
 * Default value: `false`  
 * Allowed options: `true`, `false`  
 * Categories: `ESSENTIAL`, `CREATIVE`, `EXPERIMENTAL`  
   
-## maxChatLength
-Changes the max chat length limit, you need EssentialClient for this to work, setting this rule below 256 may cause issues  
-* Type: `Integer`  
-* Default value: `256`  
-* Suggested options: `256`, `1024`  
-* Categories: `ESSENTIAL`, `FEATURE`, `EXPERIMENTAL`  
-* Additional notes:  
-  * Must be a positive number or 0  
-  
 ## minecartBoosting
-Reimplements minecart boosting  
+Re-implements minecart boosting  
 * Type: `Boolean`  
 * Default value: `false`  
 * Allowed options: `true`, `false`  
@@ -469,13 +405,6 @@ Makes phantoms unable to spawn unless the mobcap allows for them to
 * Default value: `false`  
 * Allowed options: `true`, `false`  
 * Categories: `ESSENTIAL`, `FEATURE`, `SURVIVAL`  
-  
-## reloadFakePlayerActions
-Automatically reloads the fake players actions after server restart  
-* Type: `Boolean`  
-* Default value: `false`  
-* Allowed options: `true`, `false`  
-* Categories: `ESSENTIAL`, `SURVIVAL`, `FEATURE`, `EXPERIMENTAL`  
   
 ## reloadFakePlayers
 Automatically respawns fake players on server restart  
@@ -519,7 +448,28 @@ Removes all xp entities after set amount of xp entities is reached in a world, s
 * Suggested options: `0`, `100`, `250`, `500`  
 * Categories: `ESSENTIAL`, `CREATIVE`, `FEATURE`  
   
-## shulkerSception
+## savePlayerActions
+Saves all fake player actions and restarts them when players re-log  
+* Type: `Boolean`  
+* Default value: `false`  
+* Allowed options: `true`, `false`  
+* Categories: `ESSENTIAL`, `SURVIVAL`, `FEATURE`, `EXPERIMENTAL`  
+  
+## sensitiveBamboo
+Makes bamboo break if next to a solid block - like cactus  
+* Type: `Boolean`  
+* Default value: `false`  
+* Allowed options: `true`, `false`  
+* Categories: `ESSENTIAL`, `SURVIVAL`, `FEATURE`  
+  
+## sensitiveSugarCane
+Makes sugar cane break if next to a solid block - like cactus  
+* Type: `Boolean`  
+* Default value: `false`  
+* Allowed options: `true`, `false`  
+* Categories: `ESSENTIAL`, `SURVIVAL`, `FEATURE`  
+  
+## shulkerception
 Allows you to put shulker boxes inside of other shulkers  
 * Type: `Boolean`  
 * Default value: `false`  
@@ -541,7 +491,7 @@ Fixes stacked shulkers overloading comparators
 * Categories: `ESSENTIAL`, `SURVIVAL`, `FEATURE`  
   
 ## stackableShulkersInPlayerInventories
-Shulker boxes stack in player inventories, this is not the same as `stackableShulkerBoxes` in Carpet. This will always allow you to stack shulkers in your inventory.  
+This will always allow you to stack shulkers manually in your inventory and on the ground, but cannot be stacked by hoppers.  
 Disable all other `stackableShulker` rules (unless you are using stackableShulkersWithItems)  
 * Type: `Boolean`  
 * Default value: `false`  
