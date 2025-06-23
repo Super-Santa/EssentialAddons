@@ -102,7 +102,7 @@ object ReloadFakePlayers {
         return server.getWorldPath(LevelResource.ROOT).resolve("reload-fake-players.dat")
     }
 
-    private abstract class PlayerAccessor: Player(null!!, null!!, 0.0F, null!!) {
+    private abstract class PlayerAccessor: Player(null!!, null!!) {
         companion object {
             fun getCustomizationAccessor(): EntityDataAccessor<Byte> {
                 return DATA_PLAYER_MODE_CUSTOMISATION

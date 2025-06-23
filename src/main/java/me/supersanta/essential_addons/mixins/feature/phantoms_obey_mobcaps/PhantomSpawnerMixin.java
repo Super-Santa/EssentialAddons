@@ -27,7 +27,7 @@ public class PhantomSpawnerMixin {
             return true;
         }
         if (EssentialSettings.phantomsObeyMobcaps) {
-            NaturalSpawner.SpawnState state = player.serverLevel().getChunkSource().getLastSpawnState();
+            NaturalSpawner.SpawnState state = player.level().getChunkSource().getLastSpawnState();
             if (state != null) {
                 return !((SpawnStateInvoker) state).isBelowLocalMobcap(MobCategory.MONSTER, player.chunkPosition());
             }

@@ -101,7 +101,7 @@ object CameraModeCommand: CommandTree {
         }
 
         val aabb = AABB.ofSize(player.position(), 4.0, 4.0, 4.0)
-        val monsters = player.serverLevel().getEntitiesOfClass(Monster::class.java, aabb)
+        val monsters = player.level().getEntitiesOfClass(Monster::class.java, aabb)
         if (monsters.isNotEmpty()) {
             return PotentialDanger.HostileMobs
         }

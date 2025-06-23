@@ -20,7 +20,7 @@ repositories {
     maven("https://jitpack.io")
 }
 
-val modVersion = "2.0.0"
+val modVersion = "2.0.1"
 val releaseVersion = "${modVersion}+${libs.versions.minecraft.get()}"
 version = releaseVersion
 group = "me.supersanta"
@@ -73,22 +73,7 @@ tasks {
     publishMods {
         file = remapJar.get().archiveFile
         changelog = """
-        - Rewrote the entire mod, with plenty of bug fixes and feature improvements
-        - Reworked the command system - commands and now registered separately so disabling a conflicting command
-        will not allow the other command to work properly
-          - As a result of this rework the previous camera command name config has removed and replaced
-          with a carpet rule, `cameraModeCommandName` - changing this no longer requires a restart
-        - Reworked `reloadFakePlayerActions` into `savePlayerActions` which now saves and restarts player
-        actions upon logging off and logging in, not just for fake players on server restart anymore
-        - Reworked `commandWarp` to allow setting multiple named warps which are now saved between sessions
-        - Reworked all the configs - unfortunately this will break previous configs, but the newer
-        system is much nicer and robust
-        - Implemented `sensitiveBamboo` and `sensitiveSugarCane` to make the respective plants behave like cactus,
-        making it break next to solid blocks
-        - Updated some of the rule descriptions to be more descriptive and accurate
-        - Fixed `combinePotionDuration` not working correctly
-        - Fixed `commandFly` not allowing flight
-        - Fixed `cakeAlwaysEat` not making the players hand swing
+        - Updated to 1.21.6
         """.trimIndent()
         type = STABLE
         modLoaders.add("fabric")

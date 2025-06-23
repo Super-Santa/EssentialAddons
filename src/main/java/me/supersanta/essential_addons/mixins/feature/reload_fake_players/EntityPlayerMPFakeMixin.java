@@ -32,7 +32,7 @@ public abstract class EntityPlayerMPFakeMixin extends ServerPlayer {
 	private void onPlayerKill(Component reason, CallbackInfo ci) {
 		if (EssentialSettings.fakePlayerDropInventoryOnKill) {
 			if (!(reason.getContents() instanceof TranslatableContents content && content.getKey().equals(DUPLICATE_LOGIN_KEY))) {
-				this.dropEquipment(this.serverLevel());
+				this.dropEquipment(this.level());
 			}
 		}
 	}

@@ -24,7 +24,7 @@ object TopCommand: CommandTree {
 
     private fun teleportToTop(context: CommandContext<CommandSourceStack>) {
         val player = context.source.playerOrException
-        val pos = player.serverLevel().getHeightmapPos(Heightmap.Types.MOTION_BLOCKING, player.blockPosition())
+        val pos = player.level().getHeightmapPos(Heightmap.Types.MOTION_BLOCKING, player.blockPosition())
         player.teleportTo(pos.bottomCenter)
         player.sendToActionBar(Component.literal("You have been teleported to the top most block").gold())
     }

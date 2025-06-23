@@ -17,7 +17,7 @@ public class ServerChunkCacheMixin {
         method = "tick",
         at = @At(
             value = "INVOKE",
-            target = "Lnet/minecraft/world/level/TicketStorage;purgeStaleTickets()V",
+            target = "Lnet/minecraft/world/level/TicketStorage;purgeStaleTickets(Lnet/minecraft/server/level/ChunkMap;)V",
             shift = At.Shift.BEFORE
         )
     )
@@ -29,7 +29,7 @@ public class ServerChunkCacheMixin {
         method = "tick",
         at = @At(
             value = "INVOKE",
-            target = "Lnet/minecraft/world/level/TicketStorage;purgeStaleTickets()V",
+            target = "Lnet/minecraft/world/level/TicketStorage;purgeStaleTickets(Lnet/minecraft/server/level/ChunkMap;)V",
             shift = At.Shift.AFTER
         )
     )

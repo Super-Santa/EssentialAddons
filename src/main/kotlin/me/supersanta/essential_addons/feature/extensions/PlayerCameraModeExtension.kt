@@ -7,6 +7,7 @@ import net.casual.arcade.extensions.DataExtension
 import net.casual.arcade.extensions.PlayerExtension
 import net.casual.arcade.extensions.event.EntityExtensionEvent.Companion.getExtension
 import net.casual.arcade.extensions.event.PlayerExtensionEvent
+import net.casual.arcade.utils.PlayerUtils.levelServer
 import net.casual.arcade.utils.math.location.LocationWithLevel
 import net.minecraft.nbt.NbtOps
 import net.minecraft.nbt.Tag
@@ -24,7 +25,7 @@ class PlayerCameraModeExtension(player: ServerPlayer): PlayerExtension(player), 
     override fun deserialize(element: Tag) {
         val resolvable = LocationWithLevel.Resolvable.CODEC.parse(NbtOps.INSTANCE, element).result()
         if (resolvable.isPresent) {
-            this.location = resolvable.get().resolve(this.player.server)
+            this.location = resolvable.get().resolve(this.player.levelServer)
         }
     }
 
