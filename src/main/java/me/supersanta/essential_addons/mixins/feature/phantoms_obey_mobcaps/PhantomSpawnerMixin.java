@@ -3,6 +3,7 @@ package me.supersanta.essential_addons.mixins.feature.phantoms_obey_mobcaps;
 import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
 import com.llamalad7.mixinextras.sugar.Local;
 import me.supersanta.essential_addons.EssentialSettings;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.MobCategory;
 import net.minecraft.world.level.NaturalSpawner;
@@ -16,10 +17,31 @@ public class PhantomSpawnerMixin {
         method = "tick",
         at = @At(
             value = "INVOKE",
+            target = "Lnet/minecraft/world/level/GameRules;getBoolean(Lnet/minecraft/world/level/GameRules$Key;)Z"
+        )
+    )
+    private boolean shouldSpawnPhantomsGlobal(boolean original, ServerLevel level) {
+        if (!original) {
+            return false;
+        }
+
+        if (EssentialSettings.phantomsObeyMobcaps) {
+            NaturalSpawner.SpawnState state = level.getChunkSource().getLastSpawnState();
+            if (state != null) {
+                return ((SpawnStateInvoker) state).isBelowGlobalMobcap(MobCategory.MONSTER);
+            }
+        }
+        return true;
+    }
+
+    @ModifyExpressionValue(
+        method = "tick",
+        at = @At(
+            value = "INVOKE",
             target = "Lnet/minecraft/server/level/ServerPlayer;isSpectator()Z"
         )
     )
-    private boolean shouldNotSpawnPhantoms(
+    private boolean shouldNotSpawnPhantomsLocal(
         boolean original,
         @Local ServerPlayer player
     ) {

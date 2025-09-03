@@ -8,6 +8,9 @@ import org.spongepowered.asm.mixin.gen.Invoker;
 
 @Mixin(NaturalSpawner.SpawnState.class)
 public interface SpawnStateInvoker {
+    @Invoker("canSpawnForCategoryGlobal")
+    boolean isBelowGlobalMobcap(MobCategory category);
+
     @Invoker("canSpawnForCategoryLocal")
     boolean isBelowLocalMobcap(MobCategory category, ChunkPos chunkPos);
 }
