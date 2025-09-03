@@ -20,7 +20,7 @@ repositories {
     maven("https://jitpack.io")
 }
 
-val modVersion = "2.0.2"
+val modVersion = "2.1.0"
 val releaseVersion = "${modVersion}+${libs.versions.minecraft.get()}"
 version = releaseVersion
 group = "me.supersanta"
@@ -73,7 +73,13 @@ tasks {
     publishMods {
         file = remapJar.get().archiveFile
         changelog = """
-        - Updated to 1.21.6
+        - Fixed phantomsObeyMobcaps not working when the global mobcap was full
+        - Changes to how additional player data is saved, this will cause
+          some data to not persist across the update
+          - Team's teleport blacklist status will need to be reconfigured
+          - Saved fake player actions will need to be reconfigured
+          - The player's last camera mode location will be lost
+          - The player's subscriptions will be forgotten
         """.trimIndent()
         type = STABLE
         modLoaders.add("fabric")

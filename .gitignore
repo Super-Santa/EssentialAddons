@@ -12,6 +12,7 @@ logs/
 *.iml
 *.ipr
 *.iws
+.kotlin/
 
 # eclipse
 *.launch
