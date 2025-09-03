@@ -41,9 +41,9 @@
     "essential-addons.mixins.json"
   ],
   "depends": {
-    "fabricloader": ">=${fabric_loader_dependency}",
     "minecraft": "${minecraft_dependency}",
-    "fabric": "*"
+    "fabric-language-kotlin": ">=${fabric_kotlin_dependency}",
+    "fabric-api": "*"
   },
   "breaks": {
     "lithium": "<0.13.0"

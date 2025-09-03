@@ -61,7 +61,8 @@ tasks {
             expand(mutableMapOf(
                 "version" to releaseVersion,
                 "minecraft_dependency" to libs.versions.minecraft.get().replaceAfterLast('.', "x"),
-                "fabric_loader_dependency" to libs.versions.fabric.loader.get(),
+                "fabric_api_dependency" to libs.versions.fabric.api.get(),
+                "fabric_kotlin_dependency" to libs.versions.fabric.kotlin.get(),
             ))
         }
     }
