@@ -7,9 +7,9 @@ import me.supersanta.essential_addons.EssentialAddons
 import me.supersanta.essential_addons.EssentialSettings
 import net.casual.arcade.events.GlobalEventHandler
 import net.casual.arcade.events.ListenerRegistry.Companion.register
-import net.casual.arcade.events.server.ServerLoadedEvent
 import net.casual.arcade.events.server.ServerSaveEvent
-import net.casual.arcade.events.server.ServerStoppingEvent
+import net.casual.arcade.events.server.ServerStartEvent
+import net.casual.arcade.events.server.ServerStopEvent
 import net.minecraft.core.UUIDUtil
 import net.minecraft.nbt.CompoundTag
 import net.minecraft.nbt.NbtIo
@@ -28,7 +28,7 @@ import kotlin.jvm.optionals.getOrNull
 
 object ReloadFakePlayers {
     internal fun registerEvents() {
-        GlobalEventHandler.Server.register<ServerLoadedEvent> { (server) ->
+        GlobalEventHandler.Server.register<ServerStartEvent> { (server) ->
             this.loadFakePlayers(server)
         }
         GlobalEventHandler.Server.register<ServerSaveEvent> { (server, stopping) ->
@@ -36,7 +36,7 @@ object ReloadFakePlayers {
                 this.saveFakePlayers(server)
             }
         }
-        GlobalEventHandler.Server.register<ServerStoppingEvent> { (server) ->
+        GlobalEventHandler.Server.register<ServerStopEvent> { (server) ->
             this.saveFakePlayers(server)
         }
     }

@@ -7,15 +7,30 @@ import net.casual.arcade.events.GlobalEventHandler
 import net.casual.arcade.events.ListenerRegistry.Companion.register
 import net.casual.arcade.extensions.DataExtension
 import net.casual.arcade.extensions.PlayerExtension
-import net.casual.arcade.extensions.event.EntityExtensionEvent.Companion.getExtension
 import net.casual.arcade.extensions.event.PlayerExtensionEvent
-import net.minecraft.nbt.NbtOps
-import net.minecraft.nbt.Tag
+import net.casual.arcade.extensions.utils.getExtension
+import net.minecraft.resources.ResourceLocation
 import net.minecraft.server.level.ServerPlayer
-import kotlin.jvm.optionals.getOrNull
+import net.minecraft.world.level.storage.ValueInput
+import net.minecraft.world.level.storage.ValueOutput
 
 class PlayerSubscriptionsExtension(player: ServerPlayer): PlayerExtension(player), DataExtension {
     private val subscriptions = ReferenceOpenHashSet<EssentialSubscription>()
+
+    override fun getId(): ResourceLocation {
+        return EssentialAddons.id("subscriptions")
+    }
+
+    override fun deserialize(input: ValueInput) {
+        val subscriptions = input.read("subscriptions", EssentialSubscription.SET_CODEC)
+        if (subscriptions.isPresent) {
+            this.subscriptions.addAll(subscriptions.get())
+        }
+    }
+
+    override fun serialize(output: ValueOutput) {
+        output.store("subscriptions", EssentialSubscription.SET_CODEC, this.subscriptions)
+    }
 
     fun has(subscription: EssentialSubscription): Boolean {
         return this.subscriptions.contains(subscription)
@@ -35,21 +50,6 @@ class PlayerSubscriptionsExtension(player: ServerPlayer): PlayerExtension(player
             return false
         }
         return true
-    }
-
-    override fun getName(): String {
-        return "${EssentialAddons.MOD_ID}_subscriptions_extension"
-    }
-
-    override fun deserialize(element: Tag) {
-        val subscriptions = EssentialSubscription.SET_CODEC.parse(NbtOps.INSTANCE, element).result()
-        if (subscriptions.isPresent) {
-            this.subscriptions.addAll(subscriptions.get())
-        }
-    }
-
-    override fun serialize(): Tag? {
-        return EssentialSubscription.SET_CODEC.encodeStart(NbtOps.INSTANCE, this.subscriptions).result().getOrNull()
     }
 
     companion object {

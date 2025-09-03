@@ -9,8 +9,8 @@ import net.casual.arcade.extensions.ExternalDataExtension
 import net.casual.arcade.extensions.ExternalDataExtension.Companion.read
 import net.casual.arcade.extensions.ExternalDataExtension.Companion.write
 import net.casual.arcade.extensions.PlayerExtension
-import net.casual.arcade.extensions.event.EntityExtensionEvent.Companion.getExtension
 import net.casual.arcade.extensions.event.PlayerExtensionEvent
+import net.casual.arcade.extensions.utils.getExtension
 import net.casual.arcade.utils.PlayerUtils.levelServer
 import net.casual.arcade.utils.math.location.LocationWithLevel
 import net.minecraft.nbt.NbtOps

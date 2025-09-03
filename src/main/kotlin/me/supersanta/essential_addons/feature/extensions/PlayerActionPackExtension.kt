@@ -14,23 +14,24 @@ import net.casual.arcade.events.ListenerRegistry.Companion.register
 import net.casual.arcade.extensions.DataExtension
 import net.casual.arcade.extensions.PlayerExtension
 import net.casual.arcade.extensions.event.PlayerExtensionEvent
-import net.casual.arcade.utils.codec.ArcadeExtraCodecs
-import net.minecraft.nbt.NbtOps
-import net.minecraft.nbt.Tag
+import net.casual.arcade.utils.serialization.codec.ArcadeExtraCodecs
+import net.minecraft.resources.ResourceLocation
 import net.minecraft.server.level.ServerPlayer
+import net.minecraft.world.level.storage.ValueInput
+import net.minecraft.world.level.storage.ValueOutput
 import kotlin.jvm.optionals.getOrNull
 
 class PlayerActionPackExtension(player: ServerPlayer): PlayerExtension(player), DataExtension {
-    override fun getName(): String {
-        return "${EssentialAddons.MOD_ID}_action_pack_extension"
+    override fun getId(): ResourceLocation {
+        return EssentialAddons.id("action_pack")
     }
 
-    override fun deserialize(element: Tag) {
+    override fun deserialize(input: ValueInput) {
         if (!EssentialSettings.savePlayerActions) {
             return
         }
 
-        val data = PLAYER_ACTION_PACK_CODEC.parse(NbtOps.INSTANCE, element).result().getOrNull() ?: return
+        val data = input.read("actions", PLAYER_ACTION_PACK_CODEC).getOrNull() ?: return
         val pack = (this.player as ServerPlayerInterface).actionPack
         pack.setSneaking(data.sneaking)
         pack.setSprinting(data.sprinting)
@@ -41,10 +42,10 @@ class PlayerActionPackExtension(player: ServerPlayer): PlayerExtension(player), 
         }
     }
 
-    override fun serialize(): Tag? {
+    override fun serialize(output: ValueOutput) {
         val pack = (this.player as ServerPlayerInterface).actionPack as EntityPlayerActionPackAccessor
         val data = ActionPackData(pack.isSneaking, pack.isSprinting, pack.forward, pack.strafing, pack.actions)
-        return PLAYER_ACTION_PACK_CODEC.encodeStart(NbtOps.INSTANCE, data).result().getOrNull()
+        output.store("actions", PLAYER_ACTION_PACK_CODEC, data)
     }
 
     private data class ActionPackData(
@@ -56,8 +57,6 @@ class PlayerActionPackExtension(player: ServerPlayer): PlayerExtension(player), 
     )
 
     companion object {
-        private val ACTION_TYPE_CODEC = ArcadeExtraCodecs.enum<ActionType>()
-
         private val ACTION_CODEC: Codec<Action> = RecordCodecBuilder.create { instance ->
             instance.group(
                 Codec.INT.fieldOf("limit").forGetter(Action::limit),
@@ -80,7 +79,7 @@ class PlayerActionPackExtension(player: ServerPlayer): PlayerExtension(player), 
                 Codec.BOOL.fieldOf("sprinting").forGetter(ActionPackData::sprinting),
                 Codec.FLOAT.fieldOf("forward").forGetter(ActionPackData::forward),
                 Codec.FLOAT.fieldOf("strafing").forGetter(ActionPackData::strafing),
-                Codec.unboundedMap(ACTION_TYPE_CODEC, ACTION_CODEC).fieldOf("actions").forGetter(ActionPackData::actions)
+                Codec.unboundedMap(ArcadeExtraCodecs.enum<ActionType>(), ACTION_CODEC).fieldOf("actions").forGetter(ActionPackData::actions)
             ).apply(instance, PlayerActionPackExtension::ActionPackData)
         }
 
