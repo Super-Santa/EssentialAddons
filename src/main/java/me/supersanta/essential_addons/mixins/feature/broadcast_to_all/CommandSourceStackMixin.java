@@ -12,7 +12,7 @@ public class CommandSourceStackMixin {
         method = "broadcastToAdmins",
         at = @At(
             value = "INVOKE",
-            target = "Lnet/minecraft/server/players/PlayerList;isOp(Lcom/mojang/authlib/GameProfile;)Z"
+            target = "Lnet/minecraft/server/players/PlayerList;isOp(Lnet/minecraft/server/players/NameAndId;)Z"
         )
     )
     private boolean shouldBroadcast(boolean original) {

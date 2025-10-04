@@ -20,7 +20,6 @@
     "feature.combine_potion_duration.ApplyStatusEffectsConsumeEffectMixin",
     "feature.combine_potion_duration.PotionContentsMixin",
     "feature.combine_potion_duration.ThrownSplashPotionMixin",
-    "feature.command_camera_mode.ServerPlayerGameModeMixin",
     "feature.command_camera_mode.ServerPlayerMixin",
     "feature.infinite_items.ItemStackMixin",
     "feature.lag_spike.LevelMixin",
@@ -55,7 +54,7 @@
     "feature.structure_block.StructureTemplateMixin"
   ],
   "client": [
-    "feature.reload_fake_players.IntegratedPlayerListMixin"
+    "feature.reload_fake_players.IntegratedServerMixin"
   ],
   "injectors": {
     "defaultRequire": 1

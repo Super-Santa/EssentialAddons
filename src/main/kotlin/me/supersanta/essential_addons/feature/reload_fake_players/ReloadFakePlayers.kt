@@ -2,7 +2,6 @@ package me.supersanta.essential_addons.feature.reload_fake_players
 
 import carpet.patches.EntityPlayerMPFake
 import carpet.patches.FakeClientConnection
-import com.mojang.authlib.properties.PropertyMap
 import me.supersanta.essential_addons.EssentialAddons
 import me.supersanta.essential_addons.EssentialSettings
 import net.casual.arcade.events.GlobalEventHandler
@@ -10,6 +9,8 @@ import net.casual.arcade.events.ListenerRegistry.Companion.register
 import net.casual.arcade.events.server.ServerSaveEvent
 import net.casual.arcade.events.server.ServerStartEvent
 import net.casual.arcade.events.server.ServerStopEvent
+import net.casual.arcade.utils.DynamicResolvableProfile
+import net.casual.arcade.utils.resolveProfileOrNull
 import net.minecraft.core.UUIDUtil
 import net.minecraft.nbt.CompoundTag
 import net.minecraft.nbt.NbtIo
@@ -19,7 +20,6 @@ import net.minecraft.server.MinecraftServer
 import net.minecraft.server.level.ClientInformation
 import net.minecraft.server.network.CommonListenerCookie
 import net.minecraft.world.entity.player.Player
-import net.minecraft.world.item.component.ResolvableProfile
 import net.minecraft.world.level.storage.LevelResource
 import java.nio.file.Path
 import java.util.*
@@ -42,12 +42,10 @@ object ReloadFakePlayers {
     }
 
     private fun rejoin(server: MinecraftServer, uuid: UUID) {
-        val resolvable = ResolvableProfile(Optional.empty(), Optional.of(uuid), PropertyMap())
-        resolvable.resolve().thenApplyAsync({ resolved ->
-            if (resolved.isResolved) resolved.gameProfile else null
-        }, server).thenApply { profile ->
+        val resolvable = DynamicResolvableProfile(uuid)
+        resolvable.resolveProfileOrNull(server.services().profileResolver).thenApplyAsync({ profile ->
             if (profile == null) {
-                return@thenApply
+                return@thenApplyAsync
             }
 
             val player = EntityPlayerMPFake.respawnFake(
@@ -58,7 +56,7 @@ object ReloadFakePlayers {
                 FakeClientConnection(PacketFlow.SERVERBOUND), player,
                 CommonListenerCookie(profile, 0, player.clientInformation(), false)
             )
-        }
+        }, server)
     }
 
     private fun loadFakePlayers(server: MinecraftServer) {

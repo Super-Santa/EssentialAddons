@@ -1,15 +1,15 @@
 [versions]
-minecraft     = "1.21.8"
+minecraft     = "1.21.9"
 fabric-loader = "0.17.2"
-fabric-api    = "0.133.0+1.21.8"
-parchment     = "1.21.8:2025.07.20"
+fabric-api    = "0.133.10+1.21.9"
+parchment     = "1.21.8:2025.09.14"
 fabric-kotlin = "1.13.5+kotlin.2.2.10"
 permissions   = "0.4.1"
-carpet        = "1.4.177"
-arcade        = "0.6.1-beta.19+1.21.8"
+carpet        = "1.4.185"
+arcade        = "0.7.0-beta.3+1.21.9"
 
 # Compatability
-lithium       = "mc1.21.8-0.18.0-fabric"
+lithium       = "mc1.21.9-0.19.1-fabric"
 
 # Plugins
 fabric-loom   = "1.11-SNAPSHOT"

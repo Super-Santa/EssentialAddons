@@ -25,7 +25,7 @@ public class LivingEntityMixin {
             boolean shouldSkipTickingEffects = EssentialSettings.spectatorPotionNoCountdown ||
                 has(player.createCommandSourceStack(), EssentialSettings.commandCameraMode, "command.cs");
             if (shouldSkipTickingEffects) {
-                if (player.getServer().getTickCount() % 20 == 0) {
+                if (player.level().getServer().getTickCount() % 20 == 0) {
                     for (MobEffectInstance effect : player.getActiveEffects()) {
                         player.connection.send(new ClientboundUpdateMobEffectPacket(player.getId(), effect, false));
                     }
