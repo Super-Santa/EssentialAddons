@@ -31,7 +31,7 @@ dependencies {
 	modImplementation("com.github.CaffeineMC:lithium-fabric:${lithium_version}") {
 		exclude group: 'com.github.2No2Name', module: 'McTester'
 	}
-	include modImplementation("me.lucko:fabric-permissions-api:0.2-SNAPSHOT")
+	include modImplementation("me.lucko:fabric-permissions-api:0.3.1")
 }
 
 processResources {

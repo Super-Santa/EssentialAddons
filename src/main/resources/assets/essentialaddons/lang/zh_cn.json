@@ -1,0 +1,185 @@
+{
+  "carpet.category.essential": "essential",
+
+  "carpet.rule.broadcastToAll.name": "OP消息广播",
+  "carpet.rule.broadcastToAll.desc": "将所有OP消息广播给所有玩家",
+
+  "carpet.rule.cakeAlwaysEat.name": "随时食用蛋糕",
+  "carpet.rule.cakeAlwaysEat.desc": "允许在任何饥饿值时食用蛋糕",
+
+  "carpet.rule.cameraModeRestoreLocation.name": "旁观位置保存",
+  "carpet.rule.cameraModeRestoreLocation.desc": "生存模式下将玩家位置恢复到旁观前原点",
+  "carpet.rule.cameraModeRestoreLocation.extra.0": "服务器重启后仍保留位置信息",
+
+  "carpet.rule.cameraModeSurvivalRestrictions.name": "旁观安全限制",
+  "carpet.rule.cameraModeSurvivalRestrictions.desc": "在危险状态下禁止使用旁观模式",
+  "carpet.rule.cameraModeSurvivalRestrictions.extra.0": "遇敌时无法启用旁观模式",
+
+  "carpet.rule.cameraModeCommandName.name": "旁观命令别名",
+  "carpet.rule.cameraModeCommandName.desc": "设置旁观模式命令别名（默认'cs'",
+
+  "carpet.rule.cameraModeTeamTeleportBlacklist.name": "队伍传送黑名单",
+  "carpet.rule.cameraModeTeamTeleportBlacklist.desc": "禁止旁观者传送至特定队伍玩家",
+  "carpet.rule.cameraModeTeamTeleportBlacklist.extra.0": "使用/team-teleport-blacklist命令设置队伍",
+
+  "carpet.rule.cameraModeTeleportBlacklist.name": "玩家传送黑名单",
+  "carpet.rule.cameraModeTeleportBlacklist.desc": "禁止旁观者传送至特定玩家",
+  "carpet.rule.cameraModeTeleportBlacklist.extra.0": "使用/subscribe命令管理玩家黑名单",
+
+  "carpet.rule.combinePotionDuration.name": "药水时长合并",
+  "carpet.rule.combinePotionDuration.desc": "合并同种药水的效果持续时间",
+
+  "carpet.rule.commandBackup.name": "区域备份",
+  "carpet.rule.commandBackup.desc": "启用/backup命令备份指定区域到世界文件夹",
+
+  "carpet.rule.commandCameraMode.name": "生存旁观模式",
+  "carpet.rule.commandCameraMode.desc": "通过命令（默认/cs）切换生存与旁观模式",
+  "carpet.rule.commandCameraMode.extra.0": "支持位置保存与安全限制功能",
+
+  "carpet.rule.commandDefuse.name": "拆除TNT",
+  "carpet.rule.commandDefuse.desc": "启用/defuse命令阻止范围内TNT爆炸",
+
+  "carpet.rule.commandEnderChest.name": "末影箱快捷打开",
+  "carpet.rule.commandEnderChest.desc": "启用/enderchest命令直接打开末影箱",
+
+  "carpet.rule.commandExtinguish.name": "灭火",
+  "carpet.rule.commandExtinguish.desc": "启用/extinguish命令熄灭玩家身上火焰",
+
+  "carpet.rule.commandFly.name": "生存飞行",
+  "carpet.rule.commandFly.desc": "启用/fly命令在生存模式切换飞行能力",
+  "carpet.rule.commandFly.extra.0": "同时禁用坠落伤害",
+
+  "carpet.rule.commandGM.name": "游戏模式命令",
+  "carpet.rule.commandGM.desc": "启用/gmc、/gms、/gmsp、/gma快捷命令",
+
+  "carpet.rule.commandGod.name": "无敌模式",
+  "carpet.rule.commandGod.desc": "启用/god命令切换伤害免疫",
+  "carpet.rule.commandGod.extra.0": "在创造模式使用可能导致异常",
+
+  "carpet.rule.commandHat.name": "头部装饰",
+  "carpet.rule.commandHat.desc": "启用/hat命令将手持物品装备至头部",
+
+  "carpet.rule.commandHeal.name": "治疗",
+  "carpet.rule.commandHeal.desc": "启用/heal命令恢复生命值与饱食度",
+
+  "carpet.rule.commandLagSpike.name": "模拟延迟",
+  "carpet.rule.commandLagSpike.desc": "启用/lag-spike命令在指定刻阶段制造延迟",
+
+  "carpet.rule.commandMods.name": "模组列表",
+  "carpet.rule.commandMods.desc": "启用/mods命令显示服务器模组列表",
+
+  "carpet.rule.commandMore.name": "物品堆叠",
+  "carpet.rule.commandMore.desc": "启用/more命令将手持物品补满至整组",
+
+  "carpet.rule.commandNear.name": "附近玩家",
+  "carpet.rule.commandNear.desc": "启用/near命令列出范围内其他玩家",
+
+  "carpet.rule.commandNightVision.name": "夜视切换",
+  "carpet.rule.commandNightVision.desc": "启用命令切换夜视效果",
+
+  "carpet.rule.commandPublicKick.name": "公开踢出",
+  "carpet.rule.commandPublicKick.desc": "允许所有玩家使用/kick命令",
+
+  "carpet.rule.commandPublicOp.name": "公开OP",
+  "carpet.rule.commandPublicOp.desc": "允许所有玩家使用/op命令",
+
+  "carpet.rule.commandPublicSaveAll.name": "公开存档",
+  "carpet.rule.commandPublicSaveAll.desc": "允许所有玩家使用/save-all命令",
+
+  "carpet.rule.commandPublicScoreboard.name": "公开计分板",
+  "carpet.rule.commandPublicScoreboard.desc": "允许所有玩家使用部分/scoreboard命令",
+
+  "carpet.rule.commandPublicTeam.name": "公开队伍",
+  "carpet.rule.commandPublicTeam.desc": "允许所有玩家使用/team命令",
+
+  "carpet.rule.commandViewDistance.name": "视距调整",
+  "carpet.rule.commandViewDistance.desc": "启用/view-distance命令修改服务器视距",
+
+  "carpet.rule.commandRename.name": "物品重命名",
+  "carpet.rule.commandRename.desc": "启用命令直接重命名物品",
+
+  "carpet.rule.commandRepair.name": "物品修复",
+  "carpet.rule.commandRepair.desc": "启用/repair命令修复手持物品",
+
+  "carpet.rule.commandStrength.name": "力量效果",
+  "carpet.rule.commandStrength.desc": "启用命令切换力量效果",
+
+  "carpet.rule.commandTop.name": "顶部传送",
+  "carpet.rule.commandTop.desc": "启用/top命令传送至当前位置最高点",
+
+  "carpet.rule.commandWarp.name": "地标传送",
+  "carpet.rule.commandWarp.desc": "启用/warp命令创建与管理传送点",
+
+  "carpet.rule.commandWorkbench.name": "工作台快捷打开",
+  "carpet.rule.commandWorkbench.desc": "启用/workbench命令直接打开工作台",
+
+  "carpet.rule.essentialCarefulBreak.name": "精准采集",
+  "carpet.rule.essentialCarefulBreak.desc": "潜行时破坏方块直接进入背包",
+  "carpet.rule.essentialCarefulBreak.extra.0": "需使用/subscribe命令订阅，支持堆叠潜影盒",
+
+  "carpet.rule.essentialCarefulDrop.name": "精准掉落",
+  "carpet.rule.essentialCarefulDrop.desc": "潜行时击杀实体直接获取掉落物",
+
+  "carpet.rule.fakePlayerDropInventoryOnKill.name": "假玩家死亡掉落",
+  "carpet.rule.fakePlayerDropInventoryOnKill.desc": "假玩家死亡时掉落背包物品",
+
+  "carpet.rule.infiniteItems.name": "物品无限",
+  "carpet.rule.infiniteItems.desc": "生存/冒险模式下物品不会被消耗",
+
+  "carpet.rule.minecartBoosting.name": "矿车推进",
+  "carpet.rule.minecartBoosting.desc": "重新实现矿车加速机制",
+
+  "carpet.rule.phantomsObeyMobcaps.name": "幻翼生成限制",
+  "carpet.rule.phantomsObeyMobcaps.desc": "幻翼仅在生物上限允许时生成",
+
+  "carpet.rule.savePlayerActions.name": "假玩家行为保存",
+  "carpet.rule.savePlayerActions.desc": "保存假玩家行为并在重登后恢复",
+
+  "carpet.rule.reloadFakePlayers.name": "假玩家自动重载",
+  "carpet.rule.reloadFakePlayers.desc": "服务器重启时自动重新生成假玩家",
+
+  "carpet.rule.removeItemEntitiesAfterThreshold.name": "物品实体清理",
+  "carpet.rule.removeItemEntitiesAfterThreshold.desc": "物品实体超阈值时自动清除（0=禁用）",
+
+  "carpet.rule.removeWarnOversizedChunk.name" : "超大区块警告屏蔽",
+  "carpet.rule.removeWarnOversizedChunk.desc": "移除控制台'保存超大区块'警告",
+
+  "carpet.rule.removeWarnMismatchBlockPos.name": "方块位置警告屏蔽",
+  "carpet.rule.removeWarnMismatchBlockPos.desc": "移除控制台'方块位置不匹配'警告",
+
+  "carpet.rule.removeWarnRemovedEntity.name": "实体移除警告屏蔽",
+  "carpet.rule.removeWarnRemovedEntity.desc": "移除控制台'获取已移除实体数据包'警告",
+
+  "carpet.rule.removeXpEntitiesAfterThreshold.name": "经验球清理",
+  "carpet.rule.removeXpEntitiesAfterThreshold.desc": "经验球超阈值时自动清除（0=禁用）",
+
+  "carpet.rule.sensitiveBamboo.name": "敏感竹子",
+  "carpet.rule.sensitiveBamboo.desc": "竹子邻近固体方块时会断裂",
+
+  "carpet.rule.sensitiveSugarCane.name": "敏感甘蔗",
+  "carpet.rule.sensitiveSugarCane.desc": "甘蔗邻近固体方块时会断裂",
+
+  "carpet.rule.shulkerception.name": "潜影盒嵌套",
+  "carpet.rule.shulkerception.desc": "允许潜影盒放入其他潜影盒",
+
+  "carpet.rule.spectatorPotionNoCountdown.name": "旁观药效冻结",
+  "carpet.rule.spectatorPotionNoCountdown.desc": "旁观模式下药水效果停止倒计时",
+
+  "carpet.rule.stackableShulkerComparatorOverloadFix.name": "潜影盒堆叠修复",
+  "carpet.rule.stackableShulkerComparatorOverloadFix.desc": "修复堆叠潜影盒导致的比较器过载",
+
+  "carpet.rule.stackableShulkersInPlayerInventories.name": "潜影盒手动堆叠",
+  "carpet.rule.stackableShulkersInPlayerInventories.desc": "允许在背包/地面手动堆叠潜影盒",
+  "carpet.rule.stackableShulkersInPlayerInventories.extra.0": "需禁用其他潜影盒堆叠规则（stackableShulkersWithItems除外）",
+
+  "carpet.rule.stackableShulkersWithItems.name": "含物潜影盒堆叠",
+  "carpet.rule.stackableShulkersWithItems.desc": "允许内含相同物品的潜影盒互相堆叠",
+  "carpet.rule.stackableShulkersWithItems.extra.0": "需先启用stackableShulkersInPlayerInventories",
+
+  "carpet.rule.structureBlockKillEntities.name": "结构加载清空实体",
+  "carpet.rule.structureBlockKillEntities.desc": "加载结构时清除边界框内非玩家实体",
+  "carpet.rule.structureBlockKillEntities.extra.0": "需关闭'忽略实体'选项",
+
+  "carpet.rule.structureBlockReplaceFluids.name": "结构加载替换流体",
+  "carpet.rule.structureBlockReplaceFluids.desc": "粘贴结构时自动替换原有流体"
+}
