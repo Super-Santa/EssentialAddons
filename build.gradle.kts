@@ -20,7 +20,7 @@ repositories {
     maven("https://jitpack.io")
 }
 
-val modVersion = "2.2.0"
+val modVersion = "2.2.1"
 val releaseVersion = "${modVersion}+${libs.versions.minecraft.get()}"
 version = releaseVersion
 group = "me.supersanta"
@@ -74,7 +74,7 @@ tasks {
     publishMods {
         file = remapJar.get().archiveFile
         changelog = """
-        - Updated to 1.21.9
+        - Fix a critical issue that caused huge FPS drops when loading a spawner on the client
         """.trimIndent()
         type = STABLE
         modLoaders.add("fabric")
@@ -96,6 +96,17 @@ tasks {
             requires {
                 id = "TQTTVgYE"
             }
+        }
+    }
+}
+
+loom {
+    runConfigs {
+        getByName("server") {
+            runDir = "run/server"
+        }
+        getByName("client") {
+            runDir = "run/client"
         }
     }
 }
