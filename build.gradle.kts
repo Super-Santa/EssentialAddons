@@ -20,7 +20,7 @@ repositories {
     maven("https://jitpack.io")
 }
 
-val modVersion = "2.2.1"
+val modVersion = "2.2.2"
 val releaseVersion = "${modVersion}+${libs.versions.minecraft.get()}"
 version = releaseVersion
 group = "me.supersanta"
@@ -74,7 +74,7 @@ tasks {
     publishMods {
         file = remapJar.get().archiveFile
         changelog = """
-        - Fix a critical issue that caused huge FPS drops when loading a spawner on the client
+        - Fix reloadFakePlayers not reloading player data correctly
         """.trimIndent()
         type = STABLE
         modLoaders.add("fabric")

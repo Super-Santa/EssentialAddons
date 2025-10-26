@@ -4,6 +4,7 @@ import carpet.patches.EntityPlayerMPFake
 import carpet.patches.FakeClientConnection
 import me.supersanta.essential_addons.EssentialAddons
 import me.supersanta.essential_addons.EssentialSettings
+import me.supersanta.essential_addons.mixins.feature.reload_fake_players.EntityPlayerMPFakeInvoker
 import net.casual.arcade.events.GlobalEventHandler
 import net.casual.arcade.events.ListenerRegistry.Companion.register
 import net.casual.arcade.events.server.ServerSaveEvent
@@ -51,11 +52,12 @@ object ReloadFakePlayers {
             val player = EntityPlayerMPFake.respawnFake(
                 server, server.overworld(), profile, ClientInformation.createDefault()
             )
-            player.entityData.set(PlayerAccessor.getCustomizationAccessor(), 0x7F)
             server.playerList.placeNewPlayer(
                 FakeClientConnection(PacketFlow.SERVERBOUND), player,
                 CommonListenerCookie(profile, 0, player.clientInformation(), false)
             )
+            EntityPlayerMPFakeInvoker.invokeLoadPlayerData(player)
+            player.entityData.set(PlayerAccessor.getCustomizationAccessor(), 0x7F)
         }, server)
     }
 

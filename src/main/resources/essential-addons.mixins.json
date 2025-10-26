@@ -36,6 +36,7 @@
     "feature.public_commands.TeamCommandMixin",
     "feature.reload_fake_players.ActionAccessor",
     "feature.reload_fake_players.EntityPlayerActionPackAccessor",
+    "feature.reload_fake_players.EntityPlayerMPFakeInvoker",
     "feature.reload_fake_players.EntityPlayerMPFakeMixin",
     "feature.remove_warn.RegionFileMixin",
     "feature.remove_warn.ServerEntityMixin",
