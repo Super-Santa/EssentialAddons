@@ -75,6 +75,7 @@ tasks {
         file = remapJar.get().archiveFile
         changelog = """
         - Fix reloadFakePlayers not reloading the player's dimension correctly
+        - Fix an crashing issue with litematica on the client
         """.trimIndent()
         type = STABLE
         modLoaders.add("fabric")
