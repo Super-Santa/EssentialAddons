@@ -2,6 +2,7 @@ package me.supersanta.essential_addons.feature.reload_fake_players
 
 import carpet.patches.EntityPlayerMPFake
 import carpet.patches.FakeClientConnection
+import com.mojang.authlib.GameProfile
 import me.supersanta.essential_addons.EssentialAddons
 import me.supersanta.essential_addons.EssentialSettings
 import me.supersanta.essential_addons.mixins.feature.reload_fake_players.EntityPlayerMPFakeInvoker
@@ -19,9 +20,14 @@ import net.minecraft.network.protocol.PacketFlow
 import net.minecraft.network.syncher.EntityDataAccessor
 import net.minecraft.server.MinecraftServer
 import net.minecraft.server.level.ClientInformation
+import net.minecraft.server.level.ServerLevel
+import net.minecraft.server.level.ServerPlayer
 import net.minecraft.server.network.CommonListenerCookie
+import net.minecraft.server.players.NameAndId
+import net.minecraft.util.ProblemReporter
 import net.minecraft.world.entity.player.Player
 import net.minecraft.world.level.storage.LevelResource
+import net.minecraft.world.level.storage.TagValueInput
 import java.nio.file.Path
 import java.util.*
 import kotlin.io.path.exists
@@ -49,16 +55,28 @@ object ReloadFakePlayers {
                 return@thenApplyAsync
             }
 
-            val player = EntityPlayerMPFake.respawnFake(
-                server, server.overworld(), profile, ClientInformation.createDefault()
-            )
+            val level = this.loadFakePlayerLevel(server, profile)
+            val player = EntityPlayerMPFake.respawnFake(server, level, profile, ClientInformation.createDefault())
+            EntityPlayerMPFakeInvoker.invokeLoadPlayerData(player)
             server.playerList.placeNewPlayer(
                 FakeClientConnection(PacketFlow.SERVERBOUND), player,
                 CommonListenerCookie(profile, 0, player.clientInformation(), false)
             )
-            EntityPlayerMPFakeInvoker.invokeLoadPlayerData(player)
             player.entityData.set(PlayerAccessor.getCustomizationAccessor(), 0x7F)
         }, server)
+    }
+
+    private fun loadFakePlayerLevel(server: MinecraftServer, profile: GameProfile): ServerLevel? {
+        @Suppress("DEPRECATION")
+        val saved = server.playerList.loadPlayerData(NameAndId(profile))
+            .map { tag -> TagValueInput.create(ProblemReporter.DISCARDING, server.registryAccess(), tag) }
+            .flatMap { input -> input.read(ServerPlayer.SavedPosition.MAP_CODEC) }
+            .orElse(ServerPlayer.SavedPosition.EMPTY)
+        val respawn = server.worldData.overworldData().respawnData
+        val level = saved.dimension.map(server::getLevel).orElseGet {
+            server.getLevel(respawn.dimension()) ?: server.overworld()
+        }
+        return level
     }
 
     private fun loadFakePlayers(server: MinecraftServer) {
