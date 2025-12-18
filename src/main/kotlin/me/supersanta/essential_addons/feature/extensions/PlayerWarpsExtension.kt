@@ -12,6 +12,7 @@ import net.casual.arcade.extensions.PlayerExtension
 import net.casual.arcade.extensions.event.PlayerExtensionEvent
 import net.casual.arcade.extensions.utils.getExtension
 import net.casual.arcade.utils.PlayerUtils.levelServer
+import net.casual.arcade.utils.PlayerUtils.server
 import net.casual.arcade.utils.math.location.LocationWithLevel
 import net.minecraft.nbt.NbtOps
 import net.minecraft.nbt.Tag
@@ -46,7 +47,7 @@ class PlayerWarpsExtension(player: ServerPlayer): PlayerExtension(player), Exter
     }
 
     override fun path(): Path {
-        return this.player.levelServer.essentialAddonsPath.resolve("warps")
+        return this.player.server.essentialAddonsPath.resolve("warps")
             .resolve("${this.player.stringUUID}.nbt")
     }
 

@@ -6,9 +6,9 @@ import com.mojang.brigadier.context.CommandContext
 import me.supersanta.essential_addons.EssentialSettings
 import me.supersanta.essential_addons.utils.requires
 import net.casual.arcade.commands.*
-import net.casual.arcade.utils.ComponentUtils.gold
-import net.casual.arcade.utils.ComponentUtils.joinToComponent
-import net.casual.arcade.utils.ComponentUtils.lime
+import net.casual.arcade.utils.component.gold
+import net.casual.arcade.utils.component.joinToComponent
+import net.casual.arcade.utils.component.lime
 import net.minecraft.commands.CommandBuildContext
 import net.minecraft.commands.CommandSourceStack
 import net.minecraft.network.chat.Component

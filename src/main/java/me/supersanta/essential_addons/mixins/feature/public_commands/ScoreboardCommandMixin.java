@@ -4,7 +4,10 @@ import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
 import com.mojang.brigadier.builder.LiteralArgumentBuilder;
 import me.supersanta.essential_addons.EssentialSettings;
 import net.minecraft.commands.CommandSourceStack;
+import net.minecraft.commands.Commands;
 import net.minecraft.server.commands.ScoreboardCommand;
+import net.minecraft.server.permissions.PermissionCheck;
+import net.minecraft.server.permissions.PermissionLevel;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.ModifyArg;
@@ -37,7 +40,7 @@ public class ScoreboardCommandMixin {
     ) {
         switch (original.getLiteral()) {
             case "players", "teams", "remove", "modify" -> {
-                original.requires(source -> source.hasPermission(2));
+                original.requires(Commands.hasPermission(Commands.LEVEL_GAMEMASTERS));
             }
         }
         return original;

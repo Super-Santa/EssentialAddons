@@ -13,10 +13,11 @@ import net.casual.arcade.commands.argument
 import net.casual.arcade.commands.arguments.RegistryElementArgument
 import net.casual.arcade.commands.executes
 import net.casual.arcade.commands.literal
-import net.casual.arcade.utils.ComponentUtils.aqua
-import net.casual.arcade.utils.ComponentUtils.gold
-import net.casual.arcade.utils.ComponentUtils.lime
-import net.casual.arcade.utils.ComponentUtils.red
+import net.casual.arcade.utils.component.aqua
+import net.casual.arcade.utils.component.gold
+import net.casual.arcade.utils.component.lime
+import net.casual.arcade.utils.component.red
+import net.casual.arcade.utils.toIdString
 import net.minecraft.commands.CommandBuildContext
 import net.minecraft.commands.CommandSourceStack
 import net.minecraft.network.chat.Component
@@ -49,14 +50,14 @@ object SubscribeCommand: CommandTree {
             Component.literal("UNSUBSCRIBED").red()
                 .append(" ").append(Component.literal("from").gold())
         }
-        val formatted = Component.literal(holder.key().location().toString()).aqua()
+        val formatted = Component.literal(holder.key().toIdString()).aqua()
         player.sendToActionBar(prefix.append(" ").append(formatted))
     }
 
     private fun querySubscription(context: CommandContext<CommandSourceStack>) {
         val player = context.source.playerOrException
         val holder = RegistryElementArgument.getHolder<EssentialSubscription>(context, "subscription")
-        val formatted = Component.literal(holder.key().location().toString()).aqua()
+        val formatted = Component.literal(holder.key().toIdString()).aqua()
         if (player.hasSubscription(holder.value())) {
             player.sendToActionBar(Component.literal("You are subscribed to ").append(formatted).gold())
         } else {

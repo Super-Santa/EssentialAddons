@@ -14,14 +14,14 @@ import me.supersanta.essential_addons.feature.teleport_blacklist.TeleportBlackli
 import me.supersanta.essential_addons.utils.EssentialRegistries
 import net.casual.arcade.commands.manager.CommandManager
 import net.casual.arcade.commands.manager.GlobalCommandManager
+import net.casual.arcade.utils.Identifier
 import net.casual.arcade.utils.JsonUtils
 import net.fabricmc.api.ModInitializer
 import net.fabricmc.loader.api.FabricLoader
-import net.minecraft.resources.ResourceLocation
+import net.minecraft.resources.Identifier
 import net.minecraft.server.MinecraftServer
 import org.apache.logging.log4j.LogManager
 import org.apache.logging.log4j.Logger
-import kotlin.io.path.inputStream
 
 object EssentialAddons: ModInitializer, CarpetExtension {
     const val MOD_ID = "essential-addons"
@@ -72,15 +72,15 @@ object EssentialAddons: ModInitializer, CarpetExtension {
         }
         val codec = Codec.unboundedMap(Codec.STRING, Codec.STRING)
         try {
-            val result = JsonUtils.decodeWith(codec, path.get().inputStream())
+            val result = JsonUtils.decodeWith(codec, path.get())
             return result.result().orElseGet { mapOf() }
-        } catch (e: IOException) {
+        } catch (_: IOException) {
             return mapOf()
         }
     }
 
-    fun id(path: String): ResourceLocation {
-        return ResourceLocation.fromNamespaceAndPath(MOD_ID, path)
+    fun id(path: String): Identifier {
+        return Identifier(MOD_ID, path)
     }
 
     @JvmStatic

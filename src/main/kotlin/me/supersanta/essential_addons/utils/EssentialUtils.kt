@@ -2,7 +2,6 @@ package me.supersanta.essential_addons.utils
 
 import carpet.utils.CommandHelper
 import com.mojang.brigadier.builder.ArgumentBuilder
-import com.mojang.serialization.MapCodec
 import me.lucko.fabric.api.permissions.v0.Permissions
 import me.supersanta.essential_addons.EssentialAddons
 import me.supersanta.essential_addons.feature.extensions.PlayerSubscriptionsExtension.Companion.hasAvailableSubscription
@@ -18,9 +17,7 @@ import net.minecraft.world.level.block.Block
 import net.minecraft.world.level.block.ShulkerBoxBlock
 import net.minecraft.world.level.storage.LevelResource
 import net.minecraft.world.level.storage.LevelStorageSource.LevelStorageAccess
-import net.minecraft.world.level.storage.ValueInput
 import java.nio.file.Path
-import java.util.Optional
 
 val MinecraftServer.storageAccess: LevelStorageAccess
     get() = (this as MinecraftServerAccessor).storageSource

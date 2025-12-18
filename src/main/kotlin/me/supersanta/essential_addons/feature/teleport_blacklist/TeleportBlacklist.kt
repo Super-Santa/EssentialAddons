@@ -8,8 +8,9 @@ import me.supersanta.essential_addons.utils.sendToActionBar
 import net.casual.arcade.events.GlobalEventHandler
 import net.casual.arcade.events.ListenerRegistry.Companion.register
 import net.casual.arcade.events.server.player.PlayerSpectatorTeleportEvent
-import net.casual.arcade.utils.ComponentUtils.gold
-import net.casual.arcade.utils.ComponentUtils.red
+import net.casual.arcade.utils.component.gold
+import net.casual.arcade.utils.component.red
+import net.minecraft.commands.Commands
 import net.minecraft.network.chat.Component
 import net.minecraft.server.level.ServerPlayer
 
@@ -20,7 +21,7 @@ object TeleportBlacklist {
 
     private fun onPlayerSpectatorTeleport(event: PlayerSpectatorTeleportEvent) {
         val player = event.player
-        if (player.hasPermissions(4)) {
+        if (Commands.LEVEL_OWNERS.check(player.permissions())) {
             return
         }
 

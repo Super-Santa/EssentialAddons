@@ -1,5 +1,7 @@
 package me.supersanta.essential_addons.mixins.feature.phantoms_obey_mobcaps;
 
+import com.llamalad7.mixinextras.expression.Definition;
+import com.llamalad7.mixinextras.expression.Expression;
 import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
 import com.llamalad7.mixinextras.sugar.Local;
 import me.supersanta.essential_addons.EssentialSettings;
@@ -13,14 +15,15 @@ import org.spongepowered.asm.mixin.injection.At;
 
 @Mixin(PhantomSpawner.class)
 public class PhantomSpawnerMixin {
+    @Definition(id = "get", method = "Lnet/minecraft/world/level/gamerules/GameRules;get(Lnet/minecraft/world/level/gamerules/GameRule;)Ljava/lang/Object;")
+    @Definition(id = "SPAWN_PHANTOMS", field = "Lnet/minecraft/world/level/gamerules/GameRules;SPAWN_PHANTOMS:Lnet/minecraft/world/level/gamerules/GameRule;")
+    @Definition(id = "Boolean", type = Boolean.class)
+    @Expression("(Boolean) ?.get(SPAWN_PHANTOMS)")
     @ModifyExpressionValue(
         method = "tick",
-        at = @At(
-            value = "INVOKE",
-            target = "Lnet/minecraft/world/level/GameRules;getBoolean(Lnet/minecraft/world/level/GameRules$Key;)Z"
-        )
+        at = @At("MIXINEXTRAS:EXPRESSION")
     )
-    private boolean shouldSpawnPhantomsGlobal(boolean original, ServerLevel level) {
+    private Boolean shouldSpawnPhantomsGlobal(Boolean original, ServerLevel level) {
         if (!original) {
             return false;
         }

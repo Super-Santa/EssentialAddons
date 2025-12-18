@@ -8,8 +8,9 @@ import net.casual.arcade.extensions.PlayerExtension
 import net.casual.arcade.extensions.event.PlayerExtensionEvent
 import net.casual.arcade.extensions.utils.getExtension
 import net.casual.arcade.utils.PlayerUtils.levelServer
+import net.casual.arcade.utils.PlayerUtils.server
 import net.casual.arcade.utils.math.location.LocationWithLevel
-import net.minecraft.resources.ResourceLocation
+import net.minecraft.resources.Identifier
 import net.minecraft.server.level.ServerLevel
 import net.minecraft.server.level.ServerPlayer
 import net.minecraft.world.level.storage.ValueInput
@@ -18,14 +19,14 @@ import net.minecraft.world.level.storage.ValueOutput
 class PlayerCameraModeExtension(player: ServerPlayer): PlayerExtension(player), DataExtension {
     private var location: LocationWithLevel<ServerLevel>? = null
 
-    override fun getId(): ResourceLocation {
+    override fun getId(): Identifier {
         return EssentialAddons.id("camera_mode")
     }
 
     override fun deserialize(input: ValueInput) {
         val resolvable = input.read("location", LocationWithLevel.Resolvable.CODEC)
         if (resolvable.isPresent) {
-            this.location = resolvable.get().resolve(this.player.levelServer)
+            this.location = resolvable.get().resolve(this.player.server)
         }
     }
 

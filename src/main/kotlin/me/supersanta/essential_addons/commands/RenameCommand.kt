@@ -6,9 +6,9 @@ import com.mojang.brigadier.context.CommandContext
 import me.supersanta.essential_addons.EssentialSettings
 import me.supersanta.essential_addons.utils.requires
 import net.casual.arcade.commands.*
-import net.casual.arcade.utils.ComponentUtils.gold
-import net.casual.arcade.utils.ComponentUtils.unitalicise
-import net.casual.arcade.utils.ComponentUtils.wrap
+import net.casual.arcade.utils.component.gold
+import net.casual.arcade.utils.component.unitalicize
+import net.casual.arcade.utils.component.wrap
 import net.minecraft.commands.CommandBuildContext
 import net.minecraft.commands.CommandSourceStack
 import net.minecraft.commands.arguments.ComponentArgument
@@ -47,7 +47,7 @@ object RenameCommand: CommandTree {
         if (stack.isEmpty) {
             return context.source.fail("Cannot rename air!")
         }
-        val name = Component.literal(StringArgumentType.getString(context, "name")).unitalicise()
+        val name = Component.literal(StringArgumentType.getString(context, "name")).unitalicize()
         stack.set(DataComponents.CUSTOM_NAME, name)
         return context.source.success(Component.literal("Item name set to: ").gold().wrap().append(name))
     }

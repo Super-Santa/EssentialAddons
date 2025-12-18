@@ -6,7 +6,7 @@ import com.llamalad7.mixinextras.sugar.Local;
 import me.supersanta.essential_addons.feature.careful_break.CarefulDrop;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.decoration.Painting;
+import net.minecraft.world.entity.decoration.painting.Painting;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.level.ItemLike;
 import org.jetbrains.annotations.Nullable;
@@ -19,7 +19,7 @@ public class PaintingMixin {
         method = "dropItem",
         at = @At(
             value = "INVOKE",
-            target = "Lnet/minecraft/world/entity/decoration/Painting;spawnAtLocation(Lnet/minecraft/server/level/ServerLevel;Lnet/minecraft/world/level/ItemLike;)Lnet/minecraft/world/entity/item/ItemEntity;"
+            target = "Lnet/minecraft/world/entity/decoration/painting/Painting;spawnAtLocation(Lnet/minecraft/server/level/ServerLevel;Lnet/minecraft/world/level/ItemLike;)Lnet/minecraft/world/entity/item/ItemEntity;"
         )
     )
     private ItemEntity onDropItem(

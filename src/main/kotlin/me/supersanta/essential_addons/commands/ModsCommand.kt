@@ -8,10 +8,10 @@ import net.casual.arcade.commands.CommandTree
 import net.casual.arcade.commands.fail
 import net.casual.arcade.commands.literal
 import net.casual.arcade.commands.success
-import net.casual.arcade.utils.ComponentUtils.aqua
-import net.casual.arcade.utils.ComponentUtils.gold
-import net.casual.arcade.utils.ComponentUtils.join
-import net.casual.arcade.utils.ComponentUtils.lime
+import net.casual.arcade.utils.component.aqua
+import net.casual.arcade.utils.component.gold
+import net.casual.arcade.utils.component.join
+import net.casual.arcade.utils.component.lime
 import net.fabricmc.loader.api.FabricLoader
 import net.fabricmc.loader.api.metadata.ModOrigin
 import net.fabricmc.loader.impl.metadata.AbstractModMetadata

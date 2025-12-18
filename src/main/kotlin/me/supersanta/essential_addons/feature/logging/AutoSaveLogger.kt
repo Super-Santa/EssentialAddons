@@ -3,8 +3,9 @@ package me.supersanta.essential_addons.feature.logging
 import carpet.logging.HUDController
 import carpet.logging.HUDLogger
 import carpet.logging.LoggerRegistry
-import net.casual.arcade.utils.ComponentUtils.grey
-import net.casual.arcade.utils.ComponentUtils.wrap
+import net.casual.arcade.utils.component.gray
+import net.casual.arcade.utils.component.silver
+import net.casual.arcade.utils.component.wrap
 import net.minecraft.ChatFormatting
 import net.minecraft.network.chat.Component
 import net.minecraft.server.MinecraftServer
@@ -42,7 +43,7 @@ object AutoSaveLogger {
             else -> ChatFormatting.DARK_GREEN
         }
         return arrayOf(
-            Component.literal("Prev: ").grey().wrap()
+            Component.literal("Prev: ").silver().wrap()
                 .append(Component.literal("$previous").withStyle(color))
                 .append(" Next: ")
                 .append(Component.literal("$next").withStyle(color))

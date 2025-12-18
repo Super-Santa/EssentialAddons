@@ -8,9 +8,9 @@ import me.supersanta.essential_addons.feature.extensions.PlayerCameraModeExtensi
 import me.supersanta.essential_addons.utils.requires
 import me.supersanta.essential_addons.utils.sendToActionBar
 import net.casual.arcade.commands.CommandTree
-import net.casual.arcade.utils.ComponentUtils.gold
-import net.casual.arcade.utils.ComponentUtils.lime
-import net.casual.arcade.utils.ComponentUtils.red
+import net.casual.arcade.utils.component.gold
+import net.casual.arcade.utils.component.lime
+import net.casual.arcade.utils.component.red
 import net.casual.arcade.utils.math.location.LocationWithLevel.Companion.locationWithLevel
 import net.casual.arcade.utils.teleportTo
 import net.minecraft.commands.CommandBuildContext

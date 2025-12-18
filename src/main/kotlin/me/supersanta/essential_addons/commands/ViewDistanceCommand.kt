@@ -11,9 +11,9 @@ import net.casual.arcade.commands.CommandTree
 import net.casual.arcade.commands.argument
 import net.casual.arcade.commands.executes
 import net.casual.arcade.commands.success
-import net.casual.arcade.utils.ComponentUtils.gold
-import net.casual.arcade.utils.ComponentUtils.lime
-import net.casual.arcade.utils.ComponentUtils.red
+import net.casual.arcade.utils.component.gold
+import net.casual.arcade.utils.component.lime
+import net.casual.arcade.utils.component.red
 import net.minecraft.commands.CommandBuildContext
 import net.minecraft.commands.CommandSourceStack
 import net.minecraft.network.chat.Component

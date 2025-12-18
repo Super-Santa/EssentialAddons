@@ -20,7 +20,7 @@ repositories {
     maven("https://jitpack.io")
 }
 
-val modVersion = "2.2.3"
+val modVersion = "2.3.0"
 val releaseVersion = "${modVersion}+${libs.versions.minecraft.get()}"
 version = releaseVersion
 group = "me.supersanta"
@@ -74,8 +74,7 @@ tasks {
     publishMods {
         file = remapJar.get().archiveFile
         changelog = """
-        - Fix reloadFakePlayers not reloading the player's dimension correctly
-        - Fix an crashing issue with litematica on the client
+        - Update to 1.21.11
         """.trimIndent()
         type = STABLE
         modLoaders.add("fabric")

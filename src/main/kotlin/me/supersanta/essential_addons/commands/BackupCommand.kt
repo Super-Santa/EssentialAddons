@@ -11,7 +11,8 @@ import net.casual.arcade.commands.CommandTree
 import net.casual.arcade.commands.argument
 import net.casual.arcade.commands.fail
 import net.casual.arcade.commands.success
-import net.casual.arcade.utils.ComponentUtils.lime
+import net.casual.arcade.utils.component.lime
+import net.casual.arcade.utils.toIdString
 import net.minecraft.commands.CommandBuildContext
 import net.minecraft.commands.CommandSourceStack
 import net.minecraft.commands.arguments.DimensionArgument
@@ -66,11 +67,11 @@ object BackupCommand: CommandTree {
 
         val date = DATE_FORMAT.format(LocalDateTime.now())
         val backupPath = worldPath.resolve("backups").resolve(date)
-            .resolve(dimension.location().toString())
+            .resolve(dimension.toIdString())
         backupPath.createDirectories()
 
         if (regionPath.notExists()) {
-            return context.source.fail("Dimension ${dimension.location()} has no regions")
+            return context.source.fail("Dimension ${dimension.identifier()} has no regions")
         }
 
         try {

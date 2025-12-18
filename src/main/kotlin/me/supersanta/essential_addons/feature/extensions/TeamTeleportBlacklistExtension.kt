@@ -6,7 +6,7 @@ import net.casual.arcade.events.ListenerRegistry.Companion.register
 import net.casual.arcade.extensions.DataExtension
 import net.casual.arcade.extensions.event.TeamExtensionEvent
 import net.casual.arcade.extensions.utils.getExtension
-import net.minecraft.resources.ResourceLocation
+import net.minecraft.resources.Identifier
 import net.minecraft.world.level.storage.ValueInput
 import net.minecraft.world.level.storage.ValueOutput
 import net.minecraft.world.scores.PlayerTeam
@@ -14,7 +14,7 @@ import net.minecraft.world.scores.PlayerTeam
 class TeamTeleportBlacklistExtension: DataExtension {
     private var blacklisted: Boolean = false
 
-    override fun getId(): ResourceLocation {
+    override fun getId(): Identifier {
         return EssentialAddons.id("teleport_blacklist")
     }
 

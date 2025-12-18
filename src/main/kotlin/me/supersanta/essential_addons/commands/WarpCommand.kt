@@ -11,7 +11,7 @@ import me.supersanta.essential_addons.feature.extensions.PlayerWarpsExtension.Co
 import me.supersanta.essential_addons.feature.extensions.PlayerWarpsExtension.Companion.removeWrap
 import me.supersanta.essential_addons.utils.requires
 import net.casual.arcade.commands.*
-import net.casual.arcade.utils.ComponentUtils.lime
+import net.casual.arcade.utils.component.lime
 import net.casual.arcade.utils.math.location.LocationWithLevel.Companion.locationWithLevel
 import net.casual.arcade.utils.teleportTo
 import net.minecraft.commands.CommandBuildContext

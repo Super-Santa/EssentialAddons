@@ -7,7 +7,7 @@ import me.supersanta.essential_addons.utils.requires
 import net.casual.arcade.commands.CommandTree
 import net.casual.arcade.commands.fail
 import net.casual.arcade.commands.success
-import net.casual.arcade.utils.ComponentUtils.gold
+import net.casual.arcade.utils.component.gold
 import net.minecraft.commands.CommandBuildContext
 import net.minecraft.commands.CommandSourceStack
 import net.minecraft.network.chat.Component

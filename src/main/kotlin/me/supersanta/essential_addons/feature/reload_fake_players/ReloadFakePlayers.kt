@@ -120,6 +120,7 @@ object ReloadFakePlayers {
         return server.getWorldPath(LevelResource.ROOT).resolve("reload-fake-players.dat")
     }
 
+    @Suppress("KotlinUnreachableCode")
     private abstract class PlayerAccessor: Player(null!!, null!!) {
         companion object {
             fun getCustomizationAccessor(): EntityDataAccessor<Byte> {
