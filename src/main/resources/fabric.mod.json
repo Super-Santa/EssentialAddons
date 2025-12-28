@@ -43,7 +43,8 @@
   "depends": {
     "minecraft": "${minecraft_dependency}",
     "fabric-language-kotlin": ">=${fabric_kotlin_dependency}",
-    "fabric-api": "*"
+    "fabric-api": "*",
+    "carpet": ">=${carpet_dependency}"
   },
   "breaks": {
     "lithium": "<0.13.0"

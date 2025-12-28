@@ -63,6 +63,7 @@ tasks {
                 "minecraft_dependency" to libs.versions.minecraft.get().replaceAfterLast('.', "x"),
                 "fabric_api_dependency" to libs.versions.fabric.api.get(),
                 "fabric_kotlin_dependency" to libs.versions.fabric.kotlin.get(),
+                "carpet_dependency" to libs.versions.carpet.get(),
             ))
         }
     }
