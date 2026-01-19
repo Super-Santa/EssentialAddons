@@ -57,13 +57,17 @@ object ReloadFakePlayers {
 
             val level = this.loadFakePlayerLevel(server, profile)
             val player = EntityPlayerMPFake.respawnFake(server, level, profile, ClientInformation.createDefault())
-            EntityPlayerMPFakeInvoker.invokeLoadPlayerData(player)
             server.playerList.placeNewPlayer(
                 FakeClientConnection(PacketFlow.SERVERBOUND), player,
                 CommonListenerCookie(profile, 0, player.clientInformation(), false)
             )
+            EntityPlayerMPFakeInvoker.invokeLoadPlayerData(player)
             player.entityData.set(PlayerAccessor.getCustomizationAccessor(), 0x7F)
-        }, server)
+        }, server).whenComplete { _, throwable ->
+            if (throwable != null) {
+                EssentialAddons.logger.error("Failed to rejoin fake player $uuid", throwable)
+            }
+        }
     }
 
     private fun loadFakePlayerLevel(server: MinecraftServer, profile: GameProfile): ServerLevel? {
