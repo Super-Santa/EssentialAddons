@@ -20,7 +20,7 @@ repositories {
     maven("https://jitpack.io")
 }
 
-val modVersion = "2.3.0"
+val modVersion = "2.3.1"
 val releaseVersion = "${modVersion}+${libs.versions.minecraft.get()}"
 version = releaseVersion
 group = "me.supersanta"
