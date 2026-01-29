@@ -5,8 +5,8 @@ import me.supersanta.essential_addons.EssentialAddons
 import me.supersanta.essential_addons.feature.subscription.EssentialSubscription
 import net.casual.arcade.events.GlobalEventHandler
 import net.casual.arcade.events.ListenerRegistry.Companion.register
-import net.casual.arcade.extensions.DataExtension
 import net.casual.arcade.extensions.PlayerExtension
+import net.casual.arcade.extensions.SerializableExtension
 import net.casual.arcade.extensions.event.PlayerExtensionEvent
 import net.casual.arcade.extensions.utils.getExtension
 import net.minecraft.resources.Identifier
@@ -14,10 +14,10 @@ import net.minecraft.server.level.ServerPlayer
 import net.minecraft.world.level.storage.ValueInput
 import net.minecraft.world.level.storage.ValueOutput
 
-class PlayerSubscriptionsExtension(player: ServerPlayer): PlayerExtension(player), DataExtension {
+class PlayerSubscriptionsExtension(player: ServerPlayer): PlayerExtension(player), SerializableExtension {
     private val subscriptions = ReferenceOpenHashSet<EssentialSubscription>()
 
-    override fun getId(): Identifier {
+    override fun id(): Identifier {
         return EssentialAddons.id("subscriptions")
     }
 

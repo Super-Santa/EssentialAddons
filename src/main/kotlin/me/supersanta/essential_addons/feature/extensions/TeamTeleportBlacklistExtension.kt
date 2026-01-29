@@ -3,7 +3,7 @@ package me.supersanta.essential_addons.feature.extensions
 import me.supersanta.essential_addons.EssentialAddons
 import net.casual.arcade.events.GlobalEventHandler
 import net.casual.arcade.events.ListenerRegistry.Companion.register
-import net.casual.arcade.extensions.DataExtension
+import net.casual.arcade.extensions.SerializableExtension
 import net.casual.arcade.extensions.event.TeamExtensionEvent
 import net.casual.arcade.extensions.utils.getExtension
 import net.minecraft.resources.Identifier
@@ -11,10 +11,10 @@ import net.minecraft.world.level.storage.ValueInput
 import net.minecraft.world.level.storage.ValueOutput
 import net.minecraft.world.scores.PlayerTeam
 
-class TeamTeleportBlacklistExtension: DataExtension {
+class TeamTeleportBlacklistExtension: SerializableExtension {
     private var blacklisted: Boolean = false
 
-    override fun getId(): Identifier {
+    override fun id(): Identifier {
         return EssentialAddons.id("teleport_blacklist")
     }
 

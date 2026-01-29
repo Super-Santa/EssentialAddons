@@ -11,8 +11,8 @@ import me.supersanta.essential_addons.mixins.feature.reload_fake_players.ActionA
 import me.supersanta.essential_addons.mixins.feature.reload_fake_players.EntityPlayerActionPackAccessor
 import net.casual.arcade.events.GlobalEventHandler
 import net.casual.arcade.events.ListenerRegistry.Companion.register
-import net.casual.arcade.extensions.DataExtension
 import net.casual.arcade.extensions.PlayerExtension
+import net.casual.arcade.extensions.SerializableExtension
 import net.casual.arcade.extensions.event.PlayerExtensionEvent
 import net.casual.arcade.utils.serialization.codec.ArcadeExtraCodecs
 import net.minecraft.resources.Identifier
@@ -21,8 +21,8 @@ import net.minecraft.world.level.storage.ValueInput
 import net.minecraft.world.level.storage.ValueOutput
 import kotlin.jvm.optionals.getOrNull
 
-class PlayerActionPackExtension(player: ServerPlayer): PlayerExtension(player), DataExtension {
-    override fun getId(): Identifier {
+class PlayerActionPackExtension(player: ServerPlayer): PlayerExtension(player), SerializableExtension {
+    override fun id(): Identifier {
         return EssentialAddons.id("action_pack")
     }
 

@@ -3,11 +3,10 @@ package me.supersanta.essential_addons.feature.extensions
 import me.supersanta.essential_addons.EssentialAddons
 import net.casual.arcade.events.GlobalEventHandler
 import net.casual.arcade.events.ListenerRegistry.Companion.register
-import net.casual.arcade.extensions.DataExtension
 import net.casual.arcade.extensions.PlayerExtension
+import net.casual.arcade.extensions.SerializableExtension
 import net.casual.arcade.extensions.event.PlayerExtensionEvent
 import net.casual.arcade.extensions.utils.getExtension
-import net.casual.arcade.utils.PlayerUtils.levelServer
 import net.casual.arcade.utils.PlayerUtils.server
 import net.casual.arcade.utils.math.location.LocationWithLevel
 import net.minecraft.resources.Identifier
@@ -16,10 +15,10 @@ import net.minecraft.server.level.ServerPlayer
 import net.minecraft.world.level.storage.ValueInput
 import net.minecraft.world.level.storage.ValueOutput
 
-class PlayerCameraModeExtension(player: ServerPlayer): PlayerExtension(player), DataExtension {
+class PlayerCameraModeExtension(player: ServerPlayer): PlayerExtension(player), SerializableExtension {
     private var location: LocationWithLevel<ServerLevel>? = null
 
-    override fun getId(): Identifier {
+    override fun id(): Identifier {
         return EssentialAddons.id("camera_mode")
     }
 
