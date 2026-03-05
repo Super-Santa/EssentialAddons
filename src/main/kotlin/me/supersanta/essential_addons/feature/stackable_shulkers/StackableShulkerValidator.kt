@@ -3,7 +3,7 @@ package me.supersanta.essential_addons.feature.stackable_shulkers
 import carpet.api.settings.CarpetRule
 import carpet.api.settings.Validator
 import me.supersanta.essential_addons.EssentialSettings
-import net.casual.arcade.utils.ServerUtils
+import net.casual.arcade.utils.server.ServerSingleton
 import net.minecraft.commands.CommandSourceStack
 
 class StackableShulkerValidator: Validator<Boolean>() {
@@ -13,7 +13,7 @@ class StackableShulkerValidator: Validator<Boolean>() {
         value: Boolean,
         raw: String
     ): Boolean {
-        val server = ServerUtils.getServerOrNull() ?: return value
+        val server = ServerSingleton.getOrNull() ?: return value
         EssentialSettings.stackableShulkersInPlayerInventories = value
         for (player in server.playerList.players) {
             // Resend all container data

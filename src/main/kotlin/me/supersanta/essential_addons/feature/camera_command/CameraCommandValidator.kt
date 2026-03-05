@@ -6,7 +6,7 @@ import carpet.utils.CommandHelper
 import com.mojang.brigadier.StringReader
 import me.supersanta.essential_addons.EssentialAddons
 import me.supersanta.essential_addons.EssentialSettings
-import net.casual.arcade.utils.ServerUtils
+import net.casual.arcade.utils.server.ServerSingleton
 import net.minecraft.commands.CommandSourceStack
 
 class CameraCommandValidator: Validator<String>() {
@@ -16,7 +16,7 @@ class CameraCommandValidator: Validator<String>() {
         value: String,
         raw: String
     ): String? {
-        val server = ServerUtils.getServerOrNull() ?: return value
+        val server = ServerSingleton.getOrNull() ?: return value
         if (!value.all(StringReader::isAllowedInUnquotedString)) {
             return null
         }

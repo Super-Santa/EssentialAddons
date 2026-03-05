@@ -11,8 +11,8 @@ import net.casual.arcade.events.ListenerRegistry.Companion.register
 import net.casual.arcade.events.server.ServerSaveEvent
 import net.casual.arcade.events.server.ServerStartEvent
 import net.casual.arcade.events.server.ServerStopEvent
-import net.casual.arcade.utils.DynamicResolvableProfile
-import net.casual.arcade.utils.resolveProfileOrNull
+import net.casual.arcade.utils.player.DynamicResolvableProfile
+import net.casual.arcade.utils.player.resolveProfileOrNull
 import net.minecraft.core.UUIDUtil
 import net.minecraft.nbt.CompoundTag
 import net.minecraft.nbt.NbtIo

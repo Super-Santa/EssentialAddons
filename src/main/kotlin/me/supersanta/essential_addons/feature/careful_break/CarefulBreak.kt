@@ -4,7 +4,7 @@ import me.supersanta.essential_addons.utils.hasCarefulBreak
 import net.casual.arcade.events.GlobalEventHandler
 import net.casual.arcade.events.ListenerRegistry.Companion.register
 import net.casual.arcade.events.server.player.PlayerBlockDropLootEvent
-import net.casual.arcade.utils.PlayerUtils.dropItemStackIntoInventory
+import net.casual.arcade.utils.player.dropItemStackIntoInventory
 
 object CarefulBreak {
     internal fun registerEvents() {

@@ -8,8 +8,8 @@ import me.supersanta.essential_addons.utils.sendToActionBar
 import net.casual.arcade.commands.CommandTree
 import net.casual.arcade.commands.executes
 import net.casual.arcade.utils.component.gold
-import net.casual.arcade.utils.PlayerUtils.resetHealth
-import net.casual.arcade.utils.PlayerUtils.resetHunger
+import net.casual.arcade.utils.player.resetHealth
+import net.casual.arcade.utils.player.resetHunger
 import net.minecraft.commands.CommandBuildContext
 import net.minecraft.commands.CommandSourceStack
 import net.minecraft.network.chat.Component

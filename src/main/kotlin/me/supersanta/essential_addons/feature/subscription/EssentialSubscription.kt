@@ -2,7 +2,7 @@ package me.supersanta.essential_addons.feature.subscription
 
 import com.mojang.serialization.Codec
 import me.supersanta.essential_addons.utils.EssentialRegistries
-import net.casual.arcade.utils.setOf
+import net.casual.arcade.utils.serialization.codec.setOf
 
 fun interface EssentialSubscription {
     fun available(): Boolean

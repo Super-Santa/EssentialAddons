@@ -4,7 +4,7 @@ import me.supersanta.essential_addons.utils.hasCarefulDrop
 import net.casual.arcade.utils.MathUtils.component1
 import net.casual.arcade.utils.MathUtils.component2
 import net.casual.arcade.utils.MathUtils.component3
-import net.casual.arcade.utils.PlayerUtils.dropItemStackIntoInventory
+import net.casual.arcade.utils.player.dropItemStackIntoInventory
 import net.minecraft.server.level.ServerPlayer
 import net.minecraft.world.Container
 import net.minecraft.world.Containers

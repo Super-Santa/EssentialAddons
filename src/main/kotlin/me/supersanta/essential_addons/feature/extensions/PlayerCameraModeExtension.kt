@@ -7,7 +7,7 @@ import net.casual.arcade.extensions.PlayerExtension
 import net.casual.arcade.extensions.SerializableExtension
 import net.casual.arcade.extensions.event.PlayerExtensionEvent
 import net.casual.arcade.extensions.utils.getExtension
-import net.casual.arcade.utils.PlayerUtils.server
+import net.casual.arcade.utils.player.server
 import net.casual.arcade.utils.math.location.LocationWithLevel
 import net.minecraft.resources.Identifier
 import net.minecraft.server.level.ServerLevel
