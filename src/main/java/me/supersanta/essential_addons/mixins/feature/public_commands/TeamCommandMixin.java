@@ -20,6 +20,6 @@ public class TeamCommandMixin {
         )
     )
     private static Predicate<CommandSourceStack> getRequirements(Predicate<CommandSourceStack> predicate) {
-        return predicate.or(s -> EssentialSettings.commandPublicTeam);
+        return predicate.or(_ -> EssentialSettings.commandPublicTeam);
     }
 }

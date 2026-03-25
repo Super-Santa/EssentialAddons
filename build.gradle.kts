@@ -20,34 +20,29 @@ repositories {
     maven("https://jitpack.io")
 }
 
-val modVersion = "2.3.4"
+val modVersion = "2.4.0"
 val releaseVersion = "${modVersion}+${libs.versions.minecraft.get()}"
 version = releaseVersion
 group = "me.supersanta"
 
 dependencies {
     minecraft(libs.minecraft)
-    @Suppress("UnstableApiUsage")
-    mappings(loom.layered {
-        officialMojangMappings()
-        parchment("org.parchmentmc.data:parchment-${libs.versions.parchment.get()}@zip")
-    })
 
-    modImplementation(libs.fabric.loader)
-    modImplementation(libs.fabric.api)
-    modImplementation(libs.fabric.kotlin)
+    implementation(libs.fabric.loader)
+    implementation(libs.fabric.api)
+    implementation(libs.fabric.kotlin)
 
-    modImplementation(libs.carpet)
-    modCompileOnly(libs.lithium) {
+    implementation(libs.carpet)
+    compileOnly(libs.lithium) {
         exclude(group = "com.github.2No2Name", module = "McTester")
     }
 
-    include(modImplementation(libs.arcade.commands.get())!!)
-    include(modImplementation(libs.arcade.event.registry.get())!!)
-    include(modImplementation(libs.arcade.events.server.get())!!)
-    include(modImplementation(libs.arcade.extensions.get())!!)
-    include(modImplementation(libs.arcade.utils.get())!!)
-    include(modImplementation(libs.permissions.get())!!)
+    include(implementation(libs.arcade.commands.get())!!)
+    include(implementation(libs.arcade.event.registry.get())!!)
+    include(implementation(libs.arcade.events.server.get())!!)
+    include(implementation(libs.arcade.extensions.get())!!)
+    include(implementation(libs.arcade.utils.get())!!)
+    include(implementation(libs.permissions.get())!!)
 }
 
 java {
@@ -73,9 +68,9 @@ tasks {
     }
 
     publishMods {
-        file = remapJar.get().archiveFile
+        file = jar.get().archiveFile
         changelog = """
-        - Update dependencies
+        - Update to 26.1
         """.trimIndent()
         type = STABLE
         modLoaders.add("fabric")

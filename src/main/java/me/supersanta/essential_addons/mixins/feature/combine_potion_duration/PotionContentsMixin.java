@@ -13,7 +13,7 @@ import org.spongepowered.asm.mixin.injection.At;
 @Mixin(PotionContents.class)
 public class PotionContentsMixin {
     @WrapOperation(
-        method = "method_62840",
+        method = "lambda$applyToLivingEntity$0",
         at = @At(
             value = "INVOKE",
             target = "Lnet/minecraft/world/entity/LivingEntity;addEffect(Lnet/minecraft/world/effect/MobEffectInstance;)Z"

@@ -19,7 +19,7 @@ public class ClientboundContainerSetSlotPacketMixin {
         )
     )
     private ItemStack onCopyItemStack(ItemStack original) {
-        if (EssentialSettings.stackableShulkersInPlayerInventories && EssentialUtilsKt.isShulkerBox(original)) {
+        if (EssentialSettings.stackableShulkersInPlayerInventories && EssentialUtilsKt.isShulkerBox(original.getItem())) {
             original.set(DataComponents.MAX_STACK_SIZE, 64);
         }
         return original;

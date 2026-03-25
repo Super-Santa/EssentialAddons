@@ -53,7 +53,7 @@
     "feature.stackable_shulkers.BlockItemMixin",
     "feature.stackable_shulkers.ClientboundContainerSetSlotPacketMixin",
     "feature.stackable_shulkers.HopperBlockEntityMixin",
-    "feature.stackable_shulkers.ItemStackMixin",
+    "feature.stackable_shulkers.ItemInstanceMixin",
     "feature.structure_block.StructureBlockEntityMixin",
     "feature.structure_block.StructureTemplateMixin"
   ],

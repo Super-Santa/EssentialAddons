@@ -19,8 +19,8 @@ public class AbstractContainerMenuMixin {
             target = "Lnet/minecraft/world/Container;getMaxStackSize(Lnet/minecraft/world/item/ItemStack;)I"
         )
     )
-    private static int onGetMaxStackSize(int original, @Local ItemStack stack) {
-        if (EssentialSettings.stackableShulkerComparatorOverloadFix || !EssentialUtilsKt.isShulkerBox(stack)) {
+    private static int onGetMaxStackSize(int original, @Local(name = "itemStack") ItemStack stack) {
+        if (EssentialSettings.stackableShulkerComparatorOverloadFix || !EssentialUtilsKt.isShulkerBox(stack.getItem())) {
             return original;
         }
         return 1;
@@ -34,7 +34,7 @@ public class AbstractContainerMenuMixin {
         )
     )
     private ItemStack onCopyItemStackForRemote(ItemStack original) {
-        if (EssentialSettings.stackableShulkersInPlayerInventories && EssentialUtilsKt.isShulkerBox(original)) {
+        if (EssentialSettings.stackableShulkersInPlayerInventories && EssentialUtilsKt.isShulkerBox(original.getItem())) {
             original.set(DataComponents.MAX_STACK_SIZE, 64);
         }
         return original;

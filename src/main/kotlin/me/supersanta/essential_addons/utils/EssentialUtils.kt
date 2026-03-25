@@ -12,7 +12,7 @@ import net.minecraft.commands.CommandSourceStack
 import net.minecraft.network.chat.Component
 import net.minecraft.server.MinecraftServer
 import net.minecraft.server.level.ServerPlayer
-import net.minecraft.world.item.ItemStack
+import net.minecraft.world.item.Item
 import net.minecraft.world.level.block.Block
 import net.minecraft.world.level.block.ShulkerBoxBlock
 import net.minecraft.world.level.storage.LevelResource
@@ -52,6 +52,6 @@ fun ServerPlayer.hasCarefulDrop(): Boolean {
         (this.isShiftKeyDown || this.hasSubscription(EssentialSubscriptions.ALWAYS_CAREFUL))
 }
 
-fun ItemStack.isShulkerBox(): Boolean {
-    return Block.byItem(this.item) is ShulkerBoxBlock
+fun Item.isShulkerBox(): Boolean {
+    return Block.byItem(this) is ShulkerBoxBlock
 }

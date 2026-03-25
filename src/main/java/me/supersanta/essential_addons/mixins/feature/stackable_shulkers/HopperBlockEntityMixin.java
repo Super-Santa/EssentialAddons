@@ -22,7 +22,7 @@ public class HopperBlockEntityMixin {
         CallbackInfoReturnable<Boolean> cir
     ) {
         if (EssentialSettings.stackableShulkersInPlayerInventories) {
-            if (EssentialUtilsKt.isShulkerBox(first)) {
+            if (EssentialUtilsKt.isShulkerBox(first.getItem())) {
                 cir.setReturnValue(false);
             }
         }

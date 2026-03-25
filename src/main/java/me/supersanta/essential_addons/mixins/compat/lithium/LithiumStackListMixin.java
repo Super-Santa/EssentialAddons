@@ -29,7 +29,7 @@ public class LithiumStackListMixin {
         ItemStack stack,
         Operation<Integer> original
     ) {
-        if (!EssentialSettings.stackableShulkersInPlayerInventories || !EssentialUtilsKt.isShulkerBox(stack)) {
+        if (!EssentialSettings.stackableShulkersInPlayerInventories || !EssentialUtilsKt.isShulkerBox(stack.getItem())) {
             return original.call(stack);
         }
         return 1;
@@ -42,8 +42,8 @@ public class LithiumStackListMixin {
             target = "Lnet/minecraft/world/item/ItemStack;getMaxStackSize()I"
         )
     )
-    private int onGetMaxStackSize(int original, @Local ItemStack stack) {
-        if (EssentialSettings.stackableShulkerComparatorOverloadFix || !EssentialUtilsKt.isShulkerBox(stack)) {
+    private int onGetMaxStackSize(int original, @Local(name = "itemStack") ItemStack stack) {
+        if (EssentialSettings.stackableShulkerComparatorOverloadFix || !EssentialUtilsKt.isShulkerBox(stack.getItem())) {
             return original;
         }
         return 1;

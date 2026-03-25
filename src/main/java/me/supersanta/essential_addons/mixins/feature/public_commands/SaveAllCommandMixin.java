@@ -20,6 +20,6 @@ public class SaveAllCommandMixin {
         )
     )
     private static Predicate<CommandSourceStack> getRequirements(Predicate<CommandSourceStack> predicate) {
-        return predicate.or(s -> EssentialSettings.commandPublicSaveAll);
+        return predicate.or(_ -> EssentialSettings.commandPublicSaveAll);
     }
 }

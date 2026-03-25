@@ -46,7 +46,7 @@ public class PhantomSpawnerMixin {
     )
     private boolean shouldNotSpawnPhantomsLocal(
         boolean original,
-        @Local ServerPlayer player
+        @Local(name = "player") ServerPlayer player
     ) {
         if (original) {
             return true;

@@ -38,9 +38,9 @@ object ReloadFakePlayers {
         GlobalEventHandler.Server.register<ServerStartEvent> { (server) ->
             this.loadFakePlayers(server)
         }
-        GlobalEventHandler.Server.register<ServerSaveEvent> { (server, stopping) ->
-            if (!stopping) {
-                this.saveFakePlayers(server)
+        GlobalEventHandler.Server.register<ServerSaveEvent> { event ->
+            if (event.isRoutine) {
+                this.saveFakePlayers(event.server)
             }
         }
         GlobalEventHandler.Server.register<ServerStopEvent> { (server) ->
@@ -75,7 +75,7 @@ object ReloadFakePlayers {
         val saved = server.playerList.loadPlayerData(NameAndId(profile))
             .map { tag -> TagValueInput.create(ProblemReporter.DISCARDING, server.registryAccess(), tag) }
             .flatMap { input -> input.read(ServerPlayer.SavedPosition.MAP_CODEC) }
-            .orElse(ServerPlayer.SavedPosition.EMPTY)
+            .orElse(ServerPlayer.SavedPosition.EMPTY)!!
         val respawn = server.worldData.overworldData().respawnData
         val level = saved.dimension.map(server::getLevel).orElseGet {
             server.getLevel(respawn.dimension()) ?: server.overworld()

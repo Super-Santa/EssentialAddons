@@ -20,6 +20,6 @@ public class KickCommandMixin {
         )
     )
     private static Predicate<CommandSourceStack> getRequirements(Predicate<CommandSourceStack> predicate) {
-        return predicate.or(s -> EssentialSettings.commandPublicKick);
+        return predicate.or(_ -> EssentialSettings.commandPublicKick);
     }
 }

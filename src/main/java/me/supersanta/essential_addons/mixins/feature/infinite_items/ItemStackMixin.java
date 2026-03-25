@@ -1,7 +1,7 @@
 package me.supersanta.essential_addons.mixins.feature.infinite_items;
 
 import me.supersanta.essential_addons.EssentialSettings;
-import net.casual.arcade.utils.PlayerUtils;
+import net.casual.arcade.utils.player.PlayerUtilsKt;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
@@ -19,7 +19,7 @@ public class ItemStackMixin {
     )
     private void onConsume(int amount, LivingEntity entity, CallbackInfo ci) {
         if (entity instanceof ServerPlayer player && EssentialSettings.infiniteItems) {
-            PlayerUtils.updateSelectedSlot(player);
+            PlayerUtilsKt.updateSelectedSlot(player);
             ci.cancel();
         }
     }

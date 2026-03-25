@@ -6,8 +6,6 @@ import me.supersanta.essential_addons.EssentialSettings;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.Commands;
 import net.minecraft.server.commands.ScoreboardCommand;
-import net.minecraft.server.permissions.PermissionCheck;
-import net.minecraft.server.permissions.PermissionLevel;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.ModifyArg;
@@ -25,7 +23,7 @@ public class ScoreboardCommandMixin {
         )
     )
     private static Predicate<CommandSourceStack> getRequirements(Predicate<CommandSourceStack> requirement) {
-        return requirement.or(s -> EssentialSettings.commandPublicScoreboard);
+        return requirement.or(_ -> EssentialSettings.commandPublicScoreboard);
     }
 
     @ModifyExpressionValue(

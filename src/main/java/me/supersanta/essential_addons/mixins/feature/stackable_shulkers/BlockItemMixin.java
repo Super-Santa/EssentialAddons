@@ -12,30 +12,32 @@ import net.minecraft.world.item.component.ItemContainerContents;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 
+import java.util.stream.Stream;
+
 @Mixin(BlockItem.class)
 public class BlockItemMixin {
     @WrapWithCondition(
         method = "onDestroyed",
         at = @At(
             value = "INVOKE",
-            target = "Lnet/minecraft/world/item/ItemUtils;onContainerDestroyed(Lnet/minecraft/world/entity/item/ItemEntity;Ljava/lang/Iterable;)V"
+            target = "Lnet/minecraft/world/item/ItemUtils;onContainerDestroyed(Lnet/minecraft/world/entity/item/ItemEntity;Ljava/util/stream/Stream;)V"
         )
     )
     private boolean onDestroyItemEntity(
         ItemEntity entity,
-        Iterable<ItemStack> items,
-        @Local ItemContainerContents contents
+        Stream<ItemStack> items,
+        @Local(name = "container") ItemContainerContents contents
     ) {
         if (!EssentialSettings.stackableShulkersWithItems) {
             return true;
         }
         ItemStack stack = entity.getItem();
-        if (stack.getCount() == 1 || !EssentialUtilsKt.isShulkerBox(stack)) {
+        if (stack.getCount() == 1 || !EssentialUtilsKt.isShulkerBox(stack.getItem())) {
             return true;
         }
 
         for (int i = 0; i < stack.getCount(); i++) {
-            ItemUtils.onContainerDestroyed(entity, contents.nonEmptyItemsCopy());
+            ItemUtils.onContainerDestroyed(entity, contents.nonEmptyItemCopyStream());
         }
         return false;
     }

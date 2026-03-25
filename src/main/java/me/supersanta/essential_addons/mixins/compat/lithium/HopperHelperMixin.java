@@ -30,7 +30,7 @@ public class HopperHelperMixin {
     ) {
         if (EssentialSettings.stackableShulkersInPlayerInventories) {
             ItemStack stack = to.getItem(targetSlot);
-            if (EssentialUtilsKt.isShulkerBox(stack)) {
+            if (EssentialUtilsKt.isShulkerBox(stack.getItem())) {
                 cir.setReturnValue(false);
             }
         }

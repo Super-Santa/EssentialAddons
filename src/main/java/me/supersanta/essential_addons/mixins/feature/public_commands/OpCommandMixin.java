@@ -20,6 +20,6 @@ public class OpCommandMixin {
         )
     )
     private static Predicate<CommandSourceStack> getRequirements(Predicate<CommandSourceStack> predicate) {
-        return predicate.or(s -> EssentialSettings.commandPublicOp);
+        return predicate.or(_ -> EssentialSettings.commandPublicOp);
     }
 }
