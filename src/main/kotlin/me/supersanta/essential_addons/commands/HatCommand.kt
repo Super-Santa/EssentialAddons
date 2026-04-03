@@ -10,7 +10,7 @@ import net.minecraft.commands.CommandBuildContext
 import net.minecraft.commands.CommandSourceStack
 import net.minecraft.world.entity.EquipmentSlot
 
-object HatCommand: CommandTree {
+object HatCommand: CommandTree<CommandSourceStack> {
     override fun create(buildContext: CommandBuildContext): LiteralArgumentBuilder<CommandSourceStack> {
         return CommandTree.buildLiteral("hat") {
             requires(EssentialSettings::commandHat, "command.hat")

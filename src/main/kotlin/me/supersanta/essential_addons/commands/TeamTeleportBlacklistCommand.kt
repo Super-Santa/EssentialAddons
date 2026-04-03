@@ -14,7 +14,7 @@ import net.minecraft.commands.CommandSourceStack
 import net.minecraft.commands.arguments.TeamArgument
 import net.minecraft.network.chat.Component
 
-object TeamTeleportBlacklistCommand: CommandTree {
+object TeamTeleportBlacklistCommand: CommandTree<CommandSourceStack> {
     override fun create(buildContext: CommandBuildContext): LiteralArgumentBuilder<CommandSourceStack> {
         return CommandTree.buildLiteral("team-teleport-blacklist") {
             literal("add") {

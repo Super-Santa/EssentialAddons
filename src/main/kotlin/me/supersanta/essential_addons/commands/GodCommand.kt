@@ -14,7 +14,7 @@ import net.minecraft.commands.CommandBuildContext
 import net.minecraft.commands.CommandSourceStack
 import net.minecraft.network.chat.Component
 
-object GodCommand: CommandTree {
+object GodCommand: CommandTree<CommandSourceStack> {
     override fun create(buildContext: CommandBuildContext): LiteralArgumentBuilder<CommandSourceStack> {
         return CommandTree.buildLiteral("god") {
             requires(EssentialSettings::commandGod, "command.god")

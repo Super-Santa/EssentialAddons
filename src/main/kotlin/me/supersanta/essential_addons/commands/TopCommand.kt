@@ -14,7 +14,7 @@ import net.minecraft.commands.CommandSourceStack
 import net.minecraft.network.chat.Component
 import net.minecraft.world.level.levelgen.Heightmap
 
-object TopCommand: CommandTree {
+object TopCommand: CommandTree<CommandSourceStack> {
     override fun create(buildContext: CommandBuildContext): LiteralArgumentBuilder<CommandSourceStack> {
         return CommandTree.buildLiteral("top") {
             requires(EssentialSettings::commandTop, "command.top")

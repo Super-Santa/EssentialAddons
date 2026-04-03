@@ -15,7 +15,7 @@ import net.minecraft.commands.arguments.ComponentArgument
 import net.minecraft.core.component.DataComponents
 import net.minecraft.network.chat.Component
 
-object RenameCommand: CommandTree {
+object RenameCommand: CommandTree<CommandSourceStack> {
     override fun create(buildContext: CommandBuildContext): LiteralArgumentBuilder<CommandSourceStack> {
         return CommandTree.buildLiteral("rename") {
             requires(EssentialSettings::commandRename, "command.rename")

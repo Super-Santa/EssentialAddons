@@ -17,7 +17,7 @@ import net.minecraft.world.entity.Entity
 import net.minecraft.world.entity.item.PrimedTnt
 import net.minecraft.world.phys.AABB
 
-object DefuseCommand: CommandTree {
+object DefuseCommand: CommandTree<CommandSourceStack> {
     override fun create(buildContext: CommandBuildContext): LiteralArgumentBuilder<CommandSourceStack> {
         return CommandTree.buildLiteral("defuse") {
             requires(EssentialSettings::commandDefuse, "command.defuse")

@@ -12,7 +12,7 @@ import net.minecraft.commands.CommandBuildContext
 import net.minecraft.commands.CommandSourceStack
 import net.minecraft.network.chat.Component
 
-object RepairCommand: CommandTree {
+object RepairCommand: CommandTree<CommandSourceStack> {
     override fun create(buildContext: CommandBuildContext): LiteralArgumentBuilder<CommandSourceStack> {
         return CommandTree.buildLiteral("repair") {
             requires(EssentialSettings::commandRepair, "command.repair")

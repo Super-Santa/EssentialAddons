@@ -19,7 +19,7 @@ import net.minecraft.commands.CommandSourceStack
 import net.minecraft.commands.SharedSuggestionProvider
 import net.minecraft.network.chat.Component
 
-object WarpCommand: CommandTree {
+object WarpCommand: CommandTree<CommandSourceStack> {
     override fun create(buildContext: CommandBuildContext): LiteralArgumentBuilder<CommandSourceStack> {
         return CommandTree.buildLiteral("warp") {
             requires(EssentialSettings::commandWarp, "command.warp")

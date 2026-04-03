@@ -16,7 +16,7 @@ import net.minecraft.network.chat.Component
 import net.minecraft.world.effect.MobEffectInstance
 import net.minecraft.world.effect.MobEffects
 
-object StrengthCommand: CommandTree {
+object StrengthCommand: CommandTree<CommandSourceStack> {
     override fun create(buildContext: CommandBuildContext): LiteralArgumentBuilder<CommandSourceStack> {
         return CommandTree.buildLiteral("strength") {
             requires(EssentialSettings::commandStrength, "command.strength")

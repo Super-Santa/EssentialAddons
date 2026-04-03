@@ -14,7 +14,7 @@ import net.minecraft.network.chat.Component
 import net.minecraft.world.SimpleMenuProvider
 import net.minecraft.world.inventory.ChestMenu
 
-object EnderchestCommand: CommandTree {
+object EnderchestCommand: CommandTree<CommandSourceStack> {
     override fun register(dispatcher: CommandDispatcher<CommandSourceStack>, buildContext: CommandBuildContext) {
         dispatcher.registerLiteral("ec") {
             requires(EssentialSettings::commandEnderChest, "command.ec")

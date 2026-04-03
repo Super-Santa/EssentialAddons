@@ -20,7 +20,7 @@ repositories {
     maven("https://jitpack.io")
 }
 
-val modVersion = "2.4.1"
+val modVersion = "2.4.2"
 val releaseVersion = "${modVersion}+${libs.versions.minecraft.get()}"
 version = releaseVersion
 group = "me.supersanta"
@@ -55,7 +55,7 @@ tasks {
         filesMatching("fabric.mod.json") {
             expand(mutableMapOf(
                 "version" to releaseVersion,
-                "minecraft_dependency" to libs.versions.minecraft.get().replaceAfterLast('.', "x"),
+                "minecraft_dependency" to "~${libs.versions.minecraft.get()}",
                 "fabric_api_dependency" to libs.versions.fabric.api.get(),
                 "fabric_kotlin_dependency" to libs.versions.fabric.kotlin.get(),
                 "carpet_dependency" to libs.versions.carpet.get(),
@@ -70,7 +70,7 @@ tasks {
     publishMods {
         file = jar.get().archiveFile
         changelog = """
-        - Fix some datafixing issues
+        - Support 26.1.x
         """.trimIndent()
         type = STABLE
         modLoaders.add("fabric")

@@ -14,7 +14,7 @@ import net.minecraft.world.entity.player.Player
 import net.minecraft.world.inventory.ContainerLevelAccess
 import net.minecraft.world.inventory.CraftingMenu
 
-object WorkbenchCommand: CommandTree {
+object WorkbenchCommand: CommandTree<CommandSourceStack> {
     override fun create(buildContext: CommandBuildContext): LiteralArgumentBuilder<CommandSourceStack> {
         return CommandTree.buildLiteral("workbench") {
             requires(EssentialSettings::commandWorkbench, "command.workbench")

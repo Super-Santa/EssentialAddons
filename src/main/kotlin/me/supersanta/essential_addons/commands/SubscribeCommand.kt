@@ -22,7 +22,7 @@ import net.minecraft.commands.CommandBuildContext
 import net.minecraft.commands.CommandSourceStack
 import net.minecraft.network.chat.Component
 
-object SubscribeCommand: CommandTree {
+object SubscribeCommand: CommandTree<CommandSourceStack> {
     override fun create(buildContext: CommandBuildContext): LiteralArgumentBuilder<CommandSourceStack> {
         return CommandTree.buildLiteral("subscribe") {
             requires { EssentialSubscriptions.canUseSubscribeCommand() }

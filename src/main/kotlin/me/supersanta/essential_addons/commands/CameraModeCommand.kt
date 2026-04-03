@@ -22,7 +22,7 @@ import net.minecraft.world.entity.monster.Monster
 import net.minecraft.world.level.GameType
 import net.minecraft.world.phys.AABB
 
-object CameraModeCommand: CommandTree {
+object CameraModeCommand: CommandTree<CommandSourceStack> {
     override fun create(buildContext: CommandBuildContext): LiteralArgumentBuilder<CommandSourceStack> {
         return CommandTree.buildLiteral(EssentialSettings.cameraModeCommandName) {
             requires(EssentialSettings::commandCameraMode, "command.cs")

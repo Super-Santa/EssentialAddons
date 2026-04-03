@@ -19,7 +19,7 @@ import net.minecraft.commands.CommandBuildContext
 import net.minecraft.commands.CommandSourceStack
 import net.minecraft.network.chat.Component
 
-object ModsCommand: CommandTree {
+object ModsCommand: CommandTree<CommandSourceStack> {
     override fun create(buildContext: CommandBuildContext): LiteralArgumentBuilder<CommandSourceStack> {
         return CommandTree.buildLiteral("mods") {
             requires(EssentialSettings::commandMods, "command.mods")

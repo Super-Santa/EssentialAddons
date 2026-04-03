@@ -29,7 +29,7 @@ import kotlin.io.path.notExists
 import kotlin.math.max
 import kotlin.math.min
 
-object BackupCommand: CommandTree {
+object BackupCommand: CommandTree<CommandSourceStack> {
     private val DATE_FORMAT = DateTimeFormatter.ofPattern("yyyy.MM.dd-HH:mm:ss")
 
     override fun create(buildContext: CommandBuildContext): LiteralArgumentBuilder<CommandSourceStack> {

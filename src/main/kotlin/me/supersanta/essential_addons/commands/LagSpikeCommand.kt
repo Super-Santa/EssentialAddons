@@ -19,7 +19,7 @@ import net.minecraft.commands.SharedSuggestionProvider
 import net.minecraft.network.chat.Component
 import kotlin.time.Duration.Companion.milliseconds
 
-object LagSpikeCommand: CommandTree {
+object LagSpikeCommand: CommandTree<CommandSourceStack> {
     private const val MAX_LAG_TIME_MS = 60_000
 
     override fun create(buildContext: CommandBuildContext): LiteralArgumentBuilder<CommandSourceStack> {

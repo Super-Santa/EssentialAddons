@@ -16,7 +16,7 @@ import net.minecraft.network.chat.Component
 import net.minecraft.world.effect.MobEffectInstance
 import net.minecraft.world.effect.MobEffects
 
-object NightVisionCommand: CommandTree {
+object NightVisionCommand: CommandTree<CommandSourceStack> {
     override fun create(buildContext: CommandBuildContext): LiteralArgumentBuilder<CommandSourceStack> {
         return CommandTree.buildLiteral("night-vision") {
             requires(EssentialSettings::commandNightVision, "command.night-vision")

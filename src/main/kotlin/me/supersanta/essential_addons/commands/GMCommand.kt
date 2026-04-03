@@ -11,7 +11,7 @@ import net.minecraft.commands.CommandBuildContext
 import net.minecraft.commands.CommandSourceStack
 import net.minecraft.world.level.GameType
 
-object GMCommand: CommandTree {
+object GMCommand: CommandTree<CommandSourceStack> {
     override fun register(dispatcher: CommandDispatcher<CommandSourceStack>, buildContext: CommandBuildContext) {
         dispatcher.registerLiteral("gms") {
             requires(EssentialSettings::commandGM, "command.gms")
