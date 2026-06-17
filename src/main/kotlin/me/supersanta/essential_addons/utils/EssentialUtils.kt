@@ -2,7 +2,6 @@ package me.supersanta.essential_addons.utils
 
 import carpet.utils.CommandHelper
 import com.mojang.brigadier.builder.ArgumentBuilder
-import me.lucko.fabric.api.permissions.v0.Permissions
 import me.supersanta.essential_addons.EssentialAddons
 import me.supersanta.essential_addons.feature.extensions.PlayerSubscriptionsExtension.Companion.hasAvailableSubscription
 import me.supersanta.essential_addons.feature.extensions.PlayerSubscriptionsExtension.Companion.hasSubscription
@@ -34,8 +33,9 @@ fun ArgumentBuilder<CommandSourceStack, *>.requires(
     }
 }
 
+@Suppress("UnstableApiUsage")
 fun CommandSourceStack.has(setting: Any, permission: String): Boolean {
-    return CommandHelper.canUseCommand(this, setting) || Permissions.check(this, EssentialAddons.permission(permission))
+    return CommandHelper.canUseCommand(this, setting) || this.checkPermission(EssentialAddons.id(permission), false)
 }
 
 fun ServerPlayer.sendToActionBar(component: Component) {

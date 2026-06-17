@@ -17,7 +17,7 @@ import net.casual.arcade.utils.component.aqua
 import net.casual.arcade.utils.component.gold
 import net.casual.arcade.utils.component.lime
 import net.casual.arcade.utils.component.red
-import net.casual.arcade.utils.toIdString
+import net.casual.arcade.utils.registries.toIdString
 import net.minecraft.commands.CommandBuildContext
 import net.minecraft.commands.CommandSourceStack
 import net.minecraft.network.chat.Component

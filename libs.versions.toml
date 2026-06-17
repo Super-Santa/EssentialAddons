@@ -1,18 +1,16 @@
 [versions]
-minecraft     = "26.1.1"
-fabric-loader = "0.18.4"
-fabric-api    = "0.144.0+26.1"
-parchment     = "1.21.10:2025.10.12"
-fabric-kotlin = "1.13.9+kotlin.2.3.10"
-permissions   = "0.7.0"
-carpet        = "26.1-beta-9"
-arcade        = "0.9.0-beta.36+26.1.1"
+minecraft     = "26.2"
+fabric-loader = "0.19.3"
+fabric-api    = "0.152.1+26.2"
+fabric-kotlin = "1.13.12+kotlin.2.4.0"
+arcade        = "0.10.0-beta.1+26.2"
+carpet        = "26.2"
 
 # Compatability
-lithium       = "mc26.1-0.22.0-fabric"
+lithium       = "mc26.2-0.25.0-fabric"
 
 # Plugins
-fabric-loom   = "1.15-SNAPSHOT"
+fabric-loom   = "1.17-SNAPSHOT"
 mod-publish   = "1.1.0"
 
 [libraries]
@@ -20,7 +18,6 @@ minecraft             = { module = "com.mojang:minecraft"                       
 fabric-loader         = { module = "net.fabricmc:fabric-loader"                   , version.ref = "fabric-loader" }
 fabric-api            = { module = "net.fabricmc.fabric-api:fabric-api"           , version.ref = "fabric-api" }
 fabric-kotlin         = { module = "net.fabricmc:fabric-language-kotlin"          , version.ref = "fabric-kotlin" }
-permissions           = { module = "me.lucko:fabric-permissions-api"              , version.ref = "permissions" }
 carpet                = { module = "com.github.gnembon:fabric-carpet"             , version.ref = "carpet" }
 arcade-commands       = { module = "net.casualchampionships:arcade-commands"      , version.ref = "arcade" }
 arcade-event-registry = { module = "net.casualchampionships:arcade-event-registry", version.ref = "arcade" }
@@ -30,6 +27,9 @@ arcade-utils          = { module = "net.casualchampionships:arcade-utils"       
 
 # Compatability
 lithium = { module = "maven.modrinth:lithium", version.ref = "lithium" }
+
+[bundles]
+arcade = ["arcade-commands", "arcade-event-registry", "arcade-events-server", "arcade-extensions", "arcade-utils"]
 
 [plugins]
 fabric-loom   = { id = "net.fabricmc.fabric-loom"       , version.ref = "fabric-loom" }

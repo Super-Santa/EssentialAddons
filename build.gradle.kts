@@ -20,7 +20,7 @@ repositories {
     maven("https://jitpack.io")
 }
 
-val modVersion = "2.4.3"
+val modVersion = "2.5.0"
 val releaseVersion = "${modVersion}+${libs.versions.minecraft.get()}"
 version = releaseVersion
 group = "me.supersanta"
@@ -37,12 +37,8 @@ dependencies {
         exclude(group = "com.github.2No2Name", module = "McTester")
     }
 
-    include(implementation(libs.arcade.commands.get())!!)
-    include(implementation(libs.arcade.event.registry.get())!!)
-    include(implementation(libs.arcade.events.server.get())!!)
-    include(implementation(libs.arcade.extensions.get())!!)
-    include(implementation(libs.arcade.utils.get())!!)
-    include(implementation(libs.permissions.get())!!)
+    implementation(libs.bundles.arcade)
+    include(libs.bundles.arcade)
 }
 
 java {
@@ -99,10 +95,7 @@ tasks {
 loom {
     runConfigs {
         getByName("server") {
-            runDir = "run/server"
-        }
-        getByName("client") {
-            runDir = "run/client"
+            runDirectory.set(file("run/server"))
         }
     }
 }

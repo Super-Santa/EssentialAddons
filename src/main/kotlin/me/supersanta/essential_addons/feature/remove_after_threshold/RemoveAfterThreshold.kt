@@ -5,7 +5,7 @@ import net.casual.arcade.events.GlobalEventHandler
 import net.casual.arcade.events.ListenerRegistry.Companion.register
 import net.casual.arcade.events.server.level.LevelTickEvent
 import net.minecraft.world.entity.Entity
-import net.minecraft.world.entity.EntityType
+import net.minecraft.world.entity.EntityTypes
 
 object RemoveAfterThreshold {
     internal fun registerEvents() {
@@ -15,13 +15,13 @@ object RemoveAfterThreshold {
     private fun onLevelTick(event: LevelTickEvent) {
         val (level) = event
         if (EssentialSettings.removeXpEntitiesAfterThreshold > 0) {
-            val xp = level.getEntities(EntityType.EXPERIENCE_ORB) { true }
+            val xp = level.getEntities(EntityTypes.EXPERIENCE_ORB) { true }
             if (xp.size > EssentialSettings.removeXpEntitiesAfterThreshold) {
                 xp.forEach { it.remove(Entity.RemovalReason.DISCARDED) }
             }
         }
         if (EssentialSettings.removeItemEntitiesAfterThreshold > 0) {
-            val items = level.getEntities(EntityType.ITEM) { true }
+            val items = level.getEntities(EntityTypes.ITEM) { true }
             if (items.size > EssentialSettings.removeItemEntitiesAfterThreshold) {
                 items.forEach { it.remove(Entity.RemovalReason.DISCARDED) }
             }

@@ -13,6 +13,7 @@ import net.minecraft.commands.CommandBuildContext
 import net.minecraft.commands.CommandSourceStack
 import net.minecraft.network.chat.Component
 import net.minecraft.world.level.levelgen.Heightmap
+import net.minecraft.world.phys.Vec3
 
 object TopCommand: CommandTree<CommandSourceStack> {
     override fun create(buildContext: CommandBuildContext): LiteralArgumentBuilder<CommandSourceStack> {
@@ -25,7 +26,7 @@ object TopCommand: CommandTree<CommandSourceStack> {
     private fun teleportToTop(context: CommandContext<CommandSourceStack>) {
         val player = context.source.playerOrException
         val pos = player.level().getHeightmapPos(Heightmap.Types.MOTION_BLOCKING, player.blockPosition())
-        player.teleportTo(pos.bottomCenter)
+        player.teleportTo(Vec3.atBottomCenterOf(pos))
         player.sendToActionBar(Component.literal("You have been teleported to the top most block").gold())
     }
 }
