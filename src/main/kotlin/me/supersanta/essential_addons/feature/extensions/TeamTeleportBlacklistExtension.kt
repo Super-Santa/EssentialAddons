@@ -2,7 +2,7 @@ package me.supersanta.essential_addons.feature.extensions
 
 import me.supersanta.essential_addons.EssentialAddons
 import net.casual.arcade.events.GlobalEventHandler
-import net.casual.arcade.events.ListenerRegistry.Companion.register
+import net.casual.arcade.events.utils.register
 import net.casual.arcade.extensions.SerializableExtension
 import net.casual.arcade.extensions.event.TeamExtensionEvent
 import net.casual.arcade.extensions.utils.getExtension

@@ -4,15 +4,15 @@ import com.mojang.serialization.Codec
 import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap
 import me.supersanta.essential_addons.utils.essentialAddonsPath
 import net.casual.arcade.events.GlobalEventHandler
-import net.casual.arcade.events.ListenerRegistry.Companion.register
+import net.casual.arcade.events.utils.register
 import net.casual.arcade.extensions.ExternalDataExtension
 import net.casual.arcade.extensions.ExternalDataExtension.Companion.read
 import net.casual.arcade.extensions.ExternalDataExtension.Companion.write
 import net.casual.arcade.extensions.PlayerExtension
 import net.casual.arcade.extensions.event.PlayerExtensionEvent
 import net.casual.arcade.extensions.utils.getExtension
-import net.casual.arcade.utils.player.server
 import net.casual.arcade.utils.math.location.LocationWithLevel
+import net.casual.arcade.utils.player.server
 import net.minecraft.nbt.NbtOps
 import net.minecraft.nbt.Tag
 import net.minecraft.server.level.ServerLevel

@@ -4,7 +4,7 @@ import it.unimi.dsi.fastutil.objects.ReferenceOpenHashSet
 import me.supersanta.essential_addons.EssentialAddons
 import me.supersanta.essential_addons.feature.subscription.EssentialSubscription
 import net.casual.arcade.events.GlobalEventHandler
-import net.casual.arcade.events.ListenerRegistry.Companion.register
+import net.casual.arcade.events.utils.register
 import net.casual.arcade.extensions.PlayerExtension
 import net.casual.arcade.extensions.SerializableExtension
 import net.casual.arcade.extensions.event.PlayerExtensionEvent

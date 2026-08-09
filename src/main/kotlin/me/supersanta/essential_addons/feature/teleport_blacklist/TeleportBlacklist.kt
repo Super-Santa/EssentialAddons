@@ -6,8 +6,8 @@ import me.supersanta.essential_addons.feature.extensions.TeamTeleportBlacklistEx
 import me.supersanta.essential_addons.feature.subscription.EssentialSubscriptions
 import me.supersanta.essential_addons.utils.sendToActionBar
 import net.casual.arcade.events.GlobalEventHandler
-import net.casual.arcade.events.ListenerRegistry.Companion.register
 import net.casual.arcade.events.server.player.PlayerSpectatorTeleportEvent
+import net.casual.arcade.events.utils.register
 import net.casual.arcade.utils.component.gold
 import net.casual.arcade.utils.component.red
 import net.minecraft.commands.Commands

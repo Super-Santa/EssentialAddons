@@ -10,7 +10,7 @@ import me.supersanta.essential_addons.EssentialSettings
 import me.supersanta.essential_addons.mixins.feature.reload_fake_players.ActionAccessor
 import me.supersanta.essential_addons.mixins.feature.reload_fake_players.EntityPlayerActionPackAccessor
 import net.casual.arcade.events.GlobalEventHandler
-import net.casual.arcade.events.ListenerRegistry.Companion.register
+import net.casual.arcade.events.utils.register
 import net.casual.arcade.extensions.PlayerExtension
 import net.casual.arcade.extensions.SerializableExtension
 import net.casual.arcade.extensions.event.PlayerExtensionEvent

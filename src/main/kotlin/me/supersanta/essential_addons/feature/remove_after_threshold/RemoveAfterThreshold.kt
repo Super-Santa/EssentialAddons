@@ -2,8 +2,8 @@ package me.supersanta.essential_addons.feature.remove_after_threshold
 
 import me.supersanta.essential_addons.EssentialSettings
 import net.casual.arcade.events.GlobalEventHandler
-import net.casual.arcade.events.ListenerRegistry.Companion.register
 import net.casual.arcade.events.server.level.LevelTickEvent
+import net.casual.arcade.events.utils.register
 import net.minecraft.world.entity.Entity
 import net.minecraft.world.entity.EntityTypes
 

@@ -2,13 +2,13 @@ package me.supersanta.essential_addons.feature.extensions
 
 import me.supersanta.essential_addons.EssentialAddons
 import net.casual.arcade.events.GlobalEventHandler
-import net.casual.arcade.events.ListenerRegistry.Companion.register
+import net.casual.arcade.events.utils.register
 import net.casual.arcade.extensions.PlayerExtension
 import net.casual.arcade.extensions.SerializableExtension
 import net.casual.arcade.extensions.event.PlayerExtensionEvent
 import net.casual.arcade.extensions.utils.getExtension
-import net.casual.arcade.utils.player.server
 import net.casual.arcade.utils.math.location.LocationWithLevel
+import net.casual.arcade.utils.player.server
 import net.minecraft.resources.Identifier
 import net.minecraft.server.level.ServerLevel
 import net.minecraft.server.level.ServerPlayer

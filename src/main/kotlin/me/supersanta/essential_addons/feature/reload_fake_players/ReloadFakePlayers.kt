@@ -7,10 +7,10 @@ import me.supersanta.essential_addons.EssentialAddons
 import me.supersanta.essential_addons.EssentialSettings
 import me.supersanta.essential_addons.mixins.feature.reload_fake_players.EntityPlayerMPFakeInvoker
 import net.casual.arcade.events.GlobalEventHandler
-import net.casual.arcade.events.ListenerRegistry.Companion.register
 import net.casual.arcade.events.server.ServerSaveEvent
 import net.casual.arcade.events.server.ServerStartEvent
 import net.casual.arcade.events.server.ServerStopEvent
+import net.casual.arcade.events.utils.register
 import net.casual.arcade.utils.player.DynamicResolvableProfile
 import net.casual.arcade.utils.player.resolveProfileOrNull
 import net.minecraft.core.UUIDUtil
