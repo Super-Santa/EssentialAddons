@@ -120,6 +120,9 @@ object EssentialSettings {
     @JvmField var essentialCarefulBreak: Boolean = false
 
     @Rule(categories = [ESSENTIAL, COMMAND, SURVIVAL, FEATURE])
+    @JvmField var essentialCarefulBreakDomino: Boolean = false
+
+    @Rule(categories = [ESSENTIAL, COMMAND, SURVIVAL, FEATURE])
     @JvmField var essentialCarefulDrop: Boolean = false
 
     @Rule(categories = [ESSENTIAL, SURVIVAL, FEATURE])

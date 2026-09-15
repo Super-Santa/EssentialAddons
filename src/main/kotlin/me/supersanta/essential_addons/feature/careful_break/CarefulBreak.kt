@@ -5,8 +5,12 @@ import net.casual.arcade.events.GlobalEventHandler
 import net.casual.arcade.events.server.player.PlayerBlockDropLootEvent
 import net.casual.arcade.events.utils.register
 import net.casual.arcade.utils.player.dropItemStackIntoInventory
+import net.minecraft.server.level.ServerPlayer
 
 object CarefulBreak {
+    @JvmField
+    val BREAKER: ScopedValue<ServerPlayer> = ScopedValue.newInstance()
+
     internal fun registerEvents() {
         GlobalEventHandler.Server.register(::onPlayerBlockDropEvent)
     }

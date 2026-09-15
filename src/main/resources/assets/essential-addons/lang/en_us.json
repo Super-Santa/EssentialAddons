@@ -81,6 +81,8 @@
   "carpet.rule.essentialCarefulBreak.desc": "Mining blocks while crouching will put mined blocks straight into your inventory, requires players to subscribe to careful break using the `/subscribe` command",
   "carpet.rule.essentialCarefulBreak.extra.0": "Same as wholmT's implementation in carpetAddons but works with stackable shulkers`",
 
+  "carpet.rule.essentialCarefulBreakDomino.desc": "If a support block is carefully broken then all supported blocks will also be carefully broken",
+
   "carpet.rule.essentialCarefulDrop.desc": "Killing entities while crouching will put dropped items straight into your inventory, requires players to subscribe to careful drop using the `/subscribe` command",
 
   "carpet.rule.fakePlayerDropInventoryOnKill.desc": "Automatically drop the fake player's inventory on kill",

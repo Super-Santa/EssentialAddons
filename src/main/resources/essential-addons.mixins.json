@@ -12,6 +12,8 @@
     "compat.lithium.LithiumStackListMixin",
     "feature.broadcast_to_all.CommandSourceStackMixin",
     "feature.cake_always_eat.CakeBlockMixin",
+    "feature.careful_break.BlockMixin",
+    "feature.careful_break.ServerPlayerGameModeMixin",
     "feature.careful_drop.ContainerEntityMixin",
     "feature.careful_drop.EntityEquipmentMixin",
     "feature.careful_drop.GenericVehicleEntityMixin",
