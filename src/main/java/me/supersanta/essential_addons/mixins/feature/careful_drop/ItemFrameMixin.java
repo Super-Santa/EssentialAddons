@@ -26,9 +26,9 @@ public class ItemFrameMixin {
         ServerLevel level,
         ItemStack stack,
         Operation<ItemEntity> original,
-        @Local(argsOnly = true) Entity entity
+        @Local(argsOnly = true) Entity causedBy
     ) {
-        CarefulDrop.carefullyDrop(entity, stack, remaining -> original.call(instance, level, remaining));
+        CarefulDrop.carefullyDrop(causedBy, stack, remaining -> original.call(instance, level, remaining));
         return null;
     }
 }

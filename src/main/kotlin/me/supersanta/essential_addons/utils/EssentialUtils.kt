@@ -33,7 +33,6 @@ fun ArgumentBuilder<CommandSourceStack, *>.requires(
     }
 }
 
-@Suppress("UnstableApiUsage")
 fun CommandSourceStack.has(setting: Any, permission: String): Boolean {
     return CommandHelper.canUseCommand(this, setting) || this.checkPermission(EssentialAddons.id(permission), false)
 }

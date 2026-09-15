@@ -28,7 +28,7 @@ public class LivingEntityMixin {
     private void onDropFromLootTable(
         LootTable instance,
         LootParams params,
-        long seed,
+        long optionalLootTableSeed,
         Consumer<ItemStack> output,
         Operation<Void> original,
         @Local(argsOnly = true) DamageSource source
@@ -39,6 +39,6 @@ public class LivingEntityMixin {
                 replacement = stack -> CarefulDrop.carefullyDrop(player, stack, output);
             }
         }
-        original.call(instance, params, seed, replacement);
+        original.call(instance, params, optionalLootTableSeed, replacement);
     }
 }

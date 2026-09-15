@@ -24,12 +24,12 @@ public interface ContainerEntityMixin {
     private void onDropContainerContents(
         Level level,
         Entity entity,
-        Container inventory,
+        Container container,
         Operation<Void> original,
         @Local(argsOnly = true) DamageSource source
     ) {
-        if (!CarefulDrop.carefullyDropContents(source, level, entity, inventory)) {
-            original.call(level, entity, inventory);
+        if (!CarefulDrop.carefullyDropContents(source, level, entity, container)) {
+            original.call(level, entity, container);
         }
     }
 }

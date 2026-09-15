@@ -20,7 +20,7 @@ repositories {
     maven("https://jitpack.io")
 }
 
-val modVersion = "2.5.1"
+val modVersion = "2.6.0"
 val releaseVersion = "${modVersion}+${libs.versions.minecraft.get()}"
 version = releaseVersion
 group = "me.supersanta"
@@ -66,7 +66,7 @@ tasks {
     publishMods {
         file = jar.get().archiveFile
         changelog = """
-        - Update dependencies
+        - Update to 26.3
         """.trimIndent()
         type = STABLE
         modLoaders.add("fabric")

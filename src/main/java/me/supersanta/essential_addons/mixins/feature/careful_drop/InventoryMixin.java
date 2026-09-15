@@ -16,18 +16,18 @@ public class InventoryMixin {
         method = "dropAll",
         at = @At(
             value = "INVOKE",
-            target = "Lnet/minecraft/world/entity/player/Player;drop(Lnet/minecraft/world/item/ItemStack;ZZ)Lnet/minecraft/world/entity/item/ItemEntity;"
+            target = "Lnet/minecraft/world/entity/player/Player;createItemStackToDrop(Lnet/minecraft/world/item/ItemStack;ZZ)Lnet/minecraft/world/entity/item/ItemEntity;"
         )
     )
     private ItemEntity onDropAllItems(
         Player instance,
         ItemStack stack,
-        boolean throwRandomly,
-        boolean retainOwnership,
+        boolean randomly,
+        boolean thrownFromHand,
         Operation<ItemEntity> original
     ) {
         CarefulDrop.carefullyDrop(instance.getLastAttacker(), stack, remaining -> {
-            original.call(instance, remaining, throwRandomly, retainOwnership);
+            original.call(instance, remaining, randomly, thrownFromHand);
         });
         return null;
     }

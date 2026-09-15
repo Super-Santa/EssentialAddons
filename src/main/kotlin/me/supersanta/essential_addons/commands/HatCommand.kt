@@ -8,6 +8,7 @@ import net.casual.arcade.commands.CommandTree
 import net.casual.arcade.commands.executes
 import net.minecraft.commands.CommandBuildContext
 import net.minecraft.commands.CommandSourceStack
+import net.minecraft.util.Prediction
 import net.minecraft.world.entity.EquipmentSlot
 
 object HatCommand: CommandTree<CommandSourceStack> {
@@ -26,7 +27,7 @@ object HatCommand: CommandTree<CommandSourceStack> {
         player.setItemSlot(EquipmentSlot.HEAD, copy)
         if (!player.hasInfiniteMaterials()) {
             if (!player.inventory.add(current)) {
-                val entity = player.drop(current, false)
+                val entity = player.drop(current, false, Prediction.SERVER_ONLY)
                 if (entity != null) {
                     entity.setNoPickUpDelay()
                     entity.setTarget(player.uuid)

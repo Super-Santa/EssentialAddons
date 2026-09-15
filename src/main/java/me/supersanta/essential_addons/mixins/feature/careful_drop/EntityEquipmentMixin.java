@@ -16,18 +16,18 @@ public class EntityEquipmentMixin {
         method = "dropAll",
         at = @At(
             value = "INVOKE",
-            target = "Lnet/minecraft/world/entity/LivingEntity;drop(Lnet/minecraft/world/item/ItemStack;ZZ)Lnet/minecraft/world/entity/item/ItemEntity;"
+            target = "Lnet/minecraft/world/entity/LivingEntity;createItemStackToDrop(Lnet/minecraft/world/item/ItemStack;ZZ)Lnet/minecraft/world/entity/item/ItemEntity;"
         )
     )
     private ItemEntity onDropAll(
         LivingEntity instance,
-        ItemStack stack,
-        boolean randomizeMotion,
-        boolean includeThrower,
+        ItemStack itemStack,
+        boolean randomly,
+        boolean thrownFromHand,
         Operation<ItemEntity> original
     ) {
-        CarefulDrop.carefullyDrop(instance.getLastAttacker(), stack, remaining -> {
-            original.call(instance, remaining, randomizeMotion, includeThrower);
+        CarefulDrop.carefullyDrop(instance.getLastAttacker(), itemStack, remaining -> {
+            original.call(instance, remaining, randomly, thrownFromHand);
         });
         return null;
     }

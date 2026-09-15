@@ -10,7 +10,7 @@ import org.spongepowered.asm.mixin.injection.At;
 @Mixin(ServerPlayerGameMode.class)
 public class ServerPlayerGameModeMixin {
     @WrapWithCondition(
-        method = "handleBlockBreakAction",
+        method = "abortDestroyBlock",
         at = @At(
             value = "INVOKE",
             target = "Lorg/slf4j/Logger;warn(Ljava/lang/String;Ljava/lang/Object;Ljava/lang/Object;)V",

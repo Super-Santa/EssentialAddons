@@ -43,18 +43,14 @@ public abstract class BambooStalkBlockMixin {
 
     @Inject(
         method = "growBamboo",
-        at = @At(
-            value = "INVOKE",
-            target = "Lnet/minecraft/world/level/Level;setBlock(Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/block/state/BlockState;I)Z",
-            ordinal = 2
-        )
+        at = @At("TAIL")
     )
     private void onSetBlock(
         BlockState state,
         Level level,
         BlockPos pos,
         RandomSource random,
-        int age,
+        int height,
         CallbackInfo ci
     ) {
         if (EssentialSettings.sensitiveBamboo) {

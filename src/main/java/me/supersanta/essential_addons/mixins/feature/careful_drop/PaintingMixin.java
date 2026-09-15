@@ -8,7 +8,7 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.decoration.painting.Painting;
 import net.minecraft.world.entity.item.ItemEntity;
-import net.minecraft.world.level.ItemLike;
+import net.minecraft.world.item.ItemStack;
 import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -19,18 +19,18 @@ public class PaintingMixin {
         method = "dropItem",
         at = @At(
             value = "INVOKE",
-            target = "Lnet/minecraft/world/entity/decoration/painting/Painting;spawnAtLocation(Lnet/minecraft/server/level/ServerLevel;Lnet/minecraft/world/level/ItemLike;)Lnet/minecraft/world/entity/item/ItemEntity;"
+            target = "Lnet/minecraft/world/entity/decoration/painting/Painting;spawnAtLocation(Lnet/minecraft/server/level/ServerLevel;Lnet/minecraft/world/item/ItemStack;)Lnet/minecraft/world/entity/item/ItemEntity;"
         )
     )
     private ItemEntity onDropItem(
         Painting instance,
         ServerLevel level,
-        ItemLike itemLike,
+        ItemStack itemStack,
         Operation<ItemEntity> original,
-        @Local(argsOnly = true) @Nullable Entity entity
+        @Local(argsOnly = true) @Nullable Entity causedBy
     ) {
-        CarefulDrop.carefullyDrop(entity, itemLike.asItem().getDefaultInstance(), remaining -> {
-            original.call(instance, level, itemLike);
+        CarefulDrop.carefullyDrop(causedBy, itemStack, remaining -> {
+            original.call(instance, level, remaining);
         });
         return null;
     }
