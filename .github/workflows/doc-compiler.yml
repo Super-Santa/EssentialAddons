@@ -8,12 +8,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout EssentialAddons
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
       - name: Setup Java
-        uses: actions/setup-java@v4
+        uses: actions/setup-java@v6
         with:
           distribution: temurin
-          java-version: 21
+          java-version: 25
       - name: Generate Documentations
         run: ./gradlew runServer --args="-- -generate ../README.md" --stacktrace --no-daemon
       - name: Commit Changes
