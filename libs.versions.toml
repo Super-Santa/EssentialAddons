@@ -7,7 +7,7 @@ arcade        = "0.14.0-beta.2+26.3"
 carpet        = "26.3"
 
 # Compatability
-lithium       = "mc26.2-0.25.0-fabric"
+lithium       = "mc26.3-0.26.0-fabric"
 
 # Plugins
 fabric-loom   = "1.17-SNAPSHOT"
