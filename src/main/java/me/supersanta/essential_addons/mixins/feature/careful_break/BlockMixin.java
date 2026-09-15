@@ -17,7 +17,7 @@ public class BlockMixin {
         ),
         index = 2
     )
-    private static Entity xyz(Entity breaker) {
+    private static Entity setCarefulBreaker(Entity breaker) {
         if (breaker != null) {
             return breaker;
         }
