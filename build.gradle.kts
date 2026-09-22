@@ -7,6 +7,7 @@ plugins {
     kotlin("plugin.serialization").version(jvmVersion)
     alias(libs.plugins.fabric.loom)
     alias(libs.plugins.mod.publish)
+    alias(libs.plugins.joystick)
     `maven-publish`
     java
 }
@@ -15,7 +16,6 @@ repositories {
     mavenLocal()
     mavenCentral()
     maven("https://maven.parchmentmc.org/")
-    maven("https://maven.supersanta.me/snapshots")
     maven("https://api.modrinth.com/maven")
     maven("https://jitpack.io")
 }
@@ -36,9 +36,11 @@ dependencies {
     compileOnly(libs.lithium) {
         exclude(group = "com.github.2No2Name", module = "McTester")
     }
+}
 
-    implementation(libs.bundles.arcade)
-    include(libs.bundles.arcade)
+arcade {
+    version = libs.versions.arcade
+    modules("commands", "event-registry", "events-server", "extensions", "utils")
 }
 
 java {
