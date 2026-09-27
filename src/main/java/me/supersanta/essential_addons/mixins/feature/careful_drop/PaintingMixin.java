@@ -29,9 +29,8 @@ public class PaintingMixin {
         Operation<ItemEntity> original,
         @Local(argsOnly = true) @Nullable Entity causedBy
     ) {
-        CarefulDrop.carefullyDrop(causedBy, itemStack, remaining -> {
-            original.call(instance, level, remaining);
+        return CarefulDrop.carefullyDrop(causedBy, itemStack, remaining -> {
+            return original.call(instance, level, remaining);
         });
-        return null;
     }
 }

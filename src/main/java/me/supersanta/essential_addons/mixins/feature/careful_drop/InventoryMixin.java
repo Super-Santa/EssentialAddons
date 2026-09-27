@@ -26,9 +26,8 @@ public class InventoryMixin {
         boolean thrownFromHand,
         Operation<ItemEntity> original
     ) {
-        CarefulDrop.carefullyDrop(instance.getLastAttacker(), stack, remaining -> {
-            original.call(instance, remaining, randomly, thrownFromHand);
+        return CarefulDrop.carefullyDrop(instance.getLastAttacker(), stack, remaining -> {
+            return original.call(instance, remaining, randomly, thrownFromHand);
         });
-        return null;
     }
 }

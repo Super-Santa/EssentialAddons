@@ -28,7 +28,6 @@ public class ItemFrameMixin {
         Operation<ItemEntity> original,
         @Local(argsOnly = true) Entity causedBy
     ) {
-        CarefulDrop.carefullyDrop(causedBy, stack, remaining -> original.call(instance, level, remaining));
-        return null;
+        return CarefulDrop.carefullyDrop(causedBy, stack, remaining -> original.call(instance, level, remaining));
     }
 }

@@ -27,7 +27,6 @@ public class VehicleEntityMixin {
         Operation<ItemEntity> original
     ) {
         Entity entity = CarefulDrop.getVehicleDestroyingEntity();
-        CarefulDrop.carefullyDrop(entity, stack, remaining -> original.call(instance, level, remaining));
-        return null;
+        return CarefulDrop.carefullyDrop(entity, stack, remaining -> original.call(instance, level, remaining));
     }
 }

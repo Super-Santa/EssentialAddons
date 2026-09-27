@@ -36,7 +36,10 @@ public class LivingEntityMixin {
         Consumer<ItemStack> replacement = output;
         if (source.getEntity() instanceof ServerPlayer player) {
             if (EssentialUtilsKt.hasCarefulDrop(player)) {
-                replacement = stack -> CarefulDrop.carefullyDrop(player, stack, output);
+                replacement = stack -> CarefulDrop.carefullyDrop(player, stack, s -> {
+                    output.accept(s);
+                    return null;
+                });
             }
         }
         original.call(instance, params, optionalLootTableSeed, replacement);

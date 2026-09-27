@@ -20,7 +20,7 @@ repositories {
     maven("https://jitpack.io")
 }
 
-val modVersion = "2.6.1"
+val modVersion = "2.6.2"
 val releaseVersion = "${modVersion}+${libs.versions.minecraft.get()}"
 version = releaseVersion
 group = "me.supersanta"
@@ -68,11 +68,7 @@ tasks {
     publishMods {
         file = jar.get().archiveFile
         changelog = """
-        - Added `essentialCarefulBreakDomino`
-          - Enabling this causes carefully broken blocks to carefully break all supported blocks too,
-            e.g. if a block has a repeater on top of it, and the block is carefully broken then the repeater
-            will also be carefully broken
-        - Fix /subscribe not autocompleting
+        - Fix items not dropping on player/entity death
         """.trimIndent()
         type = STABLE
         modLoaders.add("fabric")

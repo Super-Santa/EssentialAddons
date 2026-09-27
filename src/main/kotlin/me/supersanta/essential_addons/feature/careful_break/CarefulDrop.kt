@@ -12,7 +12,6 @@ import net.minecraft.world.damagesource.DamageSource
 import net.minecraft.world.entity.Entity
 import net.minecraft.world.item.ItemStack
 import net.minecraft.world.level.Level
-import java.util.function.Consumer
 
 object CarefulDrop {
     private val DESTROYING_ENTITY: ThreadLocal<Entity> = ThreadLocal()
@@ -33,17 +32,21 @@ object CarefulDrop {
     }
 
     @JvmStatic
-    fun carefullyDrop(entity: Entity?, stack: ItemStack, remaining: Consumer<ItemStack>) {
+    fun <T> carefullyDrop(entity: Entity?, stack: ItemStack, remaining: (ItemStack) -> T): T? {
         if (entity is ServerPlayer && entity.hasCarefulDrop()) {
-            this.carefullyDrop(entity, stack, remaining)
+            return this.carefullyDrop(entity, stack, remaining)
         } else {
-            remaining.accept(stack)
+            return remaining.invoke(stack)
         }
     }
 
     @JvmStatic
-    fun carefullyDrop(player: ServerPlayer, stack: ItemStack, remaining: Consumer<ItemStack>) {
-        player.dropItemStackIntoInventory(stack, remaining::accept)
+    fun <T> carefullyDrop(player: ServerPlayer, stack: ItemStack, remaining: (ItemStack) -> T): T? {
+        var result: T? = null
+        player.dropItemStackIntoInventory(stack) { s ->
+            result = remaining.invoke(s)
+        }
+        return result
     }
 
     @JvmStatic

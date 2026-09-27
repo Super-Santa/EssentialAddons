@@ -26,9 +26,8 @@ public class EntityEquipmentMixin {
         boolean thrownFromHand,
         Operation<ItemEntity> original
     ) {
-        CarefulDrop.carefullyDrop(instance.getLastAttacker(), itemStack, remaining -> {
-            original.call(instance, remaining, randomly, thrownFromHand);
+        return CarefulDrop.carefullyDrop(instance.getLastAttacker(), itemStack, remaining -> {
+            return original.call(instance, remaining, randomly, thrownFromHand);
         });
-        return null;
     }
 }
